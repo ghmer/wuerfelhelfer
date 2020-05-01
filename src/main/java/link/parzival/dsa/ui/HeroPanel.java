@@ -184,7 +184,6 @@ public class HeroPanel extends JPanel {
 		
 		spinnerBehinderung = new JSpinner();
 		((DefaultEditor) spinnerBehinderung.getEditor()).getTextField().setEditable(false);
-		spinnerBehinderung.setEnabled(false);
 		spinnerBehinderung.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				int newVal = (Integer)spinnerBehinderung.getValue();
