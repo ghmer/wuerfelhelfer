@@ -138,7 +138,7 @@ public class HeroPanel extends JPanel {
 		btnMut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-				StringSelection selection = new StringSelection("!" + hero.getMut());
+				StringSelection selection = new StringSelection(String.format("!%s Mut", hero.getMut()));
 				clipboard.setContents(selection, null);
 				
 				JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
@@ -151,7 +151,7 @@ public class HeroPanel extends JPanel {
 		btnKlugheit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-				StringSelection selection = new StringSelection("!" + hero.getKlugheit());
+				StringSelection selection = new StringSelection(String.format("!%s Klugheit", hero.getKlugheit()));
 				clipboard.setContents(selection, null);
 				
 				JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
@@ -164,7 +164,7 @@ public class HeroPanel extends JPanel {
 		btnIntuition.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-				StringSelection selection = new StringSelection("!" + hero.getIntuition());
+				StringSelection selection = new StringSelection(String.format("!%s Intuition", hero.getIntuition()));
 				clipboard.setContents(selection, null);
 				
 				JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
@@ -177,7 +177,7 @@ public class HeroPanel extends JPanel {
 		btnCharisma.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-				StringSelection selection = new StringSelection("!" + hero.getCharisma());
+				StringSelection selection = new StringSelection(String.format("!%s Charisma", hero.getCharisma()));
 				clipboard.setContents(selection, null);
 				
 				JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
@@ -190,7 +190,7 @@ public class HeroPanel extends JPanel {
 		btnFingerFertigkeit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-				StringSelection selection = new StringSelection("!" + hero.getFingerfertigkeit());
+				StringSelection selection = new StringSelection(String.format("!%s Fingerfertigkeit", hero.getFingerfertigkeit()));
 				clipboard.setContents(selection, null);
 				
 				JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
@@ -203,7 +203,7 @@ public class HeroPanel extends JPanel {
 		btnGewandtheit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-				StringSelection selection = new StringSelection("!" + hero.getGewandtheit());
+				StringSelection selection = new StringSelection(String.format("!%s Gewandtheit", hero.getGewandtheit()));
 				clipboard.setContents(selection, null);
 				
 				JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
@@ -216,7 +216,7 @@ public class HeroPanel extends JPanel {
 		btnKonstitution.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-				StringSelection selection = new StringSelection("!" + hero.getKonstitution());
+				StringSelection selection = new StringSelection(String.format("!%s Konstitution", hero.getKonstitution()));
 				clipboard.setContents(selection, null);
 				
 				JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
@@ -229,7 +229,7 @@ public class HeroPanel extends JPanel {
 		btnKoerperkraft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-				StringSelection selection = new StringSelection("!" + hero.getKoerperkraft());
+				StringSelection selection = new StringSelection(String.format("!%s Koerperkraft", hero.getKoerperkraft()));
 				clipboard.setContents(selection, null);
 				
 				JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );

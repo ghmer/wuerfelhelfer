@@ -26,6 +26,16 @@ import org.xml.sax.SAXException;
  */
 public class HeroHtmlParser {
 	
+	public static void main(String[] args) {
+		HeroHtmlParser parser = new HeroHtmlParser();
+		try {
+			parser.parseFile(new File("/Users/mario/Desktop/RhysGwenlian.html"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	private int gatherBehinderung(Document document, XPath xpath) throws XPathExpressionException {
 		// TODO Auto-generated method stub
 		// <table class="zonenruestungen gitternetz">
@@ -43,6 +53,44 @@ public class HeroHtmlParser {
 		
 		
 		return result;
+	}
+	
+	private void gatherSonderfertigkeiten(Document document, XPath xpath, HeldenObjekt hero) throws XPathExpressionException, Exception {
+		String countExpression 	= "count((//div[@class='mitte_innen']/table[@class='sonderfertigkeiten'])/tr)";
+		String countResult 		= xpath.compile(countExpression).evaluate(document);
+		int count = Integer.parseInt(countResult);
+		
+		for(int i = 2; i < count; i++) {
+			String leftExpression 	= "(//div[@class='mitte_innen']/table[@class='sonderfertigkeiten'])/tr["+i+"]/td[1]/text()";
+			String rightExpression	= "(//div[@class='mitte_innen']/table[@class='sonderfertigkeiten'])/tr["+i+"]/td[2]/text()";
+		
+			String leftValue 	= xpath.compile(leftExpression).evaluate(document);
+			String rightValue 	= xpath.compile(rightExpression).evaluate(document);
+			
+			if(leftValue.equals("Ausweichen I")) {
+				hero.setAusweichenI(true);
+			}
+			
+			if(rightValue.equals("Ausweichen I")) {
+				hero.setAusweichenI(true);
+			}
+			
+			if(leftValue.equals("Ausweichen II")) {
+				hero.setAusweichenII(true);
+			}
+			
+			if(rightValue.equals("Ausweichen II")) {
+				hero.setAusweichenII(true);
+			}
+			
+			if(leftValue.equals("Ausweichen III")) {
+				hero.setAusweichenIII(true);
+			}
+			
+			if(rightValue.equals("Ausweichen III")) {
+				hero.setAusweichenIII(true);
+			}
+		}
 	}
 
 	private void gatherGesellschaftlich(Document document, XPath xpath, List<TalentObjekt> talente)
@@ -374,20 +422,24 @@ public class HeroHtmlParser {
 				}
 			}
 			
-			for(int i = 2; i < 8; i++) {
+			for(int i = 2; i < 11; i++) {
 				String valueExpression = "//table[@class='basiswerte gitternetz']/tr["+i+"]/td[5]/text()";
 				String value = xpath.compile(valueExpression).evaluate(document);
 				if(value.isEmpty()) {
 					value = "0";
 				}
 				
+				System.out.println("bei " + i + " ist wert " + value);
 				switch(i) {
-				case 2: hero.setLebensenergie(Integer.parseInt(value));  	break;
-				case 3: hero.setAusdauer(Integer.parseInt(value));  		break;
-				case 4: hero.setAstralenergie(Integer.parseInt(value)); 	break;
-				case 5: hero.setKarmalenergie(Integer.parseInt(value)); 	break;
-				case 6: hero.setMagieresistenz(Integer.parseInt(value));    break;
-				case 7: hero.setBasisinitiative(Integer.parseInt(value)); 	break;
+				case  2: hero.setLebensenergie(Integer.parseInt(value));  	break;
+				case  3: hero.setAusdauer(Integer.parseInt(value));  		break;
+				case  4: hero.setAstralenergie(Integer.parseInt(value)); 	break;
+				case  5: hero.setKarmalenergie(Integer.parseInt(value)); 	break;
+				case  6: hero.setMagieresistenz(Integer.parseInt(value));   break;
+				case  7: hero.setBasisinitiative(Integer.parseInt(value)); 	break;
+				case  8: hero.setBasisattacke(Integer.parseInt(value));     break;
+				case  9: hero.setBasisparade(Integer.parseInt(value));      break;
+				case 10: hero.setFernkampfbasis(Integer.parseInt(value));	break;
 				}
 			}
 			
@@ -415,6 +467,8 @@ public class HeroHtmlParser {
 			
 			int behinderung = gatherBehinderung(document, xpath);
 			hero.setBehinderung(behinderung);
+			
+			gatherSonderfertigkeiten(document, xpath, hero);
 			
 			
 		} catch (ParserConfigurationException | SAXException | IOException e) {

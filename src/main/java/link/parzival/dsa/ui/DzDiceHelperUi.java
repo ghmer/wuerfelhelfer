@@ -12,10 +12,12 @@ import link.parzival.dsa.HeldenObjekt;
 import link.parzival.dsa.HeroHtmlParser;
 import link.parzival.dsa.HeroXmlParser;
 import link.parzival.dsa.TalentObjekt;
+import link.parzival.dsa.WaffenObjekt;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -25,6 +27,9 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -32,6 +37,13 @@ import javax.swing.DefaultComboBoxModel;
 
 public class DzDiceHelperUi extends JFrame {
 
+	public void copyToClipboard(String text) {
+		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		StringSelection selection = new StringSelection(text);
+		clipboard.setContents(selection, null);
+		
+		JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
+	}
 	/**
 	 * 
 	 */
@@ -238,7 +250,7 @@ public class DzDiceHelperUi extends JFrame {
 				
 			}
 		});
-		btnPruefungWaehlen.setBounds(6, 210, 664, 29);
+		btnPruefungWaehlen.setBounds(6, 210, 658, 29);
 		contentPane.add(btnPruefungWaehlen);
 		
 		separatorTalentChoseButtonDown = new JSeparator();
@@ -258,13 +270,21 @@ public class DzDiceHelperUi extends JFrame {
 		
 		comboBoxWaffe = new JComboBox<>();
 		comboBoxWaffe.setVisible(false);
-		comboBoxWaffe.setBounds(0, 349, 664, 27);
+		comboBoxWaffe.setBounds(6, 349, 658, 27);
 		contentPane.add(comboBoxWaffe);
 		
 		btnInitiative = new JButton("Initiative!");
 		btnInitiative.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String waffenName 	= (String)comboBoxWaffe.getSelectedItem();
+				WaffenObjekt waffe  = hero.getWaffeByName(waffenName);
+				int waffenIni 		= waffe.getInitiative();
+				int behinderung		= hero.getBehinderung();
+				int berechneteIni 	= (hero.getBasisinitiative() + waffenIni) - behinderung;
 				
+				String kommando     = String.format("(1w6+%s) Initiative", berechneteIni);
+				
+				copyToClipboard(kommando);
 			}
 		});
 		btnInitiative.setVisible(false);
@@ -272,21 +292,97 @@ public class DzDiceHelperUi extends JFrame {
 		contentPane.add(btnInitiative);
 		
 		btnAusweichen = new JButton("Ausweichen!");
+		btnAusweichen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int basisVerteidigung = hero.getBasisparade();
+				System.out.println("Verteidigung: " + basisVerteidigung);
+				if(hero.isAusweichenI()) {
+					System.out.println("Ausweichen I");
+					basisVerteidigung += 3;
+					System.out.println("Verteidigung: " + basisVerteidigung);
+				}
+				
+				if(hero.isAusweichenII()) {
+					System.out.println("Ausweichen II");
+					basisVerteidigung += 3;
+					System.out.println("Verteidigung: " + basisVerteidigung);
+				}
+				
+				if(hero.isAusweichenIII()) {
+					System.out.println("Ausweichen III");
+					basisVerteidigung += 3;
+					System.out.println("Verteidigung: " + basisVerteidigung);
+				}
+				
+				basisVerteidigung -= hero.getBehinderung();
+				System.out.println("Verteidigung: " + basisVerteidigung);
+				
+				String kommando     = String.format("!%s Ausweichen", basisVerteidigung);
+				
+				copyToClipboard(kommando);
+			}
+		});
 		btnAusweichen.setVisible(false);
 		btnAusweichen.setBounds(544, 388, 120, 29);
 		contentPane.add(btnAusweichen);
 		
 		btnVerteidigen = new JButton("Verteidigen!");
+		btnVerteidigen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String waffenName 	= (String)comboBoxWaffe.getSelectedItem();
+				WaffenObjekt waffe  = hero.getWaffeByName(waffenName);
+				
+				String kommando     = String.format("!%s Parade", waffe.getParade());
+				
+				copyToClipboard(kommando);
+			}
+		});
 		btnVerteidigen.setVisible(false);
 		btnVerteidigen.setBounds(412, 388, 120, 29);
 		contentPane.add(btnVerteidigen);
 		
 		btnAngriff = new JButton("Angriff!");
+		btnAngriff.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String waffenName 	= (String)comboBoxWaffe.getSelectedItem();
+				WaffenObjekt waffe  = hero.getWaffeByName(waffenName);
+				
+				String kommando     = String.format("!%s Attacke", waffe.getAttacke());
+				
+				copyToClipboard(kommando);
+			}
+		});
 		btnAngriff.setVisible(false);
 		btnAngriff.setBounds(138, 388, 120, 29);
 		contentPane.add(btnAngriff);
 		
 		btnSchaden = new JButton("Schaden!");
+		btnSchaden.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String waffenName 	= (String)comboBoxWaffe.getSelectedItem();
+				WaffenObjekt waffe  = hero.getWaffeByName(waffenName);
+				
+				String kommando     = formatWaffenSchaden(waffe.getTrefferpunkte());
+				
+				copyToClipboard(kommando);
+			}
+
+			public String formatWaffenSchaden(String trefferpunkte) {
+				String result = null;
+				
+				if(trefferpunkte.contains("+")) {
+					String[] parts = trefferpunkte.split("\\+");
+					result = String.format("(%s6+%s)", parts[0].toLowerCase(), parts[1].toLowerCase());
+				} else if(trefferpunkte.contains("-")) {
+					String[] parts = trefferpunkte.split("\\-");
+					result = String.format("(%s6-%s)", parts[0].toLowerCase(), parts[1].toLowerCase());
+				} else {
+					result = String.format("(%s6)", trefferpunkte.toLowerCase());
+				}
+				
+				return result;
+			}
+		});
 		btnSchaden.setVisible(false);
 		btnSchaden.setBounds(270, 388, 130, 29);
 		contentPane.add(btnSchaden);

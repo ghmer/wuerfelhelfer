@@ -28,6 +28,13 @@ public class HeldenObjekt {
 	private int karmalenergie;
 	private int basisinitiative;
 	private int magieresistenz;
+	private int basisattacke;
+	private int basisparade;
+	private int fernkampfbasis;
+	
+	private boolean ausweichenI 	= false;
+	private boolean ausweichenII 	= false;
+	private boolean ausweichenIII	= false;
 	
 	private List<TalentObjekt> talente = new ArrayList<>();
 	private List<TalentObjekt> zauber  = new ArrayList<>(); 
@@ -48,10 +55,24 @@ public class HeldenObjekt {
 	}
 
 	/**
+	 * @return the basisattacke
+	 */
+	public int getBasisattacke() {
+		return basisattacke;
+	}
+
+	/**
 	 * @return the basisinitiative
 	 */
 	public int getBasisinitiative() {
 		return basisinitiative;
+	}
+
+	/**
+	 * @return the basisparade
+	 */
+	public int getBasisparade() {
+		return basisparade;
 	}
 
 	/**
@@ -66,6 +87,13 @@ public class HeldenObjekt {
 	 */
 	public int getCharisma() {
 		return charisma;
+	}
+
+	/**
+	 * @return the fernkampfbasis
+	 */
+	public int getFernkampfbasis() {
+		return fernkampfbasis;
 	}
 
 	public int getFertigkeit(EigenschaftEnum eigenschaft) {
@@ -130,7 +158,7 @@ public class HeldenObjekt {
 	public int getKonstitution() {
 		return konstitution;
 	}
-
+	
 	/**
 	 * @return the lebensenergie
 	 */
@@ -158,7 +186,7 @@ public class HeldenObjekt {
 	public String getName() {
 		return name;
 	}
-
+	
 	/**
 	 * @return the talente
 	 */
@@ -180,7 +208,7 @@ public class HeldenObjekt {
 		}
 		return waffenObjekt;
 	}
-	
+
 	/**
 	 * @return the waffen
 	 */
@@ -216,12 +244,33 @@ public class HeldenObjekt {
 	public List<String> getWaffenNamenAsList() {
 		return getWaffenNamen();
 	}
-	
+
 	/**
 	 * @return the talente
 	 */
 	public List<TalentObjekt> getZauber() {
 		return zauber;
+	}
+
+	/**
+	 * @return the ausweichenI
+	 */
+	public boolean isAusweichenI() {
+		return ausweichenI;
+	}
+
+	/**
+	 * @return the ausweichenII
+	 */
+	public boolean isAusweichenII() {
+		return ausweichenII;
+	}
+
+	/**
+	 * @return the ausweichenIII
+	 */
+	public boolean isAusweichenIII() {
+		return ausweichenIII;
 	}
 
 	/**
@@ -239,12 +288,47 @@ public class HeldenObjekt {
 	}
 
 	/**
+	 * @param ausweichenI the ausweichenI to set
+	 */
+	public void setAusweichenI(boolean ausweichenI) {
+		this.ausweichenI = ausweichenI;
+	}
+
+	/**
+	 * @param ausweichenII the ausweichenII to set
+	 */
+	public void setAusweichenII(boolean ausweichenII) {
+		this.ausweichenII = ausweichenII;
+	}
+
+	/**
+	 * @param ausweichenIII the ausweichenIII to set
+	 */
+	public void setAusweichenIII(boolean ausweichenIII) {
+		this.ausweichenIII = ausweichenIII;
+	}
+
+	/**
+	 * @param basisattacke the basisattacke to set
+	 */
+	public void setBasisattacke(int basisattacke) {
+		this.basisattacke = basisattacke;
+	}
+
+	/**
 	 * @param basisinitiative the basisinitiative to set
 	 */
 	public void setBasisinitiative(int basisinitiative) {
 		this.basisinitiative = basisinitiative;
 	}
-
+	
+	/**
+	 * @param basisparade the basisparade to set
+	 */
+	public void setBasisparade(int basisparade) {
+		this.basisparade = basisparade;
+	}
+	
 	/**
 	 * @param behinderung the behinderung to set
 	 */
@@ -257,6 +341,13 @@ public class HeldenObjekt {
 	 */
 	public void setCharisma(int charisma) {
 		this.charisma = charisma;
+	}
+
+	/**
+	 * @param fernkampfbasis the fernkampfbasis to set
+	 */
+	public void setFernkampfbasis(int fernkampfbasis) {
+		this.fernkampfbasis = fernkampfbasis;
 	}
 
 	/**
@@ -311,14 +402,14 @@ public class HeldenObjekt {
 	public void setLebensenergie(int lebensenergie) {
 		this.lebensenergie = lebensenergie;
 	}
-	
+
 	/**
 	 * @param magieresistenz the magieresistenz to set
 	 */
 	public void setMagieresistenz(int magieresistenz) {
 		this.magieresistenz = magieresistenz;
 	}
-	
+
 	/**
 	 * @param mut the mut to set
 	 */
