@@ -33,19 +33,19 @@ import java.awt.event.ActionEvent;
 
 public class AbilityDialogUi extends JDialog {
 
+	private enum AbilityTypeEnum {
+		Talent, Magie
+	}
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 5001756584965996173L;
-	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTable table = null;
-	private enum AbilityTypeEnum {
-		Talent, Magie
-	}
-	
 	public static final int OK_STATE = 0;
-    public static final int CANCEL_STATE = 1;
+	public static final int CANCEL_STATE = 1;
+	private final JPanel contentPanel = new JPanel();
+	
+	private JTextField textField;
+    private JTable table = null;
     // Cause it's really nice to know what the use did
     // ie canceled, okay'ed, didn't find results, what ever...
     private int state = CANCEL_STATE;
@@ -73,8 +73,8 @@ public class AbilityDialogUi extends JDialog {
 		textField.getDocument().addDocumentListener(new DocumentListener() {
 			
 			@Override
-			public void removeUpdate(DocumentEvent e) {
-				generateTable(hero, e);
+			public void changedUpdate(DocumentEvent e) {
+				//System.out.println("update " + e);
 				
 			}
 			
@@ -84,8 +84,8 @@ public class AbilityDialogUi extends JDialog {
 			}
 			
 			@Override
-			public void changedUpdate(DocumentEvent e) {
-				//System.out.println("update " + e);
+			public void removeUpdate(DocumentEvent e) {
+				generateTable(hero, e);
 				
 			}
 		});
@@ -210,13 +210,13 @@ public class AbilityDialogUi extends JDialog {
 		}
 	}
 
+	public String getSelectedAbility() {
+		return selectedAbilityName;
+	}
+
 	public int showDialog() {
 		setVisible(true);
         return state;
 		
-	}
-
-	public String getSelectedAbility() {
-		return selectedAbilityName;
 	}
 }

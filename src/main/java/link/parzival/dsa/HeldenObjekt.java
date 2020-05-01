@@ -26,9 +26,12 @@ public class HeldenObjekt {
 	private int lebensenergie;
 	private int astralenergie;
 	private int karmalenergie;
+	private int basisinitiative;
+	private int magieresistenz;
 	
 	private List<TalentObjekt> talente = new ArrayList<>();
 	private List<TalentObjekt> zauber  = new ArrayList<>(); 
+	private List<WaffenObjekt> waffen  = new ArrayList<>();
 
 	/**
 	 * @return the astralenergie
@@ -42,6 +45,13 @@ public class HeldenObjekt {
 	 */
 	public int getAusdauer() {
 		return ausdauer;
+	}
+
+	/**
+	 * @return the basisinitiative
+	 */
+	public int getBasisinitiative() {
+		return basisinitiative;
 	}
 
 	/**
@@ -129,12 +139,19 @@ public class HeldenObjekt {
 	}
 
 	/**
+	 * @return the magieresistenz
+	 */
+	public int getMagieresistenz() {
+		return magieresistenz;
+	}
+
+	/**
 	 * @return the mut
 	 */
 	public int getMut() {
 		return mut;
 	}
-
+	
 	/**
 	 * @return the name
 	 */
@@ -147,6 +164,57 @@ public class HeldenObjekt {
 	 */
 	public List<TalentObjekt> getTalente() {
 		return talente;
+	}
+
+	/**
+	 * @param waffenName
+	 * @return
+	 */
+	public WaffenObjekt getWaffeByName(String waffenName) {
+		WaffenObjekt waffenObjekt = null;
+		for(WaffenObjekt waffe : getWaffen()) {
+			if(waffe.getName().equalsIgnoreCase(waffenName)) {
+				waffenObjekt = waffe;
+				break;
+			}
+		}
+		return waffenObjekt;
+	}
+	
+	/**
+	 * @return the waffen
+	 */
+	public List<WaffenObjekt> getWaffen() {
+		return waffen;
+	}
+	
+	/**
+	 * @return
+	 */
+	public List<String> getWaffenNamen() {
+		List<String> result = new ArrayList<>();
+		for(WaffenObjekt waffe : getWaffen()) {
+			result.add(waffe.getName());
+		}
+		
+		return result;
+	}
+
+	public String[] getWaffenNamenAsArray() {
+		int size = waffen.size();
+		String[] result = new String[size];
+		for(int i = 0; i < size; i++) {
+			result[i] = waffen.get(i).getName();
+		}
+		
+		return result;
+	}
+
+	/**
+	 * @return
+	 */
+	public List<String> getWaffenNamenAsList() {
+		return getWaffenNamen();
 	}
 	
 	/**
@@ -171,6 +239,13 @@ public class HeldenObjekt {
 	}
 
 	/**
+	 * @param basisinitiative the basisinitiative to set
+	 */
+	public void setBasisinitiative(int basisinitiative) {
+		this.basisinitiative = basisinitiative;
+	}
+
+	/**
 	 * @param behinderung the behinderung to set
 	 */
 	public void setBehinderung(int behinderung) {
@@ -183,7 +258,7 @@ public class HeldenObjekt {
 	public void setCharisma(int charisma) {
 		this.charisma = charisma;
 	}
-	
+
 	/**
 	 * @param fingerfertigkeit the fingerfertigkeit to set
 	 */
@@ -236,7 +311,14 @@ public class HeldenObjekt {
 	public void setLebensenergie(int lebensenergie) {
 		this.lebensenergie = lebensenergie;
 	}
-
+	
+	/**
+	 * @param magieresistenz the magieresistenz to set
+	 */
+	public void setMagieresistenz(int magieresistenz) {
+		this.magieresistenz = magieresistenz;
+	}
+	
 	/**
 	 * @param mut the mut to set
 	 */
@@ -256,6 +338,13 @@ public class HeldenObjekt {
 	 */
 	public void setTalente(List<TalentObjekt> talente) {
 		this.talente = talente;
+	}
+
+	/**
+	 * @param waffen the waffen to set
+	 */
+	public void setWaffen(List<WaffenObjekt> waffen) {
+		this.waffen = waffen;
 	}
 
 	/**

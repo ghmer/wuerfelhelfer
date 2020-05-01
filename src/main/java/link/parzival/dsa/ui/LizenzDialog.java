@@ -23,13 +23,6 @@ public class LizenzDialog extends JDialog {
 	private static final long serialVersionUID = -789044538891465510L;
 	private final JPanel contentPanel = new JPanel();
 	
-	@SuppressWarnings("resource")
-	private String getLizenz() {
-		String text = new Scanner(LizenzDialog.class.getResourceAsStream("/LICENCE.txt"), "UTF-8").useDelimiter("\\A").next();
-		
-		return text;
-	}
-
 	/**
 	 * Create the dialog.
 	 */
@@ -75,6 +68,13 @@ public class LizenzDialog extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 			}
 		}
+	}
+
+	@SuppressWarnings("resource")
+	private String getLizenz() {
+		String text = new Scanner(LizenzDialog.class.getResourceAsStream("/LICENCE.txt"), "UTF-8").useDelimiter("\\A").next();
+		
+		return text;
 	}
 
 }

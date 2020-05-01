@@ -13,9 +13,6 @@ import java.util.regex.Pattern;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -138,29 +135,5 @@ public class HeroXmlParser {
 		talentObjekt.setProbenTalent1(probenList.get(0));
 		talentObjekt.setProbenTalent2(probenList.get(1));
 		talentObjekt.setProbenTalent3(probenList.get(2));
-	}
-	
-	public void parseFileXpath(File xmlFile) {
-		DocumentBuilderFactory factory 	= DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder 		= null;
-		try {
-			builder = factory.newDocumentBuilder();
-			Document document = builder.parse(xmlFile);
-			
-			XPath xpath = XPathFactory.newInstance().newXPath();
-			String expression = "/helden/held/@name";
-			String s = xpath.compile(expression).evaluate(document);
-			
-			String aexp = "/helden/held/eigenschaften/eigenschaft[@name='Mut']/@value";
-			String s2 = xpath.compile(aexp).evaluate(document);
-			System.out.println(s + "/" + s2);
-			
-		} catch (ParserConfigurationException | SAXException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (XPathExpressionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }

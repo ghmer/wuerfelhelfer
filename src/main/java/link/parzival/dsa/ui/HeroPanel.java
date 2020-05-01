@@ -2,51 +2,36 @@ package link.parzival.dsa.ui;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+
 import javax.swing.SwingConstants;
 
 import link.parzival.dsa.HeldenObjekt;
 
-import javax.swing.JTextField;
 import javax.swing.JSpinner;
 import javax.swing.JSpinner.DefaultEditor;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class HeroPanel extends JPanel {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4145721306607452199L;
-	private JTextField textFieldMut;
-	private JTextField textFieldKlugheit;
-	private JTextField textFieldIntuition;
-	private JTextField textFieldCharisma;
-	private JTextField textFieldFingerfertigkeit;
-	private JTextField textFieldGewandheit;
-	private JTextField textFieldKonstitution;
-	private JTextField textFieldKoerperkraft;
 	private JLabel lblHeroName;
 	private JSpinner spinnerLebensenergie;
 	private JSpinner spinnerAstralenergie;
 	private JSpinner spinnerBehinderung;
 	private JSpinner spinnerAusdauer;
-
-	public void updatePanel(HeldenObjekt hero) {
-		lblHeroName.setText(hero.getName());
-		textFieldMut.setText(String.valueOf(hero.getMut()));
-		textFieldKlugheit.setText(String.valueOf(hero.getKlugheit()));
-		textFieldIntuition.setText(String.valueOf(hero.getIntuition()));
-		textFieldCharisma.setText(String.valueOf(hero.getCharisma()));
-		textFieldFingerfertigkeit.setText(String.valueOf(hero.getFingerfertigkeit()));
-		textFieldGewandheit.setText(String.valueOf(hero.getGewandtheit()));
-		textFieldKonstitution.setText(String.valueOf(hero.getKonstitution()));
-		textFieldKoerperkraft.setText(String.valueOf(hero.getKoerperkraft()));
-		spinnerLebensenergie.setValue(Integer.valueOf(hero.getLebensenergie()));
-		spinnerAstralenergie.setValue(Integer.valueOf(hero.getAstralenergie()));
-		spinnerBehinderung.setValue(Integer.valueOf(hero.getBehinderung()));
-		spinnerAusdauer.setValue(Integer.valueOf(hero.getAusdauer()));
-	}
+	
 	/**
 	 * Create the panel.
 	 */
@@ -79,34 +64,6 @@ public class HeroPanel extends JPanel {
 		lblCharisma.setBounds(6, 148, 120, 16);
 		add(lblCharisma);
 		
-		textFieldMut = new JTextField();
-		textFieldMut.setEditable(false);
-		textFieldMut.setBounds(138, 59, 60, 26);
-		textFieldMut.setText(String.valueOf(hero.getMut()));
-		textFieldMut.setColumns(10);
-		add(textFieldMut);
-		
-		textFieldKlugheit = new JTextField();
-		textFieldKlugheit.setEditable(false);
-		textFieldKlugheit.setColumns(10);
-		textFieldKlugheit.setBounds(138, 87, 60, 26);
-		textFieldKlugheit.setText(String.valueOf(hero.getKlugheit()));
-		add(textFieldKlugheit);
-		
-		textFieldIntuition = new JTextField();
-		textFieldIntuition.setEditable(false);
-		textFieldIntuition.setColumns(10);
-		textFieldIntuition.setBounds(138, 115, 60, 26);
-		textFieldIntuition.setText(String.valueOf(hero.getIntuition()));
-		add(textFieldIntuition);
-		
-		textFieldCharisma = new JTextField();
-		textFieldCharisma.setEditable(false);
-		textFieldCharisma.setColumns(10);
-		textFieldCharisma.setBounds(138, 143, 60, 26);
-		textFieldCharisma.setText(String.valueOf(hero.getCharisma()));
-		add(textFieldCharisma);
-		
 		JLabel lblFingerfertigkeit = new JLabel("Fingerfertigkeit");
 		lblFingerfertigkeit.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblFingerfertigkeit.setBounds(210, 64, 120, 16);
@@ -126,34 +83,6 @@ public class HeroPanel extends JPanel {
 		lblKoerperkraft.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblKoerperkraft.setBounds(210, 148, 120, 16);
 		add(lblKoerperkraft);
-		
-		textFieldFingerfertigkeit = new JTextField();
-		textFieldFingerfertigkeit.setEditable(false);
-		textFieldFingerfertigkeit.setColumns(10);
-		textFieldFingerfertigkeit.setBounds(342, 59, 60, 26);
-		textFieldFingerfertigkeit.setText(String.valueOf(hero.getFingerfertigkeit()));
-		add(textFieldFingerfertigkeit);
-		
-		textFieldGewandheit = new JTextField();
-		textFieldGewandheit.setEditable(false);
-		textFieldGewandheit.setColumns(10);
-		textFieldGewandheit.setBounds(342, 87, 60, 26);
-		textFieldGewandheit.setText(String.valueOf(hero.getGewandtheit()));
-		add(textFieldGewandheit);
-		
-		textFieldKonstitution = new JTextField();
-		textFieldKonstitution.setEditable(false);
-		textFieldKonstitution.setColumns(10);
-		textFieldKonstitution.setBounds(342, 115, 60, 26);
-		textFieldKonstitution.setText(String.valueOf(hero.getKonstitution()));
-		add(textFieldKonstitution);
-		
-		textFieldKoerperkraft = new JTextField();
-		textFieldKoerperkraft.setEditable(false);
-		textFieldKoerperkraft.setColumns(10);
-		textFieldKoerperkraft.setBounds(342, 143, 60, 26);
-		textFieldKoerperkraft.setText(String.valueOf(hero.getKoerperkraft()));
-		add(textFieldKoerperkraft);
 		
 		JLabel lblLebensenergie = new JLabel("Lebensenergie");
 		lblLebensenergie.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -187,7 +116,6 @@ public class HeroPanel extends JPanel {
 		spinnerBehinderung.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				int newVal = (Integer)spinnerBehinderung.getValue();
-				System.out.println("Neue Behinderung: " + newVal);
 				hero.setBehinderung(newVal);
 			}
 		});
@@ -205,5 +133,109 @@ public class HeroPanel extends JPanel {
 		spinnerAusdauer.setValue(Integer.valueOf(hero.getAusdauer()));
 		spinnerAusdauer.setBounds(546, 143, 60, 26);
 		add(spinnerAusdauer);
+		
+		JButton btnMut = new JButton(String.valueOf(hero.getMut()));
+		btnMut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+				StringSelection selection = new StringSelection("!" + hero.getMut());
+				clipboard.setContents(selection, null);
+				
+				JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
+			}
+		});
+		btnMut.setBounds(138, 59, 60, 29);
+		add(btnMut);
+		
+		JButton btnKlugheit = new JButton(String.valueOf(hero.getKlugheit()));
+		btnKlugheit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+				StringSelection selection = new StringSelection("!" + hero.getKlugheit());
+				clipboard.setContents(selection, null);
+				
+				JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
+			}
+		});
+		btnKlugheit.setBounds(138, 87, 60, 29);
+		add(btnKlugheit);
+		
+		JButton btnIntuition = new JButton(String.valueOf(hero.getIntuition()));
+		btnIntuition.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+				StringSelection selection = new StringSelection("!" + hero.getIntuition());
+				clipboard.setContents(selection, null);
+				
+				JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
+			}
+		});
+		btnIntuition.setBounds(138, 115, 60, 29);
+		add(btnIntuition);
+		
+		JButton btnCharisma = new JButton(String.valueOf(hero.getCharisma()));
+		btnCharisma.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+				StringSelection selection = new StringSelection("!" + hero.getCharisma());
+				clipboard.setContents(selection, null);
+				
+				JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
+			}
+		});
+		btnCharisma.setBounds(138, 143, 60, 29);
+		add(btnCharisma);
+		
+		JButton btnFingerFertigkeit = new JButton(String.valueOf(hero.getFingerfertigkeit()));
+		btnFingerFertigkeit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+				StringSelection selection = new StringSelection("!" + hero.getFingerfertigkeit());
+				clipboard.setContents(selection, null);
+				
+				JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
+			}
+		});
+		btnFingerFertigkeit.setBounds(342, 58, 60, 29);
+		add(btnFingerFertigkeit);
+		
+		JButton btnGewandtheit = new JButton(String.valueOf(hero.getGewandtheit()));
+		btnGewandtheit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+				StringSelection selection = new StringSelection("!" + hero.getGewandtheit());
+				clipboard.setContents(selection, null);
+				
+				JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
+			}
+		});
+		btnGewandtheit.setBounds(342, 87, 60, 29);
+		add(btnGewandtheit);
+		
+		JButton btnKonstitution = new JButton(String.valueOf(hero.getKonstitution()));
+		btnKonstitution.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+				StringSelection selection = new StringSelection("!" + hero.getKonstitution());
+				clipboard.setContents(selection, null);
+				
+				JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
+			}
+		});
+		btnKonstitution.setBounds(342, 115, 60, 29);
+		add(btnKonstitution);
+		
+		JButton btnKoerperkraft = new JButton(String.valueOf(hero.getKoerperkraft()));
+		btnKoerperkraft.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+				StringSelection selection = new StringSelection("!" + hero.getKoerperkraft());
+				clipboard.setContents(selection, null);
+				
+				JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
+			}
+		});
+		btnKoerperkraft.setBounds(342, 143, 60, 29);
+		add(btnKoerperkraft);
 	}
 }

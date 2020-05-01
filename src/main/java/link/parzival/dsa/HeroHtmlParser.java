@@ -26,94 +26,6 @@ import org.xml.sax.SAXException;
  */
 public class HeroHtmlParser {
 	
-	public HeldenObjekt parseFile(File xmlFile) throws Exception {
-		DocumentBuilderFactory factory 	= DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder 		= null;
-		HeldenObjekt hero 				= new HeldenObjekt();
-		try {
-			factory.setValidating(false);
-			factory.setAttribute("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
-		    
-			builder = factory.newDocumentBuilder();
-
-			Document document = builder.parse(xmlFile);
-			
-			XPath xpath = XPathFactory.newInstance().newXPath();
-			String titleExpression = "/html/head/title/text()";
-			String heroName = xpath.compile(titleExpression).evaluate(document);
-			hero.setName(heroName);
-			
-			for(int i = 2; i < 10; i++) {
-				String nameExpression  = "//table[@class='eigenschaften gitternetz']/tr["+i+"]/td[1]/text()";
-				String valueExpression = "//table[@class='eigenschaften gitternetz']/tr["+i+"]/td[4]/text()";
-				
-				String name  = xpath.compile(nameExpression).evaluate(document);
-				String value = xpath.compile(valueExpression).evaluate(document);
-				
-				System.out.println(name + " " + value);
-				switch(i) {
-				case 2: hero.setMut(Integer.parseInt(value));  				break;
-				case 3: hero.setKlugheit(Integer.parseInt(value));  		break;
-				case 4: hero.setIntuition(Integer.parseInt(value)); 		break;
-				case 5: hero.setCharisma(Integer.parseInt(value)); 			break;
-				case 6: hero.setFingerfertigkeit(Integer.parseInt(value)); 	break;
-				case 7: hero.setGewandtheit(Integer.parseInt(value)); 		break;
-				case 8: hero.setKonstitution(Integer.parseInt(value)); 		break;
-				case 9: hero.setKoerperkraft(Integer.parseInt(value));      break;
-				}
-			}
-			
-			for(int i = 2; i < 6; i++) {
-				String nameExpression  = "//table[@class='basiswerte gitternetz']/tr["+i+"]/td[1]/text()";
-				String valueExpression = "//table[@class='basiswerte gitternetz']/tr["+i+"]/td[5]/text()";
-				
-				String name  = xpath.compile(nameExpression).evaluate(document);
-				String value = xpath.compile(valueExpression).evaluate(document);
-				if(value.isEmpty()) {
-					value = "0";
-				}
-				
-				System.out.println(name + " " + value);
-				switch(i) {
-				case 2: hero.setLebensenergie(Integer.parseInt(value));  	break;
-				case 3: hero.setAusdauer(Integer.parseInt(value));  		break;
-				case 4: hero.setAstralenergie(Integer.parseInt(value)); 	break;
-				case 5: hero.setKarmalenergie(Integer.parseInt(value)); 	break;
-				}
-			}
-			
-			List<TalentObjekt> talente = new ArrayList<>();
-			gatherKampftechniken(document, xpath, talente);
-			gatherKoerperlich(document, xpath, talente);
-			gatherGesellschaftlich(document, xpath, talente);
-			gatherNaturtalente(document, xpath, talente);
-			gatherWissenstalente(document, xpath, talente);
-			gatherSprachen(document, xpath, talente);
-			gatherSchriften(document, xpath, talente);
-			gatherHandwerk(document, xpath, talente);
-			
-			hero.setTalente(talente);
-			
-			List<TalentObjekt> zauber = new ArrayList<>();
-			gatherZauber(document, xpath, zauber);
-			
-			hero.setZauber(zauber);
-			
-			int behinderung = gatherBehinderung(document, xpath);
-			hero.setBehinderung(behinderung);
-			
-			
-		} catch (ParserConfigurationException | SAXException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (XPathExpressionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return hero;
-	}
-
 	private int gatherBehinderung(Document document, XPath xpath) throws XPathExpressionException {
 		// TODO Auto-generated method stub
 		// <table class="zonenruestungen gitternetz">
@@ -124,7 +36,6 @@ public class HeroHtmlParser {
 		
 		String expression 	= "(//table[@class='zonenruestungen gitternetz'])/tr["+ count +"]/td[14]/text()";
 		String be 	 		= xpath.compile(expression).evaluate(document);
-		System.out.println("BE: " + be);
 		
 		if(be != null && !be.isEmpty()) {
 			result = Integer.parseInt(be);
@@ -134,6 +45,64 @@ public class HeroHtmlParser {
 		return result;
 	}
 
+	private void gatherGesellschaftlich(Document document, XPath xpath, List<TalentObjekt> talente)
+			throws XPathExpressionException, Exception {
+		//Koerperliche Talente
+		// get count
+		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])[3]/tr)";
+		String countResult 		= xpath.compile(countExpression).evaluate(document);
+		int count = Integer.parseInt(countResult);
+		
+		for(int i = 2; i <= count; i++) {
+			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])[3]/tr["+ i +"]/td[1]/text()";
+			String probeExpression  = "(//table[@class='talentgruppe gitternetz'])[3]/tr["+ i +"]/td[2]/text()";
+			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])[3]/tr["+ i +"]/td[3]/text()";
+			
+			
+			String name  = xpath.compile(nameExpression).evaluate(document);
+			String be 	 = "";
+			String taw 	 = xpath.compile(tawExpression).evaluate(document);
+			String probe = xpath.compile(probeExpression).evaluate(document);
+			
+			TalentObjekt talent = new TalentObjekt();
+			talent.setName(name);
+			talent.setBe(be);
+			talent.setTalentwert(Integer.parseInt(taw));
+			splitTalentProben(talent, probe);
+			
+			talente.add(talent);
+		}
+	}
+
+	private void gatherHandwerk(Document document, XPath xpath, List<TalentObjekt> talente)
+			throws XPathExpressionException, Exception {
+		//Koerperliche Talente
+		// get count
+		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])[8]/tr)";
+		String countResult 		= xpath.compile(countExpression).evaluate(document);
+		int count = Integer.parseInt(countResult);
+		
+		for(int i = 2; i <= count; i++) {
+			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])[8]/tr["+ i +"]/td[1]/text()";
+			String probeExpression  = "(//table[@class='talentgruppe gitternetz'])[8]/tr["+ i +"]/td[2]/text()";
+			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])[8]/tr["+ i +"]/td[3]/text()";
+			
+			
+			String name  = xpath.compile(nameExpression).evaluate(document);
+			String be 	 = "";
+			String taw 	 = xpath.compile(tawExpression).evaluate(document);
+			String probe = xpath.compile(probeExpression).evaluate(document);
+			
+			TalentObjekt talent = new TalentObjekt();
+			talent.setName(name);
+			talent.setBe(be);
+			talent.setTalentwert(Integer.parseInt(taw));
+			splitTalentProben(talent, probe);
+			
+			talente.add(talent);
+		}
+	}
+	
 	private void gatherKampftechniken(Document document, XPath xpath, List<TalentObjekt> talente)
 			throws XPathExpressionException, Exception {
 		//Kampftechniken
@@ -192,35 +161,6 @@ public class HeroHtmlParser {
 		}
 	}
 	
-	private void gatherGesellschaftlich(Document document, XPath xpath, List<TalentObjekt> talente)
-			throws XPathExpressionException, Exception {
-		//Koerperliche Talente
-		// get count
-		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])[3]/tr)";
-		String countResult 		= xpath.compile(countExpression).evaluate(document);
-		int count = Integer.parseInt(countResult);
-		
-		for(int i = 2; i <= count; i++) {
-			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])[3]/tr["+ i +"]/td[1]/text()";
-			String probeExpression  = "(//table[@class='talentgruppe gitternetz'])[3]/tr["+ i +"]/td[2]/text()";
-			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])[3]/tr["+ i +"]/td[3]/text()";
-			
-			
-			String name  = xpath.compile(nameExpression).evaluate(document);
-			String be 	 = "";
-			String taw 	 = xpath.compile(tawExpression).evaluate(document);
-			String probe = xpath.compile(probeExpression).evaluate(document);
-			
-			TalentObjekt talent = new TalentObjekt();
-			talent.setName(name);
-			talent.setBe(be);
-			talent.setTalentwert(Integer.parseInt(taw));
-			splitTalentProben(talent, probe);
-			
-			talente.add(talent);
-		}
-	}
-	
 	private void gatherNaturtalente(Document document, XPath xpath, List<TalentObjekt> talente)
 			throws XPathExpressionException, Exception {
 		//Koerperliche Talente
@@ -239,64 +179,6 @@ public class HeroHtmlParser {
 			String be 	 = "";
 			String taw 	 = xpath.compile(tawExpression).evaluate(document);
 			String probe = xpath.compile(probeExpression).evaluate(document);
-			
-			TalentObjekt talent = new TalentObjekt();
-			talent.setName(name);
-			talent.setBe(be);
-			talent.setTalentwert(Integer.parseInt(taw));
-			splitTalentProben(talent, probe);
-			
-			talente.add(talent);
-		}
-	}
-	
-	private void gatherWissenstalente(Document document, XPath xpath, List<TalentObjekt> talente)
-			throws XPathExpressionException, Exception {
-		//Koerperliche Talente
-		// get count
-		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])[5]/tr)";
-		String countResult 		= xpath.compile(countExpression).evaluate(document);
-		int count = Integer.parseInt(countResult);
-		
-		for(int i = 2; i <= count; i++) {
-			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])[5]/tr["+ i +"]/td[1]/text()";
-			String probeExpression  = "(//table[@class='talentgruppe gitternetz'])[5]/tr["+ i +"]/td[2]/text()";
-			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])[5]/tr["+ i +"]/td[3]/text()";
-			
-			
-			String name  = xpath.compile(nameExpression).evaluate(document);
-			String be 	 = "";
-			String taw 	 = xpath.compile(tawExpression).evaluate(document);
-			String probe = xpath.compile(probeExpression).evaluate(document);
-			
-			TalentObjekt talent = new TalentObjekt();
-			talent.setName(name);
-			talent.setBe(be);
-			talent.setTalentwert(Integer.parseInt(taw));
-			splitTalentProben(talent, probe);
-			
-			talente.add(talent);
-		}
-	}
-	
-	private void gatherSprachen(Document document, XPath xpath, List<TalentObjekt> talente)
-			throws XPathExpressionException, Exception {
-		//Koerperliche Talente
-		// get count
-		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])[6]/tr)";
-		String countResult 		= xpath.compile(countExpression).evaluate(document);
-		int count = Integer.parseInt(countResult);
-		
-		for(int i = 2; i <= count; i++) {
-			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])[6]/tr["+ i +"]/td[1]/text()";
-			//String probeExpression  = "(//table[@class='talentgruppe gitternetz'])[6]/tr["+ i +"]/td[2]/text()";
-			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])[6]/tr["+ i +"]/td[3]/text()";
-			
-			
-			String name  = xpath.compile(nameExpression).evaluate(document);
-			String be 	 = "";
-			String taw 	 = xpath.compile(tawExpression).evaluate(document);
-			String probe = " (--/--/--)";
 			
 			TalentObjekt talent = new TalentObjekt();
 			talent.setName(name);
@@ -337,18 +219,82 @@ public class HeroHtmlParser {
 		}
 	}
 	
-	private void gatherHandwerk(Document document, XPath xpath, List<TalentObjekt> talente)
+	private void gatherSprachen(Document document, XPath xpath, List<TalentObjekt> talente)
 			throws XPathExpressionException, Exception {
 		//Koerperliche Talente
 		// get count
-		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])[8]/tr)";
+		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])[6]/tr)";
 		String countResult 		= xpath.compile(countExpression).evaluate(document);
 		int count = Integer.parseInt(countResult);
 		
 		for(int i = 2; i <= count; i++) {
-			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])[8]/tr["+ i +"]/td[1]/text()";
-			String probeExpression  = "(//table[@class='talentgruppe gitternetz'])[8]/tr["+ i +"]/td[2]/text()";
-			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])[8]/tr["+ i +"]/td[3]/text()";
+			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])[6]/tr["+ i +"]/td[1]/text()";
+			//String probeExpression  = "(//table[@class='talentgruppe gitternetz'])[6]/tr["+ i +"]/td[2]/text()";
+			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])[6]/tr["+ i +"]/td[3]/text()";
+			
+			
+			String name  = xpath.compile(nameExpression).evaluate(document);
+			String be 	 = "";
+			String taw 	 = xpath.compile(tawExpression).evaluate(document);
+			String probe = " (--/--/--)";
+			
+			TalentObjekt talent = new TalentObjekt();
+			talent.setName(name);
+			talent.setBe(be);
+			talent.setTalentwert(Integer.parseInt(taw));
+			splitTalentProben(talent, probe);
+			
+			talente.add(talent);
+		}
+	}
+	
+	private void gatherWaffen(Document document, XPath xpath, List<WaffenObjekt> waffenListe)
+			throws XPathExpressionException, Exception {
+		//Koerperliche Talente
+		// get count
+		String countExpression 	= "count((//table[@class='nkwaffen gitternetz'])/tr)";
+		String countResult 		= xpath.compile(countExpression).evaluate(document);
+		int count = Integer.parseInt(countResult);
+		
+		for(int i = 2; i <= count; i++) {
+			String nameExpression 	= "(//table[@class='nkwaffen gitternetz'])/tr["+ i +"]/td[1]/text()";
+			String iniExpression    = "(//table[@class='nkwaffen gitternetz'])/tr["+ i +"]/td[6]/text()";
+			String atExpression     = "(//table[@class='nkwaffen gitternetz'])/tr["+ i +"]/td[8]/text()";
+			String paExpression     = "(//table[@class='nkwaffen gitternetz'])/tr["+ i +"]/td[9]/text()";
+			String tpExpression     = "(//table[@class='nkwaffen gitternetz'])/tr["+ i +"]/td[10]/text()";
+			
+			
+			String name  	= xpath.compile(nameExpression).evaluate(document);
+			String iniStr 	= xpath.compile(iniExpression).evaluate(document);
+			String atStr 	= xpath.compile(atExpression).evaluate(document);
+			String paStr 	= xpath.compile(paExpression).evaluate(document);
+			String tpStr	= xpath.compile(tpExpression).evaluate(document);
+			
+			if(name != null && !name.isEmpty()) {
+				WaffenObjekt waffe = new WaffenObjekt();
+				waffe.setName(name);
+				waffe.setTrefferpunkte(tpStr);
+				waffe.setAttacke(Integer.parseInt(atStr));
+				waffe.setParade(Integer.parseInt(paStr));
+				waffe.setInitiative(Integer.parseInt(iniStr));
+				
+				waffenListe.add(waffe);
+			}
+		}
+	}
+	
+	private void gatherWissenstalente(Document document, XPath xpath, List<TalentObjekt> talente)
+			throws XPathExpressionException, Exception {
+		//Koerperliche Talente
+		// get count
+		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])[5]/tr)";
+		String countResult 		= xpath.compile(countExpression).evaluate(document);
+		int count = Integer.parseInt(countResult);
+		
+		for(int i = 2; i <= count; i++) {
+			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])[5]/tr["+ i +"]/td[1]/text()";
+			String probeExpression  = "(//table[@class='talentgruppe gitternetz'])[5]/tr["+ i +"]/td[2]/text()";
+			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])[5]/tr["+ i +"]/td[3]/text()";
 			
 			
 			String name  = xpath.compile(nameExpression).evaluate(document);
@@ -393,6 +339,93 @@ public class HeroHtmlParser {
 			
 			zauberListe.add(zauber);
 		}
+	}
+	
+	public HeldenObjekt parseFile(File xmlFile) throws Exception {
+		DocumentBuilderFactory factory 	= DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder 		= null;
+		HeldenObjekt hero 				= new HeldenObjekt();
+		try {
+			factory.setValidating(false);
+			factory.setAttribute("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+		    
+			builder = factory.newDocumentBuilder();
+
+			Document document = builder.parse(xmlFile);
+			
+			XPath xpath = XPathFactory.newInstance().newXPath();
+			String titleExpression = "/html/head/title/text()";
+			String heroName = xpath.compile(titleExpression).evaluate(document);
+			hero.setName(heroName);
+			
+			for(int i = 2; i < 10; i++) {
+				String valueExpression = "//table[@class='eigenschaften gitternetz']/tr["+i+"]/td[4]/text()";
+				String value = xpath.compile(valueExpression).evaluate(document);
+
+				switch(i) {
+				case 2: hero.setMut(Integer.parseInt(value));  				break;
+				case 3: hero.setKlugheit(Integer.parseInt(value));  		break;
+				case 4: hero.setIntuition(Integer.parseInt(value)); 		break;
+				case 5: hero.setCharisma(Integer.parseInt(value)); 			break;
+				case 6: hero.setFingerfertigkeit(Integer.parseInt(value)); 	break;
+				case 7: hero.setGewandtheit(Integer.parseInt(value)); 		break;
+				case 8: hero.setKonstitution(Integer.parseInt(value)); 		break;
+				case 9: hero.setKoerperkraft(Integer.parseInt(value));      break;
+				}
+			}
+			
+			for(int i = 2; i < 8; i++) {
+				String valueExpression = "//table[@class='basiswerte gitternetz']/tr["+i+"]/td[5]/text()";
+				String value = xpath.compile(valueExpression).evaluate(document);
+				if(value.isEmpty()) {
+					value = "0";
+				}
+				
+				switch(i) {
+				case 2: hero.setLebensenergie(Integer.parseInt(value));  	break;
+				case 3: hero.setAusdauer(Integer.parseInt(value));  		break;
+				case 4: hero.setAstralenergie(Integer.parseInt(value)); 	break;
+				case 5: hero.setKarmalenergie(Integer.parseInt(value)); 	break;
+				case 6: hero.setMagieresistenz(Integer.parseInt(value));    break;
+				case 7: hero.setBasisinitiative(Integer.parseInt(value)); 	break;
+				}
+			}
+			
+			List<TalentObjekt> talente = new ArrayList<>();
+			gatherKampftechniken(document, xpath, talente);
+			gatherKoerperlich(document, xpath, talente);
+			gatherGesellschaftlich(document, xpath, talente);
+			gatherNaturtalente(document, xpath, talente);
+			gatherWissenstalente(document, xpath, talente);
+			gatherSprachen(document, xpath, talente);
+			gatherSchriften(document, xpath, talente);
+			gatherHandwerk(document, xpath, talente);
+			
+			hero.setTalente(talente);
+			
+			List<TalentObjekt> zauber = new ArrayList<>();
+			gatherZauber(document, xpath, zauber);
+			
+			hero.setZauber(zauber);
+			
+			List<WaffenObjekt> waffenListe = new ArrayList<>();
+			gatherWaffen(document, xpath, waffenListe);
+			
+			hero.setWaffen(waffenListe);
+			
+			int behinderung = gatherBehinderung(document, xpath);
+			hero.setBehinderung(behinderung);
+			
+			
+		} catch (ParserConfigurationException | SAXException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (XPathExpressionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return hero;
 	}
 	
 	private void splitTalentProben(TalentObjekt talentObjekt, String probe) throws Exception {

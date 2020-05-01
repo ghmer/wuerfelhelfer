@@ -15,16 +15,16 @@ public class TalentObjekt {
 	private EigenschaftEnum probenTalent3;
 	private int talentwert;
 	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-	/**
 	 * @return the be
 	 */
 	public String getBe() {
 		return be;
+	}
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
 	}
 	/**
 	 * @return the probenTalent1
@@ -51,16 +51,16 @@ public class TalentObjekt {
 		return talentwert;
 	}
 	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-	/**
 	 * @param be the be to set
 	 */
 	public void setBe(String be) {
 		this.be = be;
+	}
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 	/**
 	 * @param probenTalent1 the probenTalent1 to set

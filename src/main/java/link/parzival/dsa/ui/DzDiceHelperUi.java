@@ -27,6 +27,8 @@ import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class DzDiceHelperUi extends JFrame {
 
@@ -34,15 +36,6 @@ public class DzDiceHelperUi extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 6428768807868759732L;
-	private JPanel contentPane;
-	private Font customMainFont;
-	private Font customHeroNameFont;
-	private HeldenObjekt hero;
-	
-	private HeroPanel currentHero = null;
-	private AbilityPanel currentAbility = null;
-	private String selectedAbilityName;
-	private JButton btnPruefungWaehlen;
 	/**
 	 * Launch the application.
 	 */
@@ -61,33 +54,26 @@ public class DzDiceHelperUi extends JFrame {
 			}
 		});
 	}
+	private JPanel contentPane;
+	private Font customMainFont;
+	private Font customHeroNameFont;
 	
-	private Font getFontFromResource(String pathToFont) {
-		Font font = null;
-		InputStream is = null;
-		try {
-			is = this.getClass().getResourceAsStream(pathToFont);
-			font = Font.createFont(Font.TRUETYPE_FONT,is);
-			
-		} catch (IOException e) {
-		     System.err.println(e.getMessage());
-		} catch (FontFormatException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} finally {
-			if(is != null) {
-				try {
-					is.close();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		}
-		
-		return font;
-	}
-
+	private HeldenObjekt hero;
+	private HeroPanel currentHero = null;
+	private AbilityPanel currentAbility = null;
+	private String selectedAbilityName;
+	private JButton btnPruefungWaehlen;
+	private JSeparator separatorTalentChoseButtonDown;
+	private JSeparator separatorTalentChoseButtonUp;
+	private JSeparator separatorFightUp;
+	private JSeparator separatorFightDown;
+	private JComboBox<String> comboBoxWaffe;
+	private JButton btnInitiative;
+	private JButton btnAusweichen;
+	private JButton btnVerteidigen;
+	private JButton btnAngriff;
+	private JButton btnSchaden;
+	
 	/**
 	 * Create the frame.
 	 */
@@ -101,7 +87,7 @@ public class DzDiceHelperUi extends JFrame {
 		setFont(customMainFont);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 670, 400);
+		setBounds(100, 100, 670, 475);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -118,16 +104,16 @@ public class DzDiceHelperUi extends JFrame {
 				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
 				fileChooser.setFileFilter(new FileFilter() {
 					@Override
-					public String getDescription() {
-						return "*.xml";
-					}					
-					@Override
 					public boolean accept(File f) {
 						if (f.isDirectory()) {
 				            return true;
 				        } else {
 				            return f.getName().toLowerCase().endsWith(".xml");
 				        }
+					}					
+					@Override
+					public String getDescription() {
+						return "*.xml";
 					}
 				});
 				
@@ -137,20 +123,7 @@ public class DzDiceHelperUi extends JFrame {
 				    HeroXmlParser hxp = new HeroXmlParser();
 					hero = hxp.parseFile(selectedFile);
 					
-					if(currentHero != null) {
-						contentPane.remove(currentHero);
-						contentPane.repaint();
-						contentPane.updateUI();
-					}
-					
-					btnPruefungWaehlen.setEnabled(true);
-					HeroPanel hp = new HeroPanel(hero);
-					hp.setBounds(6, 6, 658, 175);
-					hp.setFont(customMainFont);
-					currentHero = hp;
-					contentPane.add(hp);
-					contentPane.repaint();
-					contentPane.updateUI();
+					prepareView();
 				}
 			}			
 		});
@@ -164,16 +137,16 @@ public class DzDiceHelperUi extends JFrame {
 				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
 				fileChooser.setFileFilter(new FileFilter() {
 					@Override
-					public String getDescription() {
-						return "*.html";
-					}					
-					@Override
 					public boolean accept(File f) {
 						if (f.isDirectory()) {
 				            return true;
 				        } else {
 				            return f.getName().toLowerCase().endsWith(".html");
 				        }
+					}					
+					@Override
+					public String getDescription() {
+						return "*.html";
 					}
 				});
 				
@@ -189,21 +162,7 @@ public class DzDiceHelperUi extends JFrame {
 						e1.printStackTrace();
 					}
 					
-					if(currentHero != null) {
-						contentPane.remove(currentHero);
-						contentPane.repaint();
-						contentPane.updateUI();
-					}
-					
-					btnPruefungWaehlen.setEnabled(true);
-					
-					HeroPanel hp = new HeroPanel(hero);
-					hp.setBounds(6, 6, 658, 175);
-					hp.setFont(customMainFont);
-					currentHero = hp;
-					contentPane.add(hp);
-					contentPane.repaint();
-					contentPane.updateUI();					
+					prepareView();
 				}
 			}			
 		});
@@ -238,12 +197,14 @@ public class DzDiceHelperUi extends JFrame {
 		contentPane.setLayout(null);
 		
 		
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(6, 200, 658, 12);
-		contentPane.add(separator_1);
+		separatorTalentChoseButtonUp = new JSeparator();
+		separatorTalentChoseButtonUp.setBounds(6, 200, 658, 12);
+		separatorTalentChoseButtonUp.setVisible(false);
+		contentPane.add(separatorTalentChoseButtonUp);
 		
 		btnPruefungWaehlen = new JButton("Probe auswählen");
 		btnPruefungWaehlen.setEnabled(false);
+		btnPruefungWaehlen.setVisible(false);
 		btnPruefungWaehlen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AbilityDialogUi dialog = new AbilityDialogUi(hero);
@@ -280,17 +241,128 @@ public class DzDiceHelperUi extends JFrame {
 		btnPruefungWaehlen.setBounds(6, 210, 664, 29);
 		contentPane.add(btnPruefungWaehlen);
 		
-		JSeparator separator_1_1 = new JSeparator();
-		separator_1_1.setBounds(6, 240, 658, 12);
-		contentPane.add(separator_1_1);
-	}
-	
-	protected void setSelectedAbilityName(String selectedAbility) {
-		this.selectedAbilityName = selectedAbility;
+		separatorTalentChoseButtonDown = new JSeparator();
+		separatorTalentChoseButtonDown.setVisible(false);
+		separatorTalentChoseButtonDown.setBounds(6, 240, 658, 12);
+		contentPane.add(separatorTalentChoseButtonDown);
 		
+		separatorFightUp = new JSeparator();
+		separatorFightUp.setVisible(false);
+		separatorFightUp.setBounds(6, 338, 658, 12);
+		contentPane.add(separatorFightUp);
+		
+		separatorFightDown = new JSeparator();
+		separatorFightDown.setVisible(false);
+		separatorFightDown.setBounds(6, 413, 658, 12);
+		contentPane.add(separatorFightDown);
+		
+		comboBoxWaffe = new JComboBox<>();
+		comboBoxWaffe.setVisible(false);
+		comboBoxWaffe.setBounds(0, 349, 664, 27);
+		contentPane.add(comboBoxWaffe);
+		
+		btnInitiative = new JButton("Initiative!");
+		btnInitiative.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnInitiative.setVisible(false);
+		btnInitiative.setBounds(6, 388, 120, 29);
+		contentPane.add(btnInitiative);
+		
+		btnAusweichen = new JButton("Ausweichen!");
+		btnAusweichen.setVisible(false);
+		btnAusweichen.setBounds(544, 388, 120, 29);
+		contentPane.add(btnAusweichen);
+		
+		btnVerteidigen = new JButton("Verteidigen!");
+		btnVerteidigen.setVisible(false);
+		btnVerteidigen.setBounds(412, 388, 120, 29);
+		contentPane.add(btnVerteidigen);
+		
+		btnAngriff = new JButton("Angriff!");
+		btnAngriff.setVisible(false);
+		btnAngriff.setBounds(138, 388, 120, 29);
+		contentPane.add(btnAngriff);
+		
+		btnSchaden = new JButton("Schaden!");
+		btnSchaden.setVisible(false);
+		btnSchaden.setBounds(270, 388, 130, 29);
+		contentPane.add(btnSchaden);
+	}
+
+	private Font getFontFromResource(String pathToFont) {
+		Font font = null;
+		InputStream is = null;
+		try {
+			is = this.getClass().getResourceAsStream(pathToFont);
+			font = Font.createFont(Font.TRUETYPE_FONT,is);
+			
+		} catch (IOException e) {
+		     System.err.println(e.getMessage());
+		} catch (FontFormatException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} finally {
+			if(is != null) {
+				try {
+					is.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		}
+		
+		return font;
 	}
 	
 	protected String getSelectedAbilityName() {
 		return this.selectedAbilityName;
+	}
+
+	protected void populateFields(HeldenObjekt hero) {
+		comboBoxWaffe.setModel(new DefaultComboBoxModel<String>(hero.getWaffenNamenAsArray()));
+		
+	}
+	
+	private void prepareView() {
+		if(currentHero != null) {
+			contentPane.remove(currentHero);
+			contentPane.repaint();
+			contentPane.updateUI();
+		}
+		
+		btnPruefungWaehlen.setEnabled(true);
+		
+		HeroPanel hp = new HeroPanel(hero);
+		hp.setBounds(6, 6, 658, 175);
+		hp.setFont(customMainFont);
+		currentHero = hp;
+		contentPane.add(hp);
+		setItemVisibility();
+		populateFields(hero);
+		contentPane.repaint();
+		contentPane.updateUI();
+	}
+	
+	private void setItemVisibility() {
+		separatorTalentChoseButtonDown.setVisible(true);
+		separatorTalentChoseButtonUp.setVisible(true);
+		btnPruefungWaehlen.setVisible(true);
+		separatorFightDown.setVisible(true);
+		separatorFightDown.setVisible(true);
+		comboBoxWaffe.setVisible(true);
+		btnInitiative.setVisible(true);
+		btnAngriff.setVisible(true);
+		btnAusweichen.setVisible(true);
+		btnVerteidigen.setVisible(true);
+		btnSchaden.setVisible(true);
+	}
+
+	protected void setSelectedAbilityName(String selectedAbility) {
+		this.selectedAbilityName = selectedAbility;
+		
 	}
 }

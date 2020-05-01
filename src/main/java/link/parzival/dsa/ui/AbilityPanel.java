@@ -88,9 +88,9 @@ public class AbilityPanel extends JPanel {
 			int index = 8;
 			
 			@Override
-			public int getSize() {
+			public void addListDataListener(ListDataListener l) {
 				// TODO Auto-generated method stub
-				return modifiers.length;
+				
 			}
 
 			@Override
@@ -100,9 +100,14 @@ public class AbilityPanel extends JPanel {
 			}
 
 			@Override
-			public void addListDataListener(ListDataListener l) {
+			public Object getSelectedItem() {
+				return modifiers[index];
+			}
+
+			@Override
+			public int getSize() {
 				// TODO Auto-generated method stub
-				
+				return modifiers.length;
 			}
 
 			@Override
@@ -120,11 +125,6 @@ public class AbilityPanel extends JPanel {
 						break;
 					}
 				}
-			}
-
-			@Override
-			public Object getSelectedItem() {
-				return modifiers[index];
 			}
 			
 		});
@@ -175,26 +175,16 @@ public class AbilityPanel extends JPanel {
 	}
 	
 	private int calculateModifier(String modifier, int behinderung, TalentObjekt talent) {
-		System.out.println(String.format("Modifier: %s, behinderung: %s, talentBe: %s", 
-				modifier,
-				behinderung,
-				talent.getBe()));
 		int result = 0;
 		int modifierInt = Integer.parseInt(modifier);
-		
-		System.out.println("modifierInt: " + modifierInt);
 		
 		if(talent.getBe() != null) {
 			String talentBehinderung = talent.getBe();
 			if(talentBehinderung.startsWith("BE")) {
 				char operand = talentBehinderung.charAt(2);
-				char mod     = talentBehinderung.charAt(3);
 				
 				int length = talentBehinderung.length();
 				int modInt = Integer.parseInt(talentBehinderung.substring(length-1, length));
-				
-				System.out.println(String.format("operant: %s, mod: %s, length: %s, modInt: %s", 
-						operand, mod, length, modInt));
 				
 				switch(operand) {
 				case '+' : result = behinderung + modInt; break;
