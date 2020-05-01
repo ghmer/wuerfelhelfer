@@ -160,7 +160,7 @@ public class AbilityPanel extends JPanel {
 				
 			}
 		});
-		btnCreateRoll.setBounds(589, 29, 75, 29);
+		btnCreateRoll.setBounds(589, 29, 70, 29);
 		add(btnCreateRoll);
 		
 		JLabel lblTaw = new JLabel("TaW");
