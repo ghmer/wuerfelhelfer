@@ -30,18 +30,17 @@ import org.xml.sax.SAXException;
  */
 public class HeroHtmlParser {
 	
+	/*
 	public static void main(String[] args) {
 		HeroHtmlParser parser = new HeroHtmlParser();
 		try {
 			HeldenObjekt hero = parser.parseFile(new File("/Users/mario/Desktop/DankwartvonOldenport.html"));
-			for(String s : hero.getWaffenNamen()){
-				System.out.println(s);
-			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	*/
 	
 	private File massageHtmlFile(File originalFile) {
 		File result = null;
@@ -488,8 +487,7 @@ public class HeroHtmlParser {
 				if(value.isEmpty()) {
 					value = "0";
 				}
-				
-				System.out.println("bei " + i + " ist wert " + value);
+
 				switch(i) {
 				case  2: hero.setLebensenergie(Integer.parseInt(value));  	break;
 				case  3: hero.setAusdauer(Integer.parseInt(value));  		break;
