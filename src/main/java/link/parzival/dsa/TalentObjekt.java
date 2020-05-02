@@ -81,7 +81,7 @@ public class TalentObjekt {
 		this.probenTalent3 = probenTalent3;
 	}
 	/**
-	 * @param value the value to set
+	 * @param talentwert the talentwert to set
 	 */
 	public void setTalentwert(int talentwert) {
 		this.talentwert = talentwert;

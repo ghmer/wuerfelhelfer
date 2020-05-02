@@ -48,8 +48,9 @@ public class DzDiceHelperUi extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 6428768807868759732L;
+	
 	/**
-	 * Launch the application.
+	 * @param args the default arguments
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

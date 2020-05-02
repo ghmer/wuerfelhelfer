@@ -54,7 +54,7 @@ public class AbilityDialogUi extends JDialog {
 	private JComboBox<AbilityTypeEnum> comboBox;
 
 	/**
-	 * Create the dialog.
+	 * @param hero the HeldenObjekt to use
 	 */
 	public AbilityDialogUi(HeldenObjekt hero) {
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);

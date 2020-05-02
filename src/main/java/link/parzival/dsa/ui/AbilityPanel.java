@@ -28,7 +28,8 @@ public class AbilityPanel extends JPanel {
 	private static final long serialVersionUID = -4466855899017287952L;
 
 	/**
-	 * Create the panel.
+	 * @param talent the Talent to Display
+	 * @param hero the HeldenObjekt to use
 	 */
 	public AbilityPanel(TalentObjekt talent, HeldenObjekt hero) {
 		setLayout(null);

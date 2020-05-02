@@ -33,7 +33,7 @@ public class HeroPanel extends JPanel {
 	private JSpinner spinnerAusdauer;
 	
 	/**
-	 * Create the panel.
+	 * @param hero the HeldenObjekt to use
 	 */
 	public HeroPanel(HeldenObjekt hero) {
 		setLayout(null);

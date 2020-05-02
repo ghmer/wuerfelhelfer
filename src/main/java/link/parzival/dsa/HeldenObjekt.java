@@ -96,6 +96,10 @@ public class HeldenObjekt {
 		return fernkampfbasis;
 	}
 
+	/**
+	 * @param eigenschaft the eigenschaft to get the value of
+	 * @return the value of the eigenschaft
+	 */
 	public int getFertigkeit(EigenschaftEnum eigenschaft) {
 		int result = 0;
 		switch(eigenschaft) {
@@ -195,8 +199,8 @@ public class HeldenObjekt {
 	}
 
 	/**
-	 * @param waffenName
-	 * @return
+	 * @param waffenName the name of the waffe
+	 * @return the WaffenObjekt corresponding to the name
 	 */
 	public WaffenObjekt getWaffeByName(String waffenName) {
 		WaffenObjekt waffenObjekt = null;
@@ -216,8 +220,8 @@ public class HeldenObjekt {
 		return waffen;
 	}
 	
-	/**
-	 * @return
+	/** 
+	 * @return the waffenNamen
 	 */
 	public List<String> getWaffenNamen() {
 		List<String> result = new ArrayList<>();
@@ -228,6 +232,9 @@ public class HeldenObjekt {
 		return result;
 	}
 
+	/**
+	 * @return the waffenNamen
+	 */
 	public String[] getWaffenNamenAsArray() {
 		int size = waffen.size();
 		String[] result = new String[size];
@@ -239,7 +246,7 @@ public class HeldenObjekt {
 	}
 
 	/**
-	 * @return
+	 * @return the waffenNamen
 	 */
 	public List<String> getWaffenNamenAsList() {
 		return getWaffenNamen();
@@ -358,7 +365,7 @@ public class HeldenObjekt {
 	}
 
 	/**
-	 * @param gewandheit the gewandheit to set
+	 * @param gewandtheit the gewandtheit to set
 	 */
 	public void setGewandtheit(int gewandtheit) {
 		this.gewandtheit = gewandtheit;
@@ -439,7 +446,7 @@ public class HeldenObjekt {
 	}
 
 	/**
-	 * @param talente the talente to set
+	 * @param zauberListe the zauberListe to set
 	 */
 	public void setZauber(List<TalentObjekt> zauberListe) {
 		this.zauber = zauberListe;;
