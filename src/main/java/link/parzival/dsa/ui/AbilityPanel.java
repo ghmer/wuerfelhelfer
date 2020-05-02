@@ -55,7 +55,7 @@ public class AbilityPanel extends JPanel {
 		
 		JLabel lblMod = new JLabel("Mod");
 		lblMod.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMod.setBounds(497, 6, 80, 16);
+		lblMod.setBounds(497, 6, 70, 16);
 		add(lblMod);
 		
 		JLabel lblAbility = new JLabel(talent.getName());
@@ -81,8 +81,7 @@ public class AbilityPanel extends JPanel {
 		add(pruefEigenschaft3);
 				
 		JComboBox<String> pruefModifier = new JComboBox<>();
-		pruefModifier.setEditable(true);
-		pruefModifier.setBounds(497, 29, 80, 27);
+		pruefModifier.setBounds(497, 29, 70, 27);
 		pruefModifier.setModel(new ComboBoxModel<String>() {
 			
 			private String[] modifiers = new String[] {"-8","-7","-6","-5","-4","-3","-2","-1","0","+1","+2","+3","+4","+5","+6","+7","+8"};
