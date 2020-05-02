@@ -296,27 +296,19 @@ public class DzDiceHelperUi extends JFrame {
 		btnAusweichen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int basisVerteidigung = hero.getBasisparade();
-				System.out.println("Verteidigung: " + basisVerteidigung);
 				if(hero.isAusweichenI()) {
-					System.out.println("Ausweichen I");
 					basisVerteidigung += 3;
-					System.out.println("Verteidigung: " + basisVerteidigung);
 				}
 				
 				if(hero.isAusweichenII()) {
-					System.out.println("Ausweichen II");
 					basisVerteidigung += 3;
-					System.out.println("Verteidigung: " + basisVerteidigung);
 				}
 				
 				if(hero.isAusweichenIII()) {
-					System.out.println("Ausweichen III");
 					basisVerteidigung += 3;
-					System.out.println("Verteidigung: " + basisVerteidigung);
 				}
 				
 				basisVerteidigung -= hero.getBehinderung();
-				System.out.println("Verteidigung: " + basisVerteidigung);
 				
 				String kommando     = String.format("!%s Ausweichen", basisVerteidigung);
 				
