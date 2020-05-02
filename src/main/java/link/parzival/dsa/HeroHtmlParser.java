@@ -3,7 +3,11 @@
  */
 package link.parzival.dsa;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +33,66 @@ public class HeroHtmlParser {
 	public static void main(String[] args) {
 		HeroHtmlParser parser = new HeroHtmlParser();
 		try {
-			parser.parseFile(new File("/Users/mario/Desktop/RhysGwenlian.html"));
+			HeldenObjekt hero = parser.parseFile(new File("/Users/mario/Desktop/DankwartvonOldenport.html"));
+			for(String s : hero.getWaffenNamen()){
+				System.out.println(s);
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	private File massageHtmlFile(File originalFile) {
+		File result = null;
+		BufferedReader br = null;
+		BufferedWriter wr = null;
+		try {
+			result = File.createTempFile("dsa_", ".tmp");
+			result.deleteOnExit();
+			
+			br = new BufferedReader(new FileReader(originalFile));
+			wr = new BufferedWriter(new FileWriter(result));
+			String line = null;
+			while((line = br.readLine()) != null) {
+				String modLine = line
+						.replaceAll("&auml;", "ä")
+						.replaceAll("&ouml;", "ö")
+						.replaceAll("&uuml;", "ü")
+						.replaceAll("&Auml;", "Ä")
+						.replaceAll("&Ouml;", "Ö")
+						.replaceAll("&Uuml;", "Ü")
+						.replaceAll("&szlig;", "ß");
+				
+				wr.write(modLine);
+			}
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			if(wr != null) {
+				try {
+					wr.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		
+		return result;
 	}
 	
 	private int gatherBehinderung(Document document, XPath xpath) throws XPathExpressionException {
@@ -395,11 +454,12 @@ public class HeroHtmlParser {
 		HeldenObjekt hero 				= new HeldenObjekt();
 		try {
 			factory.setValidating(false);
+			
 			factory.setAttribute("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
 		    
 			builder = factory.newDocumentBuilder();
 
-			Document document = builder.parse(xmlFile);
+			Document document = builder.parse(massageHtmlFile(xmlFile));
 			
 			XPath xpath = XPathFactory.newInstance().newXPath();
 			String titleExpression = "/html/head/title/text()";
