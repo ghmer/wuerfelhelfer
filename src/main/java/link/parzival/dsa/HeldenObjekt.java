@@ -32,13 +32,13 @@ public class HeldenObjekt {
 	private int basisparade;
 	private int fernkampfbasis;
 	
-	private boolean ausweichenI 	= false;
-	private boolean ausweichenII 	= false;
-	private boolean ausweichenIII	= false;
-	
 	private List<TalentObjekt> talente = new ArrayList<>();
 	private List<TalentObjekt> zauber  = new ArrayList<>(); 
 	private List<WaffenObjekt> waffen  = new ArrayList<>();
+	private List<ParadeObjekt> paradeWaffen = new ArrayList<>();
+	
+	private List<Sonderfertigkeit> sonderfertigkeiten = new ArrayList<>();
+	
 
 	/**
 	 * @return the astralenergie
@@ -260,27 +260,6 @@ public class HeldenObjekt {
 	}
 
 	/**
-	 * @return the ausweichenI
-	 */
-	public boolean isAusweichenI() {
-		return ausweichenI;
-	}
-
-	/**
-	 * @return the ausweichenII
-	 */
-	public boolean isAusweichenII() {
-		return ausweichenII;
-	}
-
-	/**
-	 * @return the ausweichenIII
-	 */
-	public boolean isAusweichenIII() {
-		return ausweichenIII;
-	}
-
-	/**
 	 * @param astralenergie the astralenergie to set
 	 */
 	public void setAstralenergie(int astralenergie) {
@@ -292,27 +271,6 @@ public class HeldenObjekt {
 	 */
 	public void setAusdauer(int ausdauer) {
 		this.ausdauer = ausdauer;
-	}
-
-	/**
-	 * @param ausweichenI the ausweichenI to set
-	 */
-	public void setAusweichenI(boolean ausweichenI) {
-		this.ausweichenI = ausweichenI;
-	}
-
-	/**
-	 * @param ausweichenII the ausweichenII to set
-	 */
-	public void setAusweichenII(boolean ausweichenII) {
-		this.ausweichenII = ausweichenII;
-	}
-
-	/**
-	 * @param ausweichenIII the ausweichenIII to set
-	 */
-	public void setAusweichenIII(boolean ausweichenIII) {
-		this.ausweichenIII = ausweichenIII;
 	}
 
 	/**
@@ -451,5 +409,142 @@ public class HeldenObjekt {
 	public void setZauber(List<TalentObjekt> zauberListe) {
 		this.zauber = zauberListe;;
 		
+	}
+
+	/**
+	 * @return the sonderfertigkeiten
+	 */
+	public List<Sonderfertigkeit> getSonderfertigkeiten() {
+		return sonderfertigkeiten;
+	}
+
+	/**
+	 * @param sonderfertigkeiten the sonderfertigkeiten to set
+	 */
+	public void setSonderfertigkeiten(List<Sonderfertigkeit> sonderfertigkeiten) {
+		this.sonderfertigkeiten = sonderfertigkeiten;
+	}
+	
+	/**
+	 * @param name the name of the Sonderfertigkeit
+	 * @return the Sonderfertigkeit, or NULL
+	 */
+	public Sonderfertigkeit getSonderfertigkeitByName(String name) {
+		Sonderfertigkeit result = null;
+		for(int i = 0; i < sonderfertigkeiten.size(); i++) {
+			Sonderfertigkeit sf = sonderfertigkeiten.get(i);
+			if(sf.getName().equalsIgnoreCase(name)) {
+				result = sf;
+				break;
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * @param sonderfertigkeit the sonderfertigkeit to add
+	 */
+	public void addSonderfertigkeit(Sonderfertigkeit sonderfertigkeit) {
+		this.sonderfertigkeiten.add(sonderfertigkeit);
+	}
+	
+	/**
+	 * @param sonderfertigkeit the sonderfertigkeit to remove
+	 */
+	public void removeSonderfertigkeit(Sonderfertigkeit sonderfertigkeit) {
+		int index = -1;
+		for(int i = 0; i < sonderfertigkeiten.size(); i++) {
+			Sonderfertigkeit sf = sonderfertigkeiten.get(i);
+			if(sf.getName().equalsIgnoreCase(sonderfertigkeit.getName())) {
+				index = i;
+				break;
+			}
+		}
+		
+		if(index != -1) {
+			this.sonderfertigkeiten.remove(index);
+		}	
+	}
+	
+	/**
+	 * @param name the sonderfertigkeit to remove
+	 */
+	public void removeSonderfertigkeit(String name) {
+		int index = -1;
+		for(int i = 0; i < sonderfertigkeiten.size(); i++) {
+			Sonderfertigkeit sf = sonderfertigkeiten.get(i);
+			if(sf.getName().equalsIgnoreCase(name)) {
+				index = i;
+				break;
+			}
+		}
+		
+		if(index != -1) {
+			this.sonderfertigkeiten.remove(index);
+		}	
+	}
+
+	/**
+	 * @return the paradeWaffen
+	 */
+	public List<ParadeObjekt> getParadeWaffen() {
+		return paradeWaffen;
+	}
+	
+	/** 
+	 * @return the waffenNamen
+	 */
+	public List<String> getParadeWaffenNamen() {
+		List<String> result = new ArrayList<>();
+		for(ParadeObjekt po : getParadeWaffen()) {
+			result.add(po.getName());
+		}
+		
+		return result;
+	}
+
+	/**
+	 * @return the waffenNamen
+	 */
+	public String[] getParadeWaffenNamenAsArray() {
+		int size = paradeWaffen.size();
+		String[] result = new String[size];
+		for(int i = 0; i < size; i++) {
+			result[i] = paradeWaffen.get(i).getName();
+		}
+		
+		return result;
+	}
+
+	/**
+	 * @return the waffenNamen
+	 */
+	public List<String> getParadeWaffenNamenAsList() {
+		return getParadeWaffenNamen();
+	}
+
+	/**
+	 * @param paradeWaffen the paradeWaffen to set
+	 */
+	public void setParadeWaffen(List<ParadeObjekt> paradeWaffen) {
+		this.paradeWaffen = paradeWaffen;
+	}
+	
+	/**
+	 * @param paradeObjekt the paradeObjekt to add
+	 */
+	public void addParadeWaffe(ParadeObjekt paradeObjekt) {
+		this.paradeWaffen.add(paradeObjekt);
+	}
+
+	public ParadeObjekt getParadeWaffeByName(String paradeObjektName) {
+		ParadeObjekt paradeObjekt = null;
+		for(ParadeObjekt paradeObj : getParadeWaffen()) {
+			if(paradeObj.getName().equalsIgnoreCase(paradeObjektName)) {
+				paradeObjekt = paradeObj;
+				break;
+			}
+		}
+		return paradeObjekt;
 	}
 }
