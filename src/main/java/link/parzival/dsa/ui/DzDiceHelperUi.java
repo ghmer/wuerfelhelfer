@@ -12,6 +12,11 @@ import link.parzival.dsa.HeroHtmlParser;
 import link.parzival.dsa.HeroXmlParser;
 import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.TalentObjekt;
+import link.parzival.dsa.ui.dialog.AbilityDialog;
+import link.parzival.dsa.ui.dialog.LizenzDialog;
+import link.parzival.dsa.ui.panel.AbilityPanel;
+import link.parzival.dsa.ui.panel.CombatPanel;
+import link.parzival.dsa.ui.panel.HeroPanel;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;

@@ -1,4 +1,4 @@
-package link.parzival.dsa.ui;
+package link.parzival.dsa.ui.panel;
 
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
@@ -11,6 +11,9 @@ import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.ParadeObjekt;
 import link.parzival.dsa.object.WaffenObjekt;
 import link.parzival.dsa.object.WaffenObjekt.Distanzklasse;
+import link.parzival.dsa.ui.DzDiceHelperUi;
+import link.parzival.dsa.ui.dialog.DistanceChangeDialog;
+import link.parzival.dsa.ui.dialog.EvasionDialog;
 
 import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;

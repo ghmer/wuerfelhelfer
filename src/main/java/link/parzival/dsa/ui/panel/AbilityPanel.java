@@ -1,4 +1,4 @@
-package link.parzival.dsa.ui;
+package link.parzival.dsa.ui.panel;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -10,6 +10,7 @@ import javax.swing.event.ListDataListener;
 import link.parzival.dsa.object.EigenschaftEnum;
 import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.TalentObjekt;
+import link.parzival.dsa.ui.DzDiceHelperUi;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;

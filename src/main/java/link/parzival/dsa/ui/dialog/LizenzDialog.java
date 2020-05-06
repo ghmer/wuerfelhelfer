@@ -1,4 +1,4 @@
-package link.parzival.dsa.ui;
+package link.parzival.dsa.ui.dialog;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;

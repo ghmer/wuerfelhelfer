@@ -1,4 +1,4 @@
-package link.parzival.dsa.ui;
+package link.parzival.dsa.ui.panel;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
