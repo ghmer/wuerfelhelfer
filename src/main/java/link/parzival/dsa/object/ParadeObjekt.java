@@ -3,17 +3,15 @@
  */
 package link.parzival.dsa.object;
 
+import link.parzival.dsa.object.enumeration.ParadeObjektTypEnum;
+
 /**
  * @author mario
  *
  */
 public class ParadeObjekt {
-
-	public enum ParadeObjektTyp {
-		Paradewaffe,Schild
-	}
 	private String name;
-	private ParadeObjektTyp typ;
+	private ParadeObjektTypEnum typ;
 	private int ini;
 	private int waffenModifikatorAttacke;
 	private int waffenModifikatorParade;
@@ -30,7 +28,7 @@ public class ParadeObjekt {
 	/**
 	 * @return the typ
 	 */
-	public ParadeObjektTyp getTyp() {
+	public ParadeObjektTypEnum getTyp() {
 		return typ;
 	}
 	/**
@@ -78,7 +76,7 @@ public class ParadeObjekt {
 	/**
 	 * @param typ the typ to set
 	 */
-	public void setTyp(ParadeObjektTyp typ) {
+	public void setTyp(ParadeObjektTypEnum typ) {
 		this.typ = typ;
 	}
 	/**

@@ -6,6 +6,8 @@ package link.parzival.dsa.object;
 import java.util.ArrayList;
 import java.util.List;
 
+import link.parzival.dsa.object.enumeration.EigenschaftEnum;
+
 /**
  * @author mario
  *

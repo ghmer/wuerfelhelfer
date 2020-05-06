@@ -10,7 +10,7 @@ import link.parzival.dsa.DsaCalculatorUtil;
 import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.ParadeObjekt;
 import link.parzival.dsa.object.WaffenObjekt;
-import link.parzival.dsa.object.WaffenObjekt.Distanzklasse;
+import link.parzival.dsa.object.enumeration.DKEnum;
 import link.parzival.dsa.ui.DzDiceHelperUi;
 import link.parzival.dsa.ui.dialog.DistanceChangeDialog;
 import link.parzival.dsa.ui.dialog.EvasionDialog;
@@ -43,7 +43,7 @@ public class CombatPanel extends JPanel {
 	private JLabel lblRightWeaponHand;
 	private JComboBox<String> comboBoxOwnDK;
 	private JCheckBox chkUseDK;
-	private JComboBox<Distanzklasse> comboBoxCurrentDK;
+	private JComboBox<DKEnum> comboBoxCurrentDK;
 	private JLabel lblCurrentDK;
 	private JLabel lblOwnDK;
 	private JLabel lblNewLabel;
@@ -143,7 +143,7 @@ public class CombatPanel extends JPanel {
 		add(lblCurrentDK);
 		
 		comboBoxCurrentDK = new JComboBox<>();
-		comboBoxCurrentDK.setModel(new DefaultComboBoxModel<Distanzklasse>(Distanzklasse.values()));
+		comboBoxCurrentDK.setModel(new DefaultComboBoxModel<DKEnum>(DKEnum.values()));
 		comboBoxCurrentDK.setBounds(298, 222, 100, 27);
 		add(comboBoxCurrentDK);
 		
@@ -169,7 +169,7 @@ public class CombatPanel extends JPanel {
 		btnAusweichen = new JButton("Ausweichen!");
 		btnAusweichen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EvasionDialog dialog = new EvasionDialog(hero, chkUseDK.isSelected(), chkUseDK.isSelected()? (Distanzklasse)comboBoxCurrentDK.getSelectedItem() : null);
+				EvasionDialog dialog = new EvasionDialog(hero, chkUseDK.isSelected(), chkUseDK.isSelected()? (DKEnum)comboBoxCurrentDK.getSelectedItem() : null);
 				dialog.setFont(getFont());
 				dialog.setLocationRelativeTo(btnAusweichen.getRootPane());
 				switch (dialog.showDialog()) {
@@ -482,10 +482,10 @@ public class CombatPanel extends JPanel {
 	/**
 	 * @return the Distanzklasse of the selected weapon
 	 */
-	public WaffenObjekt.Distanzklasse getSelectedWeaponDistance() {
-		WaffenObjekt.Distanzklasse result = null;
+	public DKEnum getSelectedWeaponDistance() {
+		DKEnum result = null;
 		String selectedItem = (String) comboBoxOwnDK.getSelectedItem();
-		result = Distanzklasse.valueOf(selectedItem);
+		result = DKEnum.valueOf(selectedItem);
 		
 		return result;
 	}
@@ -493,9 +493,9 @@ public class CombatPanel extends JPanel {
 	/**
 	 * @return the Distanzklasse of the Weapon
 	 */
-	public WaffenObjekt.Distanzklasse getCombatWeaponDistance() {
-		WaffenObjekt.Distanzklasse result = null;
-		result = (Distanzklasse) comboBoxCurrentDK.getSelectedItem();
+	public DKEnum getCombatWeaponDistance() {
+		DKEnum result = null;
+		result = (DKEnum) comboBoxCurrentDK.getSelectedItem();
 		
 		return result;
 	}

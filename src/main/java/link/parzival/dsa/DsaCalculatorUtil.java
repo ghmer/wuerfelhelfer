@@ -7,7 +7,7 @@ import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.ParadeObjekt;
 import link.parzival.dsa.object.Sonderfertigkeit;
 import link.parzival.dsa.object.WaffenObjekt;
-import link.parzival.dsa.object.WaffenObjekt.Distanzklasse;
+import link.parzival.dsa.object.enumeration.DKEnum;
 
 /**
  * @author mario
@@ -15,7 +15,12 @@ import link.parzival.dsa.object.WaffenObjekt.Distanzklasse;
  */
 public class DsaCalculatorUtil {
 	
-	public static int getDistanceBetween(WaffenObjekt.Distanzklasse waffenDk, WaffenObjekt.Distanzklasse kampfDk) {
+	/**
+	 * @param waffenDk
+	 * @param kampfDk
+	 * @return
+	 */
+	public static int getDistanceBetween(DKEnum waffenDk, DKEnum kampfDk) {
 		int result = 0;
 		result     = waffenDk.ordinal() - kampfDk.ordinal();
 		
@@ -23,7 +28,15 @@ public class DsaCalculatorUtil {
 		return result;
 	}
 	
-	public static String getEffectiveAttackRoll(WaffenObjekt waffenObjekt, int modificator, boolean useDistanceClass, WaffenObjekt.Distanzklasse kampfDk, WaffenObjekt.Distanzklasse waffenDk) {
+	/**
+	 * @param waffenObjekt
+	 * @param modificator
+	 * @param useDistanceClass
+	 * @param kampfDk
+	 * @param waffenDk
+	 * @return
+	 */
+	public static String getEffectiveAttackRoll(WaffenObjekt waffenObjekt, int modificator, boolean useDistanceClass, DKEnum kampfDk, DKEnum waffenDk) {
 		int attack    = waffenObjekt.getAttacke();
 		attack       -= modificator;
 		String result = String.format("!%s Attacke (Waffe)", attack);
@@ -50,6 +63,10 @@ public class DsaCalculatorUtil {
 		return result;
 	}
 	
+	/**
+	 * @param initiative
+	 * @return
+	 */
 	public static int getAdditionalParadeByInitiative(int initiative) {
 		int additionalParade = 0;
 		
@@ -68,7 +85,16 @@ public class DsaCalculatorUtil {
 		return additionalParade;
 	}
 	
-	public static String getEffectiveWeaponParadeRoll(WaffenObjekt waffenObjekt, int modificator, int initiative, boolean useDistanceClass, WaffenObjekt.Distanzklasse kampfDk, WaffenObjekt.Distanzklasse waffenDk) {
+	/**
+	 * @param waffenObjekt
+	 * @param modificator
+	 * @param initiative
+	 * @param useDistanceClass
+	 * @param kampfDk
+	 * @param waffenDk
+	 * @return
+	 */
+	public static String getEffectiveWeaponParadeRoll(WaffenObjekt waffenObjekt, int modificator, int initiative, boolean useDistanceClass, DKEnum kampfDk, DKEnum waffenDk) {
 		int parade    = waffenObjekt.getParade();
 		int iniParade = getAdditionalParadeByInitiative(initiative);
 		parade		 += iniParade;
@@ -106,7 +132,17 @@ public class DsaCalculatorUtil {
 		return result;
 	}
 	
-	public static String getEffectiveShieldParadeRoll(WaffenObjekt waffenObjekt, ParadeObjekt paradeObjekt, int modificator, int initiative, boolean useDistanceClass, WaffenObjekt.Distanzklasse kampfDk, WaffenObjekt.Distanzklasse waffenDk) {
+	/**
+	 * @param waffenObjekt
+	 * @param paradeObjekt
+	 * @param modificator
+	 * @param initiative
+	 * @param useDistanceClass
+	 * @param kampfDk
+	 * @param waffenDk
+	 * @return
+	 */
+	public static String getEffectiveShieldParadeRoll(WaffenObjekt waffenObjekt, ParadeObjekt paradeObjekt, int modificator, int initiative, boolean useDistanceClass, DKEnum kampfDk, DKEnum waffenDk) {
 		int parade = 0;
 		switch(paradeObjekt.getTyp()) {
 			case Schild 		: {
@@ -147,6 +183,12 @@ public class DsaCalculatorUtil {
 		return result;
 	}
 	
+	/**
+	 * @param hero The HeroObjekt to use
+	 * @param waffe the WaffenObjekt to use
+	 * @param paradeObjekt the ParadeObjekt to use
+	 * @return
+	 */
 	public static String getEffectiveInitiativeRoll(HeldenObjekt hero, WaffenObjekt waffe, ParadeObjekt paradeObjekt) {
 		String result = null;
 		boolean bladedancer = false;
@@ -181,7 +223,15 @@ public class DsaCalculatorUtil {
 		return result;
 	}
 	
-	public static String getEffectiveEvadingRoll(HeldenObjekt hero, int enemyCount, boolean gezieltesAusweichen, boolean withDk, Distanzklasse distanzklasse) {
+	/**
+	 * @param hero The HeroObjekt to use
+	 * @param enemyCount the number of enemies 
+	 * @param gezieltesAusweichen whether to use gezieltes Ausweichen
+	 * @param withDk whether to use Distanzklassen
+	 * @param distanzklasse the Distanzklasse to use
+	 * @return the rollCommand for evasion
+	 */
+	public static String getEffectiveEvadingRoll(HeldenObjekt hero, int enemyCount, boolean gezieltesAusweichen, boolean withDk, DKEnum distanzklasse) {
 		String result 	= null;
 		int effective   = 0;
 		int basis     	= hero.getBasisparade();
@@ -220,6 +270,12 @@ public class DsaCalculatorUtil {
 		return result;
 	}
 
+	/**
+	 * @param waffenObjekt the WaffenObjekt to use
+	 * @param verdoppeln whether to double the stakes
+	 * @param verkuerzen whether to get closer to the enemy
+	 * @return the rollCommand for the distance change
+	 */
 	public static String getChangeDistanceEffectiveRoll(WaffenObjekt waffenObjekt, boolean verdoppeln, boolean verkuerzen) {
 		String result 	= "";
 		int attacke 	= 0;

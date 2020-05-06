@@ -6,14 +6,13 @@ package link.parzival.dsa.object;
 import java.util.ArrayList;
 import java.util.List;
 
+import link.parzival.dsa.object.enumeration.DKEnum;
+
 /**
  * @author mario
  *
  */
 public class WaffenObjekt {
-	public enum Distanzklasse {
-		H,N,S,P
-	}
 	private String name;
 	private String trefferpunkte;
 	private int attacke;
@@ -21,7 +20,7 @@ public class WaffenObjekt {
 	private int initiative;
 	private int waffenModAttacke;
 	private int waffenModParade;
-	private List<Distanzklasse> distanzklassen = new ArrayList<>();
+	private List<DKEnum> distanzklassen = new ArrayList<>();
 	
 	/**
 	 * @return the attacke
@@ -32,7 +31,7 @@ public class WaffenObjekt {
 	/**
 	 * @return the distanzklassen
 	 */
-	public List<Distanzklasse> getDistanzklassen() {
+	public List<DKEnum> getDistanzklassen() {
 		return distanzklassen;
 	}
 	/**
@@ -80,7 +79,7 @@ public class WaffenObjekt {
 	/**
 	 * @param distanzklassen the distanzklassen to set
 	 */
-	public void setDistanzklassen(List<Distanzklasse> distanzklassen) {
+	public void setDistanzklassen(List<DKEnum> distanzklassen) {
 		this.distanzklassen = distanzklassen;
 	}
 	/**
@@ -120,7 +119,7 @@ public class WaffenObjekt {
 		this.waffenModParade = waffenModParade;
 	}
 	
-	public void addDistanzklasse(Distanzklasse distanzklasse) {
+	public void addDistanzklasse(DKEnum distanzklasse) {
 		this.distanzklassen.add(distanzklasse);
 	}
 	

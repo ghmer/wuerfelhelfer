@@ -24,13 +24,14 @@ import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import link.parzival.dsa.object.EigenschaftEnum;
 import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.ParadeObjekt;
 import link.parzival.dsa.object.Sonderfertigkeit;
 import link.parzival.dsa.object.TalentObjekt;
 import link.parzival.dsa.object.WaffenObjekt;
-import link.parzival.dsa.object.WaffenObjekt.Distanzklasse;
+import link.parzival.dsa.object.enumeration.DKEnum;
+import link.parzival.dsa.object.enumeration.EigenschaftEnum;
+import link.parzival.dsa.object.enumeration.ParadeObjektTypEnum;
 
 /**
  * @author mario
@@ -374,11 +375,11 @@ public class HeroHtmlParser {
 		}
 	}
 	
-	private List<Distanzklasse> parseDistanzklassen(String dk) {
-		List<Distanzklasse> distanzklassen = new ArrayList<>();
+	private List<DKEnum> parseDistanzklassen(String dk) {
+		List<DKEnum> distanzklassen = new ArrayList<>();
 		String parseString = dk.trim();
 		for(String s : parseString.split(" ")) {
-			distanzklassen.add(WaffenObjekt.Distanzklasse.valueOf(s));
+			distanzklassen.add(DKEnum.valueOf(s));
 		}
 		
 		return distanzklassen;
@@ -410,7 +411,7 @@ public class HeroHtmlParser {
 			if(name != null && !name.isEmpty()) {
 				ParadeObjekt paradeObjekt = new ParadeObjekt();
 				paradeObjekt.setName(name);
-				paradeObjekt.setTyp(ParadeObjekt.ParadeObjektTyp.valueOf(typ));
+				paradeObjekt.setTyp(ParadeObjektTypEnum.valueOf(typ));
 				paradeObjekt.setIni(Integer.valueOf(ini));
 				parseWaffenModifikator(wm, paradeObjekt);
 				paradeObjekt.setParade(Integer.valueOf(pa));

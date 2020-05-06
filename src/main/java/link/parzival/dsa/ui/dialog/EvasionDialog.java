@@ -10,7 +10,7 @@ import javax.swing.border.EmptyBorder;
 
 import link.parzival.dsa.DsaCalculatorUtil;
 import link.parzival.dsa.object.HeldenObjekt;
-import link.parzival.dsa.object.WaffenObjekt.Distanzklasse;
+import link.parzival.dsa.object.enumeration.DKEnum;
 
 import javax.swing.JLabel;
 import javax.swing.JCheckBox;
@@ -48,7 +48,7 @@ public class EvasionDialog extends JDialog {
 	 * @param withDk whether to use Distanzklassen
 	 * @param distanzklasse the Distanzklasse to use
 	 */
-	public EvasionDialog(HeldenObjekt hero, boolean withDk, Distanzklasse distanzklasse) {
+	public EvasionDialog(HeldenObjekt hero, boolean withDk, DKEnum distanzklasse) {
 		setBounds(100, 100, 450, 130);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setModal(true);
