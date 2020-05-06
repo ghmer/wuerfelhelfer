@@ -1,7 +1,7 @@
 /**
  * 
  */
-package link.parzival.dsa;
+package link.parzival.dsa.object;
 
 import java.util.ArrayList;
 import java.util.List;

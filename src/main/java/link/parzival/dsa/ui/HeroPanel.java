@@ -10,12 +10,12 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 
 import javax.swing.SwingConstants;
-
-import link.parzival.dsa.HeldenObjekt;
-
 import javax.swing.JSpinner;
 import javax.swing.JSpinner.DefaultEditor;
 import javax.swing.event.ChangeListener;
+
+import link.parzival.dsa.object.HeldenObjekt;
+
 import javax.swing.event.ChangeEvent;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;

@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import link.parzival.dsa.DsaCalculatorUtil;
-import link.parzival.dsa.HeldenObjekt;
-import link.parzival.dsa.WaffenObjekt.Distanzklasse;
+import link.parzival.dsa.object.HeldenObjekt;
+import link.parzival.dsa.object.WaffenObjekt.Distanzklasse;
 
 import javax.swing.JLabel;
 import javax.swing.JCheckBox;

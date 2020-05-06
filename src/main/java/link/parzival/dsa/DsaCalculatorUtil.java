@@ -3,7 +3,11 @@
  */
 package link.parzival.dsa;
 
-import link.parzival.dsa.WaffenObjekt.Distanzklasse;
+import link.parzival.dsa.object.HeldenObjekt;
+import link.parzival.dsa.object.ParadeObjekt;
+import link.parzival.dsa.object.Sonderfertigkeit;
+import link.parzival.dsa.object.WaffenObjekt;
+import link.parzival.dsa.object.WaffenObjekt.Distanzklasse;
 
 /**
  * @author mario

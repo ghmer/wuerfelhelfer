@@ -19,8 +19,8 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
-import link.parzival.dsa.HeldenObjekt;
-import link.parzival.dsa.TalentObjekt;
+import link.parzival.dsa.object.HeldenObjekt;
+import link.parzival.dsa.object.TalentObjekt;
 
 import java.awt.Color;
 import javax.swing.ListSelectionModel;

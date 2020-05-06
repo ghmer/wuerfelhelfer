@@ -1,7 +1,7 @@
 /**
  * 
  */
-package link.parzival.dsa;
+package link.parzival.dsa.object;
 
 /**
  * @author mario

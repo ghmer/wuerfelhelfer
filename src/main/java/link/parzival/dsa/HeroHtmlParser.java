@@ -24,7 +24,13 @@ import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import link.parzival.dsa.WaffenObjekt.Distanzklasse;
+import link.parzival.dsa.object.EigenschaftEnum;
+import link.parzival.dsa.object.HeldenObjekt;
+import link.parzival.dsa.object.ParadeObjekt;
+import link.parzival.dsa.object.Sonderfertigkeit;
+import link.parzival.dsa.object.TalentObjekt;
+import link.parzival.dsa.object.WaffenObjekt;
+import link.parzival.dsa.object.WaffenObjekt.Distanzklasse;
 
 /**
  * @author mario

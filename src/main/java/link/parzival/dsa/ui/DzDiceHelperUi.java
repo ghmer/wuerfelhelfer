@@ -8,10 +8,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileFilter;
 
-import link.parzival.dsa.HeldenObjekt;
 import link.parzival.dsa.HeroHtmlParser;
 import link.parzival.dsa.HeroXmlParser;
-import link.parzival.dsa.TalentObjekt;
+import link.parzival.dsa.object.HeldenObjekt;
+import link.parzival.dsa.object.TalentObjekt;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;

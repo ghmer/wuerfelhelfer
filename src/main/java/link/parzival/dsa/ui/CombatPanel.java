@@ -7,9 +7,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 
 import link.parzival.dsa.DsaCalculatorUtil;
-import link.parzival.dsa.HeldenObjekt;
-import link.parzival.dsa.ParadeObjekt;
-import link.parzival.dsa.WaffenObjekt;
+import link.parzival.dsa.object.HeldenObjekt;
+import link.parzival.dsa.object.ParadeObjekt;
+import link.parzival.dsa.object.WaffenObjekt;
+import link.parzival.dsa.object.WaffenObjekt.Distanzklasse;
 
 import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
@@ -21,7 +22,6 @@ import java.awt.Font;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
-import link.parzival.dsa.WaffenObjekt.Distanzklasse;
 import javax.swing.JTextField;
 
 public class CombatPanel extends JPanel {

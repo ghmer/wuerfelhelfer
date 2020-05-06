@@ -7,9 +7,9 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListDataListener;
 
-import link.parzival.dsa.EigenschaftEnum;
-import link.parzival.dsa.HeldenObjekt;
-import link.parzival.dsa.TalentObjekt;
+import link.parzival.dsa.object.EigenschaftEnum;
+import link.parzival.dsa.object.HeldenObjekt;
+import link.parzival.dsa.object.TalentObjekt;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
