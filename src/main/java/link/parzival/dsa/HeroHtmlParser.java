@@ -24,23 +24,13 @@ import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
+import link.parzival.dsa.WaffenObjekt.Distanzklasse;
+
 /**
  * @author mario
  *
  */
 public class HeroHtmlParser {
-	
-	/*
-	public static void main(String[] args) {
-		HeroHtmlParser parser = new HeroHtmlParser();
-		try {
-			HeldenObjekt hero = parser.parseFile(new File("/Users/mario/Desktop/DankwartvonOldenport.html"));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	*/
 	
 	private File massageHtmlFile(File originalFile) {
 		File result = null;
@@ -118,37 +108,23 @@ public class HeroHtmlParser {
 		String countResult 		= xpath.compile(countExpression).evaluate(document);
 		int count = Integer.parseInt(countResult);
 		
+		List<Sonderfertigkeit> sonderfertigkeiten = new ArrayList<>();
+		
 		for(int i = 2; i < count; i++) {
 			String leftExpression 	= "(//div[@class='mitte_innen']/table[@class='sonderfertigkeiten'])/tr["+i+"]/td[1]/text()";
 			String rightExpression	= "(//div[@class='mitte_innen']/table[@class='sonderfertigkeiten'])/tr["+i+"]/td[2]/text()";
 		
-			String leftValue 	= xpath.compile(leftExpression).evaluate(document);
-			String rightValue 	= xpath.compile(rightExpression).evaluate(document);
+			String leftValue 		= xpath.compile(leftExpression).evaluate(document);
+			String rightValue 		= xpath.compile(rightExpression).evaluate(document);
 			
-			if(leftValue.equals("Ausweichen I")) {
-				hero.setAusweichenI(true);
-			}
+			Sonderfertigkeit sf1 	= new Sonderfertigkeit(leftValue);
+			Sonderfertigkeit sf2 	= new Sonderfertigkeit(rightValue);
 			
-			if(rightValue.equals("Ausweichen I")) {
-				hero.setAusweichenI(true);
-			}
-			
-			if(leftValue.equals("Ausweichen II")) {
-				hero.setAusweichenII(true);
-			}
-			
-			if(rightValue.equals("Ausweichen II")) {
-				hero.setAusweichenII(true);
-			}
-			
-			if(leftValue.equals("Ausweichen III")) {
-				hero.setAusweichenIII(true);
-			}
-			
-			if(rightValue.equals("Ausweichen III")) {
-				hero.setAusweichenIII(true);
-			}
+			sonderfertigkeiten.add(sf1);
+			sonderfertigkeiten.add(sf2);
 		}
+		
+		hero.setSonderfertigkeiten(sonderfertigkeiten);
 	}
 
 	private void gatherGesellschaftlich(Document document, XPath xpath, List<TalentObjekt> talente)
@@ -364,6 +340,7 @@ public class HeroHtmlParser {
 		
 		for(int i = 2; i <= count; i++) {
 			String nameExpression 	= "(//table[@class='nkwaffen gitternetz'])/tr["+ i +"]/td[1]/text()";
+			String dkExpression     = "(//table[@class='nkwaffen gitternetz'])/tr["+ i +"]/td[3]/text()";
 			String iniExpression    = "(//table[@class='nkwaffen gitternetz'])/tr["+ i +"]/td[6]/text()";
 			String atExpression     = "(//table[@class='nkwaffen gitternetz'])/tr["+ i +"]/td[8]/text()";
 			String paExpression     = "(//table[@class='nkwaffen gitternetz'])/tr["+ i +"]/td[9]/text()";
@@ -371,6 +348,7 @@ public class HeroHtmlParser {
 			
 			
 			String name  	= xpath.compile(nameExpression).evaluate(document);
+			String dk       = xpath.compile(dkExpression).evaluate(document);
 			String iniStr 	= xpath.compile(iniExpression).evaluate(document);
 			String atStr 	= xpath.compile(atExpression).evaluate(document);
 			String paStr 	= xpath.compile(paExpression).evaluate(document);
@@ -379,6 +357,7 @@ public class HeroHtmlParser {
 			if(name != null && !name.isEmpty()) {
 				WaffenObjekt waffe = new WaffenObjekt();
 				waffe.setName(name);
+				waffe.setDistanzklassen(parseDistanzklassen(dk));
 				waffe.setTrefferpunkte(tpStr);
 				waffe.setAttacke(Integer.parseInt(atStr));
 				waffe.setParade(Integer.parseInt(paStr));
@@ -389,6 +368,67 @@ public class HeroHtmlParser {
 		}
 	}
 	
+	private List<Distanzklasse> parseDistanzklassen(String dk) {
+		List<Distanzklasse> distanzklassen = new ArrayList<>();
+		String parseString = dk.trim();
+		for(String s : parseString.split(" ")) {
+			distanzklassen.add(WaffenObjekt.Distanzklasse.valueOf(s));
+		}
+		
+		return distanzklassen;
+	}
+
+	private void gatherParadeWaffen(Document document, XPath xpath, List<ParadeObjekt> paradewaffenListe)
+			throws XPathExpressionException, Exception {
+		String countExpression 	= "count((//table[@class='schilde gitternetz'])/tr)";
+		String countResult 		= xpath.compile(countExpression).evaluate(document);
+		int count = Integer.parseInt(countResult);
+		
+		for(int i = 2; i <= count; i++) {
+			String nameExpression 	= "(//table[@class='schilde gitternetz'])/tr["+ i +"]/td[1]/text()";
+			String typExpression    = "(//table[@class='schilde gitternetz'])/tr["+ i +"]/td[2]/text()";
+			String iniExpression    = "(//table[@class='schilde gitternetz'])/tr["+ i +"]/td[3]/text()";
+			String wmExpression		= "(//table[@class='schilde gitternetz'])/tr["+ i +"]/td[4]/text()";
+			String paExpression     = "(//table[@class='schilde gitternetz'])/tr["+ i +"]/td[5]/text()";
+			String minBFExpression  = "(//table[@class='schilde gitternetz'])/tr["+ i +"]/td[6]/text()";
+			String aktBFExpression  = "(//table[@class='schilde gitternetz'])/tr["+ i +"]/td[7]/text()";
+			
+			String name 	= xpath.compile(nameExpression).evaluate(document);
+			String typ		= xpath.compile(typExpression).evaluate(document);
+			String ini 		= xpath.compile(iniExpression).evaluate(document);
+			String wm		= xpath.compile(wmExpression).evaluate(document);
+			String pa		= xpath.compile(paExpression).evaluate(document);
+			String minBf	= xpath.compile(minBFExpression).evaluate(document);
+			String aktBf	= xpath.compile(aktBFExpression).evaluate(document);
+			
+			if(name != null && !name.isEmpty()) {
+				ParadeObjekt paradeObjekt = new ParadeObjekt();
+				paradeObjekt.setName(name);
+				paradeObjekt.setTyp(ParadeObjekt.ParadeObjektTyp.valueOf(typ));
+				paradeObjekt.setIni(Integer.valueOf(ini));
+				parseWaffenModifikator(wm, paradeObjekt);
+				paradeObjekt.setParade(Integer.valueOf(pa));
+				paradeObjekt.setMinBf(Integer.valueOf(minBf));
+				paradeObjekt.setAktBf(Integer.valueOf(aktBf));
+				
+				
+				paradewaffenListe.add(paradeObjekt);
+			}
+		}
+	}
+	
+	private void parseWaffenModifikator(String wm, ParadeObjekt paradeObjekt) {
+		int waffenModifikatorAttacke = 0;
+		int waffenModifikatorParade  = 0;
+		
+		String[] split = wm.split("/");
+		waffenModifikatorAttacke = Integer.valueOf(split[0].trim());
+		waffenModifikatorParade  = Integer.valueOf(split[1].trim());
+		
+		paradeObjekt.setWaffenModifikatorAttacke(waffenModifikatorAttacke);
+		paradeObjekt.setWaffenModifikatorParade(waffenModifikatorParade);		
+	}
+
 	private void gatherWissenstalente(Document document, XPath xpath, List<TalentObjekt> talente)
 			throws XPathExpressionException, Exception {
 		//Koerperliche Talente
@@ -519,9 +559,12 @@ public class HeroHtmlParser {
 			hero.setZauber(zauber);
 			
 			List<WaffenObjekt> waffenListe = new ArrayList<>();
-			gatherWaffen(document, xpath, waffenListe);
-			
+			gatherWaffen(document, xpath, waffenListe);			
 			hero.setWaffen(waffenListe);
+			
+			List<ParadeObjekt> paradeObjektListe = new ArrayList<>();
+			gatherParadeWaffen(document, xpath, paradeObjektListe);			
+			hero.setParadeWaffen(paradeObjektListe);
 			
 			int behinderung = gatherBehinderung(document, xpath);
 			hero.setBehinderung(behinderung);
