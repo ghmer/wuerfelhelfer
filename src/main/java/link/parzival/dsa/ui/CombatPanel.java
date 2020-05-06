@@ -69,7 +69,6 @@ public class CombatPanel extends JPanel {
 	HeldenObjekt hero;
 
 	/**
-	 * @param talent the Talent to Display
 	 * @param hero the HeldenObjekt to use
 	 */
 	@SuppressWarnings("unchecked")
@@ -428,11 +427,16 @@ public class CombatPanel extends JPanel {
 		enableDkElements(chkUseDK.isSelected());
 	}
 	
+	/**
+	 * 
+	 */
 	protected void updateDistanzklasse() {
-		comboBoxOwnDK.setModel(new DefaultComboBoxModel<>(getWaffenObjekt().getDistanzklassenAsArray()));
-		
+		comboBoxOwnDK.setModel(new DefaultComboBoxModel<>(getWaffenObjekt().getDistanzklassenAsArray()));	
 	}
 
+	/**
+	 * @param visible whether to set fields visible
+	 */
 	protected void enableDkElements(boolean visible) {
 		lblOwnDK.setVisible(visible);
 		lblCurrentDK.setVisible(visible);
@@ -472,6 +476,9 @@ public class CombatPanel extends JPanel {
 		this.paradeObjekt = paradeObjekt;
 	}
 	
+	/**
+	 * @return the Distanzklasse of the selected weapon
+	 */
 	public WaffenObjekt.Distanzklasse getSelectedWeaponDistance() {
 		WaffenObjekt.Distanzklasse result = null;
 		String selectedItem = (String) comboBoxOwnDK.getSelectedItem();
@@ -480,6 +487,9 @@ public class CombatPanel extends JPanel {
 		return result;
 	}
 	
+	/**
+	 * @return the Distanzklasse of the Weapon
+	 */
 	public WaffenObjekt.Distanzklasse getCombatWeaponDistance() {
 		WaffenObjekt.Distanzklasse result = null;
 		result = (Distanzklasse) comboBoxCurrentDK.getSelectedItem();
@@ -487,12 +497,18 @@ public class CombatPanel extends JPanel {
 		return result;
 	}
 	
+	/**
+	 * @return true or false
+	 */
 	public boolean useDistanceClasses() {
 		boolean useDk = false;
 		useDk = (boolean) chkUseDK.isSelected();
 		return useDk;
 	}
 	
+	/**
+	 * @return the parade modifier
+	 */
 	public int getParadeModifier() {
 		String modStr	= (String) paradeModifier.getSelectedItem();
 		int modIntVal 	= Integer.valueOf(modStr);
@@ -500,6 +516,9 @@ public class CombatPanel extends JPanel {
 		return modIntVal;
 	}
 	
+	/**
+	 * @return the modifier
+	 */
 	public int getAttackeModifier() {
 		String modStr	= (String) attackeModifier.getSelectedItem();
 		int modIntVal 	= Integer.valueOf(modStr);
@@ -507,6 +526,9 @@ public class CombatPanel extends JPanel {
 		return modIntVal;
 	}
 	
+	/**
+	 * @return the initiative
+	 */
 	public int getInitiative() {
 		int ini = hero.getBasisinitiative();
 		String iniStr = null;

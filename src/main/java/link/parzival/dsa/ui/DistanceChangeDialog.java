@@ -44,7 +44,8 @@ public class DistanceChangeDialog extends JDialog {
 	}
 
 	/**
-	 * Create the dialog.
+	 * @param hero the HeldenObjekt to set
+	 * @param waffenObjekt the WaffenObjekt to set
 	 */
 	public DistanceChangeDialog(HeldenObjekt hero, WaffenObjekt waffenObjekt) {
 		setBounds(100, 100, 400, 100);
@@ -109,15 +110,24 @@ public class DistanceChangeDialog extends JDialog {
 		}
 	}
 	
+	/**
+	 * @return the state of the dialog
+	 */
 	public int showDialog() {
 		setVisible(true);
 		return state;
 	}
 
+	/**
+	 * @return the rollCommand
+	 */
 	public String getRollCommand() {
 		return rollCommand;
 	}
 
+	/**
+	 * @param rollCommand the rollCommand to set
+	 */
 	public void setRollCommand(String rollCommand) {
 		this.rollCommand = rollCommand;
 	}

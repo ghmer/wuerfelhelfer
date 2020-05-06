@@ -44,7 +44,9 @@ public class EvasionDialog extends JDialog {
 	private JComboBox<String> comboBoxEnemyCount;
 
 	/**
-	 * Create the dialog.
+	 * @param hero the HeldenObjekt to set
+	 * @param withDk whether to use Distanzklassen
+	 * @param distanzklasse the Distanzklasse to use
 	 */
 	public EvasionDialog(HeldenObjekt hero, boolean withDk, Distanzklasse distanzklasse) {
 		setBounds(100, 100, 450, 130);
@@ -147,10 +149,12 @@ public class EvasionDialog extends JDialog {
 		this.rollCommand = rollCommand;
 	}
 
+	/**
+	 * @return the state of the dialog
+	 */
 	public int showDialog() {
 		setVisible(true);
-        return state;
-		
+        return state;	
 	}
 
 }
