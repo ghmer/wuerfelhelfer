@@ -2,7 +2,6 @@ package link.parzival.dsa.ui;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
@@ -15,9 +14,6 @@ import link.parzival.dsa.TalentObjekt;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 
 public class AbilityPanel extends JPanel {
@@ -150,14 +146,7 @@ public class AbilityPanel extends JPanel {
 												effectiveModifier,
 												talent.getName());
 				
-				System.out.println(rollCommand);
-				
-				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-				StringSelection selection = new StringSelection(rollCommand);
-				clipboard.setContents(selection, null);
-				
-				JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
-				
+				DzDiceHelperUi.copyToClipboard(rollCommand);
 			}
 		});
 		btnCreateRoll.setBounds(589, 29, 70, 29);

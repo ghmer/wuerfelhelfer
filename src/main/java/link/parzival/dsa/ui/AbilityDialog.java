@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 
-public class AbilityDialogUi extends JDialog {
+public class AbilityDialog extends JDialog {
 
 	private enum AbilityTypeEnum {
 		Talent, Magie
@@ -46,9 +46,8 @@ public class AbilityDialogUi extends JDialog {
 	
 	private JTextField textField;
     private JTable table = null;
-    // Cause it's really nice to know what the use did
-    // ie canceled, okay'ed, didn't find results, what ever...
     private int state = CANCEL_STATE;
+    
     
     private String selectedAbilityName = null;
 	private JComboBox<AbilityTypeEnum> comboBox;
@@ -56,7 +55,7 @@ public class AbilityDialogUi extends JDialog {
 	/**
 	 * @param hero the HeldenObjekt to use
 	 */
-	public AbilityDialogUi(HeldenObjekt hero) {
+	public AbilityDialog(HeldenObjekt hero) {
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setModal(true);
 		setBounds(100, 100, 450, 298);
@@ -74,7 +73,6 @@ public class AbilityDialogUi extends JDialog {
 			
 			@Override
 			public void changedUpdate(DocumentEvent e) {
-				//System.out.println("update " + e);
 				
 			}
 			
