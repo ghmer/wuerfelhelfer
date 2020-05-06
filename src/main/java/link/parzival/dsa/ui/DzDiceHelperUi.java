@@ -12,7 +12,6 @@ import link.parzival.dsa.HeldenObjekt;
 import link.parzival.dsa.HeroHtmlParser;
 import link.parzival.dsa.HeroXmlParser;
 import link.parzival.dsa.TalentObjekt;
-import link.parzival.dsa.WaffenObjekt;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -32,18 +31,17 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 
 public class DzDiceHelperUi extends JFrame {
 
-	public void copyToClipboard(String text) {
+	public static void copyToClipboard(String text) {
 		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 		StringSelection selection = new StringSelection(text);
 		clipboard.setContents(selection, null);
 		
 		JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
 	}
+	
 	/**
 	 * 
 	 */
@@ -72,20 +70,13 @@ public class DzDiceHelperUi extends JFrame {
 	private Font customHeroNameFont;
 	
 	private HeldenObjekt hero;
-	private HeroPanel currentHero = null;
+	private HeroPanel currentHeroPanel = null;
 	private AbilityPanel currentAbility = null;
 	private String selectedAbilityName;
 	private JButton btnPruefungWaehlen;
 	private JSeparator separatorTalentChoseButtonDown;
 	private JSeparator separatorTalentChoseButtonUp;
-	private JSeparator separatorFightUp;
-	private JSeparator separatorFightDown;
-	private JComboBox<String> comboBoxWaffe;
-	private JButton btnInitiative;
-	private JButton btnAusweichen;
-	private JButton btnVerteidigen;
-	private JButton btnAngriff;
-	private JButton btnSchaden;
+	private CombatPanel currentCombatPanel;
 	
 	/**
 	 * Create the frame.
@@ -100,15 +91,15 @@ public class DzDiceHelperUi extends JFrame {
 		setFont(customMainFont);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 670, 475);
+		setBounds(100, 100, 670, 610);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenu menuFile = new JMenu("File");
+		JMenu menuFile = new JMenu("Datei");
 		menuBar.add(menuFile);
 		
-		JMenuItem menuItemLoadXml = new JMenuItem("load XML");
+		JMenuItem menuItemLoadXml = new JMenuItem("lade XML");
 		menuItemLoadXml.setEnabled(false);
 		menuItemLoadXml.addActionListener(new ActionListener() {
 			@Override
@@ -142,7 +133,7 @@ public class DzDiceHelperUi extends JFrame {
 		});
 		menuFile.add(menuItemLoadXml);
 		
-		JMenuItem menuItemLoadHtml = new JMenuItem("load HTML");
+		JMenuItem menuItemLoadHtml = new JMenuItem("lade HTML");
 		menuItemLoadHtml.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -220,10 +211,11 @@ public class DzDiceHelperUi extends JFrame {
 		btnPruefungWaehlen.setVisible(false);
 		btnPruefungWaehlen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AbilityDialogUi dialog = new AbilityDialogUi(hero);
+				AbilityDialog dialog = new AbilityDialog(hero);
 				dialog.setFont(customMainFont);
+				dialog.setLocationRelativeTo(contentPane);
 				switch (dialog.showDialog()) {
-			    case AbilityDialogUi.OK_STATE:
+			    case AbilityDialog.OK_STATE:
 			    	setSelectedAbilityName(dialog.getSelectedAbility());
 			        break;
 				}
@@ -240,7 +232,7 @@ public class DzDiceHelperUi extends JFrame {
 				
 				if(talentObjekt != null) {
 					AbilityPanel ap = new AbilityPanel(talentObjekt, hero);
-					ap.setBounds(6, 250, 658, 60);				
+					ap.setBounds(6, 250, 658, 60);
 					if(currentAbility != null) {
 						contentPane.remove(currentAbility);
 					}
@@ -258,127 +250,6 @@ public class DzDiceHelperUi extends JFrame {
 		separatorTalentChoseButtonDown.setVisible(false);
 		separatorTalentChoseButtonDown.setBounds(6, 240, 658, 12);
 		contentPane.add(separatorTalentChoseButtonDown);
-		
-		separatorFightUp = new JSeparator();
-		separatorFightUp.setVisible(false);
-		separatorFightUp.setBounds(6, 338, 658, 12);
-		contentPane.add(separatorFightUp);
-		
-		separatorFightDown = new JSeparator();
-		separatorFightDown.setVisible(false);
-		separatorFightDown.setBounds(6, 413, 658, 12);
-		contentPane.add(separatorFightDown);
-		
-		comboBoxWaffe = new JComboBox<>();
-		comboBoxWaffe.setVisible(false);
-		comboBoxWaffe.setBounds(6, 349, 658, 27);
-		contentPane.add(comboBoxWaffe);
-		
-		btnInitiative = new JButton("Initiative!");
-		btnInitiative.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String waffenName 	= (String)comboBoxWaffe.getSelectedItem();
-				WaffenObjekt waffe  = hero.getWaffeByName(waffenName);
-				int waffenIni 		= waffe.getInitiative();
-				int behinderung		= hero.getBehinderung();
-				int berechneteIni 	= (hero.getBasisinitiative() + waffenIni) - behinderung;
-				
-				String kommando     = String.format("(1w6+%s) Initiative", berechneteIni);
-				
-				copyToClipboard(kommando);
-			}
-		});
-		btnInitiative.setVisible(false);
-		btnInitiative.setBounds(6, 388, 120, 29);
-		contentPane.add(btnInitiative);
-		
-		btnAusweichen = new JButton("Ausweichen!");
-		btnAusweichen.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int basisVerteidigung = hero.getBasisparade();
-				if(hero.isAusweichenI()) {
-					basisVerteidigung += 3;
-				}
-				
-				if(hero.isAusweichenII()) {
-					basisVerteidigung += 3;
-				}
-				
-				if(hero.isAusweichenIII()) {
-					basisVerteidigung += 3;
-				}
-				
-				basisVerteidigung -= hero.getBehinderung();
-				
-				String kommando     = String.format("!%s Ausweichen", basisVerteidigung);
-				
-				copyToClipboard(kommando);
-			}
-		});
-		btnAusweichen.setVisible(false);
-		btnAusweichen.setBounds(544, 388, 120, 29);
-		contentPane.add(btnAusweichen);
-		
-		btnVerteidigen = new JButton("Verteidigen!");
-		btnVerteidigen.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String waffenName 	= (String)comboBoxWaffe.getSelectedItem();
-				WaffenObjekt waffe  = hero.getWaffeByName(waffenName);
-				
-				String kommando     = String.format("!%s Parade", waffe.getParade());
-				
-				copyToClipboard(kommando);
-			}
-		});
-		btnVerteidigen.setVisible(false);
-		btnVerteidigen.setBounds(412, 388, 120, 29);
-		contentPane.add(btnVerteidigen);
-		
-		btnAngriff = new JButton("Angriff!");
-		btnAngriff.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String waffenName 	= (String)comboBoxWaffe.getSelectedItem();
-				WaffenObjekt waffe  = hero.getWaffeByName(waffenName);
-				
-				String kommando     = String.format("!%s Attacke", waffe.getAttacke());
-				
-				copyToClipboard(kommando);
-			}
-		});
-		btnAngriff.setVisible(false);
-		btnAngriff.setBounds(138, 388, 120, 29);
-		contentPane.add(btnAngriff);
-		
-		btnSchaden = new JButton("Schaden!");
-		btnSchaden.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String waffenName 	= (String)comboBoxWaffe.getSelectedItem();
-				WaffenObjekt waffe  = hero.getWaffeByName(waffenName);
-				
-				String kommando     = formatWaffenSchaden(waffe.getTrefferpunkte());
-				
-				copyToClipboard(kommando);
-			}
-
-			public String formatWaffenSchaden(String trefferpunkte) {
-				String result = null;
-				
-				if(trefferpunkte.contains("+")) {
-					String[] parts = trefferpunkte.split("\\+");
-					result = String.format("(%s6+%s)", parts[0].toLowerCase(), parts[1].toLowerCase());
-				} else if(trefferpunkte.contains("-")) {
-					String[] parts = trefferpunkte.split("\\-");
-					result = String.format("(%s6-%s)", parts[0].toLowerCase(), parts[1].toLowerCase());
-				} else {
-					result = String.format("(%s6)", trefferpunkte.toLowerCase());
-				}
-				
-				return result;
-			}
-		});
-		btnSchaden.setVisible(false);
-		btnSchaden.setBounds(270, 388, 130, 29);
-		contentPane.add(btnSchaden);
 	}
 
 	private Font getFontFromResource(String pathToFont) {
@@ -411,14 +282,16 @@ public class DzDiceHelperUi extends JFrame {
 		return this.selectedAbilityName;
 	}
 
-	protected void populateFields(HeldenObjekt hero) {
-		comboBoxWaffe.setModel(new DefaultComboBoxModel<String>(hero.getWaffenNamenAsArray()));
-		
-	}
 	
 	private void prepareView() {
-		if(currentHero != null) {
-			contentPane.remove(currentHero);
+		if(currentHeroPanel != null) {
+			contentPane.remove(currentHeroPanel);
+			contentPane.repaint();
+			contentPane.updateUI();
+		}
+		
+		if(currentCombatPanel != null) {
+			contentPane.remove(currentCombatPanel);
 			contentPane.repaint();
 			contentPane.updateUI();
 		}
@@ -428,10 +301,16 @@ public class DzDiceHelperUi extends JFrame {
 		HeroPanel hp = new HeroPanel(hero);
 		hp.setBounds(6, 6, 658, 175);
 		hp.setFont(customMainFont);
-		currentHero = hp;
+		currentHeroPanel = hp;
 		contentPane.add(hp);
+		
+		CombatPanel cp = new CombatPanel(hero);
+		cp.setBounds(6,310,658,260);
+		cp.setFont(customMainFont);
+		currentCombatPanel = cp;
+		contentPane.add(cp);
+		
 		setItemVisibility();
-		populateFields(hero);
 		contentPane.repaint();
 		contentPane.updateUI();
 	}
@@ -440,14 +319,7 @@ public class DzDiceHelperUi extends JFrame {
 		separatorTalentChoseButtonDown.setVisible(true);
 		separatorTalentChoseButtonUp.setVisible(true);
 		btnPruefungWaehlen.setVisible(true);
-		separatorFightDown.setVisible(true);
-		separatorFightDown.setVisible(true);
-		comboBoxWaffe.setVisible(true);
-		btnInitiative.setVisible(true);
-		btnAngriff.setVisible(true);
-		btnAusweichen.setVisible(true);
-		btnVerteidigen.setVisible(true);
-		btnSchaden.setVisible(true);
+		
 	}
 
 	protected void setSelectedAbilityName(String selectedAbility) {
