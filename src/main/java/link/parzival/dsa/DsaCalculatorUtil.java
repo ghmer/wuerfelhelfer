@@ -16,9 +16,9 @@ import link.parzival.dsa.object.enumeration.DKEnum;
 public class DsaCalculatorUtil {
 	
 	/**
-	 * @param waffenDk
-	 * @param kampfDk
-	 * @return
+	 * @param waffenDk the distanzklasse of the current weapon
+	 * @param kampfDk the distanzklasse of the combat (aka current distanzklasse)
+	 * @return integer defining the distance between the current weapon distanzklasse and the combat distanzklasse
 	 */
 	public static int getDistanceBetween(DKEnum waffenDk, DKEnum kampfDk) {
 		int result = 0;
@@ -29,12 +29,12 @@ public class DsaCalculatorUtil {
 	}
 	
 	/**
-	 * @param waffenObjekt
-	 * @param modificator
-	 * @param useDistanceClass
-	 * @param kampfDk
-	 * @param waffenDk
-	 * @return
+	 * @param waffenObjekt the WaffenObjekt
+	 * @param modificator another modificator
+	 * @param useDistanceClass whether to use Distanzklassen
+	 * @param kampfDk Distanzklasse of the combat
+	 * @param waffenDk Distanzklasse of the weapon
+	 * @return the rollCommand
 	 */
 	public static String getEffectiveAttackRoll(WaffenObjekt waffenObjekt, int modificator, boolean useDistanceClass, DKEnum kampfDk, DKEnum waffenDk) {
 		int attack    = waffenObjekt.getAttacke();
@@ -64,8 +64,8 @@ public class DsaCalculatorUtil {
 	}
 	
 	/**
-	 * @param initiative
-	 * @return
+	 * @param initiative the initiative
+	 * @return the additional parade by the initiative
 	 */
 	public static int getAdditionalParadeByInitiative(int initiative) {
 		int additionalParade = 0;
@@ -86,13 +86,13 @@ public class DsaCalculatorUtil {
 	}
 	
 	/**
-	 * @param waffenObjekt
-	 * @param modificator
-	 * @param initiative
-	 * @param useDistanceClass
-	 * @param kampfDk
-	 * @param waffenDk
-	 * @return
+	 * @param waffenObjekt the WaffenObjekt
+	 * @param modificator another modificator
+	 * @param initiative the initiative to use
+	 * @param useDistanceClass whether to use Distanzklassen
+	 * @param kampfDk Distanzklasse of the combat
+	 * @param waffenDk Distanzklasse of the weapon
+	 * @return the rollCommand
 	 */
 	public static String getEffectiveWeaponParadeRoll(WaffenObjekt waffenObjekt, int modificator, int initiative, boolean useDistanceClass, DKEnum kampfDk, DKEnum waffenDk) {
 		int parade    = waffenObjekt.getParade();
@@ -133,14 +133,14 @@ public class DsaCalculatorUtil {
 	}
 	
 	/**
-	 * @param waffenObjekt
-	 * @param paradeObjekt
-	 * @param modificator
-	 * @param initiative
-	 * @param useDistanceClass
-	 * @param kampfDk
-	 * @param waffenDk
-	 * @return
+	 * @param waffenObjekt the WaffenObjekt
+	 * @param paradeObjekt the ParadeObjekt
+	 * @param modificator another modificator
+	 * @param initiative the initiative to use
+	 * @param useDistanceClass whether to use Distanzklassen
+	 * @param kampfDk Distanzklasse of the combat
+	 * @param waffenDk Distanzklasse of the weapon
+	 * @return the rollCommand
 	 */
 	public static String getEffectiveShieldParadeRoll(WaffenObjekt waffenObjekt, ParadeObjekt paradeObjekt, int modificator, int initiative, boolean useDistanceClass, DKEnum kampfDk, DKEnum waffenDk) {
 		int parade = 0;
@@ -187,7 +187,7 @@ public class DsaCalculatorUtil {
 	 * @param hero The HeroObjekt to use
 	 * @param waffe the WaffenObjekt to use
 	 * @param paradeObjekt the ParadeObjekt to use
-	 * @return
+	 * @return the rollCommand
 	 */
 	public static String getEffectiveInitiativeRoll(HeldenObjekt hero, WaffenObjekt waffe, ParadeObjekt paradeObjekt) {
 		String result = null;
