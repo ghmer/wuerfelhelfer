@@ -538,6 +538,10 @@ public class HeldenObjekt {
 	public void addParadeWaffe(ParadeObjekt paradeObjekt) {
 		this.paradeWaffen.add(paradeObjekt);
 	}
+	
+	public void addWaffe(WaffenObjekt waffenObjekt) {
+		this.waffen.add(waffenObjekt);
+	}
 
 	public ParadeObjekt getParadeWaffeByName(String paradeObjektName) {
 		ParadeObjekt paradeObjekt = null;

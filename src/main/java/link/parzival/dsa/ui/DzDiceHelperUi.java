@@ -96,7 +96,7 @@ public class DzDiceHelperUi extends JFrame {
 		setFont(customMainFont);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 670, 610);
+		setBounds(100, 100, 730, 610);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -207,7 +207,7 @@ public class DzDiceHelperUi extends JFrame {
 		
 		
 		separatorTalentChoseButtonUp = new JSeparator();
-		separatorTalentChoseButtonUp.setBounds(6, 200, 658, 12);
+		separatorTalentChoseButtonUp.setBounds(6, 200, 720, 12);
 		separatorTalentChoseButtonUp.setVisible(false);
 		contentPane.add(separatorTalentChoseButtonUp);
 		
@@ -237,7 +237,7 @@ public class DzDiceHelperUi extends JFrame {
 				
 				if(talentObjekt != null) {
 					AbilityPanel ap = new AbilityPanel(talentObjekt, hero);
-					ap.setBounds(6, 250, 658, 60);
+					ap.setBounds(6, 250, 720, 60);
 					if(currentAbility != null) {
 						contentPane.remove(currentAbility);
 					}
@@ -248,12 +248,12 @@ public class DzDiceHelperUi extends JFrame {
 				
 			}
 		});
-		btnPruefungWaehlen.setBounds(6, 210, 658, 29);
+		btnPruefungWaehlen.setBounds(6, 210, 720, 29);
 		contentPane.add(btnPruefungWaehlen);
 		
 		separatorTalentChoseButtonDown = new JSeparator();
 		separatorTalentChoseButtonDown.setVisible(false);
-		separatorTalentChoseButtonDown.setBounds(6, 240, 658, 12);
+		separatorTalentChoseButtonDown.setBounds(6, 240, 720, 12);
 		contentPane.add(separatorTalentChoseButtonDown);
 	}
 
@@ -304,13 +304,13 @@ public class DzDiceHelperUi extends JFrame {
 		btnPruefungWaehlen.setEnabled(true);
 		
 		HeroPanel hp = new HeroPanel(hero);
-		hp.setBounds(6, 6, 658, 175);
+		hp.setBounds(6, 6, 720, 175);
 		hp.setFont(customMainFont);
 		currentHeroPanel = hp;
 		contentPane.add(hp);
 		
 		CombatPanel cp = new CombatPanel(hero);
-		cp.setBounds(6,310,658,260);
+		cp.setBounds(6,310,720,260);
 		cp.setFont(customMainFont);
 		currentCombatPanel = cp;
 		contentPane.add(cp);

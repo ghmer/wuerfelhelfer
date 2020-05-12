@@ -30,6 +30,9 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class AbilityDialog extends JDialog {
 
@@ -44,7 +47,7 @@ public class AbilityDialog extends JDialog {
 	public static final int CANCEL_STATE = 1;
 	private final JPanel contentPanel = new JPanel();
 	
-	private JTextField textField;
+	private JTextField textFieldSearch;
     private JTable table = null;
     private int state = CANCEL_STATE;
     
@@ -62,14 +65,18 @@ public class AbilityDialog extends JDialog {
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(null);
+		GridBagLayout gbl_contentPanel = new GridBagLayout();
+		gbl_contentPanel.columnWidths = new int[]{326, 102, 0};
+		gbl_contentPanel.rowHeights = new int[]{28, 0, 12, 0};
+		gbl_contentPanel.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+		contentPanel.setLayout(gbl_contentPanel);
 		
-		textField = new JTextField();
-		textField.setBounds(6, 5, 326, 26);
-		textField.setFocusable(true);
-		textField.requestFocusInWindow();
-		textField.grabFocus();
-		textField.getDocument().addDocumentListener(new DocumentListener() {
+		textFieldSearch = new JTextField();
+		textFieldSearch.setFocusable(true);
+		textFieldSearch.requestFocusInWindow();
+		textFieldSearch.grabFocus();
+		textFieldSearch.getDocument().addDocumentListener(new DocumentListener() {
 			
 			@Override
 			public void changedUpdate(DocumentEvent e) {
@@ -87,24 +94,49 @@ public class AbilityDialog extends JDialog {
 				
 			}
 		});
-		contentPanel.add(textField);
-		textField.setColumns(10);
+		GridBagConstraints gbc_textFieldSearch = new GridBagConstraints();
+		gbc_textFieldSearch.anchor = GridBagConstraints.NORTH;
+		gbc_textFieldSearch.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldSearch.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldSearch.gridx = 0;
+		gbc_textFieldSearch.gridy = 0;
+		contentPanel.add(textFieldSearch, gbc_textFieldSearch);
+		textFieldSearch.setColumns(10);
 		
 		comboBox = new JComboBox<>();
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textField.setText("");
+				textFieldSearch.setText("");
 			}
 		});
 		comboBox.setModel(new DefaultComboBoxModel<AbilityTypeEnum>(AbilityTypeEnum.values()));
 		comboBox.setSelectedIndex(0);
 		comboBox.transferFocus();
-		comboBox.setBounds(344, 6, 100, 27);
-		contentPanel.add(comboBox);
+		GridBagConstraints gbc_comboBox = new GridBagConstraints();
+		gbc_comboBox.anchor = GridBagConstraints.SOUTH;
+		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBox.insets = new Insets(0, 0, 5, 0);
+		gbc_comboBox.gridx = 1;
+		gbc_comboBox.gridy = 0;
+		contentPanel.add(comboBox, gbc_comboBox);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(6, 36, 440, 12);
-		contentPanel.add(separator);
+		GridBagConstraints gbc_separator = new GridBagConstraints();
+		gbc_separator.insets = new Insets(0, 0, 5, 0);
+		gbc_separator.fill = GridBagConstraints.BOTH;
+		gbc_separator.gridwidth = 2;
+		gbc_separator.gridx = 0;
+		gbc_separator.gridy = 1;
+		contentPanel.add(separator, gbc_separator);
+		
+		table = new JTable();
+		GridBagConstraints gbc_table_1 = new GridBagConstraints();
+		gbc_table_1.gridwidth = 2;
+		gbc_table_1.insets = new Insets(0, 0, 0, 5);
+		gbc_table_1.fill = GridBagConstraints.BOTH;
+		gbc_table_1.gridx = 0;
+		gbc_table_1.gridy = 2;
+		contentPanel.add(table, gbc_table_1);
 		
 		{
 			JPanel buttonPane = new JPanel();
@@ -122,6 +154,8 @@ public class AbilityDialog extends JDialog {
 			}
 		}
 	}
+	
+	
 	
 	private void generateTable(HeldenObjekt hero, DocumentEvent e) {
 		Document document = e.getDocument();
@@ -196,17 +230,23 @@ public class AbilityDialog extends JDialog {
 				});
 				
 				table.setBorder(new LineBorder(new Color(0, 0, 0)));
-				
-				table.setBounds(6, 52, 438, 179);
+
+				GridBagConstraints gbc_table_1 = new GridBagConstraints();
+				gbc_table_1.gridwidth = 2;
+				gbc_table_1.insets = new Insets(0, 0, 0, 5);
+				gbc_table_1.fill = GridBagConstraints.BOTH;
+				gbc_table_1.gridx = 0;
+				gbc_table_1.gridy = 2;
 				table.repaint();
 				
-				contentPanel.add((table));
+				contentPanel.add(table, gbc_table_1);
 				contentPanel.updateUI();
 				this.table = table;
 			}
 			
 		}
 	}
+	
 
 	public String getSelectedAbility() {
 		return selectedAbilityName;

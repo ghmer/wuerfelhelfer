@@ -21,6 +21,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class EvasionDialog extends JDialog {
 
@@ -55,54 +58,78 @@ public class EvasionDialog extends JDialog {
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(null);
 		{
-			chkboxGezieltesAusweichen = new JCheckBox("gezieltes Ausweichen");
-			chkboxGezieltesAusweichen.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					JCheckBox source = (JCheckBox) e.getSource();
-					gezieltesAusweichen = source.isSelected();
+			GridBagLayout gbl_contentPanel = new GridBagLayout();
+			gbl_contentPanel.columnWidths = new int[]{175, 51, 125, 75, 0};
+			gbl_contentPanel.rowHeights = new int[]{27, 16, 0};
+			gbl_contentPanel.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+			gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+			contentPanel.setLayout(gbl_contentPanel);
+			{
+				lblEvasionNotPossible = new JLabel("Bei mehr als 3 Gegnern ist das Ausweichen nicht mehr möglich!");
+				lblEvasionNotPossible.setForeground(Color.RED);
+				lblEvasionNotPossible.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+				lblEvasionNotPossible.setVisible(false);
+				{
+					comboBoxEnemyCount = new JComboBox<>();
+					comboBoxEnemyCount.setModel(new DefaultComboBoxModel<String>(new String[] {"1", "2", "3", "mehr"}));
+					comboBoxEnemyCount.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							@SuppressWarnings("unchecked")
+							JComboBox<String> cb = (JComboBox<String>) e.getSource();
+							String selection     = (String)cb.getSelectedItem();
+							
+							if(selection.equalsIgnoreCase("mehr")) {
+								lblEvasionNotPossible.setVisible(true);
+								okButton.setEnabled(false);
+							} else {
+								enemyCount = Integer.parseInt(selection);
+								lblEvasionNotPossible.setVisible(false);
+								okButton.setEnabled(true);
+							}				
+						}
+					});
+					chkboxGezieltesAusweichen = new JCheckBox("gezieltes Ausweichen");
+					chkboxGezieltesAusweichen.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							JCheckBox source = (JCheckBox) e.getSource();
+							gezieltesAusweichen = source.isSelected();
+						}
+					});
+					GridBagConstraints gbc_chkboxGezieltesAusweichen = new GridBagConstraints();
+					gbc_chkboxGezieltesAusweichen.anchor = GridBagConstraints.NORTH;
+					gbc_chkboxGezieltesAusweichen.fill = GridBagConstraints.HORIZONTAL;
+					gbc_chkboxGezieltesAusweichen.insets = new Insets(0, 0, 5, 5);
+					gbc_chkboxGezieltesAusweichen.gridx = 0;
+					gbc_chkboxGezieltesAusweichen.gridy = 0;
+					contentPanel.add(chkboxGezieltesAusweichen, gbc_chkboxGezieltesAusweichen);
+					{
+						JLabel lblEnemyCount = new JLabel("Anzahl der Gegner");
+						lblEnemyCount.setHorizontalAlignment(SwingConstants.TRAILING);
+						GridBagConstraints gbc_lblEnemyCount = new GridBagConstraints();
+						gbc_lblEnemyCount.fill = GridBagConstraints.HORIZONTAL;
+						gbc_lblEnemyCount.insets = new Insets(0, 0, 5, 5);
+						gbc_lblEnemyCount.gridx = 2;
+						gbc_lblEnemyCount.gridy = 0;
+						contentPanel.add(lblEnemyCount, gbc_lblEnemyCount);
+					}
+					GridBagConstraints gbc_comboBoxEnemyCount = new GridBagConstraints();
+					gbc_comboBoxEnemyCount.anchor = GridBagConstraints.NORTH;
+					gbc_comboBoxEnemyCount.fill = GridBagConstraints.HORIZONTAL;
+					gbc_comboBoxEnemyCount.insets = new Insets(0, 0, 5, 0);
+					gbc_comboBoxEnemyCount.gridx = 3;
+					gbc_comboBoxEnemyCount.gridy = 0;
+					contentPanel.add(comboBoxEnemyCount, gbc_comboBoxEnemyCount);
 				}
-			});
-			chkboxGezieltesAusweichen.setBounds(6, 6, 175, 23);
-			contentPanel.add(chkboxGezieltesAusweichen);
-		}
-		{
-			JLabel lblEnemyCount = new JLabel("Anzahl der Gegner");
-			lblEnemyCount.setHorizontalAlignment(SwingConstants.TRAILING);
-			lblEnemyCount.setBounds(232, 10, 125, 16);
-			contentPanel.add(lblEnemyCount);
-		}
-		{
-			comboBoxEnemyCount = new JComboBox<>();
-			comboBoxEnemyCount.setModel(new DefaultComboBoxModel<String>(new String[] {"1", "2", "3", "mehr"}));
-			comboBoxEnemyCount.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					@SuppressWarnings("unchecked")
-					JComboBox<String> cb = (JComboBox<String>) e.getSource();
-					String selection     = (String)cb.getSelectedItem();
-					
-					if(selection.equalsIgnoreCase("mehr")) {
-						lblEvasionNotPossible.setVisible(true);
-						okButton.setEnabled(false);
-					} else {
-						enemyCount = Integer.parseInt(selection);
-						lblEvasionNotPossible.setVisible(false);
-						okButton.setEnabled(true);
-					}				
-				}
-			});
-			comboBoxEnemyCount.setBounds(369, 6, 75, 27);
-			contentPanel.add(comboBoxEnemyCount);
-		}
-		{
-			lblEvasionNotPossible = new JLabel("Bei mehr als 3 Gegnern ist das Ausweichen nicht mehr möglich!");
-			lblEvasionNotPossible.setForeground(Color.RED);
-			lblEvasionNotPossible.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-			lblEvasionNotPossible.setVisible(false);
-			lblEvasionNotPossible.setHorizontalAlignment(SwingConstants.CENTER);
-			lblEvasionNotPossible.setBounds(6, 44, 438, 16);
-			contentPanel.add(lblEvasionNotPossible);
+				lblEvasionNotPossible.setHorizontalAlignment(SwingConstants.CENTER);
+				GridBagConstraints gbc_lblEvasionNotPossible = new GridBagConstraints();
+				gbc_lblEvasionNotPossible.anchor = GridBagConstraints.NORTH;
+				gbc_lblEvasionNotPossible.fill = GridBagConstraints.HORIZONTAL;
+				gbc_lblEvasionNotPossible.gridwidth = 4;
+				gbc_lblEvasionNotPossible.gridx = 0;
+				gbc_lblEvasionNotPossible.gridy = 1;
+				contentPanel.add(lblEvasionNotPossible, gbc_lblEvasionNotPossible);
+			}
 		}
 		{
 			JPanel buttonPane = new JPanel();

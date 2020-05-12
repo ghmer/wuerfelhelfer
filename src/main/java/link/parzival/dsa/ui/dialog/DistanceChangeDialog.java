@@ -18,6 +18,9 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class DistanceChangeDialog extends JDialog {
 
@@ -56,27 +59,48 @@ public class DistanceChangeDialog extends JDialog {
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(null);
+		GridBagLayout gbl_contentPanel = new GridBagLayout();
+		gbl_contentPanel.columnWidths = new int[]{125, 30, 64, 125, 0};
+		gbl_contentPanel.rowHeights = new int[]{28, 0};
+		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		contentPanel.setLayout(gbl_contentPanel);
 		
 		comboBoxDirection = new JComboBox<Hopser>();
 		comboBoxDirection.setModel(new DefaultComboBoxModel<Hopser>(Hopser.values()));
-		comboBoxDirection.setBounds(6, 6, 125, 27);
-		contentPanel.add(comboBoxDirection);
+		GridBagConstraints gbc_comboBoxDirection = new GridBagConstraints();
+		gbc_comboBoxDirection.anchor = GridBagConstraints.SOUTH;
+		gbc_comboBoxDirection.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxDirection.insets = new Insets(0, 0, 0, 5);
+		gbc_comboBoxDirection.gridx = 0;
+		gbc_comboBoxDirection.gridy = 0;
+		contentPanel.add(comboBoxDirection, gbc_comboBoxDirection);
 		
 		JLabel lblNewLabel = new JLabel("um");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(143, 10, 30, 16);
-		contentPanel.add(lblNewLabel);
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblNewLabel.insets = new Insets(0, 0, 0, 5);
+		gbc_lblNewLabel.gridx = 1;
+		gbc_lblNewLabel.gridy = 0;
+		contentPanel.add(lblNewLabel, gbc_lblNewLabel);
 		
 		distanzklassenAenderung = new JComboBox<Integer>();
 		distanzklassenAenderung.setModel(new DefaultComboBoxModel<Integer>(new Integer[] {1, 2}));
 		distanzklassenAenderung.setSelectedIndex(0);
-		distanzklassenAenderung.setBounds(185, 5, 64, 26);
-		contentPanel.add(distanzklassenAenderung);
+		GridBagConstraints gbc_distanzklassenAenderung = new GridBagConstraints();
+		gbc_distanzklassenAenderung.anchor = GridBagConstraints.NORTHWEST;
+		gbc_distanzklassenAenderung.insets = new Insets(0, 0, 0, 5);
+		gbc_distanzklassenAenderung.gridx = 2;
+		gbc_distanzklassenAenderung.gridy = 0;
+		contentPanel.add(distanzklassenAenderung, gbc_distanzklassenAenderung);
 		
 		JLabel lblNewLabel_1 = new JLabel("Distanzklassen");
-		lblNewLabel_1.setBounds(269, 10, 125, 16);
-		contentPanel.add(lblNewLabel_1);
+		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+		gbc_lblNewLabel_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblNewLabel_1.gridx = 3;
+		gbc_lblNewLabel_1.gridy = 0;
+		contentPanel.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
