@@ -96,7 +96,7 @@ public class DzDiceHelperUi extends JFrame {
 		setFont(customMainFont);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 730, 610);
+		setBounds(100, 100, 730, 650);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -310,7 +310,7 @@ public class DzDiceHelperUi extends JFrame {
 		contentPane.add(hp);
 		
 		CombatPanel cp = new CombatPanel(hero);
-		cp.setBounds(6,310,720,260);
+		cp.setBounds(6,310,720,300);
 		cp.setFont(customMainFont);
 		currentCombatPanel = cp;
 		contentPane.add(cp);
