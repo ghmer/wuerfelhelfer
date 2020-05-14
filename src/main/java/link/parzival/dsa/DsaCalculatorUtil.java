@@ -3,6 +3,9 @@
  */
 package link.parzival.dsa;
 
+import java.util.List;
+
+import link.parzival.dsa.object.FernwaffenObjekt;
 import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.ParadeObjekt;
 import link.parzival.dsa.object.Sonderfertigkeit;
@@ -24,6 +27,332 @@ public class DsaCalculatorUtil {
 		int result = 0;
 		result     = waffenDk.ordinal() - kampfDk.ordinal();
 		
+		
+		return result;
+	}
+	
+	/**
+	 * @param groesse groesse des Ziels
+	 * @param modifikator zusätzliche Erschwernis
+	 * @param halbdeckung Ziel hinter Halbdeckung
+	 * @param dreivierteldeckung Ziel hinter Dreivierteldeckung
+	 * @return Erschwernis
+	 */
+	public static int getFernkampfGroessenModifikator(String groesse, int modifikator, boolean halbdeckung, boolean dreivierteldeckung) {
+		int result = 0;
+		switch(groesse.toLowerCase()) {
+		case "winzig" 		: result += 8; break;
+		case "sehr klein" 	: result += 6; break;
+		case "klein" 		: result += 4; break;
+		case "mittel" 		: result += 2; break;
+		case "groß" 		: result += 0; break;
+		case "sehr groß" 	: result += -2; break;
+		}
+		
+		result += modifikator;
+		if(halbdeckung) result += 2;
+		if(dreivierteldeckung) result += 4;
+			
+		return result;
+	}
+	
+	/**
+	 * @param entfernung Entfernung zum Ziel
+	 * @return Erschwernis
+	 */
+	public static int getFernkampfEntfernungsModifikator(String entfernung) {
+		int result = 0;
+		switch(entfernung.toLowerCase()) {
+		case "sehr nah" 	: result += -2; break;
+		case "nah" 			: result +=  0; break;
+		case "mittel" 		: result +=  4; break;
+		case "weit" 		: result +=  8; break;
+		case "extrem weit"	: result += 12; break;
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * @param bewegung Bewegung des Ziels
+	 * @param anzahlGegnerInDistanzH Anzahl der Gegner in Distanz H (bei Kampfgetümmel)
+	 * @param anzahlGegnerInDistanzNS Anzahl der Gegner in Distanz NS (bei Kampfgetümmel)
+	 * @return Erschwernis
+	 */
+	public static int getFernkampfBewegungsModifikator(String bewegung, int anzahlGegnerInDistanzH, int anzahlGegnerInDistanzNS) {
+		int result = 0;
+		switch(bewegung.toLowerCase()) {
+		case "unbewegliches / fest montiertes ziel" 		: result += -4; break;
+		case "stillstehendes ziel" 							: result += -2; break;
+		case "leichte bewegung des ziels"	 				: result +=  0; break;
+		case "schnelle bewegung des ziels" 					: result +=  2; break;
+		case "sehr schnelle bewegung / ausweichbewegungen"	: result +=  4; break;
+		case "kampfgetümmel": {
+			result += (anzahlGegnerInDistanzH * 2) + (anzahlGegnerInDistanzNS * 3);
+		}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * @param lichtquelle Die aktuellen Lichtverhältnisse
+	 * @param dunst Ist es Dunstig
+	 * @param nebel Ist es Neblig
+	 * @param entfernungssinn Hat man den Vorteil Entfernungssinn 
+	 * @param daemmerungssicht Hat man den Vorteil Dämmerungssicht
+	 * @param nachtsicht Hat man den Vorteil Nachtsicht
+	 * @param einaeugig Hat man den Nachteil Einäugig
+	 * @param farbenblind Hat man den Nachteil Farbenblind
+	 * @param kurzsichtig Hat man den Nachteil Kurzsichtig
+	 * @param nachtblind Hat man den Nachteil Nachtblind
+	 * @return Erschwernis
+	 */
+	public static int getFernkampfSichtModifikator(String lichtquelle,
+			boolean dunst, 
+			boolean nebel, 
+			boolean entfernungssinn,
+			boolean daemmerungssicht,
+			boolean nachtsicht,
+			boolean einaeugig,
+			boolean farbenblind,
+			boolean kurzsichtig,
+			boolean nachtblind,
+			String entfernung, 
+			FernwaffenObjekt fernwaffe) 
+	{
+		//TODO: unsichtbar und vorteile/nachteile
+		int result = 0;
+		
+		switch(lichtquelle.toLowerCase()) {
+		case "tageslicht" 		: result += 0; break;
+		case "dämmerung" 		: result += (nachtblind) ? 4 : (daemmerungssicht || nachtsicht) ? 1 : 2; break;
+		case "mondlicht" 		: result += (nachtblind) ? 8 : (daemmerungssicht || nachtsicht) ? 2 : 4; break;
+		case "sternenlicht" 	: result += (nachtblind) ? 8 : (daemmerungssicht || nachtsicht) ? 3 : 6; break;
+		case "finsternis" 		: result += (nachtblind) ? 8 : (daemmerungssicht || nachtsicht) ? 4 : 8; break;
+		case "unsichtbares ziel": result += 8; break;
+		}
+		
+		int entfernungMax = fernwaffe.getEntfernungByName(entfernung);		
+		if(einaeugig) {
+			if(entfernungMax <= 10) {
+				result += 4;
+			}
+		}
+		
+		if(farbenblind) {
+			if(entfernungMax >= 50) {
+				result += 4;
+			}
+		}
+		
+		if(kurzsichtig) {
+			if(entfernungMax >= 100) {
+				result += 10;
+			}
+		}
+		
+		if(dunst) result += 2;
+		if(nebel) result += 4;
+		
+		return result;
+	}
+	
+	/**
+	 * @param modifikatoren Liste der gewählten Modifikatoren
+	 * @param schuetzentyp Schützentyp (Normal, Scharfschütze, Meisterschütze)
+	 * @param ansage Freiwillige Ansage
+	 * @param zielen Erleichterung durch Zielen
+	 * @return Erschwernis
+	 */
+	public static int getFernkampfModifikatorenModifikator(List<String> modifikatoren, String schuetzentyp, int ansage, int zielen) {
+		int result = 0;
+		int schuetzentypInt = 0;
+		
+		switch(schuetzentyp.toLowerCase()) {
+		case "scharfschütze" : schuetzentypInt = 1;
+		case "meisterschütze": schuetzentypInt = 2;
+		default: schuetzentypInt = 0;
+		}
+		
+		for(String mod : modifikatoren) {
+			if(mod.equals("Steilschuss nach unten")) 		result += 2;
+			if(mod.equals("Steilwurf nach unten")) 			result += 2;
+			if(mod.equals("Steilschuss nach oben")) 		result += 4;
+			if(mod.equals("Steilwurf nach oben")) 			result += 8;
+			if(mod.equals("böiger Seitenwind")) 			result += 4;
+			if(mod.equals("starker böiger Seitenwind")) 	result += 8;
+			if(mod.equals("Schnellschuss")) 				result += (2 - schuetzentypInt);
+			if(mod.equals("Gegner unter Wasser")) 			result += 5;
+			if(mod.equals("zweiter Schuss pro KR")) 		result += 4;
+			if(mod.equals("zweiter Wurf pro KR")) 			result += 2;
+			if(mod.equals("Schuss von stehendem Tier")) 	result += 2;
+			if(mod.equals("Wurf von stehendem Tier")) 		result += 1;
+			if(mod.equals("Schuss vom Reittier im Schritt"))result += 4;
+			if(mod.equals("Wurf vom Reittier im Schritt")) 	result += 2;
+			if(mod.equals("Schuss im Galopp")) 				result += 8;
+			if(mod.equals("Wurf im Galopp")) 				result += 4;
+			if(mod.equals("Schuss ohne Sattel")) 			result += 4;
+			if(mod.equals("Wurf ohne Sattel")) 				result += 2;
+		}
+		
+		result += ansage;
+		result -= zielen;
+		
+		return result;
+	}
+	
+	/**
+	 * @param schuetzentyp Schützentyp (Normal, Scharfschütze, Meisterschütze)
+	 * @param humanoidesZiel ist das Ziel Humanoid oder ein Tier
+	 * @param trefferzone gewählte Trefferzone
+	 * @param zielgroesse Größe des Ziels (benötigt für Schwanztreffer bei Tieren)
+	 * @return Erschwernis
+	 */
+	public static int getFernkampfGezielterSchussModifikator(String schuetzentyp, boolean humanoidesZiel, boolean inBewegung, String trefferzone, String zielgroesse) {
+		int result = 0;
+		int zielgroeseInt = 0;
+		switch(zielgroesse.toLowerCase()) {
+		case "winzig" 		: zielgroeseInt += 8; break;
+		case "sehr klein" 	: zielgroeseInt += 6; break;
+		case "klein" 		: zielgroeseInt += 4; break;
+		case "mittel" 		: zielgroeseInt += 2; break;
+		case "groß" 		: zielgroeseInt += 0; break;
+		case "sehr groß" 	: zielgroeseInt += 0; break;
+		}
+		
+		if(humanoidesZiel) {
+			switch(trefferzone.toLowerCase()) {
+			case "kopf"  : {
+				switch(schuetzentyp.toLowerCase()) {
+				case "scharfschütze"    : result +=  7; break;
+				case "meisterschütze"   : result +=  5; break;
+				default: result += 10; break;
+				}
+				break;
+			}
+			case "brust" : {
+				switch(schuetzentyp.toLowerCase()) {
+				case "scharfschütze"    : result += 4; break;
+				case "meisterschütze"   : result += 3; break;
+				default: result += 6; break;
+				}
+				break;
+			}
+			case "arme"  : {
+				switch(schuetzentyp.toLowerCase()) {
+				case "scharfschütze"    : result +=  7; break;
+				case "meisterschütze"   : result +=  5; break;
+				default: result += 10; break;
+				}
+				break;
+			}
+			case "bauch" : {
+				switch(schuetzentyp.toLowerCase()) {
+				case "scharfschütze"    : result += 4; break;
+				case "meisterschütze"   : result += 3; break;
+				default: result += 6; break;
+				}
+				break;
+			}
+			case "beine" : {
+				switch(schuetzentyp.toLowerCase()) {
+				case "scharfschütze"    : result += 5; break;
+				case "meisterschütze"   : result += 4; break;
+				default: result += 8; break;
+				}
+				break;
+			}
+			case "hand"  : {
+				switch(schuetzentyp.toLowerCase()) {
+				case "scharfschütze"    : result += 11; break;
+				case "meisterschütze"   : result +=  8; break;
+				default: result += 16; break;
+				}
+				break;
+			}
+			case "fuß"   : {
+				switch(schuetzentyp.toLowerCase()) {
+				case "scharfschütze"    : result += 11; break;
+				case "meisterschütze"   : result +=  8; break;
+				default: result += 16; break;
+				}
+				break;
+			}
+			case "auge"  : {
+				switch(schuetzentyp.toLowerCase()) {
+				case "scharfschütze"    : result += 13; break;
+				case "meisterschütze"   : result += 10; break;
+				default: result += 20; break;
+				}
+				break;
+			}
+			case "herz"  : {
+				switch(schuetzentyp.toLowerCase()) {
+				case "scharfschütze"    : result += 13; break;
+				case "meisterschütze"   : result += 10; break;
+				default: result += 20; break;
+				}
+				break;
+			}
+			}
+		} else {
+
+			switch(trefferzone.toLowerCase()) {
+			case "rumpf"  : {
+				switch(schuetzentyp.toLowerCase()) {
+				case "scharfschütze"    : result += 3; break;
+				case "meisterschütze"   : result += 2; break;
+				default: result += 4; break;
+				}
+				break;
+			}
+			case "bein" : {
+				switch(schuetzentyp.toLowerCase()) {
+				case "scharfschütze"    : result +=  7; break;
+				case "meisterschütze"   : result +=  5; break;
+				default: result += 10; break;
+				}
+				break;
+			}
+			case "verwundbare stelle"  : {
+				switch(schuetzentyp.toLowerCase()) {
+				case "scharfschütze"    : result +=  8; break;
+				case "meisterschütze"   : result +=  6; break;
+				default: result += 12; break;
+				}
+				break;
+			}
+			case "kopf" : {
+				switch(schuetzentyp.toLowerCase()) {
+				case "scharfschütze"    : result += 11; break;
+				case "meisterschütze"   : result +=  8; break;
+				default: result += 16; break;
+				}
+				break;
+			}
+			case "schwanz" : {
+				switch(schuetzentyp.toLowerCase()) {
+				case "scharfschütze"    : result += (8 + zielgroeseInt); break;
+				case "meisterschütze"   : result += (5 + zielgroeseInt); break;
+				default: result += (4 + zielgroeseInt); break;
+				}
+				break;
+			}
+			case "sinnesorgane"  : {
+				switch(schuetzentyp.toLowerCase()) {
+				case "scharfschütze"    : result += 11; break;
+				case "meisterschütze"   : result +=  8; break;
+				default: result += 16; break;
+				}
+				break;
+			}
+			}
+		}
+		
+		if(inBewegung) {
+			result += 2;
+		}
 		
 		return result;
 	}
@@ -266,6 +595,13 @@ public class DsaCalculatorUtil {
 		
 		effective = (((basis - behinderung) - enemyBe) - distanzklassenErschwernis) + sfMod;
 		result    = String.format("!%s Ausweichen", effective);
+		
+		return result;
+	}
+	
+	public static String getFernkampfRollCommand(int fk, int erschwernis) {
+		String result 	= null;
+		result    = String.format("!%s,+%s Fernkampf", fk, erschwernis);
 		
 		return result;
 	}
