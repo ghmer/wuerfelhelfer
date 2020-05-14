@@ -26,4 +26,13 @@
       </plugin>
     </plugins>
   </build>
+    <ciManagement>
+    	<system>Jenkins</system>
+    	<url>https://jenkins.whisperedshouts.de/jenkins</url>
+    </ciManagement>
+    <organization>
+    	<name>Parzival Apps</name>
+    	<url>https://parzival.link</url>
+    </organization>
+    <url>https://parzival.link</url>
 </project>
