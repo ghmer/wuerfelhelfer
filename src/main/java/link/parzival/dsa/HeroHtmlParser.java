@@ -438,7 +438,7 @@ public class HeroHtmlParser {
 			String tpExpression     = "(//table[@class='fkwaffen gitternetz'])/tr["+ i +"]/td[3]/text()";
 			String distExpression	= "(//table[@class='fkwaffen gitternetz'])/tr["+ i +"]/td[4]/text()";
 			String tpDistExpression = "(//table[@class='fkwaffen gitternetz'])/tr["+ i +"]/td[5]/text()";
-			//String fkExpression 	= "(//table[@class='fkwaffen gitternetz'])/tr["+ i +"]/td[6]/text()";
+			String fkExpression 	= "(//table[@class='fkwaffen gitternetz'])/tr["+ i +"]/td[6]/text()";
 			//String ammoExpression   = "(//table[@class='fkwaffen gitternetz'])/tr["+ i +"]/td[7]/text()";
 			
 			String name 	= xpath.compile(nameExpression).evaluate(document);
@@ -446,13 +446,14 @@ public class HeroHtmlParser {
 			String tp 		= xpath.compile(tpExpression).evaluate(document);
 			String dist		= xpath.compile(distExpression).evaluate(document);
 			String tpDist	= xpath.compile(tpDistExpression).evaluate(document);
-			//String fk		= xpath.compile(fkExpression).evaluate(document);
+			String fk		= xpath.compile(fkExpression).evaluate(document);
 			//String ammo		= xpath.compile(ammoExpression).evaluate(document);
 			
 			if(name != null && !name.isEmpty()) {
 				FernwaffenObjekt fernwaffenObjekt = new FernwaffenObjekt();
 				fernwaffenObjekt.setName(name);
 				fernwaffenObjekt.setTp(tp);
+				fernwaffenObjekt.setFk(Integer.parseInt(fk));
 				setFernwaffeTypeAndBehinderung(fernwaffenObjekt, typBe);
 				setFernwaffeEntfernung(fernwaffenObjekt, dist);
 				setFernwaffeTpEntfernung(fernwaffenObjekt, tpDist);
