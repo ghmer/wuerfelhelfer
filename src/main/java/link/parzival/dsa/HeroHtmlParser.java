@@ -24,6 +24,7 @@ import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
+import link.parzival.dsa.object.FernwaffenObjekt;
 import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.ParadeObjekt;
 import link.parzival.dsa.object.Sonderfertigkeit;
@@ -31,6 +32,7 @@ import link.parzival.dsa.object.TalentObjekt;
 import link.parzival.dsa.object.WaffenObjekt;
 import link.parzival.dsa.object.enumeration.DKEnum;
 import link.parzival.dsa.object.enumeration.EigenschaftEnum;
+import link.parzival.dsa.object.enumeration.FernwaffenTypEnum;
 import link.parzival.dsa.object.enumeration.ParadeObjektTypEnum;
 
 /**
@@ -58,7 +60,7 @@ public class HeroHtmlParser {
 						.replaceAll("&Auml;", "Ä")
 						.replaceAll("&Ouml;", "Ö")
 						.replaceAll("&Uuml;", "Ü")
-						.replaceAll("&szlig;", "ß");
+						.replaceAll("&szlig;", "ss");
 				
 				wr.write(modLine);
 			}
@@ -424,6 +426,78 @@ public class HeroHtmlParser {
 		}
 	}
 	
+	private void gatherFernwaffen(Document document, XPath xpath, List<FernwaffenObjekt> fernwaffenListe)
+			throws XPathExpressionException, Exception {
+		String countExpression 	= "count((//table[@class='fkwaffen gitternetz'])/tr)";
+		String countResult 		= xpath.compile(countExpression).evaluate(document);
+		int count = Integer.parseInt(countResult);
+		
+		for(int i = 2; i <= count; i++) {
+			String nameExpression 	= "(//table[@class='fkwaffen gitternetz'])/tr["+ i +"]/td[1]/text()";
+			String typBeExpression  = "(//table[@class='fkwaffen gitternetz'])/tr["+ i +"]/td[2]/text()";
+			String tpExpression     = "(//table[@class='fkwaffen gitternetz'])/tr["+ i +"]/td[3]/text()";
+			String distExpression	= "(//table[@class='fkwaffen gitternetz'])/tr["+ i +"]/td[4]/text()";
+			String tpDistExpression = "(//table[@class='fkwaffen gitternetz'])/tr["+ i +"]/td[5]/text()";
+			//String fkExpression 	= "(//table[@class='fkwaffen gitternetz'])/tr["+ i +"]/td[6]/text()";
+			//String ammoExpression   = "(//table[@class='fkwaffen gitternetz'])/tr["+ i +"]/td[7]/text()";
+			
+			String name 	= xpath.compile(nameExpression).evaluate(document);
+			String typBe	= xpath.compile(typBeExpression).evaluate(document);
+			String tp 		= xpath.compile(tpExpression).evaluate(document);
+			String dist		= xpath.compile(distExpression).evaluate(document);
+			String tpDist	= xpath.compile(tpDistExpression).evaluate(document);
+			//String fk		= xpath.compile(fkExpression).evaluate(document);
+			//String ammo		= xpath.compile(ammoExpression).evaluate(document);
+			
+			if(name != null && !name.isEmpty()) {
+				FernwaffenObjekt fernwaffenObjekt = new FernwaffenObjekt();
+				fernwaffenObjekt.setName(name);
+				fernwaffenObjekt.setTp(tp);
+				setFernwaffeTypeAndBehinderung(fernwaffenObjekt, typBe);
+				setFernwaffeEntfernung(fernwaffenObjekt, dist);
+				setFernwaffeTpEntfernung(fernwaffenObjekt, tpDist);
+				
+				fernwaffenListe.add(fernwaffenObjekt);
+			}
+		}
+	}
+	
+	private void setFernwaffeTypeAndBehinderung(FernwaffenObjekt fernwaffenObjekt, String typBe) {
+		String typ = null;
+		String be  = null;
+		
+		if(typBe != null && typBe.contains("/")) {
+			String[] parts = typBe.split("/");
+			typ = parts[0].trim();
+			be  = parts[1].trim();
+		}
+				
+		if(typ != null && !typ.isEmpty()) {
+			FernwaffenTypEnum typEnum = FernwaffenTypEnum.valueOf(typ);
+			fernwaffenObjekt.setTyp(typEnum);	
+		}
+		
+		if(be != null && !be.isEmpty()) {
+			fernwaffenObjekt.setBe(be);
+		}
+	}
+
+	private void setFernwaffeEntfernung(FernwaffenObjekt fernwaffenObjekt, String dist) {
+		String[] distances = dist.split("/");
+		for(String distance : distances) {
+			fernwaffenObjekt.addEntfernung(Integer.parseInt(distance.trim()));
+		}
+ 		
+	}
+
+	private void setFernwaffeTpEntfernung(FernwaffenObjekt fernwaffenObjekt, String tpDist) {
+		String[] distances = tpDist.split("/");
+		for(String distance : distances) {
+			fernwaffenObjekt.addTpEntfernung(Integer.parseInt(distance.trim()));
+		}
+		
+	}
+
 	private void parseWaffenModifikator(String wm, ParadeObjekt paradeObjekt) {
 		int waffenModifikatorAttacke = 0;
 		int waffenModifikatorParade  = 0;
@@ -572,6 +646,10 @@ public class HeroHtmlParser {
 			List<ParadeObjekt> paradeObjektListe = new ArrayList<>();
 			gatherParadeWaffen(document, xpath, paradeObjektListe);			
 			hero.setParadeWaffen(paradeObjektListe);
+			
+			List<FernwaffenObjekt> fernwaffenListe = new ArrayList<>();
+			gatherFernwaffen(document, xpath, fernwaffenListe);
+			hero.setFernWaffen(fernwaffenListe);
 			
 			int behinderung = gatherBehinderung(document, xpath);
 			hero.setBehinderung(behinderung);
