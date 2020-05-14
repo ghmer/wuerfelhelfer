@@ -106,6 +106,8 @@ public class DsaCalculatorUtil {
 	 * @param farbenblind Hat man den Nachteil Farbenblind
 	 * @param kurzsichtig Hat man den Nachteil Kurzsichtig
 	 * @param nachtblind Hat man den Nachteil Nachtblind
+	 * @param entfernung die Entfernung zum Ziel
+	 * @param fernwaffe das FernwaffenObjekt
 	 * @return Erschwernis
 	 */
 	public static int getFernkampfSichtModifikator(String lichtquelle,
@@ -121,7 +123,6 @@ public class DsaCalculatorUtil {
 			String entfernung, 
 			FernwaffenObjekt fernwaffe) 
 	{
-		//TODO: unsichtbar und vorteile/nachteile
 		int result = 0;
 		
 		switch(lichtquelle.toLowerCase()) {
@@ -203,8 +204,9 @@ public class DsaCalculatorUtil {
 	}
 	
 	/**
-	 * @param schuetzentyp Schützentyp (Normal, Scharfschütze, Meisterschütze)
+	 @param schuetzentyp Schützentyp (Normal, Scharfschütze, Meisterschütze)
 	 * @param humanoidesZiel ist das Ziel Humanoid oder ein Tier
+	 * @param inBewegung ist das Körperteil in Bewegung?
 	 * @param trefferzone gewählte Trefferzone
 	 * @param zielgroesse Größe des Ziels (benötigt für Schwanztreffer bei Tieren)
 	 * @return Erschwernis
