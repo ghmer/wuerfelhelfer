@@ -38,6 +38,7 @@ public class HeldenObjekt {
 	private List<TalentObjekt> zauber  = new ArrayList<>(); 
 	private List<WaffenObjekt> waffen  = new ArrayList<>();
 	private List<ParadeObjekt> paradeWaffen = new ArrayList<>();
+	private List<FernwaffenObjekt> fernWaffen = new ArrayList<>();
 	
 	private List<Sonderfertigkeit> sonderfertigkeiten = new ArrayList<>();
 	
@@ -493,6 +494,10 @@ public class HeldenObjekt {
 		return paradeWaffen;
 	}
 	
+	public List<FernwaffenObjekt> getFernWaffen() {
+		return fernWaffen;
+	}
+	
 	/** 
 	 * @return the waffenNamen
 	 */
@@ -500,6 +505,15 @@ public class HeldenObjekt {
 		List<String> result = new ArrayList<>();
 		for(ParadeObjekt po : getParadeWaffen()) {
 			result.add(po.getName());
+		}
+		
+		return result;
+	}
+	
+	public List<String> getFernWaffenNamen() {
+		List<String> result = new ArrayList<>();
+		for(FernwaffenObjekt fo : getFernWaffen()) {
+			result.add(fo.getName());
 		}
 		
 		return result;
@@ -517,12 +531,26 @@ public class HeldenObjekt {
 		
 		return result;
 	}
+	
+	public String[] getFernWaffenNamenAsArray() {
+		int size = fernWaffen.size();
+		String[] result = new String[size];
+		for(int i = 0; i < size; i++) {
+			result[i] = fernWaffen.get(i).getName();
+		}
+		
+		return result;
+	}
 
 	/**
 	 * @return the waffenNamen
 	 */
 	public List<String> getParadeWaffenNamenAsList() {
 		return getParadeWaffenNamen();
+	}
+	
+	public List<String> getFernWaffenNamenAsList() {
+		return getFernWaffenNamen();
 	}
 
 	/**
@@ -532,11 +560,19 @@ public class HeldenObjekt {
 		this.paradeWaffen = paradeWaffen;
 	}
 	
+	public void setFernWaffen(List<FernwaffenObjekt> fernWaffen) {
+		this.fernWaffen = fernWaffen;
+	}
+	
 	/**
 	 * @param paradeObjekt the paradeObjekt to add
 	 */
 	public void addParadeWaffe(ParadeObjekt paradeObjekt) {
 		this.paradeWaffen.add(paradeObjekt);
+	}
+	
+	public void addFernwaffe(FernwaffenObjekt fernwaffenObjekt) {
+		this.fernWaffen.add(fernwaffenObjekt);
 	}
 	
 	public void addWaffe(WaffenObjekt waffenObjekt) {
@@ -552,5 +588,16 @@ public class HeldenObjekt {
 			}
 		}
 		return paradeObjekt;
+	}
+	
+	public FernwaffenObjekt getFernWaffeByName(String fernwaffenName) {
+		FernwaffenObjekt fernWaffenObjekt = null;
+		for(FernwaffenObjekt fernObj : getFernWaffen()) {
+			if(fernObj.getName().equalsIgnoreCase(fernwaffenName)) {
+				fernWaffenObjekt = fernObj;
+				break;
+			}
+		}
+		return fernWaffenObjekt;
 	}
 }
