@@ -20,6 +20,7 @@ public class FernwaffenObjekt {
 	private List<Integer> entfernungList = new ArrayList<>();
 	private String tp;
 	private List<Integer> tpEnfernungList = new ArrayList<>();
+	private int fk;
 	/**
 	 * @return the name
 	 */
@@ -114,6 +115,18 @@ public class FernwaffenObjekt {
 	
 	public void addEntfernung(Integer entfernung) {
 		this.entfernungList.add(entfernung);
+	}
+	/**
+	 * @return the fk
+	 */
+	public int getFk() {
+		return fk;
+	}
+	/**
+	 * @param fk the fk to set
+	 */
+	public void setFk(int fk) {
+		this.fk = fk;
 	}
 
 }
