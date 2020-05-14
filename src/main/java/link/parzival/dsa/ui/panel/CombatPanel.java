@@ -150,7 +150,7 @@ public class CombatPanel extends JPanel {
 				dialog.setFont(getFont());
 				dialog.setLocationRelativeTo(btnFernkampf.getRootPane());
 				switch (dialog.showDialog()) {
-			    case DistanceChangeDialog.OK_STATE:
+			    case FernkampfDialog.OK_STATE:
 			    	DzDiceHelperUi.copyToClipboard(dialog.getRollCommand());
 			        break;
 				}
@@ -373,13 +373,11 @@ public class CombatPanel extends JPanel {
 			
 			@Override
 			public void addListDataListener(ListDataListener l) {
-				// TODO Auto-generated method stub
 				
 			}
 
 			@Override
 			public String getElementAt(int index) {
-				// TODO Auto-generated method stub
 				return modifiers[index];
 			}
 
@@ -390,13 +388,11 @@ public class CombatPanel extends JPanel {
 
 			@Override
 			public int getSize() {
-				// TODO Auto-generated method stub
 				return modifiers.length;
 			}
 
 			@Override
 			public void removeListDataListener(ListDataListener l) {
-				// TODO Auto-generated method stub
 				
 			}
 
@@ -508,13 +504,11 @@ public class CombatPanel extends JPanel {
 			
 			@Override
 			public void addListDataListener(ListDataListener l) {
-				// TODO Auto-generated method stub
 				
 			}
 
 			@Override
 			public String getElementAt(int index) {
-				// TODO Auto-generated method stub
 				return modifiers[index];
 			}
 
@@ -525,13 +519,11 @@ public class CombatPanel extends JPanel {
 
 			@Override
 			public int getSize() {
-				// TODO Auto-generated method stub
 				return modifiers.length;
 			}
 
 			@Override
 			public void removeListDataListener(ListDataListener l) {
-				// TODO Auto-generated method stub
 				
 			}
 
