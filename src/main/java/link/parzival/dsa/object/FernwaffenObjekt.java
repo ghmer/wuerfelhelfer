@@ -44,6 +44,21 @@ public class FernwaffenObjekt {
 	public List<Integer> getEntfernungList() {
 		return entfernungList;
 	}
+	
+	public int getEntfernungByName(String entfernung) {
+		int index  = 0;
+		
+		switch(entfernung.toLowerCase()) {
+		case "sehr nah"	: index = 0; break;
+		case "nah"		: index = 1; break;
+		case "mittel"	: index = 2; break;
+		case "weit"		: index = 3; break;
+		case "sehr weit": index = 4; break;
+		default: index = 0;
+		}
+		
+		return getEntfernungList().get(index);
+	}
 	/**
 	 * @return the tp
 	 */
