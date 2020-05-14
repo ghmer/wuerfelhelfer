@@ -88,6 +88,8 @@ public class FernkampfDialog extends JDialog {
 	private JLabel lblErschwernisBewegungValue 			= new JLabel();
 	private JLabel lblErschwernisEntfernungValue 		= new JLabel();
 	private JLabel lblErschwernisZielgroesseValue 		= new JLabel();
+	
+	private int erschwernis = 0;
 
 	/**
 	 * Create the dialog.
@@ -849,6 +851,8 @@ public class FernkampfDialog extends JDialog {
 				gbl_zielPanel_1.columnWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
 				gbl_zielPanel_1.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 				zielPanel_1.setLayout(gbl_zielPanel_1);
+				
+				ButtonGroup gezielterSchussGroup = new ButtonGroup();
 
 				lblZielHumanoid = new JLabel("Humanoid");
 				lblZielHumanoid.setVerticalAlignment(SwingConstants.TOP);
@@ -859,95 +863,104 @@ public class FernkampfDialog extends JDialog {
 				gbc_lblNewLabel_5.gridy = 0;
 				zielPanel_1.add(lblZielHumanoid, gbc_lblNewLabel_5);
 
-				JRadioButton rdbtnNewRadioButton = new JRadioButton("Kopf");
-				rdbtnNewRadioButton.setEnabled(false);
+				JRadioButton radioZielHumanoidKopf = new JRadioButton("Kopf");
+				gezielterSchussGroup.add(radioZielHumanoidKopf);
+				radioZielHumanoidKopf.setEnabled(false);
 				GridBagConstraints gbc_rdbtnNewRadioButton = new GridBagConstraints();
 				gbc_rdbtnNewRadioButton.anchor = GridBagConstraints.WEST;
 				gbc_rdbtnNewRadioButton.insets = new Insets(0, 0, 5, 5);
 				gbc_rdbtnNewRadioButton.gridx = 0;
 				gbc_rdbtnNewRadioButton.gridy = 1;
-				zielPanel_1.add(rdbtnNewRadioButton, gbc_rdbtnNewRadioButton);
-				zielHumanoidGroup.add(rdbtnNewRadioButton);
+				zielPanel_1.add(radioZielHumanoidKopf, gbc_rdbtnNewRadioButton);
+				zielHumanoidGroup.add(radioZielHumanoidKopf);
 
-				JRadioButton rdbtnNewRadioButton_5 = new JRadioButton("Hand");
-				rdbtnNewRadioButton_5.setEnabled(false);
+				JRadioButton radioZielHumanoidHand = new JRadioButton("Hand");
+				gezielterSchussGroup.add(radioZielHumanoidHand);
+				radioZielHumanoidHand.setEnabled(false);
 				GridBagConstraints gbc_rdbtnNewRadioButton_5 = new GridBagConstraints();
 				gbc_rdbtnNewRadioButton_5.anchor = GridBagConstraints.WEST;
 				gbc_rdbtnNewRadioButton_5.insets = new Insets(0, 0, 5, 0);
 				gbc_rdbtnNewRadioButton_5.gridx = 2;
 				gbc_rdbtnNewRadioButton_5.gridy = 1;
-				zielPanel_1.add(rdbtnNewRadioButton_5, gbc_rdbtnNewRadioButton_5);
-				zielHumanoidGroup.add(rdbtnNewRadioButton_5);
+				zielPanel_1.add(radioZielHumanoidHand, gbc_rdbtnNewRadioButton_5);
+				zielHumanoidGroup.add(radioZielHumanoidHand);
 
-				JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Brust");
-				rdbtnNewRadioButton_1.setEnabled(false);
+				JRadioButton radioZielHumanoidBrust = new JRadioButton("Brust");
+				gezielterSchussGroup.add(radioZielHumanoidBrust);
+				radioZielHumanoidBrust.setEnabled(false);
 				GridBagConstraints gbc_rdbtnNewRadioButton_1 = new GridBagConstraints();
 				gbc_rdbtnNewRadioButton_1.anchor = GridBagConstraints.WEST;
 				gbc_rdbtnNewRadioButton_1.insets = new Insets(0, 0, 5, 5);
 				gbc_rdbtnNewRadioButton_1.gridx = 0;
 				gbc_rdbtnNewRadioButton_1.gridy = 2;
-				zielPanel_1.add(rdbtnNewRadioButton_1, gbc_rdbtnNewRadioButton_1);
-				zielHumanoidGroup.add(rdbtnNewRadioButton_1);
+				zielPanel_1.add(radioZielHumanoidBrust, gbc_rdbtnNewRadioButton_1);
+				zielHumanoidGroup.add(radioZielHumanoidBrust);
 
-				JRadioButton rdbtnNewRadioButton_6 = new JRadioButton("Fuß");
-				rdbtnNewRadioButton_6.setEnabled(false);
-				GridBagConstraints gbc_rdbtnNewRadioButton_6 = new GridBagConstraints();
-				gbc_rdbtnNewRadioButton_6.anchor = GridBagConstraints.WEST;
-				gbc_rdbtnNewRadioButton_6.insets = new Insets(0, 0, 5, 0);
-				gbc_rdbtnNewRadioButton_6.gridx = 2;
-				gbc_rdbtnNewRadioButton_6.gridy = 2;
-				zielPanel_1.add(rdbtnNewRadioButton_6, gbc_rdbtnNewRadioButton_6);
-				zielHumanoidGroup.add(rdbtnNewRadioButton_6);
+				JRadioButton radioZielHumanoidFuss = new JRadioButton("Fuß");
+				gezielterSchussGroup.add(radioZielHumanoidFuss);
+				radioZielHumanoidFuss.setEnabled(false);
+				GridBagConstraints gbc_radioZielHumanoidFuss = new GridBagConstraints();
+				gbc_radioZielHumanoidFuss.anchor = GridBagConstraints.WEST;
+				gbc_radioZielHumanoidFuss.insets = new Insets(0, 0, 5, 0);
+				gbc_radioZielHumanoidFuss.gridx = 2;
+				gbc_radioZielHumanoidFuss.gridy = 2;
+				zielPanel_1.add(radioZielHumanoidFuss, gbc_radioZielHumanoidFuss);
+				zielHumanoidGroup.add(radioZielHumanoidFuss);
 
-				JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("Arme");
-				rdbtnNewRadioButton_2.setEnabled(false);
-				GridBagConstraints gbc_rdbtnNewRadioButton_2 = new GridBagConstraints();
-				gbc_rdbtnNewRadioButton_2.anchor = GridBagConstraints.WEST;
-				gbc_rdbtnNewRadioButton_2.insets = new Insets(0, 0, 5, 5);
-				gbc_rdbtnNewRadioButton_2.gridx = 0;
-				gbc_rdbtnNewRadioButton_2.gridy = 3;
-				zielPanel_1.add(rdbtnNewRadioButton_2, gbc_rdbtnNewRadioButton_2);
-				zielHumanoidGroup.add(rdbtnNewRadioButton_2);
+				JRadioButton radioZielHumanoidArme = new JRadioButton("Arme");
+				gezielterSchussGroup.add(radioZielHumanoidArme);
+				radioZielHumanoidArme.setEnabled(false);
+				GridBagConstraints gbc_radioZielHumanoidArme = new GridBagConstraints();
+				gbc_radioZielHumanoidArme.anchor = GridBagConstraints.WEST;
+				gbc_radioZielHumanoidArme.insets = new Insets(0, 0, 5, 5);
+				gbc_radioZielHumanoidArme.gridx = 0;
+				gbc_radioZielHumanoidArme.gridy = 3;
+				zielPanel_1.add(radioZielHumanoidArme, gbc_radioZielHumanoidArme);
+				zielHumanoidGroup.add(radioZielHumanoidArme);
 
-				JRadioButton rdbtnNewRadioButton_7 = new JRadioButton("Auge");
-				rdbtnNewRadioButton_7.setEnabled(false);
-				GridBagConstraints gbc_rdbtnNewRadioButton_7 = new GridBagConstraints();
-				gbc_rdbtnNewRadioButton_7.anchor = GridBagConstraints.WEST;
-				gbc_rdbtnNewRadioButton_7.insets = new Insets(0, 0, 5, 0);
-				gbc_rdbtnNewRadioButton_7.gridx = 2;
-				gbc_rdbtnNewRadioButton_7.gridy = 3;
-				zielPanel_1.add(rdbtnNewRadioButton_7, gbc_rdbtnNewRadioButton_7);
-				zielHumanoidGroup.add(rdbtnNewRadioButton_7);
+				JRadioButton radioZielHumanoidAuge = new JRadioButton("Auge");
+				gezielterSchussGroup.add(radioZielHumanoidAuge);
+				radioZielHumanoidAuge.setEnabled(false);
+				GridBagConstraints gbc_radioZielHumanoidAuge = new GridBagConstraints();
+				gbc_radioZielHumanoidAuge.anchor = GridBagConstraints.WEST;
+				gbc_radioZielHumanoidAuge.insets = new Insets(0, 0, 5, 0);
+				gbc_radioZielHumanoidAuge.gridx = 2;
+				gbc_radioZielHumanoidAuge.gridy = 3;
+				zielPanel_1.add(radioZielHumanoidAuge, gbc_radioZielHumanoidAuge);
+				zielHumanoidGroup.add(radioZielHumanoidAuge);
 
-				JRadioButton rdbtnNewRadioButton_3 = new JRadioButton("Bauch");
-				rdbtnNewRadioButton_3.setEnabled(false);
-				GridBagConstraints gbc_rdbtnNewRadioButton_3 = new GridBagConstraints();
-				gbc_rdbtnNewRadioButton_3.anchor = GridBagConstraints.WEST;
-				gbc_rdbtnNewRadioButton_3.insets = new Insets(0, 0, 5, 5);
-				gbc_rdbtnNewRadioButton_3.gridx = 0;
-				gbc_rdbtnNewRadioButton_3.gridy = 4;
-				zielPanel_1.add(rdbtnNewRadioButton_3, gbc_rdbtnNewRadioButton_3);
-				zielHumanoidGroup.add(rdbtnNewRadioButton_3);
+				JRadioButton radioZielHumanoidBauch = new JRadioButton("Bauch");
+				gezielterSchussGroup.add(radioZielHumanoidBauch);
+				radioZielHumanoidBauch.setEnabled(false);
+				GridBagConstraints gbc_radioZielHumanoidBauch = new GridBagConstraints();
+				gbc_radioZielHumanoidBauch.anchor = GridBagConstraints.WEST;
+				gbc_radioZielHumanoidBauch.insets = new Insets(0, 0, 5, 5);
+				gbc_radioZielHumanoidBauch.gridx = 0;
+				gbc_radioZielHumanoidBauch.gridy = 4;
+				zielPanel_1.add(radioZielHumanoidBauch, gbc_radioZielHumanoidBauch);
+				zielHumanoidGroup.add(radioZielHumanoidBauch);
 
-				JRadioButton rdbtnNewRadioButton_8 = new JRadioButton("Herz");
-				rdbtnNewRadioButton_8.setEnabled(false);
-				GridBagConstraints gbc_rdbtnNewRadioButton_8 = new GridBagConstraints();
-				gbc_rdbtnNewRadioButton_8.insets = new Insets(0, 0, 5, 0);
-				gbc_rdbtnNewRadioButton_8.anchor = GridBagConstraints.WEST;
-				gbc_rdbtnNewRadioButton_8.gridx = 2;
-				gbc_rdbtnNewRadioButton_8.gridy = 4;
-				zielPanel_1.add(rdbtnNewRadioButton_8, gbc_rdbtnNewRadioButton_8);
-				zielHumanoidGroup.add(rdbtnNewRadioButton_8);
+				JRadioButton radioZielHumanoidHerz = new JRadioButton("Herz");
+				gezielterSchussGroup.add(radioZielHumanoidHerz);
+				radioZielHumanoidHerz.setEnabled(false);
+				GridBagConstraints gbc_radioZielHumanoidHerz = new GridBagConstraints();
+				gbc_radioZielHumanoidHerz.insets = new Insets(0, 0, 5, 0);
+				gbc_radioZielHumanoidHerz.anchor = GridBagConstraints.WEST;
+				gbc_radioZielHumanoidHerz.gridx = 2;
+				gbc_radioZielHumanoidHerz.gridy = 4;
+				zielPanel_1.add(radioZielHumanoidHerz, gbc_radioZielHumanoidHerz);
+				zielHumanoidGroup.add(radioZielHumanoidHerz);
 
-				JRadioButton rdbtnNewRadioButton_4 = new JRadioButton("Beine");
-				rdbtnNewRadioButton_4.setEnabled(false);
-				GridBagConstraints gbc_rdbtnNewRadioButton_4 = new GridBagConstraints();
-				gbc_rdbtnNewRadioButton_4.anchor = GridBagConstraints.WEST;
-				gbc_rdbtnNewRadioButton_4.insets = new Insets(0, 0, 0, 5);
-				gbc_rdbtnNewRadioButton_4.gridx = 0;
-				gbc_rdbtnNewRadioButton_4.gridy = 5;
-				zielPanel_1.add(rdbtnNewRadioButton_4, gbc_rdbtnNewRadioButton_4);
-				zielHumanoidGroup.add(rdbtnNewRadioButton_4);
+				JRadioButton radioZielHumanoidBeine = new JRadioButton("Beine");
+				gezielterSchussGroup.add(radioZielHumanoidBeine);
+				radioZielHumanoidBeine.setEnabled(false);
+				GridBagConstraints gbc_radioZielHumanoidBeine = new GridBagConstraints();
+				gbc_radioZielHumanoidBeine.anchor = GridBagConstraints.WEST;
+				gbc_radioZielHumanoidBeine.insets = new Insets(0, 0, 0, 5);
+				gbc_radioZielHumanoidBeine.gridx = 0;
+				gbc_radioZielHumanoidBeine.gridy = 5;
+				zielPanel_1.add(radioZielHumanoidBeine, gbc_radioZielHumanoidBeine);
+				zielHumanoidGroup.add(radioZielHumanoidBeine);
 
 				JPanel zielPanel_2 = new JPanel();
 				zielPanel_2.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -964,36 +977,42 @@ public class FernkampfDialog extends JDialog {
 				lblZielTier.setVerticalAlignment(SwingConstants.TOP);
 				zielPanel_2.add(lblZielTier);
 
-				JRadioButton rdbtnNewRadioButton_9 = new JRadioButton("Rumpf");
-				rdbtnNewRadioButton_9.setEnabled(false);
-				zielPanel_2.add(rdbtnNewRadioButton_9);
+				JRadioButton radioZielTierRumpf = new JRadioButton("Rumpf");
+				gezielterSchussGroup.add(radioZielTierRumpf);
+				radioZielTierRumpf.setEnabled(false);
+				zielPanel_2.add(radioZielTierRumpf);
 
-				JRadioButton rdbtnNewRadioButton_10 = new JRadioButton("Bein");
-				rdbtnNewRadioButton_10.setEnabled(false);
-				zielPanel_2.add(rdbtnNewRadioButton_10);
+				JRadioButton radioZielTierBein = new JRadioButton("Bein");
+				gezielterSchussGroup.add(radioZielTierBein);
+				radioZielTierBein.setEnabled(false);
+				zielPanel_2.add(radioZielTierBein);
 
-				JRadioButton rdbtnNewRadioButton_11 = new JRadioButton("verwundbare Stelle");
-				rdbtnNewRadioButton_11.setEnabled(false);
-				zielPanel_2.add(rdbtnNewRadioButton_11);
+				JRadioButton radioZielTierVStelle = new JRadioButton("verwundbare Stelle");
+				gezielterSchussGroup.add(radioZielTierVStelle);
+				radioZielTierVStelle.setEnabled(false);
+				zielPanel_2.add(radioZielTierVStelle);
 
-				JRadioButton rdbtnNewRadioButton_12 = new JRadioButton("Kopf");
-				rdbtnNewRadioButton_12.setEnabled(false);
-				zielPanel_2.add(rdbtnNewRadioButton_12);
+				JRadioButton radioZielTierKopf = new JRadioButton("Kopf");
+				gezielterSchussGroup.add(radioZielTierKopf);
+				radioZielTierKopf.setEnabled(false);
+				zielPanel_2.add(radioZielTierKopf);
 
-				JRadioButton rdbtnNewRadioButton_13 = new JRadioButton("Schwanz");
-				rdbtnNewRadioButton_13.setEnabled(false);
-				zielPanel_2.add(rdbtnNewRadioButton_13);
+				JRadioButton radioZielTierSchwanz = new JRadioButton("Schwanz");
+				gezielterSchussGroup.add(radioZielTierSchwanz);
+				radioZielTierSchwanz.setEnabled(false);
+				zielPanel_2.add(radioZielTierSchwanz);
 
-				JRadioButton rdbtnNewRadioButton_14 = new JRadioButton("Sinnesorgan");
-				rdbtnNewRadioButton_14.setEnabled(false);
-				zielPanel_2.add(rdbtnNewRadioButton_14);
+				JRadioButton radioZielTierSinnesorgan = new JRadioButton("Sinnesorgan");
+				gezielterSchussGroup.add(radioZielTierSinnesorgan);
+				radioZielTierSinnesorgan.setEnabled(false);
+				zielPanel_2.add(radioZielTierSinnesorgan);
 
-				zielTierGroup.add(rdbtnNewRadioButton_9);
-				zielTierGroup.add(rdbtnNewRadioButton_10);
-				zielTierGroup.add(rdbtnNewRadioButton_11);
-				zielTierGroup.add(rdbtnNewRadioButton_12);
-				zielTierGroup.add(rdbtnNewRadioButton_13);
-				zielTierGroup.add(rdbtnNewRadioButton_14);
+				zielTierGroup.add(radioZielTierRumpf);
+				zielTierGroup.add(radioZielTierBein);
+				zielTierGroup.add(radioZielTierVStelle);
+				zielTierGroup.add(radioZielTierKopf);
+				zielTierGroup.add(radioZielTierSchwanz);
+				zielTierGroup.add(radioZielTierSinnesorgan);
 
 				chkBoxKoerperteilBewegung = new JCheckBox("Körperteil in Bewegung");
 				chkBoxKoerperteilBewegung.setEnabled(false);
@@ -1177,7 +1196,11 @@ public class FernkampfDialog extends JDialog {
 						String text = button.getText();
 						
 						if(text.equalsIgnoreCase("roll")) {
-							//TODO: roll command
+							setRollCommand(DsaCalculatorUtil.getFernkampfRollCommand(
+									getFernwaffenObjekt().getFk(), 
+									erschwernis));
+							state = OK_STATE;
+							dispose();
 							
 						} else {
 							tabbedPane.setSelectedIndex(tabbedPane.getSelectedIndex() + 1);
@@ -1211,6 +1234,7 @@ public class FernkampfDialog extends JDialog {
 			modGezielt      = berechneErschwerungGezielterSchuss();
 			
 			resultat = modGroesse + modEntfernung + modBewegung + modSicht + modModifikatoren + modGezielt;
+			erschwernis = resultat;
 		}
 		
 		lblErschwernisZielgroesseValue.setText(String.valueOf(modGroesse));
@@ -1310,7 +1334,20 @@ public class FernkampfDialog extends JDialog {
 			}
 		}
 		
-		result = DsaCalculatorUtil.getFernkampfSichtModifikator(lichtquelle, dunst, nebel, entfernungssinn, daemmerungssicht, nachtsicht, einaeugig, farbenblind, kurzsichtig, nachtblind);
+		String entfernung = null;
+		for(JRadioButton rb : entfernungGroup) {
+			if(rb.isSelected()) {
+				entfernung = rb.getText();
+				break;
+			}
+		}		
+		result = DsaCalculatorUtil.getFernkampfSichtModifikator(
+				lichtquelle, 
+				dunst, nebel, 
+				entfernungssinn, daemmerungssicht, nachtsicht, 
+				einaeugig, farbenblind, kurzsichtig, nachtblind, 
+				entfernung, 
+				getFernwaffenObjekt());
 		
 		return result;
 	}
@@ -1391,7 +1428,8 @@ public class FernkampfDialog extends JDialog {
 					break;
 				}
 			}
-			result = DsaCalculatorUtil.getFernkampfGezielterSchussModifikator(schuetzentyp, humanoid, trefferzone, zielgroesse);
+			boolean inBewegung = chkBoxKoerperteilBewegung.isSelected();
+			result = DsaCalculatorUtil.getFernkampfGezielterSchussModifikator(schuetzentyp, humanoid, inBewegung, trefferzone, zielgroesse);
 		}
 		
 		return result;
