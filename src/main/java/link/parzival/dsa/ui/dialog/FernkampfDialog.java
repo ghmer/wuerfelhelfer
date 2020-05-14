@@ -94,6 +94,9 @@ public class FernkampfDialog extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
+	/**
+	 * @param fernwaffenObjekt the FernwaffenObjekt to be used
+	 */
 	public FernkampfDialog(FernwaffenObjekt fernwaffenObjekt) {
 		this.setFernwaffenObjekt(fernwaffenObjekt);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
