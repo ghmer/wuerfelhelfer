@@ -27,24 +27,20 @@ import java.awt.Insets;
 
 public class EvasionDialog extends JDialog {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6393904558592079317L;
-	public static final int OK_STATE = 0;
-	public static final int CANCEL_STATE = 1;
-	private final JPanel contentPanel = new JPanel();
+	public static final int CANCEL_STATE 		= 1;
+	public static final int OK_STATE 			= 0;
+	private static final long serialVersionUID 	= 6393904558592079317L;
+	private JCheckBox chkboxGezieltesAusweichen = new JCheckBox();
+	private JComboBox<String> comboBoxEnemyCount= new JComboBox<>();
+	private final JPanel contentPanel 			= new JPanel();
 	
-	private JButton okButton;
-	private JLabel lblEvasionNotPossible;
-	
-    private int state = CANCEL_STATE;
-    private boolean gezieltesAusweichen = false;
-	private String rollCommand = null;
+    private int enemyCount 						= 1;
+    private boolean gezieltesAusweichen 		= false;
+	private JLabel lblEvasionNotPossible		= new JLabel();
     
-    private int enemyCount = 1;
-	private JCheckBox chkboxGezieltesAusweichen;
-	private JComboBox<String> comboBoxEnemyCount;
+    private JButton okButton					= new JButton();
+	private String rollCommand 					= null;
+	private int state 							= CANCEL_STATE;
 
 	/**
 	 * @param hero the HeldenObjekt to set
