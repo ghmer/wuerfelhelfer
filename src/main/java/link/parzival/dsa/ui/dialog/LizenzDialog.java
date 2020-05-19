@@ -42,7 +42,6 @@ public class LizenzDialog extends JDialog {
 			contentPanel.setLayout(gbl_contentPanel);
 		}
 		JTextArea textArea = new JTextArea(getLizenz());
-		//textArea.setText(getLizenz());
 		textArea.setEditable(false);
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		scrollPane.setViewportView(textArea);
