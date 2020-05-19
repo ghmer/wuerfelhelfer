@@ -33,6 +33,8 @@ import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class AbilityDialog extends JDialog {
 
@@ -104,9 +106,15 @@ public class AbilityDialog extends JDialog {
 		textFieldSearch.setColumns(10);
 		
 		comboBox = new JComboBox<>();
+		comboBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				textFieldSearch.setText("");
+				generateTable(hero);
+			}
+		});
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textFieldSearch.setText("");
+				
 			}
 		});
 		comboBox.setModel(new DefaultComboBoxModel<AbilityTypeEnum>(AbilityTypeEnum.values()));
@@ -156,7 +164,6 @@ public class AbilityDialog extends JDialog {
 	}
 	
 	
-	
 	private void generateTable(HeldenObjekt hero, DocumentEvent e) {
 		Document document = e.getDocument();
 		String text = null;
@@ -164,86 +171,111 @@ public class AbilityDialog extends JDialog {
 			text = document.getText(0, document.getLength());
 		} catch (BadLocationException e1) {
 			e1.printStackTrace();
+		}		
+		generateTable(hero, text);
+	}
+	 
+	private void generateTable(HeldenObjekt hero) {
+		generateTable(hero, new String());
+	} 
+	
+	private void generateTable(HeldenObjekt hero, String searchText) {
+		List<TalentObjekt> talente = hero.getTalente();
+		List<TalentObjekt> zauber  = hero.getZauber();
+		List<TalentObjekt> matches = new ArrayList<>();
+		
+		AbilityTypeEnum chosenEnum = (AbilityTypeEnum)comboBox.getSelectedItem();
+		switch (chosenEnum) {
+		case Talent: {
+			prepareMatchingAbilityList(searchText, talente, matches);
+			break;
+		}
+		case Magie: {
+			prepareMatchingAbilityList(searchText, zauber, matches);
+			break;
+		}
+
+		default:
+			break;
 		}
 		
-		if(text != null && text.length() > 0) {
-			List<TalentObjekt> talente = hero.getTalente();
-			List<TalentObjekt> zauber  = hero.getZauber();
-			List<TalentObjekt> matches = new ArrayList<>();
-			
-			AbilityTypeEnum chosenEnum = (AbilityTypeEnum)comboBox.getSelectedItem();
-			
-			if(chosenEnum == AbilityTypeEnum.Talent) {
-				for(TalentObjekt objekt : talente) {
-					if(objekt.getName().toLowerCase().startsWith(text.toLowerCase())) {
-						matches.add(objekt);
-					}
+		//if(matches.size() > 0) {}
+
+		String[][] tableRows = null;
+		if(matches.size() > 0) {
+			tableRows = new String[matches.size()][4];
+			for(int i = 0; i < matches.size(); i++) {
+				TalentObjekt objekt = matches.get(i);
+				tableRows[i] = new String[]{
+						objekt.getName(), 
+						String.valueOf(objekt.getTalentwert()), 
+						String.format("(%s/%s/%s)", objekt.getProbenTalent1(), objekt.getProbenTalent2(), objekt.getProbenTalent3()),
+						objekt.getBe()};
+			}
+		} else {
+			tableRows = new String[1][4];
+			tableRows[0] = new String[] {"Keine Einträge vorhanden", "", "", ""};
+		}
+		
+		
+		if(this.table != null) {
+			contentPanel.remove(this.table);
+		}
+		
+		String[] columnNames = {"Name des Talents/Zaubers", "TaW", "Probe", "BE"};
+		JTable table = new JTable(tableRows, columnNames) {
+
+			private static final long serialVersionUID = -5753532534134796588L;
+
+			@Override
+			public boolean isCellEditable(int row, int column) {                
+                return false;               
+			};
+		};
+						
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.addMouseListener(new MouseAdapter() {
+		    public void mousePressed(MouseEvent mouseEvent) {
+		        JTable sourceTable 	= (JTable) mouseEvent.getSource();
+		        Point point 		= mouseEvent.getPoint();
+		        int row 			= sourceTable.rowAtPoint(point);
+		        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+		        	
+		        	selectedAbilityName = (String) sourceTable.getValueAt(row, 0);				        	
+		        	
+		            state = OK_STATE;
+		            dispose();
+		        }
+		    }
+		});
+		
+		table.setBorder(new LineBorder(new Color(0, 0, 0)));
+
+		GridBagConstraints gbc_table_1 = new GridBagConstraints();
+		gbc_table_1.gridwidth = 2;
+		gbc_table_1.insets = new Insets(0, 0, 0, 5);
+		gbc_table_1.fill = GridBagConstraints.BOTH;
+		gbc_table_1.gridx = 0;
+		gbc_table_1.gridy = 2;
+		table.repaint();
+		
+		contentPanel.add(table, gbc_table_1);
+		contentPanel.updateUI();
+		this.table = table;
+	
+	}
+
+
+
+	private void prepareMatchingAbilityList(String text, List<TalentObjekt> talente, List<TalentObjekt> matches) {
+		for(TalentObjekt objekt : talente) {
+			if(text != null && text.length() > 0) {
+				if(objekt.getName().toLowerCase().startsWith(text.toLowerCase())) {
+					matches.add(objekt);
 				}
 			} else {
-				for(TalentObjekt objekt : zauber) {
-					if(objekt.getName().toLowerCase().startsWith(text.toLowerCase())) {
-						matches.add(objekt);
-					}
-				}
+				matches.add(objekt);
 			}
-			
-			if(matches.size() > 0) {
-				String[][] tableRows = new String[matches.size()][4];
-				for(int i = 0; i < matches.size(); i++) {
-					TalentObjekt objekt = matches.get(i);
-					tableRows[i] = new String[]{
-							objekt.getName(), 
-							String.valueOf(objekt.getTalentwert()), 
-							String.format("(%s/%s/%s)", objekt.getProbenTalent1(), objekt.getProbenTalent2(), objekt.getProbenTalent3()),
-							objekt.getBe()};
-				}
-				
-				if(this.table != null) {
-					contentPanel.remove(this.table);
-				}
-				
-				String[] columnNames = {"Name des Talents/Zaubers", "TaW", "Probe", "BE"};
-				JTable table = new JTable(tableRows, columnNames) {
-
-					private static final long serialVersionUID = -5753532534134796588L;
-
-					@Override
-					public boolean isCellEditable(int row, int column) {                
-		                return false;               
-					};
-				};
-								
-				table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-				table.addMouseListener(new MouseAdapter() {
-				    public void mousePressed(MouseEvent mouseEvent) {
-				        JTable sourceTable 	= (JTable) mouseEvent.getSource();
-				        Point point 		= mouseEvent.getPoint();
-				        int row 			= sourceTable.rowAtPoint(point);
-				        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
-				        	
-				        	selectedAbilityName = (String) sourceTable.getValueAt(row, 0);				        	
-				        	
-				            state = OK_STATE;
-				            dispose();
-				        }
-				    }
-				});
-				
-				table.setBorder(new LineBorder(new Color(0, 0, 0)));
-
-				GridBagConstraints gbc_table_1 = new GridBagConstraints();
-				gbc_table_1.gridwidth = 2;
-				gbc_table_1.insets = new Insets(0, 0, 0, 5);
-				gbc_table_1.fill = GridBagConstraints.BOTH;
-				gbc_table_1.gridx = 0;
-				gbc_table_1.gridy = 2;
-				table.repaint();
-				
-				contentPanel.add(table, gbc_table_1);
-				contentPanel.updateUI();
-				this.table = table;
-			}
-			
 		}
 	}
 	
