@@ -8,12 +8,24 @@ package link.parzival.dsa.object;
  *
  */
 public class KampftechnikObjekt {
-	private String name;
-	private String type;
+	private int attacke;
 	private String be;
-	private int at;
-	private int pa;
+	private String name;
+	private int parade;
 	private int talentwert;
+	private String type;
+	/**
+	 * @return the attacke
+	 */
+	public int getAttacke() {
+		return attacke;
+	}
+	/**
+	 * @return the be
+	 */
+	public String getBe() {
+		return be;
+	}
 	/**
 	 * @return the name
 	 */
@@ -21,28 +33,10 @@ public class KampftechnikObjekt {
 		return name;
 	}
 	/**
-	 * @return the type
+	 * @return the parade
 	 */
-	public String getType() {
-		return type;
-	}
-	/**
-	 * @return the bE
-	 */
-	public String getBe() {
-		return be;
-	}
-	/**
-	 * @return the at
-	 */
-	public int getAt() {
-		return at;
-	}
-	/**
-	 * @return the pa
-	 */
-	public int getPa() {
-		return pa;
+	public int getParade() {
+		return parade;
 	}
 	/**
 	 * @return the talentwert
@@ -51,16 +45,16 @@ public class KampftechnikObjekt {
 		return talentwert;
 	}
 	/**
-	 * @param name the name to set
+	 * @return the type
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public String getType() {
+		return type;
 	}
 	/**
-	 * @param type the type to set
+	 * @param attacke the at to set
 	 */
-	public void setType(String type) {
-		this.type = type;
+	public void setAttacke(int attacke) {
+		this.attacke = attacke;
 	}
 	/**
 	 * @param be the be to set
@@ -69,21 +63,27 @@ public class KampftechnikObjekt {
 		this.be = be;
 	}
 	/**
-	 * @param at the at to set
+	 * @param name the name to set
 	 */
-	public void setAt(int at) {
-		this.at = at;
+	public void setName(String name) {
+		this.name = name;
 	}
 	/**
-	 * @param pa the pa to set
+	 * @param parade the parade to set
 	 */
-	public void setPa(int pa) {
-		this.pa = pa;
+	public void setParade(int parade) {
+		this.parade = parade;
 	}
 	/**
 	 * @param talentwert the talentwert to set
 	 */
 	public void setTalentwert(int talentwert) {
 		this.talentwert = talentwert;
+	}
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(String type) {
+		this.type = type;
 	}
 }
