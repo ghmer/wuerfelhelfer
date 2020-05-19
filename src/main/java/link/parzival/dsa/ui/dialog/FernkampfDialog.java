@@ -38,58 +38,57 @@ import javax.swing.DefaultComboBoxModel;
 
 public class FernkampfDialog extends JDialog {
 
+	public static final int CANCEL_STATE 				= 1;
+	public static final int OK_STATE					= 0;
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -5503871340629603661L;
-	private final JPanel contentPanel 					= new JPanel();
-	private List<JRadioButton> groessenGroup 			= new ArrayList<>();
-	private List<JRadioButton>entfernungGroup 			= new ArrayList<>();
-	private List<JRadioButton>sichtGroup 				= new ArrayList<>();
-	private List<JRadioButton>sichtModGroup 			= new ArrayList<>();
-	private List<JRadioButton>zielHumanoidGroup 		= new ArrayList<>();
-	private List<JRadioButton>zielTierGroup 			= new ArrayList<>();
-	private List<JRadioButton>bewegungGroup 			= new ArrayList<>();
-	private List<JCheckBox> vorteilListe 				= new ArrayList<>();
-	private List<JCheckBox> nachteilListe 				= new ArrayList<>();
-	private List<JCheckBox> modifikatorGroup 			= new ArrayList<>();
-
-	public static final int OK_STATE					= 0;
-	public static final int CANCEL_STATE 				= 1;
-	private int state 									= CANCEL_STATE;
-	private String rollCommand 							= null;
-	private JLabel lblWaffeDistanzSehrNah 				= new JLabel();
-	private JLabel lblWaffeDistanzNah 					= new JLabel();
-	private JLabel lblWaffeDistanzMittel				= new JLabel();
-	private JLabel lblWaffeDistanzWeit 					= new JLabel();
-	private JLabel lblWaffeDistanzSehrWeit 				= new JLabel();
-
-	private FernwaffenObjekt fernwaffenObjekt 			= null;
-	
-	private JTabbedPane tabbedPane 						= new JTabbedPane();
-	private JButton forwardButton 						= new JButton();
+	private static final long serialVersionUID 			= -5503871340629603661L;
 	private JButton backButton 							= new JButton();
-	private JCheckBox chkBoxKoerperteilBewegung			= new JCheckBox();
-	private JLabel lblZielTier 							= new JLabel();
-	private JLabel lblZielHumanoid 						= new JLabel();
-	private JSpinner spinnerGegnerInDistanzH 			= new JSpinner();
-	private JSpinner spinnerGegnerInDistanzNS 			= new JSpinner();
+	private List<JRadioButton>bewegungGroup 			= new ArrayList<>();
 	private JCheckBox chkBoxDreivierteldeckung 			= new JCheckBox();
-	private JCheckBox chkboxHalbdeckung 				= new JCheckBox();
-	private JSpinner spinnerAnsage 						= new JSpinner();
-	private JSpinner spinnerZielen 						= new JSpinner();
-	private JSpinner spinnerGroessenModifikator 		= new JSpinner();
 	private JCheckBox chkBoxGezielterSchuss 			= new JCheckBox();
+	private JCheckBox chkboxHalbdeckung 				= new JCheckBox();
+	private JCheckBox chkBoxKoerperteilBewegung			= new JCheckBox();
 	private JComboBox<String> comboSchuetzentyp 		= new JComboBox<>();
-	private JLabel lblErschwernisKomplettWert 			= new JLabel();
-	private JLabel lblErschwernisGezielterSchussValue 	= new JLabel();
-	private JLabel lblErschwernisModifikatorenValue 	= new JLabel();
-	private JLabel lblErschwernisSichtValue 			= new JLabel();
+	private final JPanel contentPanel 					= new JPanel();
+	private List<JRadioButton>entfernungGroup 			= new ArrayList<>();
+
+	private int erschwernis 							= 0;
+	private FernwaffenObjekt fernwaffenObjekt 			= null;
+	private JButton forwardButton 						= new JButton();
+	private List<JRadioButton> groessenGroup 			= new ArrayList<>();
 	private JLabel lblErschwernisBewegungValue 			= new JLabel();
 	private JLabel lblErschwernisEntfernungValue 		= new JLabel();
-	private JLabel lblErschwernisZielgroesseValue 		= new JLabel();
+	private JLabel lblErschwernisGezielterSchussValue 	= new JLabel();
+	private JLabel lblErschwernisKomplettWert 			= new JLabel();
+	private JLabel lblErschwernisModifikatorenValue 	= new JLabel();
+
+	private JLabel lblErschwernisSichtValue 			= new JLabel();
 	
-	private int erschwernis = 0;
+	private JLabel lblErschwernisZielgroesseValue 		= new JLabel();
+	private JLabel lblWaffeDistanzMittel				= new JLabel();
+	private JLabel lblWaffeDistanzNah 					= new JLabel();
+	private JLabel lblWaffeDistanzSehrNah 				= new JLabel();
+	private JLabel lblWaffeDistanzSehrWeit 				= new JLabel();
+	private JLabel lblWaffeDistanzWeit 					= new JLabel();
+	private JLabel lblZielHumanoid 						= new JLabel();
+	private JLabel lblZielTier 							= new JLabel();
+	private List<JCheckBox> modifikatorGroup 			= new ArrayList<>();
+	private List<JCheckBox> nachteilListe 				= new ArrayList<>();
+	private String rollCommand 							= null;
+	private List<JRadioButton>sichtGroup 				= new ArrayList<>();
+	private List<JRadioButton>sichtModGroup 			= new ArrayList<>();
+	private JSpinner spinnerAnsage 						= new JSpinner();
+	private JSpinner spinnerGegnerInDistanzH 			= new JSpinner();
+	private JSpinner spinnerGegnerInDistanzNS 			= new JSpinner();
+	private JSpinner spinnerGroessenModifikator 		= new JSpinner();
+	private JSpinner spinnerZielen 						= new JSpinner();
+	private int state 									= CANCEL_STATE;
+	private JTabbedPane tabbedPane 						= new JTabbedPane();
+	private List<JCheckBox> vorteilListe 				= new ArrayList<>();
+	private List<JRadioButton>zielHumanoidGroup 		= new ArrayList<>();	
+	private List<JRadioButton>zielTierGroup 			= new ArrayList<>();
 
 	/**
 	 * Create the dialog.
@@ -1219,37 +1218,96 @@ public class FernkampfDialog extends JDialog {
 		}
 	}
 	
-	protected void updateSummary() {
-		int index = tabbedPane.getSelectedIndex();
-		int modGroesse 		= 0;
-		int modEntfernung	= 0;
-		int modBewegung		= 0;
-		int modSicht		= 0;
-		int modModifikatoren= 0;
-		int modGezielt		= 0;
-		int resultat        = 0;
-		if(index == 6) {
-			modGroesse 		= berechneErschwerungGroesse();
-			modEntfernung	= berechneErschwerungEntfernung();
-			modBewegung     = berechneErschwerungBewegung();
-			modSicht   		= berechneErschwerungSicht();
-			modModifikatoren= berechneErschwerungModifikatoren();
-			modGezielt      = berechneErschwerungGezielterSchuss();
-			
-			resultat = modGroesse + modEntfernung + modBewegung + modSicht + modModifikatoren + modGezielt;
-			erschwernis = resultat;
+	/**
+	 * @return die Erschwernis durch die Bewegung
+	 */
+	private int berechneErschwerungBewegung() {
+		int result = 0;
+		String bewegung = null;
+		int anzahlGegnerInDistanzH 	= 0;
+		int anzahlGegnerInDistanzNS = 0;
+		
+		for(JRadioButton rb : bewegungGroup) {
+			if(rb.isSelected()) {
+				bewegung = rb.getText();
+				break;
+			}
 		}
 		
-		lblErschwernisZielgroesseValue.setText(String.valueOf(modGroesse));
-		lblErschwernisEntfernungValue.setText(String.valueOf(modEntfernung));
-		lblErschwernisBewegungValue.setText(String.valueOf(modBewegung));
-		lblErschwernisSichtValue.setText(String.valueOf(modSicht));
-		lblErschwernisModifikatorenValue.setText(String.valueOf(modModifikatoren));
-		lblErschwernisGezielterSchussValue.setText(String.valueOf(modGezielt));
+		if(bewegung.equalsIgnoreCase("kampfgetümmel")) {
+			anzahlGegnerInDistanzH  = (Integer)spinnerGegnerInDistanzH.getValue();
+			anzahlGegnerInDistanzNS = (Integer)spinnerGegnerInDistanzNS.getValue();
+		}
 		
-		lblErschwernisKomplettWert.setText(String.valueOf(resultat));
+		result = DsaCalculatorUtil.getFernkampfBewegungsModifikator(bewegung, anzahlGegnerInDistanzH, anzahlGegnerInDistanzNS);
+		
+		return result;
 	}
 	
+	/**
+	 * @return Die Erschwernis durch die Entfernung
+	 */
+	private int berechneErschwerungEntfernung() {
+		int result = 0;
+		String entfernung = null;
+		for(JRadioButton rb : entfernungGroup) {
+			if(rb.isSelected()) {
+				entfernung = rb.getText();
+				break;
+			}
+		}
+		result = DsaCalculatorUtil.getFernkampfEntfernungsModifikator(entfernung);
+		
+		return result;
+	}
+	
+	/**
+	 * @return Die Erschwernis durch einen Gezielten Schuss
+	 */
+	private int berechneErschwerungGezielterSchuss() {
+		int result = 0;
+		boolean verwendeGezielterSchuss = chkBoxGezielterSchuss.isSelected();
+		boolean humanoid = true;
+		String trefferzone = null;
+		if(verwendeGezielterSchuss) {
+			for(JRadioButton rb : zielHumanoidGroup) {
+				if(rb.isSelected()) {
+					trefferzone = rb.getText();
+					humanoid = true;
+				}
+			}
+			
+			if(humanoid == true && trefferzone == null) {
+				humanoid = false;
+			}
+			
+			if(!humanoid) {
+				for(JRadioButton rb : zielTierGroup) {
+					if(rb.isSelected()) {
+						trefferzone = rb.getText();
+						humanoid = false;
+					}
+				}
+			}
+			
+			String schuetzentyp = (String)comboSchuetzentyp.getSelectedItem();
+			String zielgroesse  =  null;
+			for(JRadioButton rb : groessenGroup) {
+				if(rb.isSelected()) {
+					zielgroesse = rb.getText();
+					break;
+				}
+			}
+			boolean inBewegung = chkBoxKoerperteilBewegung.isSelected();
+			result = DsaCalculatorUtil.getFernkampfGezielterSchussModifikator(schuetzentyp, humanoid, inBewegung, trefferzone, zielgroesse);
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * @return Die Erschwerung durch die Groesse des Ziels
+	 */
 	private int berechneErschwerungGroesse() {
 		int result = 0;
 		String groesse = null;
@@ -1269,32 +1327,43 @@ public class FernkampfDialog extends JDialog {
 		return result;
 	}
 	
-	private int berechneErschwerungEntfernung() {
+	/**
+	 * @return die Erschwernis durch Modifikatoren
+	 */
+	private int berechneErschwerungModifikatoren() {
 		int result = 0;
-		String entfernung = null;
-		for(JRadioButton rb : entfernungGroup) {
-			if(rb.isSelected()) {
-				entfernung = rb.getText();
-				break;
+		
+		List<String> modifikatoren = new ArrayList<>();
+		String schuetzentyp = (String)comboSchuetzentyp.getSelectedItem();
+		int ansage = (Integer)spinnerAnsage.getValue();
+		int zielen = (Integer)spinnerZielen.getValue();
+		
+		for(JCheckBox cb : modifikatorGroup) {
+			if(cb.isSelected()) {
+				modifikatoren.add(cb.getText());
 			}
 		}
-		result = DsaCalculatorUtil.getFernkampfEntfernungsModifikator(entfernung);
+		
+		result = DsaCalculatorUtil.getFernkampfModifikatorenModifikator(modifikatoren, schuetzentyp, ansage, zielen);
 		
 		return result;
 	}
 	
+	/**
+	 * @return Die Erschwernis durch die Sicht
+	 */
 	private int berechneErschwerungSicht() {
-		int result = 0;
-		String lichtquelle = "";
-		boolean dunst = false;
-		boolean nebel = false;
+		int result 				= 0;
+		String lichtquelle 		= "";
+		boolean dunst 			= false;
+		boolean nebel 			= false;
 		boolean entfernungssinn = false;
-		boolean daemmerungssicht = false;
-		boolean nachtsicht = false;
-		boolean einaeugig = false;
-		boolean farbenblind = false;
-		boolean kurzsichtig = false;
-		boolean nachtblind = false;
+		boolean daemmerungssicht= false;
+		boolean nachtsicht 		= false;
+		boolean einaeugig 		= false;
+		boolean farbenblind 	= false;
+		boolean kurzsichtig 	= false;
+		boolean nachtblind 		= false;
 		
 		for(JRadioButton rb : sichtGroup) {
 			if(rb.isSelected()) {
@@ -1355,89 +1424,30 @@ public class FernkampfDialog extends JDialog {
 		return result;
 	}
 	
-	private int berechneErschwerungBewegung() {
-		int result = 0;
-		String bewegung = null;
-		int anzahlGegnerInDistanzH 	= 0;
-		int anzahlGegnerInDistanzNS = 0;
-		
-		for(JRadioButton rb : bewegungGroup) {
-			if(rb.isSelected()) {
-				bewegung = rb.getText();
-				break;
-			}
+	/**
+	 * @param buttonGroup the buttonGroup to iterate over
+	 * @param enabled whether to enable the buttons in the group
+	 */
+	protected void enableButtonsInGroup(List<JRadioButton> buttonGroup, boolean enabled) {
+		for(JRadioButton rb : buttonGroup) {
+			rb.setEnabled(enabled);
 		}
-		
-		if(bewegung.equalsIgnoreCase("kampfgetümmel")) {
-			anzahlGegnerInDistanzH  = (Integer)spinnerGegnerInDistanzH.getValue();
-			anzahlGegnerInDistanzNS = (Integer)spinnerGegnerInDistanzNS.getValue();
-		}
-		
-		result = DsaCalculatorUtil.getFernkampfBewegungsModifikator(bewegung, anzahlGegnerInDistanzH, anzahlGegnerInDistanzNS);
-		
-		return result;
-	}
-	
-	private int berechneErschwerungModifikatoren() {
-		int result = 0;
-		
-		List<String> modifikatoren = new ArrayList<>();
-		String schuetzentyp = (String)comboSchuetzentyp.getSelectedItem();
-		int ansage = (Integer)spinnerAnsage.getValue();
-		int zielen = (Integer)spinnerZielen.getValue();
-		
-		for(JCheckBox cb : modifikatorGroup) {
-			if(cb.isSelected()) {
-				modifikatoren.add(cb.getText());
-			}
-		}
-		
-		result = DsaCalculatorUtil.getFernkampfModifikatorenModifikator(modifikatoren, schuetzentyp, ansage, zielen);
-		
-		return result;
-	}
-	
-	private int berechneErschwerungGezielterSchuss() {
-		int result = 0;
-		boolean verwendeGezielterSchuss = chkBoxGezielterSchuss.isSelected();
-		boolean humanoid = true;
-		String trefferzone = null;
-		if(verwendeGezielterSchuss) {
-			for(JRadioButton rb : zielHumanoidGroup) {
-				if(rb.isSelected()) {
-					trefferzone = rb.getText();
-					humanoid = true;
-				}
-			}
-			
-			if(humanoid == true && trefferzone == null) {
-				humanoid = false;
-			}
-			
-			if(!humanoid) {
-				for(JRadioButton rb : zielTierGroup) {
-					if(rb.isSelected()) {
-						trefferzone = rb.getText();
-						humanoid = false;
-					}
-				}
-			}
-			
-			String schuetzentyp = (String)comboSchuetzentyp.getSelectedItem();
-			String zielgroesse  =  null;
-			for(JRadioButton rb : groessenGroup) {
-				if(rb.isSelected()) {
-					zielgroesse = rb.getText();
-					break;
-				}
-			}
-			boolean inBewegung = chkBoxKoerperteilBewegung.isSelected();
-			result = DsaCalculatorUtil.getFernkampfGezielterSchussModifikator(schuetzentyp, humanoid, inBewegung, trefferzone, zielgroesse);
-		}
-		
-		return result;
 	}
 
+	/**
+	 * @param selected whether a Gezielter Schuss shall be made
+	 */
+	protected void enableGezielterSchuss(boolean selected) {
+		enableButtonsInGroup(zielHumanoidGroup, selected);
+		enableButtonsInGroup(zielTierGroup, selected);
+		chkBoxKoerperteilBewegung.setEnabled(selected);
+		lblZielHumanoid.setEnabled(selected);
+		lblZielTier.setEnabled(selected);
+	}
+
+	/**
+	 * 
+	 */
 	protected void enableModifikatorOptions() {
 		boolean schuss = true;
 		switch(getFernwaffenObjekt().getTyp()) {
@@ -1465,19 +1475,12 @@ public class FernkampfDialog extends JDialog {
 			}
 		}
 	}
-
-	protected void enableGezielterSchuss(boolean selected) {
-		enableButtonsInGroup(zielHumanoidGroup, selected);
-		enableButtonsInGroup(zielTierGroup, selected);
-		chkBoxKoerperteilBewegung.setEnabled(selected);
-		lblZielHumanoid.setEnabled(selected);
-		lblZielTier.setEnabled(selected);
-	}
 	
-	protected void enableButtonsInGroup(List<JRadioButton> buttonGroup, boolean enabled) {
-		for(JRadioButton rb : buttonGroup) {
-			rb.setEnabled(enabled);
-		}
+	/**
+	 * @return the FernwaffenObjekt
+	 */
+	public FernwaffenObjekt getFernwaffenObjekt() {
+		return fernwaffenObjekt;
 	}
 
 	/**
@@ -1487,21 +1490,24 @@ public class FernkampfDialog extends JDialog {
 		return rollCommand;
 	}
 	
-	protected void updateButtons() {
-		int currentIndex = tabbedPane.getSelectedIndex();
-		if( currentIndex == 0) {
-			backButton.setEnabled(false);
-			forwardButton.setText("weiter");
-		}
-		if(currentIndex > 0) {
-			backButton.setEnabled(true);
-			forwardButton.setText("weiter");
-		}
-		
-		if(currentIndex == 6) {
-			forwardButton.setText("roll");
-		}
-		
+	/**
+	 * 
+	 */
+	private void setFernwaffenDistanzen() {
+		lblWaffeDistanzSehrNah.setText(Integer.toString(getFernwaffenObjekt().getEntfernungList().get(0)));
+		lblWaffeDistanzNah.setText(Integer.toString(getFernwaffenObjekt().getEntfernungList().get(1)));
+		lblWaffeDistanzMittel.setText(Integer.toString(getFernwaffenObjekt().getEntfernungList().get(2)));
+		lblWaffeDistanzWeit.setText(Integer.toString(getFernwaffenObjekt().getEntfernungList().get(3)));
+		lblWaffeDistanzSehrWeit.setText(Integer.toString(getFernwaffenObjekt().getEntfernungList().get(4)));
+
+		repaint();
+	}
+
+	/**
+	 * @param fernwaffenObjekt the FernwaffenObjekt to set
+	 */
+	public void setFernwaffenObjekt(FernwaffenObjekt fernwaffenObjekt) {
+		this.fernwaffenObjekt = fernwaffenObjekt;
 	}
 
 	/**
@@ -1520,21 +1526,57 @@ public class FernkampfDialog extends JDialog {
 		return state;
 	}
 
-	public FernwaffenObjekt getFernwaffenObjekt() {
-		return fernwaffenObjekt;
+	/**
+	 * updates buttons according to the current tab
+	 */
+	protected void updateButtons() {
+		int currentIndex = tabbedPane.getSelectedIndex();
+		if( currentIndex == 0) {
+			backButton.setEnabled(false);
+			forwardButton.setText("weiter");
+		}
+		if(currentIndex > 0) {
+			backButton.setEnabled(true);
+			forwardButton.setText("weiter");
+		}
+		
+		if(currentIndex == 6) {
+			forwardButton.setText("roll");
+		}
+		
 	}
 
-	public void setFernwaffenObjekt(FernwaffenObjekt fernwaffenObjekt) {
-		this.fernwaffenObjekt = fernwaffenObjekt;
-	}
-
-	private void setFernwaffenDistanzen() {
-		lblWaffeDistanzSehrNah.setText(Integer.toString(getFernwaffenObjekt().getEntfernungList().get(0)));
-		lblWaffeDistanzNah.setText(Integer.toString(getFernwaffenObjekt().getEntfernungList().get(1)));
-		lblWaffeDistanzMittel.setText(Integer.toString(getFernwaffenObjekt().getEntfernungList().get(2)));
-		lblWaffeDistanzWeit.setText(Integer.toString(getFernwaffenObjekt().getEntfernungList().get(3)));
-		lblWaffeDistanzSehrWeit.setText(Integer.toString(getFernwaffenObjekt().getEntfernungList().get(4)));
-
-		repaint();
+	/**
+	 * updates the summary of the Fernkampf
+	 */
+	protected void updateSummary() {
+		int index = tabbedPane.getSelectedIndex();
+		int modGroesse 		= 0;
+		int modEntfernung	= 0;
+		int modBewegung		= 0;
+		int modSicht		= 0;
+		int modModifikatoren= 0;
+		int modGezielt		= 0;
+		int resultat        = 0;
+		if(index == 6) {
+			modGroesse 		= berechneErschwerungGroesse();
+			modEntfernung	= berechneErschwerungEntfernung();
+			modBewegung     = berechneErschwerungBewegung();
+			modSicht   		= berechneErschwerungSicht();
+			modModifikatoren= berechneErschwerungModifikatoren();
+			modGezielt      = berechneErschwerungGezielterSchuss();
+			
+			resultat = modGroesse + modEntfernung + modBewegung + modSicht + modModifikatoren + modGezielt;
+			erschwernis = resultat;
+		}
+		
+		lblErschwernisZielgroesseValue.setText(String.valueOf(modGroesse));
+		lblErschwernisEntfernungValue.setText(String.valueOf(modEntfernung));
+		lblErschwernisBewegungValue.setText(String.valueOf(modBewegung));
+		lblErschwernisSichtValue.setText(String.valueOf(modSicht));
+		lblErschwernisModifikatorenValue.setText(String.valueOf(modModifikatoren));
+		lblErschwernisGezielterSchussValue.setText(String.valueOf(modGezielt));
+		
+		lblErschwernisKomplettWert.setText(String.valueOf(resultat));
 	}
 }
