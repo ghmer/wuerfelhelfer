@@ -42,6 +42,10 @@ import link.parzival.dsa.object.enumeration.ParadeObjektTypEnum;
  */
 public class HeroHtmlParser {
 	
+	/**
+	 * @param originalFile the originalFile
+	 * @return a modified file
+	 */
 	private File massageHtmlFile(File originalFile) {
 		File result = null;
 		BufferedReader br = null;
@@ -94,6 +98,12 @@ public class HeroHtmlParser {
 		return result;
 	}
 	
+	/**
+	 * @param document the Document to parse
+	 * @param xpath the XPath to use
+	 * @return the Behinderung
+	 * @throws XPathExpressionException when there was an issue
+	 */
 	private int gatherBehinderung(Document document, XPath xpath) throws XPathExpressionException {
 		// TODO Auto-generated method stub
 		// <table class="zonenruestungen gitternetz">
@@ -113,6 +123,13 @@ public class HeroHtmlParser {
 		return result;
 	}
 	
+	/**
+	 * @param document the Document to parse
+	 * @param xpath the XPath to use
+	 * @param hero the HeldenObjekt to use
+	 * @throws XPathExpressionException when the XPath Expression threw an error
+	 * @throws Exception when there was another error
+	 */
 	private void gatherSonderfertigkeiten(Document document, XPath xpath, HeldenObjekt hero) throws XPathExpressionException, Exception {
 		String countExpression 	= "count((//div[@class='mitte_innen']/table[@class='sonderfertigkeiten'])/tr)";
 		String countResult 		= xpath.compile(countExpression).evaluate(document);
@@ -137,6 +154,13 @@ public class HeroHtmlParser {
 		hero.setSonderfertigkeiten(sonderfertigkeiten);
 	}
 
+	/**
+	 * @param document the Document to parse
+	 * @param xpath the XPath to use
+	 * @param talente the List of talente
+	 * @throws XPathExpressionException when the Expression threw an error
+	 * @throws Exception whenever something else failed
+	 */
 	private void gatherGesellschaftlich(Document document, XPath xpath, List<TalentObjekt> talente)
 			throws XPathExpressionException, Exception {
 		//Koerperliche Talente
@@ -166,6 +190,13 @@ public class HeroHtmlParser {
 		}
 	}
 
+	/**
+	 * @param document the Document to parse
+	 * @param xpath the XPath to use
+	 * @param talente the List of talente
+	 * @throws XPathExpressionException when the Expression threw an error
+	 * @throws Exception whenever something else failed
+	 */
 	private void gatherHandwerk(Document document, XPath xpath, List<TalentObjekt> talente)
 			throws XPathExpressionException, Exception {
 		//Koerperliche Talente
@@ -195,7 +226,14 @@ public class HeroHtmlParser {
 		}
 	}
 	
-	private void gatherKampftechniken(Document document, XPath xpath, List<KampftechnikObjekt> talente)
+	/**
+	 * @param document the Document to parse
+	 * @param xpath the XPath to use
+	 * @param kampftechniken the List of Kampftechniken
+	 * @throws XPathExpressionException when the Expression threw an error
+	 * @throws Exception whenever something else failed
+	 */
+	private void gatherKampftechniken(Document document, XPath xpath, List<KampftechnikObjekt> kampftechniken)
 			throws XPathExpressionException, Exception {
 		//Kampftechniken
 		// get count
@@ -218,18 +256,25 @@ public class HeroHtmlParser {
 			String pa    = xpath.compile(paExpression).evaluate(document);
 			String taw 	 = xpath.compile(tawExpression).evaluate(document);
 			
-			KampftechnikObjekt talent = new KampftechnikObjekt();
-			talent.setName(name);
-			talent.setType(type);
-			talent.setBe(be);
-			talent.setAt(Integer.parseInt(at));
-			talent.setPa(Integer.parseInt(pa));
-			talent.setTalentwert(Integer.parseInt(taw));
+			KampftechnikObjekt kampftechnik = new KampftechnikObjekt();
+			kampftechnik.setName(name);
+			kampftechnik.setType(type);
+			kampftechnik.setBe(be);
+			kampftechnik.setAttacke(Integer.parseInt(at));
+			kampftechnik.setParade(Integer.parseInt(pa));
+			kampftechnik.setTalentwert(Integer.parseInt(taw));
 			
-			talente.add(talent);
+			kampftechniken.add(kampftechnik);
 		}
 	}
 	
+	/**
+	 * @param document the Document to parse
+	 * @param xpath the XPath to use
+	 * @param talente the List of Talente
+	 * @throws XPathExpressionException when the Expression threw an error
+	 * @throws Exception whenever someting else failed
+	 */
 	private void gatherKoerperlich(Document document, XPath xpath, List<TalentObjekt> talente)
 			throws XPathExpressionException, Exception {
 		//Koerperliche Talente
@@ -260,6 +305,13 @@ public class HeroHtmlParser {
 		}
 	}
 	
+	/**
+	 * @param document the Document to parse
+	 * @param xpath the XPath to use
+	 * @param talente the List of Talente
+	 * @throws XPathExpressionException when the Expression threw an error
+	 * @throws Exception whenever someting else failed
+	 */
 	private void gatherNaturtalente(Document document, XPath xpath, List<TalentObjekt> talente)
 			throws XPathExpressionException, Exception {
 		//Koerperliche Talente
@@ -289,6 +341,13 @@ public class HeroHtmlParser {
 		}
 	}
 	
+	/**
+	 * @param document the Document to parse
+	 * @param xpath the XPath to use
+	 * @param talente the List of Talente
+	 * @throws XPathExpressionException when the Expression threw an error
+	 * @throws Exception whenever someting else failed
+	 */
 	private void gatherSchriften(Document document, XPath xpath, List<TalentObjekt> talente)
 			throws XPathExpressionException, Exception {
 		//Koerperliche Talente
@@ -318,6 +377,13 @@ public class HeroHtmlParser {
 		}
 	}
 	
+	/**
+	 * @param document the Document to parse
+	 * @param xpath the XPath to use
+	 * @param talente the List of Talente
+	 * @throws XPathExpressionException when the Expression threw an error
+	 * @throws Exception whenever someting else failed
+	 */
 	private void gatherSprachen(Document document, XPath xpath, List<TalentObjekt> talente)
 			throws XPathExpressionException, Exception {
 		//Koerperliche Talente
@@ -347,6 +413,14 @@ public class HeroHtmlParser {
 		}
 	}
 	
+	/**
+	 * @param document The Document to be parsed
+	 * @param xpath the XPath to use
+	 * @param waffenListe the List to be filled
+	 * @throws XPathExpressionException
+	 * @throws XPathExpressionException when the Expression threw an error
+	 * @throws Exception whenever someting else failed
+	 */
 	private void gatherWaffen(Document document, XPath xpath, List<WaffenObjekt> waffenListe)
 			throws XPathExpressionException, Exception {
 		//Koerperliche Talente
@@ -385,6 +459,10 @@ public class HeroHtmlParser {
 		}
 	}
 	
+	/**
+	 * @param dk the String to parse
+	 * @return a List of available Distanzklassen
+	 */
 	private List<DKEnum> parseDistanzklassen(String dk) {
 		List<DKEnum> distanzklassen = new ArrayList<>();
 		String parseString = dk.trim();
@@ -395,6 +473,13 @@ public class HeroHtmlParser {
 		return distanzklassen;
 	}
 
+	/**
+	 * @param document the Document to parse
+	 * @param xpath the XPath to use
+	 * @param paradewaffenListe the List of paradewaffen
+	 * @throws XPathExpressionException when the Expression threw an error
+	 * @throws Exception whenever something else failed
+	 */
 	private void gatherParadeWaffen(Document document, XPath xpath, List<ParadeObjekt> paradewaffenListe)
 			throws XPathExpressionException, Exception {
 		String countExpression 	= "count((//table[@class='schilde gitternetz'])/tr)";
@@ -434,6 +519,13 @@ public class HeroHtmlParser {
 		}
 	}
 	
+	/**
+	 * @param document the Document to parse
+	 * @param xpath the XPath to use
+	 * @param fernwaffenListe the List of fernwaffen
+	 * @throws XPathExpressionException when the Expression threw an error
+	 * @throws Exception whenever something else failed
+	 */
 	private void gatherFernwaffen(Document document, XPath xpath, List<FernwaffenObjekt> fernwaffenListe)
 			throws XPathExpressionException, Exception {
 		String countExpression 	= "count((//table[@class='fkwaffen gitternetz'])/tr)";
@@ -471,6 +563,10 @@ public class HeroHtmlParser {
 		}
 	}
 	
+	/**
+	 * @param fernwaffenObjekt the Fernwaffenobjekt to set
+	 * @param typBe the Type and Be in a String
+	 */
 	private void setFernwaffeTypeAndBehinderung(FernwaffenObjekt fernwaffenObjekt, String typBe) {
 		String typ = null;
 		String be  = null;
@@ -491,6 +587,10 @@ public class HeroHtmlParser {
 		}
 	}
 
+	/**
+	 * @param fernwaffenObjekt the FernwaffenObjekt to use
+	 * @param dist the Distances of the Weapon
+	 */
 	private void setFernwaffeEntfernung(FernwaffenObjekt fernwaffenObjekt, String dist) {
 		String[] distances = dist.split("/");
 		for(String distance : distances) {
@@ -499,6 +599,10 @@ public class HeroHtmlParser {
  		
 	}
 
+	/**
+	 * @param fernwaffenObjekt the FernwaffenObjekt
+	 * @param tpDist the tps according to distances
+	 */
 	private void setFernwaffeTpEntfernung(FernwaffenObjekt fernwaffenObjekt, String tpDist) {
 		String[] distances = tpDist.split("/");
 		for(String distance : distances) {
@@ -507,6 +611,10 @@ public class HeroHtmlParser {
 		
 	}
 
+	/**
+	 * @param wm the WeaponModificator to parse
+	 * @param paradeObjekt the ParadeObjekt to use
+	 */
 	private void parseWaffenModifikator(String wm, ParadeObjekt paradeObjekt) {
 		int waffenModifikatorAttacke = 0;
 		int waffenModifikatorParade  = 0;
@@ -519,6 +627,13 @@ public class HeroHtmlParser {
 		paradeObjekt.setWaffenModifikatorParade(waffenModifikatorParade);		
 	}
 
+	/**
+	 * @param document the Document to parse
+	 * @param xpath the XPath to use
+	 * @param talente the List of talente
+	 * @throws XPathExpressionException when the Expression threw an error
+	 * @throws Exception whenever something else failed
+	 */
 	private void gatherWissenstalente(Document document, XPath xpath, List<TalentObjekt> talente)
 			throws XPathExpressionException, Exception {
 		//Koerperliche Talente
@@ -548,6 +663,13 @@ public class HeroHtmlParser {
 		}
 	}
 	
+	/**
+	 * @param document the Document to parse
+	 * @param xpath the XPath to use
+	 * @param zauberListe the List of zauber
+	 * @throws XPathExpressionException when the Expression threw an error
+	 * @throws Exception whenever something else failed
+	 */
 	private void gatherZauber(Document document, XPath xpath, List<TalentObjekt> zauberListe)
 			throws XPathExpressionException, Exception {
 		//Koerperliche Talente
@@ -577,6 +699,11 @@ public class HeroHtmlParser {
 		}
 	}
 	
+	/**
+	 * @param xmlFile the File to parse
+	 * @return a HeldenObjekt to use
+	 * @throws Exception when there was an error
+	 */
 	public HeldenObjekt parseFile(File xmlFile) throws Exception {
 		DocumentBuilderFactory factory 	= DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder 		= null;
@@ -680,6 +807,11 @@ public class HeroHtmlParser {
 		return hero;
 	}
 	
+	/**
+	 * @param talentObjekt the TalentObjekt to use
+	 * @param probe the probe to split
+	 * @throws Exception when there was an issue
+	 */
 	private void splitTalentProben(TalentObjekt talentObjekt, String probe) throws Exception {
 		String localprobe = probe.trim();
 		localprobe  	  = localprobe.replaceAll("--", "NA").replaceAll("\\*\\*", "NA");
