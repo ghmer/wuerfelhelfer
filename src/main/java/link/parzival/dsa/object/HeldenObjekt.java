@@ -14,34 +14,68 @@ import link.parzival.dsa.object.enumeration.EigenschaftEnum;
  */
 public class HeldenObjekt {
 
-	private String name;
-	private int mut;
-	private int klugheit;
-	private int intuition;
+	private int astralenergie;
+	private int ausdauer;
+	private int basisattacke;
+	private int basisinitiative;
+	private int basisparade;
+	private int behinderung;
 	private int charisma;
+	private int fernkampfbasis;
 	private int fingerfertigkeit;
 	private int gewandtheit;
-	private int konstitution;
-	private int koerperkraft;
-	private int behinderung;
-	private int ausdauer;
-	private int lebensenergie;
-	private int astralenergie;
+	private int intuition;
 	private int karmalenergie;
-	private int basisinitiative;
-	private int magieresistenz;
-	private int basisattacke;
-	private int basisparade;
-	private int fernkampfbasis;
+	private int klugheit;
+	private int koerperkraft;
+	private int konstitution;
+	private int lebensenergie;
+	private int magieresistenz;	
+	private int mut;
+	private String name;
 	
-	private List<TalentObjekt> talente = new ArrayList<>();
-	private List<TalentObjekt> zauber  = new ArrayList<>(); 
-	private List<WaffenObjekt> waffen  = new ArrayList<>();
-	private List<ParadeObjekt> paradeWaffen = new ArrayList<>();
-	private List<FernwaffenObjekt> fernWaffen = new ArrayList<>();
+	private List<FernwaffenObjekt> fernWaffen 			= new ArrayList<>();
+	private List<KampftechnikObjekt> kampftechniken 	= new ArrayList<>();
+	private List<ParadeObjekt> paradeWaffen 			= new ArrayList<>();
+	private List<Sonderfertigkeit> sonderfertigkeiten 	= new ArrayList<>();
+	private List<TalentObjekt> talente 					= new ArrayList<>();
+	private List<WaffenObjekt> waffen  					= new ArrayList<>();
+	private List<TalentObjekt> zauber  					= new ArrayList<>();
 	
-	private List<Sonderfertigkeit> sonderfertigkeiten = new ArrayList<>();
-	
+	/**
+	 * @param fernwaffenObjekt the Fernwaffe to add
+	 */
+	public void addFernwaffe(FernwaffenObjekt fernwaffenObjekt) {
+		this.fernWaffen.add(fernwaffenObjekt);
+	}
+
+	/**
+	 * @param kampftechnik the Kampftechnik to add
+	 */
+	public void addKampftechnik(KampftechnikObjekt kampftechnik) {
+		this.kampftechniken.add(kampftechnik);
+	}
+
+	/**
+	 * @param paradeObjekt the paradeObjekt to add
+	 */
+	public void addParadeWaffe(ParadeObjekt paradeObjekt) {
+		this.paradeWaffen.add(paradeObjekt);
+	}
+
+	/**
+	 * @param sonderfertigkeit the sonderfertigkeit to add
+	 */
+	public void addSonderfertigkeit(Sonderfertigkeit sonderfertigkeit) {
+		this.sonderfertigkeiten.add(sonderfertigkeit);
+	}
+
+	/**
+	 * @param waffenObjekt the WaffenObjekt to add
+	 */
+	public void addWaffe(WaffenObjekt waffenObjekt) {
+		this.waffen.add(waffenObjekt);
+	}
 
 	/**
 	 * @return the astralenergie
@@ -100,6 +134,60 @@ public class HeldenObjekt {
 	}
 
 	/**
+	 * @param fernwaffenName the name of the Fernwaffe to get
+	 * @return the FernwaffenObjekt corresponding to the fernwaffenName
+	 */
+	public FernwaffenObjekt getFernWaffeByName(String fernwaffenName) {
+		FernwaffenObjekt fernWaffenObjekt = null;
+		for(FernwaffenObjekt fernObj : getFernWaffen()) {
+			if(fernObj.getName().equalsIgnoreCase(fernwaffenName)) {
+				fernWaffenObjekt = fernObj;
+				break;
+			}
+		}
+		return fernWaffenObjekt;
+	}
+
+	/**
+	 * @return all ernwaffen as a List of FernwaffenObjekte
+	 */
+	public List<FernwaffenObjekt> getFernWaffen() {
+		return fernWaffen;
+	}
+
+	/**
+	 * @return all Fernwaffennamen as a List of Strings
+	 */
+	public List<String> getFernWaffenNamen() {
+		List<String> result = new ArrayList<>();
+		for(FernwaffenObjekt fo : getFernWaffen()) {
+			result.add(fo.getName());
+		}
+		
+		return result;
+	}
+
+	/**
+	 * @return all Fernwaffennamen as an Array of Strings
+	 */
+	public String[] getFernWaffenNamenAsArray() {
+		int size = fernWaffen.size();
+		String[] result = new String[size];
+		for(int i = 0; i < size; i++) {
+			result[i] = fernWaffen.get(i).getName();
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * @return all Fernwaffennamen as a List of Strings
+	 */
+	public List<String> getFernWaffenNamenAsList() {
+		return getFernWaffenNamen();
+	}
+
+	/**
 	 * @param eigenschaft the eigenschaft to get the value of
 	 * @return the value of the eigenschaft
 	 */
@@ -126,14 +214,14 @@ public class HeldenObjekt {
 	public int getFingerfertigkeit() {
 		return fingerfertigkeit;
 	}
-
+	
 	/**
 	 * @return the gewandheit
 	 */
 	public int getGewandtheit() {
 		return gewandtheit;
 	}
-
+	
 	/**
 	 * @return the intuition
 	 */
@@ -141,10 +229,20 @@ public class HeldenObjekt {
 		return intuition;
 	}
 
+	/**
+	 * @return the kampftechniken
+	 */
+	public List<KampftechnikObjekt> getKampftechniken() {
+		return kampftechniken;
+	}
+
+	/**
+	 * @return the karmalenergie
+	 */
 	public int getKarmalenergie() {
 		return karmalenergie;
 	}
-
+	
 	/**
 	 * @return the klugheit
 	 */
@@ -165,7 +263,7 @@ public class HeldenObjekt {
 	public int getKonstitution() {
 		return konstitution;
 	}
-	
+
 	/**
 	 * @return the lebensenergie
 	 */
@@ -186,14 +284,91 @@ public class HeldenObjekt {
 	public int getMut() {
 		return mut;
 	}
-	
+
 	/**
 	 * @return the name
 	 */
 	public String getName() {
 		return name;
 	}
+
+	/**
+	 * @param paradeObjektName the name of the Paradewaffe to get
+	 * @return
+	 */
+	public ParadeObjekt getParadeWaffeByName(String paradeObjektName) {
+		ParadeObjekt paradeObjekt = null;
+		for(ParadeObjekt paradeObj : getParadeWaffen()) {
+			if(paradeObj.getName().equalsIgnoreCase(paradeObjektName)) {
+				paradeObjekt = paradeObj;
+				break;
+			}
+		}
+		return paradeObjekt;
+	}
 	
+	/**
+	 * @return the paradeWaffen
+	 */
+	public List<ParadeObjekt> getParadeWaffen() {
+		return paradeWaffen;
+	}
+	
+	/** 
+	 * @return the waffenNamen
+	 */
+	public List<String> getParadeWaffenNamen() {
+		List<String> result = new ArrayList<>();
+		for(ParadeObjekt po : getParadeWaffen()) {
+			result.add(po.getName());
+		}
+		
+		return result;
+	}
+
+	/**
+	 * @return the waffenNamen
+	 */
+	public String[] getParadeWaffenNamenAsArray() {
+		int size = paradeWaffen.size();
+		String[] result = new String[size];
+		for(int i = 0; i < size; i++) {
+			result[i] = paradeWaffen.get(i).getName();
+		}
+		
+		return result;
+	}
+
+	/**
+	 * @return the waffenNamen
+	 */
+	public List<String> getParadeWaffenNamenAsList() {
+		return getParadeWaffenNamen();
+	}
+
+	/**
+	 * @param name the name of the Sonderfertigkeit
+	 * @return the Sonderfertigkeit, or NULL
+	 */
+	public Sonderfertigkeit getSonderfertigkeitByName(String name) {
+		Sonderfertigkeit result = null;
+		for(int i = 0; i < sonderfertigkeiten.size(); i++) {
+			Sonderfertigkeit sf = sonderfertigkeiten.get(i);
+			if(sf.getName().equalsIgnoreCase(name)) {
+				result = sf;
+				break;
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * @return the sonderfertigkeiten
+	 */
+	public List<Sonderfertigkeit> getSonderfertigkeiten() {
+		return sonderfertigkeiten;
+	}
+
 	/**
 	 * @return the talente
 	 */
@@ -222,7 +397,7 @@ public class HeldenObjekt {
 	public List<WaffenObjekt> getWaffen() {
 		return waffen;
 	}
-	
+
 	/** 
 	 * @return the waffenNamen
 	 */
@@ -263,6 +438,42 @@ public class HeldenObjekt {
 	}
 
 	/**
+	 * @param sonderfertigkeit the sonderfertigkeit to remove
+	 */
+	public void removeSonderfertigkeit(Sonderfertigkeit sonderfertigkeit) {
+		int index = -1;
+		for(int i = 0; i < sonderfertigkeiten.size(); i++) {
+			Sonderfertigkeit sf = sonderfertigkeiten.get(i);
+			if(sf.getName().equalsIgnoreCase(sonderfertigkeit.getName())) {
+				index = i;
+				break;
+			}
+		}
+		
+		if(index != -1) {
+			this.sonderfertigkeiten.remove(index);
+		}	
+	}
+
+	/**
+	 * @param name the sonderfertigkeit to remove
+	 */
+	public void removeSonderfertigkeit(String name) {
+		int index = -1;
+		for(int i = 0; i < sonderfertigkeiten.size(); i++) {
+			Sonderfertigkeit sf = sonderfertigkeiten.get(i);
+			if(sf.getName().equalsIgnoreCase(name)) {
+				index = i;
+				break;
+			}
+		}
+		
+		if(index != -1) {
+			this.sonderfertigkeiten.remove(index);
+		}	
+	}
+
+	/**
 	 * @param astralenergie the astralenergie to set
 	 */
 	public void setAstralenergie(int astralenergie) {
@@ -289,7 +500,7 @@ public class HeldenObjekt {
 	public void setBasisinitiative(int basisinitiative) {
 		this.basisinitiative = basisinitiative;
 	}
-	
+
 	/**
 	 * @param basisparade the basisparade to set
 	 */
@@ -303,19 +514,26 @@ public class HeldenObjekt {
 	public void setBehinderung(int behinderung) {
 		this.behinderung = behinderung;
 	}
-
+	
 	/**
 	 * @param charisma the charisma to set
 	 */
 	public void setCharisma(int charisma) {
 		this.charisma = charisma;
 	}
-
+	
 	/**
 	 * @param fernkampfbasis the fernkampfbasis to set
 	 */
 	public void setFernkampfbasis(int fernkampfbasis) {
 		this.fernkampfbasis = fernkampfbasis;
+	}
+	
+	/**
+	 * @param fernWaffen the fernwaffen to set
+	 */
+	public void setFernWaffen(List<FernwaffenObjekt> fernWaffen) {
+		this.fernWaffen = fernWaffen;
 	}
 
 	/**
@@ -324,25 +542,36 @@ public class HeldenObjekt {
 	public void setFingerfertigkeit(int fingerfertigkeit) {
 		this.fingerfertigkeit = fingerfertigkeit;
 	}
-
+	
 	/**
 	 * @param gewandtheit the gewandtheit to set
 	 */
 	public void setGewandtheit(int gewandtheit) {
 		this.gewandtheit = gewandtheit;
 	}
-
+	
 	/**
 	 * @param intuition the intuition to set
 	 */
 	public void setIntuition(int intuition) {
 		this.intuition = intuition;
 	}
+	
+	/**
+	 * @param kampftechniken the kampftechniken to set
+	 */
+	public void setKampftechniken(List<KampftechnikObjekt> kampftechniken) {
+		this.kampftechniken = kampftechniken;
+		
+	}
 
+	/**
+	 * @param karmalenergie the karmalenergie to set
+	 */
 	public void setKarmalenergie(int karmalenergie) {
 		this.karmalenergie = karmalenergie;
 	}
-
+	
 	/**
 	 * @param klugheit the klugheit to set
 	 */
@@ -356,7 +585,7 @@ public class HeldenObjekt {
 	public void setKoerperkraft(int koerperkraft) {
 		this.koerperkraft = koerperkraft;
 	}
-
+	
 	/**
 	 * @param konstitution the konstitution to set
 	 */
@@ -370,28 +599,42 @@ public class HeldenObjekt {
 	public void setLebensenergie(int lebensenergie) {
 		this.lebensenergie = lebensenergie;
 	}
-
+	
 	/**
 	 * @param magieresistenz the magieresistenz to set
 	 */
 	public void setMagieresistenz(int magieresistenz) {
 		this.magieresistenz = magieresistenz;
 	}
-
+	
 	/**
 	 * @param mut the mut to set
 	 */
 	public void setMut(int mut) {
 		this.mut = mut;
 	}
-
+	
 	/**
 	 * @param name the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	/**
+	 * @param paradeWaffen the paradeWaffen to set
+	 */
+	public void setParadeWaffen(List<ParadeObjekt> paradeWaffen) {
+		this.paradeWaffen = paradeWaffen;
+	}
 
+	/**
+	 * @param sonderfertigkeiten the sonderfertigkeiten to set
+	 */
+	public void setSonderfertigkeiten(List<Sonderfertigkeit> sonderfertigkeiten) {
+		this.sonderfertigkeiten = sonderfertigkeiten;
+	}
+	
 	/**
 	 * @param talente the talente to set
 	 */
@@ -405,199 +648,12 @@ public class HeldenObjekt {
 	public void setWaffen(List<WaffenObjekt> waffen) {
 		this.waffen = waffen;
 	}
-
+	
 	/**
 	 * @param zauberListe the zauberListe to set
 	 */
 	public void setZauber(List<TalentObjekt> zauberListe) {
 		this.zauber = zauberListe;;
 		
-	}
-
-	/**
-	 * @return the sonderfertigkeiten
-	 */
-	public List<Sonderfertigkeit> getSonderfertigkeiten() {
-		return sonderfertigkeiten;
-	}
-
-	/**
-	 * @param sonderfertigkeiten the sonderfertigkeiten to set
-	 */
-	public void setSonderfertigkeiten(List<Sonderfertigkeit> sonderfertigkeiten) {
-		this.sonderfertigkeiten = sonderfertigkeiten;
-	}
-	
-	/**
-	 * @param name the name of the Sonderfertigkeit
-	 * @return the Sonderfertigkeit, or NULL
-	 */
-	public Sonderfertigkeit getSonderfertigkeitByName(String name) {
-		Sonderfertigkeit result = null;
-		for(int i = 0; i < sonderfertigkeiten.size(); i++) {
-			Sonderfertigkeit sf = sonderfertigkeiten.get(i);
-			if(sf.getName().equalsIgnoreCase(name)) {
-				result = sf;
-				break;
-			}
-		}
-		return result;
-	}
-	
-	/**
-	 * @param sonderfertigkeit the sonderfertigkeit to add
-	 */
-	public void addSonderfertigkeit(Sonderfertigkeit sonderfertigkeit) {
-		this.sonderfertigkeiten.add(sonderfertigkeit);
-	}
-	
-	/**
-	 * @param sonderfertigkeit the sonderfertigkeit to remove
-	 */
-	public void removeSonderfertigkeit(Sonderfertigkeit sonderfertigkeit) {
-		int index = -1;
-		for(int i = 0; i < sonderfertigkeiten.size(); i++) {
-			Sonderfertigkeit sf = sonderfertigkeiten.get(i);
-			if(sf.getName().equalsIgnoreCase(sonderfertigkeit.getName())) {
-				index = i;
-				break;
-			}
-		}
-		
-		if(index != -1) {
-			this.sonderfertigkeiten.remove(index);
-		}	
-	}
-	
-	/**
-	 * @param name the sonderfertigkeit to remove
-	 */
-	public void removeSonderfertigkeit(String name) {
-		int index = -1;
-		for(int i = 0; i < sonderfertigkeiten.size(); i++) {
-			Sonderfertigkeit sf = sonderfertigkeiten.get(i);
-			if(sf.getName().equalsIgnoreCase(name)) {
-				index = i;
-				break;
-			}
-		}
-		
-		if(index != -1) {
-			this.sonderfertigkeiten.remove(index);
-		}	
-	}
-
-	/**
-	 * @return the paradeWaffen
-	 */
-	public List<ParadeObjekt> getParadeWaffen() {
-		return paradeWaffen;
-	}
-	
-	public List<FernwaffenObjekt> getFernWaffen() {
-		return fernWaffen;
-	}
-	
-	/** 
-	 * @return the waffenNamen
-	 */
-	public List<String> getParadeWaffenNamen() {
-		List<String> result = new ArrayList<>();
-		for(ParadeObjekt po : getParadeWaffen()) {
-			result.add(po.getName());
-		}
-		
-		return result;
-	}
-	
-	public List<String> getFernWaffenNamen() {
-		List<String> result = new ArrayList<>();
-		for(FernwaffenObjekt fo : getFernWaffen()) {
-			result.add(fo.getName());
-		}
-		
-		return result;
-	}
-
-	/**
-	 * @return the waffenNamen
-	 */
-	public String[] getParadeWaffenNamenAsArray() {
-		int size = paradeWaffen.size();
-		String[] result = new String[size];
-		for(int i = 0; i < size; i++) {
-			result[i] = paradeWaffen.get(i).getName();
-		}
-		
-		return result;
-	}
-	
-	public String[] getFernWaffenNamenAsArray() {
-		int size = fernWaffen.size();
-		String[] result = new String[size];
-		for(int i = 0; i < size; i++) {
-			result[i] = fernWaffen.get(i).getName();
-		}
-		
-		return result;
-	}
-
-	/**
-	 * @return the waffenNamen
-	 */
-	public List<String> getParadeWaffenNamenAsList() {
-		return getParadeWaffenNamen();
-	}
-	
-	public List<String> getFernWaffenNamenAsList() {
-		return getFernWaffenNamen();
-	}
-
-	/**
-	 * @param paradeWaffen the paradeWaffen to set
-	 */
-	public void setParadeWaffen(List<ParadeObjekt> paradeWaffen) {
-		this.paradeWaffen = paradeWaffen;
-	}
-	
-	public void setFernWaffen(List<FernwaffenObjekt> fernWaffen) {
-		this.fernWaffen = fernWaffen;
-	}
-	
-	/**
-	 * @param paradeObjekt the paradeObjekt to add
-	 */
-	public void addParadeWaffe(ParadeObjekt paradeObjekt) {
-		this.paradeWaffen.add(paradeObjekt);
-	}
-	
-	public void addFernwaffe(FernwaffenObjekt fernwaffenObjekt) {
-		this.fernWaffen.add(fernwaffenObjekt);
-	}
-	
-	public void addWaffe(WaffenObjekt waffenObjekt) {
-		this.waffen.add(waffenObjekt);
-	}
-
-	public ParadeObjekt getParadeWaffeByName(String paradeObjektName) {
-		ParadeObjekt paradeObjekt = null;
-		for(ParadeObjekt paradeObj : getParadeWaffen()) {
-			if(paradeObj.getName().equalsIgnoreCase(paradeObjektName)) {
-				paradeObjekt = paradeObj;
-				break;
-			}
-		}
-		return paradeObjekt;
-	}
-	
-	public FernwaffenObjekt getFernWaffeByName(String fernwaffenName) {
-		FernwaffenObjekt fernWaffenObjekt = null;
-		for(FernwaffenObjekt fernObj : getFernWaffen()) {
-			if(fernObj.getName().equalsIgnoreCase(fernwaffenName)) {
-				fernWaffenObjekt = fernObj;
-				break;
-			}
-		}
-		return fernWaffenObjekt;
 	}
 }

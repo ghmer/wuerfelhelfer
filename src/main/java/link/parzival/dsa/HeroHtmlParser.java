@@ -26,6 +26,7 @@ import org.xml.sax.SAXException;
 
 import link.parzival.dsa.object.FernwaffenObjekt;
 import link.parzival.dsa.object.HeldenObjekt;
+import link.parzival.dsa.object.KampftechnikObjekt;
 import link.parzival.dsa.object.ParadeObjekt;
 import link.parzival.dsa.object.Sonderfertigkeit;
 import link.parzival.dsa.object.TalentObjekt;
@@ -194,7 +195,7 @@ public class HeroHtmlParser {
 		}
 	}
 	
-	private void gatherKampftechniken(Document document, XPath xpath, List<TalentObjekt> talente)
+	private void gatherKampftechniken(Document document, XPath xpath, List<KampftechnikObjekt> talente)
 			throws XPathExpressionException, Exception {
 		//Kampftechniken
 		// get count
@@ -204,19 +205,26 @@ public class HeroHtmlParser {
 		
 		for(int i = 2; i <= count; i++) {
 			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])[1]/tr["+ i +"]/td[1]/text()";
-			String beExpression		= "(//table[@class='talentgruppe gitternetz'])[1]/tr["+ i +"]/td[3]/text()";
+			String beExpression		= "(//table[@class='talentgruppe gitternetz'])[1]/tr["+ i +"]/td[2]/text()";
+			String typeExpression   = "(//table[@class='talentgruppe gitternetz'])[1]/tr["+ i +"]/td[3]/text()";
+			String atExpression     = "(//table[@class='talentgruppe gitternetz'])[1]/tr["+ i +"]/td[4]/text()";
+			String paExpression     = "(//table[@class='talentgruppe gitternetz'])[1]/tr["+ i +"]/td[5]/text()";
 			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])[1]/tr["+ i +"]/td[6]/text()";
 			
 			String name  = xpath.compile(nameExpression).evaluate(document);
 			String be 	 = xpath.compile(beExpression).evaluate(document);
+			String type  = xpath.compile(typeExpression).evaluate(document);
+			String at    = xpath.compile(atExpression).evaluate(document);
+			String pa    = xpath.compile(paExpression).evaluate(document);
 			String taw 	 = xpath.compile(tawExpression).evaluate(document);
-			String probe = " (--/--/--)";
 			
-			TalentObjekt talent = new TalentObjekt();
+			KampftechnikObjekt talent = new KampftechnikObjekt();
 			talent.setName(name);
+			talent.setType(type);
 			talent.setBe(be);
+			talent.setAt(Integer.parseInt(at));
+			talent.setPa(Integer.parseInt(pa));
 			talent.setTalentwert(Integer.parseInt(taw));
-			splitTalentProben(talent, probe);
 			
 			talente.add(talent);
 		}
@@ -624,7 +632,7 @@ public class HeroHtmlParser {
 			}
 			
 			List<TalentObjekt> talente = new ArrayList<>();
-			gatherKampftechniken(document, xpath, talente);
+			
 			gatherKoerperlich(document, xpath, talente);
 			gatherGesellschaftlich(document, xpath, talente);
 			gatherNaturtalente(document, xpath, talente);
@@ -632,8 +640,11 @@ public class HeroHtmlParser {
 			gatherSprachen(document, xpath, talente);
 			gatherSchriften(document, xpath, talente);
 			gatherHandwerk(document, xpath, talente);
-			
 			hero.setTalente(talente);
+			
+			List<KampftechnikObjekt> kampfTalente = new ArrayList<>();
+			gatherKampftechniken(document, xpath, kampfTalente);
+			hero.setKampftechniken(kampfTalente);
 			
 			List<TalentObjekt> zauber = new ArrayList<>();
 			gatherZauber(document, xpath, zauber);
