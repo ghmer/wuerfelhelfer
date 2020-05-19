@@ -294,7 +294,7 @@ public class HeldenObjekt {
 
 	/**
 	 * @param paradeObjektName the name of the Paradewaffe to get
-	 * @return
+	 * @return the ParadeObjekt
 	 */
 	public ParadeObjekt getParadeWaffeByName(String paradeObjektName) {
 		ParadeObjekt paradeObjekt = null;

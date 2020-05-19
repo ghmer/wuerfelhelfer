@@ -63,7 +63,7 @@ public class KampftechnikObjekt {
 		this.type = type;
 	}
 	/**
-	 * @param bE the bE to set
+	 * @param be the be to set
 	 */
 	public void setBe(String be) {
 		this.be = be;
