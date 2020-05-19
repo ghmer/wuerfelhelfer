@@ -24,27 +24,18 @@ import java.awt.Insets;
 
 public class DistanceChangeDialog extends JDialog {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 9196060912407937075L;
-
-	private final JPanel contentPanel = new JPanel();
-	
-	public static final int OK_STATE = 0;
-	public static final int CANCEL_STATE = 1;
-	
-	private int state = CANCEL_STATE;
-	
-	private String rollCommand = null;
-
-	private JComboBox<Integer> distanzklassenAenderung;
-
-	private JComboBox<Hopser> comboBoxDirection;
-	
 	private enum Hopser {
 		verkürzen,verlängern
 	}
+
+	public static final int CANCEL_STATE 		= 1;	
+	public static final int OK_STATE 			= 0;
+	private static final long serialVersionUID 	= 9196060912407937075L;
+	private JComboBox<Hopser> comboBoxDirection = new JComboBox<>();
+	private final JPanel contentPanel	 		= new JPanel();
+	private JComboBox<Integer> dkAenderung		= new JComboBox<>();
+	private String rollCommand 					= null;
+	private int state 							= CANCEL_STATE;
 
 	/**
 	 * @param hero the HeldenObjekt to set
@@ -85,15 +76,15 @@ public class DistanceChangeDialog extends JDialog {
 		gbc_lblNewLabel.gridy = 0;
 		contentPanel.add(lblNewLabel, gbc_lblNewLabel);
 		
-		distanzklassenAenderung = new JComboBox<Integer>();
-		distanzklassenAenderung.setModel(new DefaultComboBoxModel<Integer>(new Integer[] {1, 2}));
-		distanzklassenAenderung.setSelectedIndex(0);
+		dkAenderung = new JComboBox<Integer>();
+		dkAenderung.setModel(new DefaultComboBoxModel<Integer>(new Integer[] {1, 2}));
+		dkAenderung.setSelectedIndex(0);
 		GridBagConstraints gbc_distanzklassenAenderung = new GridBagConstraints();
 		gbc_distanzklassenAenderung.anchor = GridBagConstraints.NORTHWEST;
 		gbc_distanzklassenAenderung.insets = new Insets(0, 0, 0, 5);
 		gbc_distanzklassenAenderung.gridx = 2;
 		gbc_distanzklassenAenderung.gridy = 0;
-		contentPanel.add(distanzklassenAenderung, gbc_distanzklassenAenderung);
+		contentPanel.add(dkAenderung, gbc_distanzklassenAenderung);
 		
 		JLabel lblNewLabel_1 = new JLabel("Distanzklassen");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
@@ -109,7 +100,7 @@ public class DistanceChangeDialog extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						boolean verdoppeln = ((int) distanzklassenAenderung.getSelectedItem() == 2) ? true : false;
+						boolean verdoppeln = ((int) dkAenderung.getSelectedItem() == 2) ? true : false;
 						boolean verkuerzen = (((Hopser) comboBoxDirection.getSelectedItem()).equals(Hopser.verkürzen)) ? true: false;
 						setRollCommand(DsaCalculatorUtil.getChangeDistanceEffectiveRoll(waffenObjekt, verdoppeln, verkuerzen));
 						state = OK_STATE;
@@ -135,14 +126,6 @@ public class DistanceChangeDialog extends JDialog {
 	}
 	
 	/**
-	 * @return the state of the dialog
-	 */
-	public int showDialog() {
-		setVisible(true);
-		return state;
-	}
-
-	/**
 	 * @return the rollCommand
 	 */
 	public String getRollCommand() {
@@ -154,5 +137,13 @@ public class DistanceChangeDialog extends JDialog {
 	 */
 	public void setRollCommand(String rollCommand) {
 		this.rollCommand = rollCommand;
+	}
+
+	/**
+	 * @return the state of the dialog
+	 */
+	public int showDialog() {
+		setVisible(true);
+		return state;
 	}
 }
