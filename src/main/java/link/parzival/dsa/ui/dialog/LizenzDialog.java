@@ -16,12 +16,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class LizenzDialog extends JDialog {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -789044538891465510L;
-	private final JPanel contentPanel = new JPanel();
+	private static final long serialVersionUID 	= -789044538891465510L;
+	private final JPanel contentPanel 			= new JPanel();
 	
 	/**
 	 * Create the dialog.
