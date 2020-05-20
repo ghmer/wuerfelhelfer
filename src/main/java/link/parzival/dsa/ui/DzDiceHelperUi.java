@@ -114,6 +114,18 @@ public class DzDiceHelperUi extends JFrame {
 		});
 		menuFile.add(menuItemLoadHtml);
 		
+		JMenuItem menuItemUpdateCheck = new JMenuItem("auf Update prüfen");
+		menuFile.add(menuItemUpdateCheck);
+		menuItemUpdateCheck.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(VersionCheck.checkForNewVersion(VERSION)) {
+					JOptionPane.showMessageDialog(null, "Eine neue Version kann unter https://parzival.link heruntergeladen werden");
+				} else {
+					JOptionPane.showMessageDialog(null, "Du verwendest die aktuelle Version");
+				}
+			}
+		});
+		
 		JSeparator separator = new JSeparator();
 		menuFile.add(separator);
 		
@@ -127,21 +139,6 @@ public class DzDiceHelperUi extends JFrame {
 		
 		JMenu mnNewMenu = new JMenu("?");
 		menuBar.add(mnNewMenu);
-		
-		JMenuItem menuItemUpdateCheck = new JMenuItem("auf Update prüfen");
-		menuItemUpdateCheck.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(VersionCheck.checkForNewVersion(VERSION)) {
-					JOptionPane.showMessageDialog(null, "Eine neue Version kann unter https://parzival.link heruntergeladen werden");
-				} else {
-					JOptionPane.showMessageDialog(null, "Du verwendest die aktuelle Version");
-				}
-			}
-		});
-		mnNewMenu.add(menuItemUpdateCheck);
-		
-		JSeparator separatorHelp = new JSeparator();
-		mnNewMenu.add(separatorHelp);
 		
 		JMenuItem menuItemLizenzen = new JMenuItem("3rd Party Lizenzen");
 		menuItemLizenzen.addActionListener(new ActionListener() {
