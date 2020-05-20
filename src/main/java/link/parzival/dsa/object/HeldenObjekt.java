@@ -656,4 +656,20 @@ public class HeldenObjekt {
 		this.zauber = zauberListe;;
 		
 	}
+	
+	/**
+	 * @param kampftechnikName the name of the Kampftechnik to return
+	 * @return the requested KampftechnikObjekt 
+	 */
+	public KampftechnikObjekt getKampftechnikByName(String kampftechnikName) {
+		KampftechnikObjekt result = null;
+		for(KampftechnikObjekt kampftechnik : kampftechniken) {
+			if(kampftechnik.getName().equalsIgnoreCase(kampftechnikName)) {
+				result = kampftechnik;
+				break;
+			}
+		}
+		
+		return result;
+	}
 }
