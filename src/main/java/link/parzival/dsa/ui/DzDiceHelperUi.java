@@ -9,7 +9,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileFilter;
 
 import link.parzival.dsa.HeroHtmlParser;
-import link.parzival.dsa.HeroXmlParser;
+import link.parzival.dsa.VersionCheck;
 import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.TalentObjekt;
 import link.parzival.dsa.ui.dialog.AbilityDialog;
@@ -38,50 +38,21 @@ import java.awt.datatransfer.StringSelection;
 import javax.swing.JButton;
 
 public class DzDiceHelperUi extends JFrame {
-
-	public static void copyToClipboard(String text) {
-		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-		StringSelection selection = new StringSelection(text);
-		clipboard.setContents(selection, null);
-		
-		JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
-	}
-	
-	/**
-	 * 
-	 */
+	public static final String remoteUrlString = "https://parzival.link/dz-dice-helper-latest.jar";
+	public  static final int VERSION = 1;
 	private static final long serialVersionUID = 6428768807868759732L;
-	
-	/**
-	 * @param args the default arguments
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {					
-					
-					DzDiceHelperUi frame = new DzDiceHelperUi();
-					frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-					frame.setResizable(false);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	private JPanel contentPane;
-	private Font customMainFont;
-	private Font customHeroNameFont;
-	
-	private HeldenObjekt hero;
-	private HeroPanel currentHeroPanel = null;
-	private AbilityPanel currentAbility = null;
-	private String selectedAbilityName;
 	private JButton btnPruefungWaehlen;
+	private JPanel contentPane;
+	private AbilityPanel currentAbility = null;
+	
+	private CombatPanel currentCombatPanel;
+	private HeroPanel currentHeroPanel = null;
+	private Font customHeroNameFont;
+	private Font customMainFont;
+	private HeldenObjekt hero;
+	private String selectedAbilityName;
 	private JSeparator separatorTalentChoseButtonDown;
 	private JSeparator separatorTalentChoseButtonUp;
-	private CombatPanel currentCombatPanel;
 	
 	/**
 	 * Create the frame.
@@ -103,40 +74,6 @@ public class DzDiceHelperUi extends JFrame {
 		
 		JMenu menuFile = new JMenu("Datei");
 		menuBar.add(menuFile);
-		
-		JMenuItem menuItemLoadXml = new JMenuItem("lade XML");
-		menuItemLoadXml.setEnabled(false);
-		menuItemLoadXml.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-				fileChooser.setFileFilter(new FileFilter() {
-					@Override
-					public boolean accept(File f) {
-						if (f.isDirectory()) {
-				            return true;
-				        } else {
-				            return f.getName().toLowerCase().endsWith(".xml");
-				        }
-					}					
-					@Override
-					public String getDescription() {
-						return "*.xml";
-					}
-				});
-				
-				int result = fileChooser.showOpenDialog(contentPane);
-				if (result == JFileChooser.APPROVE_OPTION) {
-				    File selectedFile = fileChooser.getSelectedFile();
-				    HeroXmlParser hxp = new HeroXmlParser();
-					hero = hxp.parseFile(selectedFile);
-					
-					prepareView();
-				}
-			}			
-		});
-		menuFile.add(menuItemLoadXml);
 		
 		JMenuItem menuItemLoadHtml = new JMenuItem("lade HTML");
 		menuItemLoadHtml.addActionListener(new ActionListener() {
@@ -191,15 +128,30 @@ public class DzDiceHelperUi extends JFrame {
 		JMenu mnNewMenu = new JMenu("?");
 		menuBar.add(mnNewMenu);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("3rd Party Lizenzen");
-		mntmNewMenuItem.addActionListener(new ActionListener() {
+		JMenuItem menuItemUpdateCheck = new JMenuItem("auf Update prüfen");
+		menuItemUpdateCheck.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(VersionCheck.checkForNewVersion(VERSION)) {
+					JOptionPane.showMessageDialog(null, "Eine neue Version kann unter https://parzival.link heruntergeladen werden");
+				} else {
+					JOptionPane.showMessageDialog(null, "Du verwendest die aktuelle Version");
+				}
+			}
+		});
+		mnNewMenu.add(menuItemUpdateCheck);
+		
+		JSeparator separatorHelp = new JSeparator();
+		mnNewMenu.add(separatorHelp);
+		
+		JMenuItem menuItemLizenzen = new JMenuItem("3rd Party Lizenzen");
+		menuItemLizenzen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LizenzDialog lizenzDialog = new LizenzDialog();
 				lizenzDialog.setFont(customMainFont);
 				lizenzDialog.setVisible(true);
 			}
 		});
-		mnNewMenu.add(mntmNewMenuItem);
+		mnNewMenu.add(menuItemLizenzen);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -257,6 +209,33 @@ public class DzDiceHelperUi extends JFrame {
 		contentPane.add(separatorTalentChoseButtonDown);
 	}
 
+	public static void copyToClipboard(String text) {
+		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		StringSelection selection = new StringSelection(text);
+		clipboard.setContents(selection, null);
+		
+		JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
+	}
+	
+	/**
+	 * @param args the default arguments
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {					
+					
+					DzDiceHelperUi frame = new DzDiceHelperUi();
+					frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+					frame.setResizable(false);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
 	private Font getFontFromResource(String pathToFont) {
 		Font font = null;
 		InputStream is = null;
@@ -323,12 +302,10 @@ public class DzDiceHelperUi extends JFrame {
 	private void setItemVisibility() {
 		separatorTalentChoseButtonDown.setVisible(true);
 		separatorTalentChoseButtonUp.setVisible(true);
-		btnPruefungWaehlen.setVisible(true);
-		
+		btnPruefungWaehlen.setVisible(true);	
 	}
 
 	protected void setSelectedAbilityName(String selectedAbility) {
-		this.selectedAbilityName = selectedAbility;
-		
+		this.selectedAbilityName = selectedAbility;	
 	}
 }
