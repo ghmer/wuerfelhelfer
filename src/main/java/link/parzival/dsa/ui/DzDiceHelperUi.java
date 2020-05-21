@@ -39,7 +39,7 @@ import javax.swing.JButton;
 
 public class DzDiceHelperUi extends JFrame {
 	public static final String remoteUrlString = "https://parzival.link/dz-dice-helper-latest.jar";
-	public  static final int VERSION = 1;
+	public  static final int VERSION = 2;
 	private static final long serialVersionUID = 6428768807868759732L;
 	private JButton btnPruefungWaehlen;
 	private JPanel contentPane;
