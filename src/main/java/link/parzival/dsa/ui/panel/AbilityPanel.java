@@ -5,20 +5,19 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
-import javax.swing.event.ListDataListener;
 
 import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.TalentObjekt;
 import link.parzival.dsa.object.enumeration.EigenschaftEnum;
 import link.parzival.dsa.ui.DzDiceHelperUi;
 
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import javax.swing.JSpinner;
 
 public class AbilityPanel extends JPanel {
 
@@ -29,7 +28,7 @@ public class AbilityPanel extends JPanel {
 	private JComboBox<EigenschaftEnum> pruefEigenschaft1;
 	private JComboBox<EigenschaftEnum> pruefEigenschaft2;
 	private JComboBox<EigenschaftEnum> pruefEigenschaft3;
-	private JComboBox<String> pruefModifier;
+	private JSpinner pruefModifier;
 
 	/**
 	 * @param talent the Talent to Display
@@ -37,10 +36,10 @@ public class AbilityPanel extends JPanel {
 	 */
 	public AbilityPanel(TalentObjekt talent, HeldenObjekt hero) {
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{181, 40, 70, 70, 70, 70, 70, 0};
+		gridBagLayout.columnWidths = new int[]{181, 40, 70, 70, 70, 75, 111, 0};
 		gridBagLayout.rowHeights = new int[]{16, 29, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 		JLabel lblAbilityName = new JLabel("Fähigkeit");
@@ -125,7 +124,7 @@ public class AbilityPanel extends JPanel {
 				EigenschaftEnum pruefung1 = (EigenschaftEnum)pruefEigenschaft1.getSelectedItem();
 				EigenschaftEnum pruefung2 = (EigenschaftEnum)pruefEigenschaft2.getSelectedItem();
 				EigenschaftEnum pruefung3 = (EigenschaftEnum)pruefEigenschaft3.getSelectedItem();
-				String modifier  		  = (String)pruefModifier.getSelectedItem();
+				int modifier  		  	  = (Integer)pruefModifier.getValue();
 				
 				String rollFormatString   = "!%s,%s,%s,%s,%s  %s";
 				
@@ -172,54 +171,7 @@ public class AbilityPanel extends JPanel {
 		gbc_pruefEigenschaft3.gridy = 1;
 		add(pruefEigenschaft3, gbc_pruefEigenschaft3);
 		
-		pruefModifier = new JComboBox<>();
-		pruefModifier.setModel(new ComboBoxModel<String>() {
-			
-			private String[] modifiers = new String[] {"-8","-7","-6","-5","-4","-3","-2","-1","0","+1","+2","+3","+4","+5","+6","+7","+8"};
-			int index = 8;
-			
-			@Override
-			public void addListDataListener(ListDataListener l) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public String getElementAt(int index) {
-				// TODO Auto-generated method stub
-				return modifiers[index];
-			}
-
-			@Override
-			public Object getSelectedItem() {
-				return modifiers[index];
-			}
-
-			@Override
-			public int getSize() {
-				// TODO Auto-generated method stub
-				return modifiers.length;
-			}
-
-			@Override
-			public void removeListDataListener(ListDataListener l) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void setSelectedItem(Object anItem) {
-				
-				for(int i = 0; i < modifiers.length; i++) {
-					if(modifiers[i].equals(anItem)) {
-						index = i;
-						break;
-					}
-				}
-			}
-			
-		});
-		pruefModifier.setSelectedIndex(8);
+		pruefModifier = new JSpinner();
 		GridBagConstraints gbc_pruefModifier = new GridBagConstraints();
 		gbc_pruefModifier.fill = GridBagConstraints.HORIZONTAL;
 		gbc_pruefModifier.insets = new Insets(0, 0, 0, 5);
@@ -233,9 +185,8 @@ public class AbilityPanel extends JPanel {
 		add(btnCreateRoll, gbc_btnCreateRoll);
 	}
 	
-	private int calculateModifier(String modifier, int behinderung, TalentObjekt talent) {
+	private int calculateModifier(int modifier, int behinderung, TalentObjekt talent) {
 		int result = 0;
-		int modifierInt = Integer.parseInt(modifier);
 		
 		if(talent.getBe() != null) {
 			String talentBehinderung = talent.getBe();
@@ -254,7 +205,7 @@ public class AbilityPanel extends JPanel {
 			}
 		}
 		
-		result = result + modifierInt;
+		result = result + modifier;
 		
 		return result;
 	}
