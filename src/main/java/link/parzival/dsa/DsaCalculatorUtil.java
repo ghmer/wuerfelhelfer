@@ -257,13 +257,22 @@ public class DsaCalculatorUtil {
 		return result;
 	}
 	
+	/**
+	 * @param paradeBasis the basis parade value
+	 * @param modificator the Modifikator
+	 * @param initiative the initiative in the current combat
+	 * @param useDistanceClass whether to use distance classes
+	 * @param combatWeaponDistance the current distance class in the combat
+	 * @param typeOfParade the type of Parade (Ringen/Raufen)
+	 * @return the rollCommand
+	 */
 	public static String getEffectiveParadeRoll(int paradeBasis, int modificator,
-			int initiative, boolean useDistanceClass, DKEnum combatWeaponDistance) {
+			int initiative, boolean useDistanceClass, DKEnum combatWeaponDistance, String typeOfParade) {
 		int parade    = paradeBasis;
 		int iniParade = getAdditionalParadeByInitiative(initiative);
 		parade		 += iniParade;
 		parade		 -= modificator;
-		String result = String.format("!%s Parade (Waffe)", parade);
+		String result = String.format("!%s Parade (%s)", parade, typeOfParade);
 		
 		if(useDistanceClass) {
 			int effectiveDistance 	= getDistanceBetween(DKEnum.H, combatWeaponDistance);
@@ -349,10 +358,19 @@ public class DsaCalculatorUtil {
 		return result;
 	}
 	
+	/**
+	 * @param kampftechnikObjekt the KampftechnikObjekt to use
+	 * @param modificator the Modifikator
+	 * @param initiative the initiative in the current combat
+	 * @param useDistanceClass whether to use distance classes
+	 * @param combatWeaponDistance the current distance class in the combat
+	 * @param typeOfParade the type of Parade (Ringen/Raufen)
+	 * @return the rollCommand
+	 */
 	public static String getEffectiveTechnicalParadeRoll(KampftechnikObjekt kampftechnikObjekt, int modificator,
-			int initiative, boolean useDistanceClass, DKEnum combatWeaponDistance) {
+			int initiative, boolean useDistanceClass, DKEnum combatWeaponDistance, String typeOfParade) {
 		int paradeBasis = kampftechnikObjekt.getParade();
-		return getEffectiveParadeRoll(paradeBasis, modificator, initiative, useDistanceClass, combatWeaponDistance);
+		return getEffectiveParadeRoll(paradeBasis, modificator, initiative, useDistanceClass, combatWeaponDistance, typeOfParade);
 	}
 	
 	/**
