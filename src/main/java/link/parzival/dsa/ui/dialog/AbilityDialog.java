@@ -161,6 +161,8 @@ public class AbilityDialog extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		
+		generateTable(hero);
 	}
 	
 	
