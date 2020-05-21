@@ -9,7 +9,6 @@ import javax.swing.JComboBox;
 import link.parzival.dsa.DsaCalculatorUtil;
 import link.parzival.dsa.object.FernwaffenObjekt;
 import link.parzival.dsa.object.HeldenObjekt;
-import link.parzival.dsa.object.KampftechnikObjekt;
 import link.parzival.dsa.object.ParadeObjekt;
 import link.parzival.dsa.object.WaffenObjekt;
 import link.parzival.dsa.object.enumeration.DKEnum;
@@ -17,7 +16,6 @@ import link.parzival.dsa.ui.DzDiceHelperUi;
 import link.parzival.dsa.ui.dialog.DistanceChangeDialog;
 import link.parzival.dsa.ui.dialog.EvasionDialog;
 import link.parzival.dsa.ui.dialog.FernkampfDialog;
-import link.parzival.dsa.ui.dialog.KampftechnikSelectDialog;
 
 import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
@@ -38,11 +36,11 @@ import java.awt.BorderLayout;
 public class CombatPanel extends JPanel {
 	
 	private enum ParadenOption {
-		Waffe,Schild,Kampftechnik
+		Waffe,Schild,Raufen,Ringen
 	}
 	
 	private enum AttackenOption {
-		Waffe,Kampftechnik
+		Waffe,Raufen,Ringen
 	}
 	
 	/**
@@ -377,13 +375,18 @@ public class CombatPanel extends JPanel {
 		btnAttacke = new JButton("Attacke!");
 		btnAttacke.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int effectiveDistance = DsaCalculatorUtil.getDistanceBetween(getSelectedWeaponDistance(), getCombatWeaponDistance());				
 				int modificator = getAttackeModifier();
 				
 				AttackenOption option = (AttackenOption) comboBoxAttacke.getSelectedItem();
 				switch(option) {
 				case Waffe: {
+					if(getWaffenObjekt() == null && option.equals(AttackenOption.Waffe)) {
+						JOptionPane.showMessageDialog(getParent(), "Du trägst doch gar keine Waffe!");
+						return;
+					}
 					if(useDistanceClasses()) {
+						int effectiveDistance = DsaCalculatorUtil.getDistanceBetween(getSelectedWeaponDistance(), getCombatWeaponDistance());				
+						
 						if(effectiveDistance >= 2 || effectiveDistance <= -2) {
 							JOptionPane.showMessageDialog( btnAttacke.getRootPane(), "Attacke aufgrund der aktuellen Entfernung zum Gegner nicht möglich. Wähle Hopsen!" );
 						} else {
@@ -396,32 +399,10 @@ public class CombatPanel extends JPanel {
 					}
 					break;
 				}
-				case Kampftechnik: {
-					KampftechnikSelectDialog dialog = new KampftechnikSelectDialog(hero.getKampftechniken());
-					dialog.setFont(getFont());
-					dialog.setLocationRelativeTo(btnAusweichen.getRootPane());
-					String selectedKampfTechnikName = null;
-					switch (dialog.showDialog()) {
-				    case EvasionDialog.OK_STATE:
-				    	selectedKampfTechnikName = dialog.getSelectedElement();
-				        break;
-					}
-					
-					if(selectedKampfTechnikName != null && !selectedKampfTechnikName.isEmpty()) {
-						if(useDistanceClasses()) {
-							if(effectiveDistance >= 2 || effectiveDistance <= -2) {
-								JOptionPane.showMessageDialog( btnAttacke.getRootPane(), "Attacke aufgrund der aktuellen Entfernung zum Gegner nicht möglich. Wähle Hopsen!" );
-							} else {
-								
-								String rollCommand = DsaCalculatorUtil.getEffectiveTechnicalAttackRoll(hero.getKampftechnikByName(selectedKampfTechnikName), modificator, useDistanceClasses(), getCombatWeaponDistance(), DKEnum.H);
-								DzDiceHelperUi.copyToClipboard(rollCommand);
-							}
-						} else {
-							String rollCommand = DsaCalculatorUtil.getEffectiveTechnicalAttackRoll(hero.getKampftechnikByName(selectedKampfTechnikName), modificator, useDistanceClasses(), getCombatWeaponDistance(), DKEnum.H);
-							DzDiceHelperUi.copyToClipboard(rollCommand);
-						}
-					}
-					
+				default: {
+					String selectedKampfTechnikName = ((AttackenOption)comboBoxAttacke.getSelectedItem()).name();					
+					applyKampftechnikAttack(hero, modificator, selectedKampfTechnikName);
+				
 					break;
 				}
 				}
@@ -509,6 +490,12 @@ public class CombatPanel extends JPanel {
 				ParadenOption paradenOption = (ParadenOption)comboBoxParade.getSelectedItem();
 				
 				int modificator = getParadeModifier();
+				
+				if(getWaffenObjekt() == null && paradenOption.equals(ParadenOption.Waffe)) {
+					JOptionPane.showMessageDialog(getParent(), "Du trägst doch gar keine Waffe!");
+					return;
+				}
+				
 				if(paradeObjekt == null && paradenOption.equals(ParadenOption.Schild)) {
 					JOptionPane.showMessageDialog(getParent(), "Du hast doch gar keinen Schild!");
 					return;
@@ -533,11 +520,9 @@ public class CombatPanel extends JPanel {
 						DzDiceHelperUi.copyToClipboard(rollCommand);
 						break;
 					}
-					case Kampftechnik: {
-						//TODO:
-						KampftechnikObjekt kampttechnikObjekt = new KampftechnikObjekt();
-						String rollCommand = DsaCalculatorUtil.getEffectiveTechnicalParadeRoll(kampttechnikObjekt, modificator, getInitiative(), useDistanceClasses(), getCombatWeaponDistance());
-						DzDiceHelperUi.copyToClipboard(rollCommand);
+					default: {
+						String selectedKampfTechnikName = ((ParadenOption)comboBoxParade.getSelectedItem()).name();					
+						applyKampftechniParade(hero, modificator, getInitiative(), selectedKampfTechnikName);
 						break;
 					}
 				}
@@ -810,10 +795,16 @@ public class CombatPanel extends JPanel {
 		return modIntVal;
 	}
 	
+	/**
+	 * @return the FernwaffenObjekt
+	 */
 	public FernwaffenObjekt getFernwaffenObjekt() {
 		return fernwaffenObjekt;
 	}
 
+	/**
+	 * @param fernwaffenObjekt the FernwaffenObjekt to set
+	 */
 	public void setFernwaffenObjekt(FernwaffenObjekt fernwaffenObjekt) {
 		this.fernwaffenObjekt = fernwaffenObjekt;
 	}
@@ -834,5 +825,52 @@ public class CombatPanel extends JPanel {
 		}
 		
 		return ini;
+	}
+	
+	/**
+	 * @param hero the HeroObjekt to use
+	 * @param modificator the Modifikator to apply
+	 * @param selectedKampfTechnikName the selected Kampftechnik
+	 */
+	private void applyKampftechnikAttack(HeldenObjekt hero, int modificator, String selectedKampfTechnikName) {
+		if(selectedKampfTechnikName != null && !selectedKampfTechnikName.isEmpty()) {
+			if(useDistanceClasses()) {
+				int effectiveDistance = DsaCalculatorUtil.getDistanceBetween(DKEnum.H, getCombatWeaponDistance());				
+				if(effectiveDistance >= 1 || effectiveDistance <= -1) {
+					JOptionPane.showMessageDialog( btnAttacke.getRootPane(), "Attacke aufgrund der aktuellen Entfernung zum Gegner nicht möglich. Wähle Hopsen!" );
+				} else {
+					
+					String rollCommand = DsaCalculatorUtil.getEffectiveTechnicalAttackRoll(hero.getKampftechnikByName(selectedKampfTechnikName), modificator, useDistanceClasses(), getCombatWeaponDistance(), DKEnum.H);
+					DzDiceHelperUi.copyToClipboard(rollCommand);
+				}
+			} else {
+				String rollCommand = DsaCalculatorUtil.getEffectiveTechnicalAttackRoll(hero.getKampftechnikByName(selectedKampfTechnikName), modificator, useDistanceClasses(), getCombatWeaponDistance(), DKEnum.H);
+				DzDiceHelperUi.copyToClipboard(rollCommand);
+			}
+		}
+	}
+	
+	/**
+	 * @param hero the HeroObjekt to use
+	 * @param modificator the Modifikator to apply
+	 * @param initiative the Initiative in the current combat
+	 * @param selectedKampfTechnikName the selected Kampftechnik
+	 */
+	private void applyKampftechniParade(HeldenObjekt hero, int modificator, int initiative, String selectedKampfTechnikName) {
+		if(selectedKampfTechnikName != null && !selectedKampfTechnikName.isEmpty()) {
+			if(useDistanceClasses()) {
+				int effectiveDistance = DsaCalculatorUtil.getDistanceBetween(DKEnum.H, getCombatWeaponDistance());				
+				if(effectiveDistance >= 1 || effectiveDistance <= -1) {
+					JOptionPane.showMessageDialog( btnAttacke.getRootPane(), "Attacke aufgrund der aktuellen Entfernung zum Gegner nicht möglich. Wähle Hopsen!" );
+				} else {
+					
+					String rollCommand = DsaCalculatorUtil.getEffectiveTechnicalParadeRoll(hero.getKampftechnikByName(selectedKampfTechnikName), modificator, initiative, useDistanceClasses(), getCombatWeaponDistance(), selectedKampfTechnikName);
+					DzDiceHelperUi.copyToClipboard(rollCommand);
+				}
+			} else {
+				String rollCommand = DsaCalculatorUtil.getEffectiveTechnicalParadeRoll(hero.getKampftechnikByName(selectedKampfTechnikName), modificator, initiative, useDistanceClasses(), getCombatWeaponDistance(), selectedKampfTechnikName);
+				DzDiceHelperUi.copyToClipboard(rollCommand);
+			}
+		}
 	}
 }
