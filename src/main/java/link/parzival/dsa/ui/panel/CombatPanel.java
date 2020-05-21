@@ -19,19 +19,17 @@ import link.parzival.dsa.ui.dialog.FernkampfDialog;
 
 import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
-import javax.swing.event.ListDataListener;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JTextField;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.BorderLayout;
+import javax.swing.JSpinner;
 
 public class CombatPanel extends JPanel {
 	
@@ -53,7 +51,6 @@ public class CombatPanel extends JPanel {
 	private JCheckBox chkUseDK;
 	private JComboBox<DKEnum> comboBoxCurrentDK;
 	private JLabel lblCurrentDK;
-	private JLabel lblOwnDK;
 	private JLabel lblNewLabel;
 	private JButton btnInitiative;
 	private JButton btnAusweichen;
@@ -64,7 +61,7 @@ public class CombatPanel extends JPanel {
 	private JLabel lblParade;
 	private JComboBox<ParadenOption> comboBoxParade;
 	private JLabel lblParadeModifier;
-	private JComboBox<String> paradeModifier;
+	private JSpinner paradeModifier;
 	private JButton btnParade;
 	private JButton btnHopsen;
 	
@@ -73,8 +70,8 @@ public class CombatPanel extends JPanel {
 	private FernwaffenObjekt fernwaffenObjekt;
 	private JButton btnFernkampf;
 	private JLabel lblNewLabel_1;
-	private JTextField tfInitiative;
-	private JComboBox<String> attackeModifier;
+	private JSpinner tfInitiative;
+	private JSpinner attackeModifier;
 	
 	HeldenObjekt hero;
 	private JPanel panel;
@@ -89,6 +86,7 @@ public class CombatPanel extends JPanel {
 	private JComboBox<String> comboBoxFernkampfwaffe;
 	private JLabel lblAttackeMit;
 	private JComboBox<AttackenOption> comboBoxAttacke;
+	private JLabel lblDkWaffe;
 
 	/**
 	 * @param hero the HeldenObjekt to use
@@ -109,15 +107,15 @@ public class CombatPanel extends JPanel {
 			setFernwaffenObjekt(hero.getFernWaffen().get(0));
 		}
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 80, 0, 10, 0, 128, 82, 2, 60, 70, 100, 0};
+		gridBagLayout.columnWidths = new int[]{10, 0, 128, 85, 70, 75, 100, 0};
 		gridBagLayout.rowHeights = new int[]{15, 30, 15, 27, 27, 0, 15, 29, 29, 15, 29, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 		panel_3 = new JPanel();
 		GridBagConstraints gbc_panel_3 = new GridBagConstraints();
-		gbc_panel_3.gridwidth = 11;
+		gbc_panel_3.gridwidth = 7;
 		gbc_panel_3.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_3.fill = GridBagConstraints.BOTH;
 		gbc_panel_3.gridx = 0;
@@ -173,44 +171,41 @@ public class CombatPanel extends JPanel {
 			}
 		});
 		GridBagConstraints gbc_btnInitiative = new GridBagConstraints();
-		gbc_btnInitiative.gridwidth = 2;
 		gbc_btnInitiative.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnInitiative.anchor = GridBagConstraints.NORTH;
 		gbc_btnInitiative.insets = new Insets(0, 0, 5, 5);
-		gbc_btnInitiative.gridx = 4;
+		gbc_btnInitiative.gridx = 2;
 		gbc_btnInitiative.gridy = 1;
 		add(btnInitiative, gbc_btnInitiative);
 		
 		lblNewLabel_1 = new JLabel("Initiative eingeben");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.TRAILING);
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.gridwidth = 3;
+		gbc_lblNewLabel_1.gridwidth = 2;
 		gbc_lblNewLabel_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_1.gridx = 6;
+		gbc_lblNewLabel_1.gridx = 3;
 		gbc_lblNewLabel_1.gridy = 1;
 		add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		tfInitiative = new JTextField();
-		tfInitiative.setText("0");
+		tfInitiative = new JSpinner();
 		GridBagConstraints gbc_tfInitiative = new GridBagConstraints();
 		gbc_tfInitiative.anchor = GridBagConstraints.NORTH;
 		gbc_tfInitiative.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfInitiative.insets = new Insets(0, 0, 5, 5);
-		gbc_tfInitiative.gridx = 9;
+		gbc_tfInitiative.gridx = 5;
 		gbc_tfInitiative.gridy = 1;
 		add(tfInitiative, gbc_tfInitiative);
-		tfInitiative.setColumns(10);
 		GridBagConstraints gbc_btnFernkampf = new GridBagConstraints();
 		gbc_btnFernkampf.anchor = GridBagConstraints.SOUTHEAST;
 		gbc_btnFernkampf.insets = new Insets(0, 0, 5, 0);
-		gbc_btnFernkampf.gridx = 10;
+		gbc_btnFernkampf.gridx = 6;
 		gbc_btnFernkampf.gridy = 1;
 		add(btnFernkampf, gbc_btnFernkampf);
 		
 		panel_2 = new JPanel();
 		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
-		gbc_panel_2.gridwidth = 11;
+		gbc_panel_2.gridwidth = 7;
 		gbc_panel_2.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_2.fill = GridBagConstraints.BOTH;
 		gbc_panel_2.gridx = 0;
@@ -225,7 +220,6 @@ public class CombatPanel extends JPanel {
 		lblRightWeaponHand.setHorizontalAlignment(SwingConstants.TRAILING);
 		GridBagConstraints gbc_lblRightWeaponHand = new GridBagConstraints();
 		gbc_lblRightWeaponHand.anchor = GridBagConstraints.EAST;
-		gbc_lblRightWeaponHand.gridwidth = 3;
 		gbc_lblRightWeaponHand.insets = new Insets(0, 0, 5, 5);
 		gbc_lblRightWeaponHand.gridx = 1;
 		gbc_lblRightWeaponHand.gridy = 3;
@@ -246,8 +240,8 @@ public class CombatPanel extends JPanel {
 		gbc_comboBoxRightWeaponHand.anchor = GridBagConstraints.NORTH;
 		gbc_comboBoxRightWeaponHand.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxRightWeaponHand.insets = new Insets(0, 0, 5, 0);
-		gbc_comboBoxRightWeaponHand.gridwidth = 7;
-		gbc_comboBoxRightWeaponHand.gridx = 4;
+		gbc_comboBoxRightWeaponHand.gridwidth = 5;
+		gbc_comboBoxRightWeaponHand.gridx = 2;
 		gbc_comboBoxRightWeaponHand.gridy = 3;
 		add(comboBoxRightWeaponHand, gbc_comboBoxRightWeaponHand);
 		
@@ -270,7 +264,6 @@ public class CombatPanel extends JPanel {
 		lblSchild = new JLabel("Schild");
 		lblSchild.setHorizontalAlignment(SwingConstants.TRAILING);
 		GridBagConstraints gbc_lblSchild = new GridBagConstraints();
-		gbc_lblSchild.gridwidth = 3;
 		gbc_lblSchild.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblSchild.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSchild.gridx = 1;
@@ -280,15 +273,14 @@ public class CombatPanel extends JPanel {
 		gbc_comboBoxSchildhand.anchor = GridBagConstraints.NORTH;
 		gbc_comboBoxSchildhand.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxSchildhand.insets = new Insets(0, 0, 5, 0);
-		gbc_comboBoxSchildhand.gridwidth = 7;
-		gbc_comboBoxSchildhand.gridx = 4;
+		gbc_comboBoxSchildhand.gridwidth = 5;
+		gbc_comboBoxSchildhand.gridx = 2;
 		gbc_comboBoxSchildhand.gridy = 4;
 		add(comboBoxSchildhand, gbc_comboBoxSchildhand);
 		
 		lblFernkampfWaffe = new JLabel("Fernwaffe");
 		lblFernkampfWaffe.setHorizontalAlignment(SwingConstants.TRAILING);
 		GridBagConstraints gbc_lblFernkampfWaffe = new GridBagConstraints();
-		gbc_lblFernkampfWaffe.gridwidth = 3;
 		gbc_lblFernkampfWaffe.anchor = GridBagConstraints.EAST;
 		gbc_lblFernkampfWaffe.insets = new Insets(0, 0, 5, 5);
 		gbc_lblFernkampfWaffe.gridx = 1;
@@ -308,16 +300,16 @@ public class CombatPanel extends JPanel {
 		
 		
 		GridBagConstraints gbc_comboBoxFernkampfwaffe = new GridBagConstraints();
-		gbc_comboBoxFernkampfwaffe.gridwidth = 7;
+		gbc_comboBoxFernkampfwaffe.gridwidth = 5;
 		gbc_comboBoxFernkampfwaffe.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBoxFernkampfwaffe.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBoxFernkampfwaffe.gridx = 4;
+		gbc_comboBoxFernkampfwaffe.gridx = 2;
 		gbc_comboBoxFernkampfwaffe.gridy = 5;
 		add(comboBoxFernkampfwaffe, gbc_comboBoxFernkampfwaffe);
 
 		panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.gridwidth = 11;
+		gbc_panel.gridwidth = 7;
 		gbc_panel.insets = new Insets(0, 0, 5, 0);
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 0;
@@ -347,7 +339,7 @@ public class CombatPanel extends JPanel {
 		GridBagConstraints gbc_lblAttackeMit = new GridBagConstraints();
 		gbc_lblAttackeMit.anchor = GridBagConstraints.EAST;
 		gbc_lblAttackeMit.insets = new Insets(0, 0, 5, 5);
-		gbc_lblAttackeMit.gridx = 5;
+		gbc_lblAttackeMit.gridx = 2;
 		gbc_lblAttackeMit.gridy = 7;
 		add(lblAttackeMit, gbc_lblAttackeMit);
 		
@@ -356,10 +348,9 @@ public class CombatPanel extends JPanel {
 		comboBoxAttacke.setModel(new DefaultComboBoxModel<>(AttackenOption.values()));
 		comboBoxAttacke.setSelectedIndex(0);
 		GridBagConstraints gbc_comboBoxAttacke = new GridBagConstraints();
-		gbc_comboBoxAttacke.gridwidth = 2;
 		gbc_comboBoxAttacke.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBoxAttacke.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBoxAttacke.gridx = 6;
+		gbc_comboBoxAttacke.gridx = 3;
 		gbc_comboBoxAttacke.gridy = 7;
 		add(comboBoxAttacke, gbc_comboBoxAttacke);
 		
@@ -368,7 +359,7 @@ public class CombatPanel extends JPanel {
 		GridBagConstraints gbc_lblAttackeModifier = new GridBagConstraints();
 		gbc_lblAttackeModifier.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblAttackeModifier.insets = new Insets(0, 0, 5, 5);
-		gbc_lblAttackeModifier.gridx = 8;
+		gbc_lblAttackeModifier.gridx = 4;
 		gbc_lblAttackeModifier.gridy = 7;
 		add(lblAttackeModifier, gbc_lblAttackeModifier);
 		
@@ -409,65 +400,21 @@ public class CombatPanel extends JPanel {
 			}
 		});
 		
-		attackeModifier = new JComboBox<>();
-		attackeModifier.setModel(new ComboBoxModel<String>() {
-			
-			private String[] modifiers = new String[] {"-8","-7","-6","-5","-4","-3","-2","-1","0","+1","+2","+3","+4","+5","+6","+7","+8"};
-			int index = 8;
-			
-			@Override
-			public void addListDataListener(ListDataListener l) {
-				
-			}
-
-			@Override
-			public String getElementAt(int index) {
-				return modifiers[index];
-			}
-
-			@Override
-			public Object getSelectedItem() {
-				return modifiers[index];
-			}
-
-			@Override
-			public int getSize() {
-				return modifiers.length;
-			}
-
-			@Override
-			public void removeListDataListener(ListDataListener l) {
-				
-			}
-
-			@Override
-			public void setSelectedItem(Object anItem) {
-				
-				for(int i = 0; i < modifiers.length; i++) {
-					if(modifiers[i].equals(anItem)) {
-						index = i;
-						break;
-					}
-				}
-			}
-			
-		});
-		attackeModifier.setSelectedIndex(8);
+		attackeModifier = new JSpinner();
 		GridBagConstraints gbc_attackeModifier = new GridBagConstraints();
 		gbc_attackeModifier.fill = GridBagConstraints.HORIZONTAL;
 		gbc_attackeModifier.insets = new Insets(0, 0, 5, 5);
-		gbc_attackeModifier.gridx = 9;
+		gbc_attackeModifier.gridx = 5;
 		gbc_attackeModifier.gridy = 7;
 		add(attackeModifier, gbc_attackeModifier);
 		GridBagConstraints gbc_btnAttacke = new GridBagConstraints();
 		gbc_btnAttacke.anchor = GridBagConstraints.NORTH;
 		gbc_btnAttacke.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnAttacke.insets = new Insets(0, 0, 5, 0);
-		gbc_btnAttacke.gridx = 10;
+		gbc_btnAttacke.gridx = 6;
 		gbc_btnAttacke.gridy = 7;
 		add(btnAttacke, gbc_btnAttacke);
 		GridBagConstraints gbc_btnAusweichen = new GridBagConstraints();
-		gbc_btnAusweichen.gridwidth = 3;
 		gbc_btnAusweichen.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnAusweichen.anchor = GridBagConstraints.NORTH;
 		gbc_btnAusweichen.insets = new Insets(0, 0, 5, 5);
@@ -480,7 +427,7 @@ public class CombatPanel extends JPanel {
 		GridBagConstraints gbc_lblParade = new GridBagConstraints();
 		gbc_lblParade.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblParade.insets = new Insets(0, 0, 5, 5);
-		gbc_lblParade.gridx = 5;
+		gbc_lblParade.gridx = 2;
 		gbc_lblParade.gridy = 8;
 		add(lblParade, gbc_lblParade);
 		
@@ -536,8 +483,7 @@ public class CombatPanel extends JPanel {
 		GridBagConstraints gbc_comboBoxParade = new GridBagConstraints();
 		gbc_comboBoxParade.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxParade.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBoxParade.gridwidth = 2;
-		gbc_comboBoxParade.gridx = 6;
+		gbc_comboBoxParade.gridx = 3;
 		gbc_comboBoxParade.gridy = 8;
 		add(comboBoxParade, gbc_comboBoxParade);
 		
@@ -546,71 +492,28 @@ public class CombatPanel extends JPanel {
 		GridBagConstraints gbc_lblParadeModifier = new GridBagConstraints();
 		gbc_lblParadeModifier.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblParadeModifier.insets = new Insets(0, 0, 5, 5);
-		gbc_lblParadeModifier.gridx = 8;
+		gbc_lblParadeModifier.gridx = 4;
 		gbc_lblParadeModifier.gridy = 8;
 		add(lblParadeModifier, gbc_lblParadeModifier);
 		
-		paradeModifier = new JComboBox<String>();
-		paradeModifier.setModel(new ComboBoxModel<String>() {
-			
-			private String[] modifiers = new String[] {"-8","-7","-6","-5","-4","-3","-2","-1","0","+1","+2","+3","+4","+5","+6","+7","+8"};
-			int index = 8;
-			
-			@Override
-			public void addListDataListener(ListDataListener l) {
-				
-			}
-
-			@Override
-			public String getElementAt(int index) {
-				return modifiers[index];
-			}
-
-			@Override
-			public Object getSelectedItem() {
-				return modifiers[index];
-			}
-
-			@Override
-			public int getSize() {
-				return modifiers.length;
-			}
-
-			@Override
-			public void removeListDataListener(ListDataListener l) {
-				
-			}
-
-			@Override
-			public void setSelectedItem(Object anItem) {
-				
-				for(int i = 0; i < modifiers.length; i++) {
-					if(modifiers[i].equals(anItem)) {
-						index = i;
-						break;
-					}
-				}
-			}
-			
-		});
-		paradeModifier.setSelectedIndex(8);
+		paradeModifier = new JSpinner();
 		GridBagConstraints gbc_paradeModifier = new GridBagConstraints();
 		gbc_paradeModifier.fill = GridBagConstraints.HORIZONTAL;
 		gbc_paradeModifier.insets = new Insets(0, 0, 5, 5);
-		gbc_paradeModifier.gridx = 9;
+		gbc_paradeModifier.gridx = 5;
 		gbc_paradeModifier.gridy = 8;
 		add(paradeModifier, gbc_paradeModifier);
 		GridBagConstraints gbc_btnParade = new GridBagConstraints();
 		gbc_btnParade.anchor = GridBagConstraints.NORTH;
 		gbc_btnParade.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnParade.insets = new Insets(0, 0, 5, 0);
-		gbc_btnParade.gridx = 10;
+		gbc_btnParade.gridx = 6;
 		gbc_btnParade.gridy = 8;
 		add(btnParade, gbc_btnParade);
 		
 		panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.gridwidth = 11;
+		gbc_panel_1.gridwidth = 7;
 		gbc_panel_1.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
 		gbc_panel_1.gridx = 0;
@@ -624,7 +527,6 @@ public class CombatPanel extends JPanel {
 		gbc_chkUseDK.fill = GridBagConstraints.HORIZONTAL;
 		gbc_chkUseDK.anchor = GridBagConstraints.NORTH;
 		gbc_chkUseDK.insets = new Insets(0, 0, 0, 5);
-		gbc_chkUseDK.gridwidth = 3;
 		gbc_chkUseDK.gridx = 1;
 		gbc_chkUseDK.gridy = 10;
 		add(chkUseDK, gbc_chkUseDK);
@@ -634,7 +536,7 @@ public class CombatPanel extends JPanel {
 		GridBagConstraints gbc_lblCurrentDK = new GridBagConstraints();
 		gbc_lblCurrentDK.anchor = GridBagConstraints.EAST;
 		gbc_lblCurrentDK.insets = new Insets(0, 0, 0, 5);
-		gbc_lblCurrentDK.gridx = 5;
+		gbc_lblCurrentDK.gridx = 2;
 		gbc_lblCurrentDK.gridy = 10;
 		add(lblCurrentDK, gbc_lblCurrentDK);
 		
@@ -644,27 +546,26 @@ public class CombatPanel extends JPanel {
 		gbc_comboBoxCurrentDK.anchor = GridBagConstraints.NORTH;
 		gbc_comboBoxCurrentDK.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxCurrentDK.insets = new Insets(0, 0, 0, 5);
-		gbc_comboBoxCurrentDK.gridwidth = 2;
-		gbc_comboBoxCurrentDK.gridx = 6;
+		gbc_comboBoxCurrentDK.gridx = 3;
 		gbc_comboBoxCurrentDK.gridy = 10;
 		add(comboBoxCurrentDK, gbc_comboBoxCurrentDK);
 		
-		lblOwnDK = new JLabel("DK Waffe");
-		lblOwnDK.setHorizontalAlignment(SwingConstants.TRAILING);
-		GridBagConstraints gbc_lblOwnDK = new GridBagConstraints();
-		gbc_lblOwnDK.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblOwnDK.insets = new Insets(0, 0, 0, 5);
-		gbc_lblOwnDK.gridwidth = 2;
-		gbc_lblOwnDK.gridx = 7;
-		gbc_lblOwnDK.gridy = 10;
-		add(lblOwnDK, gbc_lblOwnDK);
+		lblDkWaffe = new JLabel("DK Waffe");
+		lblDkWaffe.setVisible(false);
+		lblDkWaffe.setHorizontalAlignment(SwingConstants.TRAILING);
+		GridBagConstraints gbc_lblCombatDk = new GridBagConstraints();
+		gbc_lblCombatDk.insets = new Insets(0, 0, 0, 5);
+		gbc_lblCombatDk.anchor = GridBagConstraints.EAST;
+		gbc_lblCombatDk.gridx = 4;
+		gbc_lblCombatDk.gridy = 10;
+		add(lblDkWaffe, gbc_lblCombatDk);
 		
 		comboBoxOwnDK = new JComboBox<>();
 		GridBagConstraints gbc_comboBoxOwnDK = new GridBagConstraints();
 		gbc_comboBoxOwnDK.anchor = GridBagConstraints.NORTH;
 		gbc_comboBoxOwnDK.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxOwnDK.insets = new Insets(0, 0, 0, 5);
-		gbc_comboBoxOwnDK.gridx = 9;
+		gbc_comboBoxOwnDK.gridx = 5;
 		gbc_comboBoxOwnDK.gridy = 10;
 		add(comboBoxOwnDK, gbc_comboBoxOwnDK);
 		
@@ -684,7 +585,7 @@ public class CombatPanel extends JPanel {
 		GridBagConstraints gbc_btnHopsen = new GridBagConstraints();
 		gbc_btnHopsen.anchor = GridBagConstraints.NORTH;
 		gbc_btnHopsen.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnHopsen.gridx = 10;
+		gbc_btnHopsen.gridx = 6;
 		gbc_btnHopsen.gridy = 10;
 		add(btnHopsen, gbc_btnHopsen);
 		updateDistanzklasse();
@@ -708,8 +609,8 @@ public class CombatPanel extends JPanel {
 	 * @param visible whether to set fields visible
 	 */
 	protected void enableDkElements(boolean visible) {
-		lblOwnDK.setVisible(visible);
 		lblCurrentDK.setVisible(visible);
+		lblDkWaffe.setVisible(visible);
 		comboBoxOwnDK.setVisible(visible);
 		comboBoxCurrentDK.setVisible(visible);
 		btnHopsen.setVisible(visible);
@@ -779,8 +680,7 @@ public class CombatPanel extends JPanel {
 	 * @return the parade modifier
 	 */
 	public int getParadeModifier() {
-		String modStr	= (String) paradeModifier.getSelectedItem();
-		int modIntVal 	= Integer.valueOf(modStr);
+		int modIntVal 	= (Integer)paradeModifier.getValue();
 		
 		return modIntVal;
 	}
@@ -789,8 +689,7 @@ public class CombatPanel extends JPanel {
 	 * @return the modifier
 	 */
 	public int getAttackeModifier() {
-		String modStr	= (String) attackeModifier.getSelectedItem();
-		int modIntVal 	= Integer.valueOf(modStr);
+		int modIntVal 	= (Integer)attackeModifier.getValue();
 		
 		return modIntVal;
 	}
@@ -814,11 +713,10 @@ public class CombatPanel extends JPanel {
 	 */
 	public int getInitiative() {
 		int ini = hero.getBasisinitiative();
-		String iniStr = null;
 		try {
-			iniStr = tfInitiative.getText();
-			if(iniStr != null && !iniStr.isEmpty()) {
-				ini = Integer.valueOf(iniStr);
+			int iniVal = (Integer)tfInitiative.getValue();
+			if(iniVal != 0 && iniVal > ini) {
+				ini = iniVal;
 			}
 		} catch(Exception e) {
 			System.err.println(e.getMessage());
