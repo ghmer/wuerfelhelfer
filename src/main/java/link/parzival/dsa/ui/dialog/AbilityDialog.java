@@ -7,6 +7,7 @@ import java.awt.Point;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -35,6 +36,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import javax.swing.JLabel;
 
 public class AbilityDialog extends JDialog {
 
@@ -50,12 +52,12 @@ public class AbilityDialog extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	
 	private JTextField textFieldSearch;
-    private JTable table = null;
     private int state = CANCEL_STATE;
     
     
     private String selectedAbilityName = null;
 	private JComboBox<AbilityTypeEnum> comboBox;
+	JScrollPane scrollPane;
 
 	/**
 	 * @param hero the HeldenObjekt to use
@@ -68,9 +70,9 @@ public class AbilityDialog extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[]{326, 102, 0};
+		gbl_contentPanel.columnWidths = new int[]{0, 0, 102, 0};
 		gbl_contentPanel.rowHeights = new int[]{28, 0, 12, 0};
-		gbl_contentPanel.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPanel.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		
@@ -96,11 +98,19 @@ public class AbilityDialog extends JDialog {
 				
 			}
 		});
+		
+		JLabel lblNewLabel = new JLabel("Suchen");
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
+		gbc_lblNewLabel.gridx = 0;
+		gbc_lblNewLabel.gridy = 0;
+		contentPanel.add(lblNewLabel, gbc_lblNewLabel);
 		GridBagConstraints gbc_textFieldSearch = new GridBagConstraints();
 		gbc_textFieldSearch.anchor = GridBagConstraints.NORTH;
 		gbc_textFieldSearch.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldSearch.insets = new Insets(0, 0, 5, 5);
-		gbc_textFieldSearch.gridx = 0;
+		gbc_textFieldSearch.gridx = 1;
 		gbc_textFieldSearch.gridy = 0;
 		contentPanel.add(textFieldSearch, gbc_textFieldSearch);
 		textFieldSearch.setColumns(10);
@@ -124,7 +134,7 @@ public class AbilityDialog extends JDialog {
 		gbc_comboBox.anchor = GridBagConstraints.SOUTH;
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 0);
-		gbc_comboBox.gridx = 1;
+		gbc_comboBox.gridx = 2;
 		gbc_comboBox.gridy = 0;
 		contentPanel.add(comboBox, gbc_comboBox);
 		
@@ -132,19 +142,10 @@ public class AbilityDialog extends JDialog {
 		GridBagConstraints gbc_separator = new GridBagConstraints();
 		gbc_separator.insets = new Insets(0, 0, 5, 0);
 		gbc_separator.fill = GridBagConstraints.BOTH;
-		gbc_separator.gridwidth = 2;
+		gbc_separator.gridwidth = 3;
 		gbc_separator.gridx = 0;
 		gbc_separator.gridy = 1;
 		contentPanel.add(separator, gbc_separator);
-		
-		table = new JTable();
-		GridBagConstraints gbc_table_1 = new GridBagConstraints();
-		gbc_table_1.gridwidth = 2;
-		gbc_table_1.insets = new Insets(0, 0, 0, 5);
-		gbc_table_1.fill = GridBagConstraints.BOTH;
-		gbc_table_1.gridx = 0;
-		gbc_table_1.gridy = 2;
-		contentPanel.add(table, gbc_table_1);
 		
 		{
 			JPanel buttonPane = new JPanel();
@@ -220,8 +221,8 @@ public class AbilityDialog extends JDialog {
 		}
 		
 		
-		if(this.table != null) {
-			contentPanel.remove(this.table);
+		if(this.scrollPane != null) {
+			contentPanel.remove(this.scrollPane);
 		}
 		
 		String[] columnNames = {"Name des Talents/Zaubers", "TaW", "Probe", "BE"};
@@ -254,16 +255,19 @@ public class AbilityDialog extends JDialog {
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 
 		GridBagConstraints gbc_table_1 = new GridBagConstraints();
-		gbc_table_1.gridwidth = 2;
-		gbc_table_1.insets = new Insets(0, 0, 0, 5);
+		gbc_table_1.gridwidth = 3;
 		gbc_table_1.fill = GridBagConstraints.BOTH;
 		gbc_table_1.gridx = 0;
 		gbc_table_1.gridy = 2;
 		table.repaint();
-		
-		contentPanel.add(table, gbc_table_1);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		contentPanel.updateUI();
-		this.table = table;
+		
+		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setViewportView(table);
+
+		contentPanel.add(scrollPane, gbc_table_1);
+		this.scrollPane = scrollPane;
 	
 	}
 
