@@ -6,6 +6,7 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
+import link.parzival.dsa.DsaCalculatorUtil;
 import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.TalentObjekt;
 import link.parzival.dsa.object.enumeration.EigenschaftEnum;
@@ -128,7 +129,7 @@ public class AbilityPanel extends JPanel {
 				
 				String rollFormatString   = "!%s,%s,%s,%s,%s  %s";
 				
-				int effectiveModifier	  = calculateModifier(modifier, hero.getBehinderung(), talent);
+				int effectiveModifier	  = DsaCalculatorUtil.calculateModifier(modifier, hero.getBehinderung(), talent);
 				String rollCommand 		  = String.format(rollFormatString, 
 												hero.getFertigkeit(pruefung1),
 												hero.getFertigkeit(pruefung2),
@@ -183,30 +184,5 @@ public class AbilityPanel extends JPanel {
 		gbc_btnCreateRoll.gridx = 6;
 		gbc_btnCreateRoll.gridy = 1;
 		add(btnCreateRoll, gbc_btnCreateRoll);
-	}
-	
-	private int calculateModifier(int modifier, int behinderung, TalentObjekt talent) {
-		int result = 0;
-		
-		if(talent.getBe() != null) {
-			String talentBehinderung = talent.getBe();
-			if(talentBehinderung.startsWith("BE")) {
-				char operand = talentBehinderung.charAt(2);
-				
-				int length = talentBehinderung.length();
-				int modInt = Integer.parseInt(talentBehinderung.substring(length-1, length));
-				
-				switch(operand) {
-				case '+' : result = behinderung + modInt; break;
-				case '-' : result = behinderung - modInt; break;
-				case 'x' : result = behinderung * modInt; break;
-				case '/' : result = behinderung / modInt; break;
-				}
-			}
-		}
-		
-		result = result + modifier;
-		
-		return result;
 	}
 }
