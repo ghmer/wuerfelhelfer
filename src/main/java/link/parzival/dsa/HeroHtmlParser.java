@@ -65,7 +65,8 @@ public class HeroHtmlParser {
 						.replaceAll("&Auml;", "Ä")
 						.replaceAll("&Ouml;", "Ö")
 						.replaceAll("&Uuml;", "Ü")
-						.replaceAll("&szlig;", "ss");
+						.replaceAll("&szlig;", "ss")
+						.replaceAll("Cp1252", "utf-8");
 				
 				wr.write(modLine);
 			}
@@ -157,22 +158,23 @@ public class HeroHtmlParser {
 	/**
 	 * @param document the Document to parse
 	 * @param xpath the XPath to use
+	 * @param numberOfNet the number of the Gitternetz
 	 * @param talente the List of talente
 	 * @throws XPathExpressionException when the Expression threw an error
 	 * @throws Exception whenever something else failed
 	 */
-	private void gatherGesellschaftlich(Document document, XPath xpath, List<TalentObjekt> talente)
+	private void gatherGesellschaftlich(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
 			throws XPathExpressionException, Exception {
 		//Koerperliche Talente
 		// get count
-		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])[3]/tr)";
+		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
 		String countResult 		= xpath.compile(countExpression).evaluate(document);
 		int count = Integer.parseInt(countResult);
 		
 		for(int i = 2; i <= count; i++) {
-			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])[3]/tr["+ i +"]/td[1]/text()";
-			String probeExpression  = "(//table[@class='talentgruppe gitternetz'])[3]/tr["+ i +"]/td[2]/text()";
-			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])[3]/tr["+ i +"]/td[3]/text()";
+			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[1]/text()";
+			String probeExpression  = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[2]/text()";
+			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[3]/text()";
 			
 			
 			String name  = xpath.compile(nameExpression).evaluate(document);
@@ -193,22 +195,23 @@ public class HeroHtmlParser {
 	/**
 	 * @param document the Document to parse
 	 * @param xpath the XPath to use
+	 * @param numberOfNet the number of the Gitternetz
 	 * @param talente the List of talente
 	 * @throws XPathExpressionException when the Expression threw an error
 	 * @throws Exception whenever something else failed
 	 */
-	private void gatherHandwerk(Document document, XPath xpath, List<TalentObjekt> talente)
+	private void gatherHandwerk(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
 			throws XPathExpressionException, Exception {
 		//Koerperliche Talente
 		// get count
-		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])[8]/tr)";
+		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
 		String countResult 		= xpath.compile(countExpression).evaluate(document);
 		int count = Integer.parseInt(countResult);
 		
 		for(int i = 2; i <= count; i++) {
-			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])[8]/tr["+ i +"]/td[1]/text()";
-			String probeExpression  = "(//table[@class='talentgruppe gitternetz'])[8]/tr["+ i +"]/td[2]/text()";
-			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])[8]/tr["+ i +"]/td[3]/text()";
+			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[1]/text()";
+			String probeExpression  = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[2]/text()";
+			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[3]/text()";
 			
 			
 			String name  = xpath.compile(nameExpression).evaluate(document);
@@ -229,25 +232,26 @@ public class HeroHtmlParser {
 	/**
 	 * @param document the Document to parse
 	 * @param xpath the XPath to use
+	 * @param numberOfNet the number of the Gitternetz
 	 * @param kampftechniken the List of Kampftechniken
 	 * @throws XPathExpressionException when the Expression threw an error
 	 * @throws Exception whenever something else failed
 	 */
-	private void gatherKampftechniken(Document document, XPath xpath, List<KampftechnikObjekt> kampftechniken)
+	private void gatherKampftechniken(Document document, XPath xpath, int numberOfNet, List<KampftechnikObjekt> kampftechniken)
 			throws XPathExpressionException, Exception {
 		//Kampftechniken
 		// get count
-		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])[1]/tr)";
+		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
 		String countResult 		= xpath.compile(countExpression).evaluate(document);
 		int count = Integer.parseInt(countResult);
 		
 		for(int i = 2; i <= count; i++) {
-			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])[1]/tr["+ i +"]/td[1]/text()";
-			String beExpression		= "(//table[@class='talentgruppe gitternetz'])[1]/tr["+ i +"]/td[2]/text()";
-			String typeExpression   = "(//table[@class='talentgruppe gitternetz'])[1]/tr["+ i +"]/td[3]/text()";
-			String atExpression     = "(//table[@class='talentgruppe gitternetz'])[1]/tr["+ i +"]/td[4]/text()";
-			String paExpression     = "(//table[@class='talentgruppe gitternetz'])[1]/tr["+ i +"]/td[5]/text()";
-			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])[1]/tr["+ i +"]/td[6]/text()";
+			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[1]/text()";
+			String beExpression		= "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[2]/text()";
+			String typeExpression   = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[3]/text()";
+			String atExpression     = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[4]/text()";
+			String paExpression     = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[5]/text()";
+			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[6]/text()";
 			
 			String name  = xpath.compile(nameExpression).evaluate(document);
 			String be 	 = xpath.compile(beExpression).evaluate(document);
@@ -271,23 +275,24 @@ public class HeroHtmlParser {
 	/**
 	 * @param document the Document to parse
 	 * @param xpath the XPath to use
+	 * @param numberOfNet the number of the Gitternetz
 	 * @param talente the List of Talente
 	 * @throws XPathExpressionException when the Expression threw an error
 	 * @throws Exception whenever someting else failed
 	 */
-	private void gatherKoerperlich(Document document, XPath xpath, List<TalentObjekt> talente)
+	private void gatherKoerperlich(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
 			throws XPathExpressionException, Exception {
 		//Koerperliche Talente
 		// get count
-		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])[2]/tr)";
+		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
 		String countResult 		= xpath.compile(countExpression).evaluate(document);
 		int count = Integer.parseInt(countResult);
 		
 		for(int i = 2; i <= count; i++) {
-			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])[2]/tr["+ i +"]/td[1]/text()";
-			String probeExpression  = "(//table[@class='talentgruppe gitternetz'])[2]/tr["+ i +"]/td[2]/text()";
-			String beExpression		= "(//table[@class='talentgruppe gitternetz'])[2]/tr["+ i +"]/td[3]/text()";
-			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])[2]/tr["+ i +"]/td[4]/text()";
+			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[1]/text()";
+			String probeExpression  = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[2]/text()";
+			String beExpression		= "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[3]/text()";
+			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[4]/text()";
 			
 			
 			String name  = xpath.compile(nameExpression).evaluate(document);
@@ -299,7 +304,13 @@ public class HeroHtmlParser {
 			talent.setName(name);
 			talent.setBe(be);
 			talent.setTalentwert(Integer.parseInt(taw));
-			splitTalentProben(talent, probe);
+			try {
+				splitTalentProben(talent, probe);
+			} catch(Exception e) {
+				System.err.println("Fehler bei Talent " + talent.getName());
+				System.err.println(e.getMessage());
+			}
+			
 			
 			talente.add(talent);
 		}
@@ -308,22 +319,23 @@ public class HeroHtmlParser {
 	/**
 	 * @param document the Document to parse
 	 * @param xpath the XPath to use
+	 * @param numberOfNet the number of the Gitternetz
 	 * @param talente the List of Talente
 	 * @throws XPathExpressionException when the Expression threw an error
 	 * @throws Exception whenever someting else failed
 	 */
-	private void gatherNaturtalente(Document document, XPath xpath, List<TalentObjekt> talente)
+	private void gatherNaturtalente(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
 			throws XPathExpressionException, Exception {
 		//Koerperliche Talente
 		// get count
-		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])[4]/tr)";
+		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
 		String countResult 		= xpath.compile(countExpression).evaluate(document);
 		int count = Integer.parseInt(countResult);
 		
 		for(int i = 2; i <= count; i++) {
-			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])[4]/tr["+ i +"]/td[1]/text()";
-			String probeExpression  = "(//table[@class='talentgruppe gitternetz'])[4]/tr["+ i +"]/td[2]/text()";
-			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])[4]/tr["+ i +"]/td[3]/text()";
+			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[1]/text()";
+			String probeExpression  = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[2]/text()";
+			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[3]/text()";
 			
 			
 			String name  = xpath.compile(nameExpression).evaluate(document);
@@ -344,22 +356,22 @@ public class HeroHtmlParser {
 	/**
 	 * @param document the Document to parse
 	 * @param xpath the XPath to use
+	 * @param numberOfNet the number of the Gitternetz
 	 * @param talente the List of Talente
 	 * @throws XPathExpressionException when the Expression threw an error
 	 * @throws Exception whenever someting else failed
 	 */
-	private void gatherSchriften(Document document, XPath xpath, List<TalentObjekt> talente)
+	private void gatherSchriften(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
 			throws XPathExpressionException, Exception {
 		//Koerperliche Talente
 		// get count
-		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])[7]/tr)";
+		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
 		String countResult 		= xpath.compile(countExpression).evaluate(document);
 		int count = Integer.parseInt(countResult);
 		
 		for(int i = 2; i <= count; i++) {
-			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])[7]/tr["+ i +"]/td[1]/text()";
-			//String probeExpression  = "(//table[@class='talentgruppe gitternetz'])[6]/tr["+ i +"]/td[2]/text()";
-			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])[7]/tr["+ i +"]/td[3]/text()";
+			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[1]/text()";
+			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[3]/text()";
 			
 			
 			String name  = xpath.compile(nameExpression).evaluate(document);
@@ -380,23 +392,56 @@ public class HeroHtmlParser {
 	/**
 	 * @param document the Document to parse
 	 * @param xpath the XPath to use
+	 * @param numberOfNet the number of the Gitternetz
 	 * @param talente the List of Talente
 	 * @throws XPathExpressionException when the Expression threw an error
 	 * @throws Exception whenever someting else failed
 	 */
-	private void gatherSprachen(Document document, XPath xpath, List<TalentObjekt> talente)
+	private void gatherGaben(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
 			throws XPathExpressionException, Exception {
 		//Koerperliche Talente
 		// get count
-		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])[6]/tr)";
+		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
 		String countResult 		= xpath.compile(countExpression).evaluate(document);
 		int count = Integer.parseInt(countResult);
 		
 		for(int i = 2; i <= count; i++) {
-			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])[6]/tr["+ i +"]/td[1]/text()";
-			//String probeExpression  = "(//table[@class='talentgruppe gitternetz'])[6]/tr["+ i +"]/td[2]/text()";
-			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])[6]/tr["+ i +"]/td[3]/text()";
+			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[1]/text()";
+			String probeExpression  = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[2]/text()";
+			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[3]/text()";
 			
+			
+			String name  = xpath.compile(nameExpression).evaluate(document);
+			String taw 	 = xpath.compile(tawExpression).evaluate(document);
+			String probe = xpath.compile(probeExpression).evaluate(document);
+			
+			TalentObjekt talentObjekt = new TalentObjekt();
+			talentObjekt.setName(name);
+			talentObjekt.setTalentwert(Integer.parseInt(taw.trim()));
+			splitTalentProben(talentObjekt, probe);
+			
+			talente.add(talentObjekt);
+		}
+	}
+	
+	/**
+	 * @param document the Document to parse
+	 * @param xpath the XPath to use
+	 * @param numberOfNet the number of the Gitternetz
+	 * @param talente the List of Talente
+	 * @throws XPathExpressionException when the Expression threw an error
+	 * @throws Exception whenever someting else failed
+	 */
+	private void gatherSprachen(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
+			throws XPathExpressionException, Exception {
+		//Koerperliche Talente
+		// get count
+		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
+		String countResult 		= xpath.compile(countExpression).evaluate(document);
+		int count = Integer.parseInt(countResult);
+		for(int i = 2; i <= count; i++) {
+			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[1]/text()";
+			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[2]/text()";
 			
 			String name  = xpath.compile(nameExpression).evaluate(document);
 			String be 	 = "";
@@ -408,7 +453,7 @@ public class HeroHtmlParser {
 			talent.setBe(be);
 			talent.setTalentwert(Integer.parseInt(taw));
 			splitTalentProben(talent, probe);
-			
+
 			talente.add(talent);
 		}
 	}
@@ -630,11 +675,12 @@ public class HeroHtmlParser {
 	/**
 	 * @param document the Document to parse
 	 * @param xpath the XPath to use
+	 * @param numberOfNet the number of the Gitternetz
 	 * @param talente the List of talente
 	 * @throws XPathExpressionException when the Expression threw an error
 	 * @throws Exception whenever something else failed
 	 */
-	private void gatherWissenstalente(Document document, XPath xpath, List<TalentObjekt> talente)
+	private void gatherWissenstalente(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
 			throws XPathExpressionException, Exception {
 		//Koerperliche Talente
 		// get count
@@ -759,18 +805,26 @@ public class HeroHtmlParser {
 			}
 			
 			List<TalentObjekt> talente = new ArrayList<>();
-			
-			gatherKoerperlich(document, xpath, talente);
-			gatherGesellschaftlich(document, xpath, talente);
-			gatherNaturtalente(document, xpath, talente);
-			gatherWissenstalente(document, xpath, talente);
-			gatherSprachen(document, xpath, talente);
-			gatherSchriften(document, xpath, talente);
-			gatherHandwerk(document, xpath, talente);
-			hero.setTalente(talente);
-			
 			List<KampftechnikObjekt> kampfTalente = new ArrayList<>();
-			gatherKampftechniken(document, xpath, kampfTalente);
+			for(int i = 0; i < 10; i++) {
+				String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])["+i+"]/tr[1]/th[1]/text()";
+				String name  = xpath.compile(nameExpression).evaluate(document);
+				
+				switch(name) {
+				case "Gaben (G)" : gatherGaben(document, xpath, i, talente); break;
+				case "Kampftechniken" : gatherKampftechniken(document, xpath, i, kampfTalente); break;
+				case "Körperliche Talente (D)" : gatherKoerperlich(document, xpath, i, talente); break;
+				case "Gesellschaftliche Talente (B)" : gatherGesellschaftlich(document, xpath, i, talente); break;
+				case "Natur-Talente (B)" : gatherNaturtalente(document, xpath, i, talente); break;
+				case "Wissenstalente (B)" : gatherWissenstalente(document, xpath, i, talente); break;
+				case "Sprachen (A)" : gatherSprachen(document, xpath, i, talente); break;
+				case "Schriften (A)" : gatherSchriften(document, xpath, i, talente); break;
+				case "Handwerkliche Talente (B)" : gatherHandwerk(document, xpath, i, talente); break;
+				default: break;
+				}
+			}
+					
+			hero.setTalente(talente);
 			hero.setKampftechniken(kampfTalente);
 			
 			List<TalentObjekt> zauber = new ArrayList<>();
@@ -827,6 +881,7 @@ public class HeroHtmlParser {
 				String s = matcher.group();
 				probenList.add(EigenschaftEnum.valueOf(s));
 			} else {
+				System.err.println("Fehler in Probe: " + probe);
 				System.err.println(localprobe);
 				throw new Exception("Could not match Probe!");
 			}
