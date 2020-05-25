@@ -65,8 +65,7 @@ public class HeroHtmlParser {
 						.replaceAll("&Auml;", "Ä")
 						.replaceAll("&Ouml;", "Ö")
 						.replaceAll("&Uuml;", "Ü")
-						.replaceAll("&szlig;", "ss")
-						.replaceAll("Cp1252", "utf-8");
+						.replaceAll("&szlig;", "ss");
 				
 				wr.write(modLine);
 			}
@@ -682,16 +681,17 @@ public class HeroHtmlParser {
 	 */
 	private void gatherWissenstalente(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
 			throws XPathExpressionException, Exception {
+		System.out.println("Gather wissen");
 		//Koerperliche Talente
 		// get count
-		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])[5]/tr)";
+		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
 		String countResult 		= xpath.compile(countExpression).evaluate(document);
 		int count = Integer.parseInt(countResult);
 		
 		for(int i = 2; i <= count; i++) {
-			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])[5]/tr["+ i +"]/td[1]/text()";
-			String probeExpression  = "(//table[@class='talentgruppe gitternetz'])[5]/tr["+ i +"]/td[2]/text()";
-			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])[5]/tr["+ i +"]/td[3]/text()";
+			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[1]/text()";
+			String probeExpression  = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[2]/text()";
+			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[3]/text()";
 			
 			
 			String name  = xpath.compile(nameExpression).evaluate(document);
@@ -705,6 +705,7 @@ public class HeroHtmlParser {
 			talent.setTalentwert(Integer.parseInt(taw));
 			splitTalentProben(talent, probe);
 			
+			System.out.println(talent.getName());
 			talente.add(talent);
 		}
 	}
