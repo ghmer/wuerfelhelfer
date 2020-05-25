@@ -10,6 +10,7 @@ import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.KampftechnikObjekt;
 import link.parzival.dsa.object.ParadeObjekt;
 import link.parzival.dsa.object.Sonderfertigkeit;
+import link.parzival.dsa.object.TalentObjekt;
 import link.parzival.dsa.object.WaffenObjekt;
 import link.parzival.dsa.object.enumeration.DKEnum;
 
@@ -755,4 +756,38 @@ public class DsaCalculatorUtil {
 		return result;
 	}
 
+	/**
+	 * @param modifier the modifier to apply
+	 * @param behinderung the current behinderung of the character
+	 * @param talent the talent to calculate the modifier for
+	 * @return the effective modifier
+	 */
+	public static int calculateModifier(int modifier, int behinderung, TalentObjekt talent) {
+		int result = 0;
+		
+		if(talent.getBe() != null) {
+			String talentBehinderung = talent.getBe();
+			if(talentBehinderung.startsWith("BE")) {
+				char operand = talentBehinderung.charAt(2);
+				
+				int length = talentBehinderung.length();
+				int modInt = Integer.parseInt(talentBehinderung.substring(length-1, length));
+				
+				switch(operand) {
+				case '+' : result = behinderung + modInt; break;
+				case '-' : result = behinderung - modInt; break;
+				case 'x' : result = behinderung * modInt; break;
+				case '/' : result = behinderung / modInt; break;
+				}
+				
+				if(result < 0) {
+					result = 0;
+				}
+			}
+		}
+		
+		result += modifier;
+		
+		return result;
+	}
 }
