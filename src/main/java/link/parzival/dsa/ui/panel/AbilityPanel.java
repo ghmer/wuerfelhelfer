@@ -37,9 +37,9 @@ public class AbilityPanel extends JPanel {
 	 */
 	public AbilityPanel(TalentObjekt talent, HeldenObjekt hero) {
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{181, 40, 70, 70, 70, 75, 111, 0};
+		gridBagLayout.columnWidths = new int[]{181, 40, 70, 70, 70, 75, 100, 0};
 		gridBagLayout.rowHeights = new int[]{16, 29, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		

@@ -525,7 +525,6 @@ public class CombatPanel extends JPanel {
 		panel_1.add(separator_2, BorderLayout.CENTER);
 		GridBagConstraints gbc_chkUseDK = new GridBagConstraints();
 		gbc_chkUseDK.fill = GridBagConstraints.HORIZONTAL;
-		gbc_chkUseDK.anchor = GridBagConstraints.NORTH;
 		gbc_chkUseDK.insets = new Insets(0, 0, 0, 5);
 		gbc_chkUseDK.gridx = 1;
 		gbc_chkUseDK.gridy = 10;
@@ -543,7 +542,6 @@ public class CombatPanel extends JPanel {
 		comboBoxCurrentDK = new JComboBox<>();
 		comboBoxCurrentDK.setModel(new DefaultComboBoxModel<DKEnum>(DKEnum.values()));
 		GridBagConstraints gbc_comboBoxCurrentDK = new GridBagConstraints();
-		gbc_comboBoxCurrentDK.anchor = GridBagConstraints.NORTH;
 		gbc_comboBoxCurrentDK.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxCurrentDK.insets = new Insets(0, 0, 0, 5);
 		gbc_comboBoxCurrentDK.gridx = 3;
@@ -562,7 +560,6 @@ public class CombatPanel extends JPanel {
 		
 		comboBoxOwnDK = new JComboBox<>();
 		GridBagConstraints gbc_comboBoxOwnDK = new GridBagConstraints();
-		gbc_comboBoxOwnDK.anchor = GridBagConstraints.NORTH;
 		gbc_comboBoxOwnDK.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxOwnDK.insets = new Insets(0, 0, 0, 5);
 		gbc_comboBoxOwnDK.gridx = 5;
@@ -583,7 +580,6 @@ public class CombatPanel extends JPanel {
 			}
 		});
 		GridBagConstraints gbc_btnHopsen = new GridBagConstraints();
-		gbc_btnHopsen.anchor = GridBagConstraints.NORTH;
 		gbc_btnHopsen.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnHopsen.gridx = 6;
 		gbc_btnHopsen.gridy = 10;
