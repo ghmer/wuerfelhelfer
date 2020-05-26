@@ -365,11 +365,10 @@ public class HeroHtmlParser {
 				paradeObjekt.setName(name);
 				paradeObjekt.setTyp(ParadeObjektTypEnum.valueOf(typ));
 				paradeObjekt.setIni(Integer.valueOf(ini));
-				parseWaffenModifikator(wm, paradeObjekt);
 				paradeObjekt.setParade(Integer.valueOf(pa));
 				paradeObjekt.setMinBf(Integer.valueOf(minBf));
 				paradeObjekt.setAktBf(Integer.valueOf(aktBf));
-				
+				parseWaffenModifikator(wm, paradeObjekt);
 				
 				paradewaffenListe.add(paradeObjekt);
 			}
