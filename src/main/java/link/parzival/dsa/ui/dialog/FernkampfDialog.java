@@ -534,25 +534,27 @@ public class FernkampfDialog extends JDialog {
 
 				sichtModGroup = new ArrayList<>();
 				ButtonGroup sichtModButtonGroup = new ButtonGroup();
+				
+				JRadioButton rdbtnKeine = new JRadioButton("keine");
+				rdbtnKeine.setSelected(true);
+				sichtModButtonGroup.add(rdbtnKeine);
+				GridBagConstraints gbc_rdbtnKeine = new GridBagConstraints();
+				gbc_rdbtnKeine.anchor = GridBagConstraints.WEST;
+				gbc_rdbtnKeine.insets = new Insets(0, 0, 5, 5);
+				gbc_rdbtnKeine.gridx = 2;
+				gbc_rdbtnKeine.gridy = 1;
+				sichtPanel.add(rdbtnKeine, gbc_rdbtnKeine);
+				sichtModGroup.add(rdbtnKeine);
+				
 				JRadioButton rdbDunst = new JRadioButton("Dunst");
 				sichtModButtonGroup.add(rdbDunst);
 				GridBagConstraints gbc_rdbDunst = new GridBagConstraints();
 				gbc_rdbDunst.anchor = GridBagConstraints.WEST;
 				gbc_rdbDunst.insets = new Insets(0, 0, 5, 5);
 				gbc_rdbDunst.gridx = 2;
-				gbc_rdbDunst.gridy = 1;
+				gbc_rdbDunst.gridy = 2;
 				sichtPanel.add(rdbDunst, gbc_rdbDunst);
 				sichtModGroup.add(rdbDunst);
-				
-				JRadioButton rdbNebel = new JRadioButton("Nebel");
-				sichtModButtonGroup.add(rdbNebel);
-				GridBagConstraints gbc_rdbNebel = new GridBagConstraints();
-				gbc_rdbNebel.anchor = GridBagConstraints.WEST;
-				gbc_rdbNebel.insets = new Insets(0, 0, 5, 5);
-				gbc_rdbNebel.gridx = 2;
-				gbc_rdbNebel.gridy = 2;
-				sichtPanel.add(rdbNebel, gbc_rdbNebel);
-				sichtModGroup.add(rdbNebel);
 
 				JCheckBox chkboxDaemmerungssicht = new JCheckBox("Dämmerungssicht");
 				vorteilListe.add(chkboxDaemmerungssicht);
@@ -572,6 +574,16 @@ public class FernkampfDialog extends JDialog {
 				gbc_rdbMondlicht.gridy = 3;
 				sichtPanel.add(rdbMondlicht, gbc_rdbMondlicht);
 				sichtGroup.add(rdbMondlicht);
+				
+				JRadioButton rdbNebel = new JRadioButton("Nebel");
+				sichtModButtonGroup.add(rdbNebel);
+				GridBagConstraints gbc_rdbNebel = new GridBagConstraints();
+				gbc_rdbNebel.anchor = GridBagConstraints.WEST;
+				gbc_rdbNebel.insets = new Insets(0, 0, 5, 5);
+				gbc_rdbNebel.gridx = 2;
+				gbc_rdbNebel.gridy = 3;
+				sichtPanel.add(rdbNebel, gbc_rdbNebel);
+				sichtModGroup.add(rdbNebel);
 
 				JCheckBox chkboxNachtsicht = new JCheckBox("Nachtsicht");
 				vorteilListe.add(chkboxNachtsicht);
