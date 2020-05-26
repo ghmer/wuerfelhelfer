@@ -52,7 +52,7 @@ import javax.swing.JButton;
 public class DzDiceHelperUi extends JFrame {
 	private static final long serialVersionUID 	= 6428768807868759732L;
 	
-	public  static final int VERSION 			= 10;
+	public  static final int VERSION 			= 11;
 	private JPanel contentPane					= null;
 	private AbilityPanel currentAbility 		= null;	
 	private CombatPanel currentCombatPanel		= null;
@@ -86,7 +86,7 @@ public class DzDiceHelperUi extends JFrame {
 		setFont(customMainFont);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 730, 650);
+		setBounds(100, 100, 750, 630);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
