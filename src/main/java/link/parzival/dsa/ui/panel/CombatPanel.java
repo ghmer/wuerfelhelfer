@@ -131,7 +131,6 @@ public class CombatPanel extends JPanel {
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
-		gbc_lblNewLabel.fill = GridBagConstraints.VERTICAL;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 1;
 		gbc_lblNewLabel.gridy = 1;
@@ -173,7 +172,6 @@ public class CombatPanel extends JPanel {
 		});
 		GridBagConstraints gbc_btnInitiative = new GridBagConstraints();
 		gbc_btnInitiative.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnInitiative.anchor = GridBagConstraints.NORTH;
 		gbc_btnInitiative.insets = new Insets(0, 0, 5, 5);
 		gbc_btnInitiative.gridx = 2;
 		gbc_btnInitiative.gridy = 1;
@@ -191,14 +189,13 @@ public class CombatPanel extends JPanel {
 		
 		tfInitiative = new JSpinner();
 		GridBagConstraints gbc_tfInitiative = new GridBagConstraints();
-		gbc_tfInitiative.anchor = GridBagConstraints.NORTH;
 		gbc_tfInitiative.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfInitiative.insets = new Insets(0, 0, 5, 5);
 		gbc_tfInitiative.gridx = 5;
 		gbc_tfInitiative.gridy = 1;
 		add(tfInitiative, gbc_tfInitiative);
 		GridBagConstraints gbc_btnFernkampf = new GridBagConstraints();
-		gbc_btnFernkampf.anchor = GridBagConstraints.NORTHEAST;
+		gbc_btnFernkampf.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnFernkampf.insets = new Insets(0, 0, 5, 0);
 		gbc_btnFernkampf.gridx = 6;
 		gbc_btnFernkampf.gridy = 1;
@@ -238,7 +235,6 @@ public class CombatPanel extends JPanel {
 		});
 		comboBoxRightWeaponHand.setModel(new DefaultComboBoxModel<>(hero.getWaffenNamenAsArray()));
 		GridBagConstraints gbc_comboBoxRightWeaponHand = new GridBagConstraints();
-		gbc_comboBoxRightWeaponHand.anchor = GridBagConstraints.NORTH;
 		gbc_comboBoxRightWeaponHand.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxRightWeaponHand.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBoxRightWeaponHand.gridwidth = 5;
@@ -271,7 +267,6 @@ public class CombatPanel extends JPanel {
 		gbc_lblSchild.gridy = 4;
 		add(lblSchild, gbc_lblSchild);
 		GridBagConstraints gbc_comboBoxSchildhand = new GridBagConstraints();
-		gbc_comboBoxSchildhand.anchor = GridBagConstraints.NORTH;
 		gbc_comboBoxSchildhand.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxSchildhand.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBoxSchildhand.gridwidth = 5;
@@ -409,7 +404,6 @@ public class CombatPanel extends JPanel {
 		gbc_attackeModifier.gridy = 7;
 		add(attackeModifier, gbc_attackeModifier);
 		GridBagConstraints gbc_btnAttacke = new GridBagConstraints();
-		gbc_btnAttacke.anchor = GridBagConstraints.NORTH;
 		gbc_btnAttacke.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnAttacke.insets = new Insets(0, 0, 5, 0);
 		gbc_btnAttacke.gridx = 6;
@@ -417,7 +411,6 @@ public class CombatPanel extends JPanel {
 		add(btnAttacke, gbc_btnAttacke);
 		GridBagConstraints gbc_btnAusweichen = new GridBagConstraints();
 		gbc_btnAusweichen.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnAusweichen.anchor = GridBagConstraints.NORTH;
 		gbc_btnAusweichen.insets = new Insets(0, 0, 5, 5);
 		gbc_btnAusweichen.gridx = 1;
 		gbc_btnAusweichen.gridy = 8;
@@ -505,7 +498,6 @@ public class CombatPanel extends JPanel {
 		gbc_paradeModifier.gridy = 8;
 		add(paradeModifier, gbc_paradeModifier);
 		GridBagConstraints gbc_btnParade = new GridBagConstraints();
-		gbc_btnParade.anchor = GridBagConstraints.NORTH;
 		gbc_btnParade.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnParade.insets = new Insets(0, 0, 5, 0);
 		gbc_btnParade.gridx = 6;
