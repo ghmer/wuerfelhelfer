@@ -681,7 +681,6 @@ public class HeroHtmlParser {
 	 */
 	private void gatherWissenstalente(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
 			throws XPathExpressionException, Exception {
-		System.out.println("Gather wissen");
 		//Koerperliche Talente
 		// get count
 		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
@@ -705,7 +704,6 @@ public class HeroHtmlParser {
 			talent.setTalentwert(Integer.parseInt(taw));
 			splitTalentProben(talent, probe);
 			
-			System.out.println(talent.getName());
 			talente.add(talent);
 		}
 	}
