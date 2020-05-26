@@ -197,7 +197,7 @@ public class CombatPanel extends JPanel {
 		gbc_tfInitiative.gridy = 1;
 		add(tfInitiative, gbc_tfInitiative);
 		GridBagConstraints gbc_btnFernkampf = new GridBagConstraints();
-		gbc_btnFernkampf.anchor = GridBagConstraints.SOUTHEAST;
+		gbc_btnFernkampf.anchor = GridBagConstraints.NORTHEAST;
 		gbc_btnFernkampf.insets = new Insets(0, 0, 5, 0);
 		gbc_btnFernkampf.gridx = 6;
 		gbc_btnFernkampf.gridy = 1;
