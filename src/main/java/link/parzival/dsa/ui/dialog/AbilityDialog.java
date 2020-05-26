@@ -64,7 +64,7 @@ public class AbilityDialog extends JDialog {
 	public AbilityDialog(HeldenObjekt hero) {
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setModal(true);
-		setBounds(100, 100, 450, 298);
+		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
