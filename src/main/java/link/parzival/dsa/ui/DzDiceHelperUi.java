@@ -8,6 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileFilter;
 
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
+
 import link.parzival.dsa.HeroHtmlParser;
 import link.parzival.dsa.VersionCheck;
 import link.parzival.dsa.object.HeldenObjekt;
@@ -24,6 +27,10 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
@@ -59,6 +66,11 @@ public class DzDiceHelperUi extends JFrame {
 	 * Create the frame.
 	 */
 	public DzDiceHelperUi() {
+		try {
+		    UIManager.setLookAndFeel( new FlatLightLaf() );
+		} catch( Exception ex ) {
+		    System.err.println( "Failed to initialize LaF" );
+		}
 		this.customMainFont 	= getFontFromResource("/UbuntuMono-R.ttf");
 		this.customHeroNameFont = getFontFromResource("/Friedolin.ttf");
 		GraphicsEnvironment ge 	= GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -138,6 +150,37 @@ public class DzDiceHelperUi extends JFrame {
 			}
 		});
 		menuFile.add(menuItemExit);
+		
+		JMenu mntMenuDarstellung = new JMenu("Darstellung");
+		menuBar.add(mntMenuDarstellung);
+		
+		JMenuItem menuItemHelleDarstellung = new JMenuItem("Helles UI");
+		menuItemHelleDarstellung.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					UIManager.setLookAndFeel(new FlatLightLaf());
+					SwingUtilities.updateComponentTreeUI(getRootPane());
+				} catch (UnsupportedLookAndFeelException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		mntMenuDarstellung.add(menuItemHelleDarstellung);
+		
+		JMenuItem menuItemDunkleDarstellung = new JMenuItem("Dunkles UI");
+		menuItemDunkleDarstellung.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					UIManager.setLookAndFeel(new FlatDarkLaf());
+					SwingUtilities.updateComponentTreeUI(getRootPane());
+				} catch (UnsupportedLookAndFeelException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		mntMenuDarstellung.add(menuItemDunkleDarstellung);
 		
 		JMenu mnNewMenu = new JMenu("?");
 		menuBar.add(mnNewMenu);
