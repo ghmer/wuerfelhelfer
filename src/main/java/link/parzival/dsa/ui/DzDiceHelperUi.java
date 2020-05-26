@@ -1,5 +1,6 @@
 package link.parzival.dsa.ui;
 
+import java.awt.Desktop;
 import java.awt.EventQueue;
 
 import javax.swing.JFileChooser;
@@ -35,6 +36,8 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -48,6 +51,7 @@ import javax.swing.JButton;
 public class DzDiceHelperUi extends JFrame {
 	private static final long serialVersionUID 	= 6428768807868759732L;
 	public  static final String remoteUrlString = "https://parzival.link/dz-dice-helper-latest.jar";
+	public  static final String manualUrlString = "https://parzival.link/Wuerfelhelfer-Anleitung.pdf";
 	public  static final int VERSION 			= 8;
 	private JPanel contentPane					= null;
 	private AbilityPanel currentAbility 		= null;	
@@ -60,6 +64,8 @@ public class DzDiceHelperUi extends JFrame {
 	private JSeparator separatorTalentDown		= null;
 	private JSeparator separatorTalentUp		= null;
 	private JButton btnPruefungWaehlen			= null;
+	private JMenuItem menuItemHelleDarstellung;
+	private JMenuItem menuItemDunkleDarstellung;
 	
 	
 	/**
@@ -154,10 +160,12 @@ public class DzDiceHelperUi extends JFrame {
 		JMenu mntMenuDarstellung = new JMenu("Darstellung");
 		menuBar.add(mntMenuDarstellung);
 		
-		JMenuItem menuItemHelleDarstellung = new JMenuItem("Helles UI");
+		menuItemHelleDarstellung = new JMenuItem("Helles UI");
+		menuItemHelleDarstellung.setEnabled(false);
 		menuItemHelleDarstellung.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					updateDarstellungMenuItems(false);
 					UIManager.setLookAndFeel(new FlatLightLaf());
 					SwingUtilities.updateComponentTreeUI(getRootPane());
 				} catch (UnsupportedLookAndFeelException e1) {
@@ -168,10 +176,11 @@ public class DzDiceHelperUi extends JFrame {
 		});
 		mntMenuDarstellung.add(menuItemHelleDarstellung);
 		
-		JMenuItem menuItemDunkleDarstellung = new JMenuItem("Dunkles UI");
+		menuItemDunkleDarstellung = new JMenuItem("Dunkles UI");
 		menuItemDunkleDarstellung.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					updateDarstellungMenuItems(true);
 					UIManager.setLookAndFeel(new FlatDarkLaf());
 					SwingUtilities.updateComponentTreeUI(getRootPane());
 				} catch (UnsupportedLookAndFeelException e1) {
@@ -193,6 +202,18 @@ public class DzDiceHelperUi extends JFrame {
 				lizenzDialog.setVisible(true);
 			}
 		});
+		
+		JMenuItem menuItemHilfe = new JMenuItem("Hilfe herunterladen");
+		menuItemHilfe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Desktop.getDesktop().browse(new URI(DzDiceHelperUi.manualUrlString));
+				} catch (IOException | URISyntaxException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		mnNewMenu.add(menuItemHilfe);
 		mnNewMenu.add(menuItemLizenzen);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -249,6 +270,16 @@ public class DzDiceHelperUi extends JFrame {
 		separatorTalentDown.setVisible(false);
 		separatorTalentDown.setBounds(6, 240, 720, 12);
 		contentPane.add(separatorTalentDown);
+	}
+
+	protected void updateDarstellungMenuItems(boolean dark) {
+		if(dark) {
+			menuItemDunkleDarstellung.setEnabled(false);
+			menuItemHelleDarstellung.setEnabled(true);
+		} else {
+			menuItemDunkleDarstellung.setEnabled(true);
+			menuItemHelleDarstellung.setEnabled(false);
+		}
 	}
 
 	public static void copyToClipboard(String text) {
