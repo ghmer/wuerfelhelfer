@@ -2,12 +2,8 @@ package link.parzival.dsa.ui.panel;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import java.awt.Font;
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
 
 import javax.swing.SwingConstants;
 import javax.swing.JSpinner;
@@ -15,6 +11,7 @@ import javax.swing.JSpinner.DefaultEditor;
 import javax.swing.event.ChangeListener;
 
 import link.parzival.dsa.object.HeldenObjekt;
+import link.parzival.dsa.ui.DzDiceHelperUi;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.JButton;
@@ -49,11 +46,8 @@ public class HeroPanel extends JPanel {
 		JButton btnIntuition = new JButton(String.valueOf(hero.getIntuition()));
 		btnIntuition.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-				StringSelection selection = new StringSelection(String.format("!%s Intuition", hero.getIntuition()));
-				clipboard.setContents(selection, null);
-				
-				JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
+				String rollCommand = String.format("!%s Intuition", hero.getIntuition());
+				DzDiceHelperUi.copyToClipboard(rollCommand);
 			}
 		});
 		
@@ -63,11 +57,8 @@ public class HeroPanel extends JPanel {
 		JButton btnMut = new JButton(String.valueOf(hero.getMut()));
 		btnMut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-				StringSelection selection = new StringSelection(String.format("!%s Mut", hero.getMut()));
-				clipboard.setContents(selection, null);
-				
-				JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
+				String rollCommand = String.format("!%s Mut", hero.getMut());
+				DzDiceHelperUi.copyToClipboard(rollCommand);
 			}
 		});
 		
@@ -101,11 +92,8 @@ public class HeroPanel extends JPanel {
 		JButton btnFingerFertigkeit = new JButton(String.valueOf(hero.getFingerfertigkeit()));
 		btnFingerFertigkeit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-				StringSelection selection = new StringSelection(String.format("!%s Fingerfertigkeit", hero.getFingerfertigkeit()));
-				clipboard.setContents(selection, null);
-				
-				JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
+				String rollCommand = String.format("!%s Fingerfertigkeit", hero.getFingerfertigkeit());
+				DzDiceHelperUi.copyToClipboard(rollCommand);
 			}
 		});
 		
@@ -144,11 +132,8 @@ public class HeroPanel extends JPanel {
 		JButton btnKlugheit = new JButton(String.valueOf(hero.getKlugheit()));
 		btnKlugheit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-				StringSelection selection = new StringSelection(String.format("!%s Klugheit", hero.getKlugheit()));
-				clipboard.setContents(selection, null);
-				
-				JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
+				String rollCommand = String.format("!%s Klugheit", hero.getKlugheit());
+				DzDiceHelperUi.copyToClipboard(rollCommand);
 			}
 		});
 		GridBagConstraints gbc_btnKlugheit = new GridBagConstraints();
@@ -164,11 +149,8 @@ public class HeroPanel extends JPanel {
 		JButton btnGewandtheit = new JButton(String.valueOf(hero.getGewandtheit()));
 		btnGewandtheit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-				StringSelection selection = new StringSelection(String.format("!%s Gewandtheit", hero.getGewandtheit()));
-				clipboard.setContents(selection, null);
-				
-				JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
+				String rollCommand = String.format("!%s Gewandtheit", hero.getGewandtheit());
+				DzDiceHelperUi.copyToClipboard(rollCommand);
 			}
 		});
 		GridBagConstraints gbc_btnGewandtheit = new GridBagConstraints();
@@ -230,11 +212,8 @@ public class HeroPanel extends JPanel {
 		JButton btnKonstitution = new JButton(String.valueOf(hero.getKonstitution()));
 		btnKonstitution.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-				StringSelection selection = new StringSelection(String.format("!%s Konstitution", hero.getKonstitution()));
-				clipboard.setContents(selection, null);
-				
-				JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
+				String rollCommand = String.format("!%s Konstitution", hero.getKonstitution());
+				DzDiceHelperUi.copyToClipboard(rollCommand);
 			}
 		});
 		GridBagConstraints gbc_btnKonstitution = new GridBagConstraints();
@@ -275,11 +254,8 @@ public class HeroPanel extends JPanel {
 		JButton btnKoerperkraft = new JButton(String.valueOf(hero.getKoerperkraft()));
 		btnKoerperkraft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-				StringSelection selection = new StringSelection(String.format("!%s Koerperkraft", hero.getKoerperkraft()));
-				clipboard.setContents(selection, null);
-				
-				JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
+				String rollCommand = String.format("!%s Koerperkraft", hero.getKoerperkraft());
+				DzDiceHelperUi.copyToClipboard(rollCommand);
 			}
 		});
 		
@@ -295,11 +271,8 @@ public class HeroPanel extends JPanel {
 		JButton btnCharisma = new JButton(String.valueOf(hero.getCharisma()));
 		btnCharisma.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-				StringSelection selection = new StringSelection(String.format("!%s Charisma", hero.getCharisma()));
-				clipboard.setContents(selection, null);
-				
-				JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
+				String rollCommand = String.format("!%s Charisma", hero.getCharisma());
+				DzDiceHelperUi.copyToClipboard(rollCommand);
 			}
 		});
 		GridBagConstraints gbc_btnCharisma = new GridBagConstraints();
