@@ -77,7 +77,7 @@ public class NewVersionAvailableDialog extends JDialog {
 					}
 				}
 			});
-			lblLinkNewVersion.setForeground(Color.BLUE);
+			lblLinkNewVersion.setForeground(Color.BLUE.darker());
 			GridBagConstraints gbc_lblLinkNewVersion = new GridBagConstraints();
 			gbc_lblLinkNewVersion.insets = new Insets(0, 0, 5, 0);
 			gbc_lblLinkNewVersion.gridx = 0;
