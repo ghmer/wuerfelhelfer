@@ -67,7 +67,11 @@ public class LizenzDialog extends JDialog {
 			}
 		}
 	}
-
+	
+	/**
+	 * @param license which license to present
+	 * @return the license text
+	 */
 	@SuppressWarnings("resource")
 	private String getLizenz(License license) {
 		String text = null;
