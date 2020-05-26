@@ -43,70 +43,12 @@ import link.parzival.dsa.object.enumeration.ParadeObjektTypEnum;
 public class HeroHtmlParser {
 	
 	/**
-	 * @param originalFile the originalFile
-	 * @return a modified file
-	 */
-	private File massageHtmlFile(File originalFile) {
-		File result = null;
-		BufferedReader br = null;
-		BufferedWriter wr = null;
-		try {
-			result = File.createTempFile("dsa_", ".tmp");
-			result.deleteOnExit();
-			
-			br = new BufferedReader(new FileReader(originalFile));
-			wr = new BufferedWriter(new FileWriter(result));
-			String line = null;
-			while((line = br.readLine()) != null) {
-				String modLine = line
-						.replaceAll("&auml;", "ä")
-						.replaceAll("&ouml;", "ö")
-						.replaceAll("&uuml;", "ü")
-						.replaceAll("&Auml;", "Ä")
-						.replaceAll("&Ouml;", "Ö")
-						.replaceAll("&Uuml;", "Ü")
-						.replaceAll("&szlig;", "ss");
-				
-				wr.write(modLine);
-			}
-			
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if(br != null) {
-				try {
-					br.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-			if(wr != null) {
-				try {
-					wr.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-		
-		
-		return result;
-	}
-	
-	/**
 	 * @param document the Document to parse
 	 * @param xpath the XPath to use
 	 * @return the Behinderung
 	 * @throws XPathExpressionException when there was an issue
 	 */
 	private int gatherBehinderung(Document document, XPath xpath) throws XPathExpressionException {
-		// TODO Auto-generated method stub
-		// <table class="zonenruestungen gitternetz">
 		int result = 0;
 		String countExpression 	= "count((//table[@class='zonenruestungen gitternetz'])/tr)";
 		String countResult 		= xpath.compile(countExpression).evaluate(document);
@@ -126,32 +68,78 @@ public class HeroHtmlParser {
 	/**
 	 * @param document the Document to parse
 	 * @param xpath the XPath to use
-	 * @param hero the HeldenObjekt to use
-	 * @throws XPathExpressionException when the XPath Expression threw an error
-	 * @throws Exception when there was another error
+	 * @param fernwaffenListe the List of fernwaffen
+	 * @throws XPathExpressionException when the Expression threw an error
+	 * @throws Exception whenever something else failed
 	 */
-	private void gatherSonderfertigkeiten(Document document, XPath xpath, HeldenObjekt hero) throws XPathExpressionException, Exception {
-		String countExpression 	= "count((//div[@class='mitte_innen']/table[@class='sonderfertigkeiten'])/tr)";
+	private void gatherFernwaffen(Document document, XPath xpath, List<FernwaffenObjekt> fernwaffenListe)
+			throws XPathExpressionException, Exception {
+		String countExpression 	= "count((//table[@class='fkwaffen gitternetz'])/tr)";
 		String countResult 		= xpath.compile(countExpression).evaluate(document);
 		int count = Integer.parseInt(countResult);
 		
-		List<Sonderfertigkeit> sonderfertigkeiten = new ArrayList<>();
-		
-		for(int i = 2; i < count; i++) {
-			String leftExpression 	= "(//div[@class='mitte_innen']/table[@class='sonderfertigkeiten'])/tr["+i+"]/td[1]/text()";
-			String rightExpression	= "(//div[@class='mitte_innen']/table[@class='sonderfertigkeiten'])/tr["+i+"]/td[2]/text()";
-		
-			String leftValue 		= xpath.compile(leftExpression).evaluate(document);
-			String rightValue 		= xpath.compile(rightExpression).evaluate(document);
+		for(int i = 2; i <= count; i++) {
+			String nameExpression 	= "(//table[@class='fkwaffen gitternetz'])/tr["+ i +"]/td[1]/text()";
+			String typBeExpression  = "(//table[@class='fkwaffen gitternetz'])/tr["+ i +"]/td[2]/text()";
+			String tpExpression     = "(//table[@class='fkwaffen gitternetz'])/tr["+ i +"]/td[3]/text()";
+			String distExpression	= "(//table[@class='fkwaffen gitternetz'])/tr["+ i +"]/td[4]/text()";
+			String tpDistExpression = "(//table[@class='fkwaffen gitternetz'])/tr["+ i +"]/td[5]/text()";
+			String fkExpression 	= "(//table[@class='fkwaffen gitternetz'])/tr["+ i +"]/td[6]/text()";
+			//String ammoExpression   = "(//table[@class='fkwaffen gitternetz'])/tr["+ i +"]/td[7]/text()";
 			
-			Sonderfertigkeit sf1 	= new Sonderfertigkeit(leftValue);
-			Sonderfertigkeit sf2 	= new Sonderfertigkeit(rightValue);
+			String name 	= xpath.compile(nameExpression).evaluate(document);
+			String typBe	= xpath.compile(typBeExpression).evaluate(document);
+			String tp 		= xpath.compile(tpExpression).evaluate(document);
+			String dist		= xpath.compile(distExpression).evaluate(document);
+			String tpDist	= xpath.compile(tpDistExpression).evaluate(document);
+			String fk		= xpath.compile(fkExpression).evaluate(document);
+			//String ammo		= xpath.compile(ammoExpression).evaluate(document);
 			
-			sonderfertigkeiten.add(sf1);
-			sonderfertigkeiten.add(sf2);
+			if(name != null && !name.isEmpty()) {
+				FernwaffenObjekt fernwaffenObjekt = new FernwaffenObjekt();
+				fernwaffenObjekt.setName(name);
+				fernwaffenObjekt.setTp(tp);
+				fernwaffenObjekt.setFk(Integer.parseInt(fk));
+				setFernwaffeTypeAndBehinderung(fernwaffenObjekt, typBe);
+				setFernwaffeEntfernung(fernwaffenObjekt, dist);
+				setFernwaffeTpEntfernung(fernwaffenObjekt, tpDist);
+				
+				fernwaffenListe.add(fernwaffenObjekt);
+			}
 		}
+	}
+	
+	/**
+	 * @param document the Document to parse
+	 * @param xpath the XPath to use
+	 * @param numberOfNet the number of the Gitternetz
+	 * @param talente the List of Talente
+	 * @throws XPathExpressionException when the Expression threw an error
+	 * @throws Exception whenever someting else failed
+	 */
+	private void gatherGaben(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
+			throws XPathExpressionException, Exception {
+		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
+		String countResult 		= xpath.compile(countExpression).evaluate(document);
+		int count = Integer.parseInt(countResult);
 		
-		hero.setSonderfertigkeiten(sonderfertigkeiten);
+		for(int i = 2; i <= count; i++) {
+			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[1]/text()";
+			String probeExpression  = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[2]/text()";
+			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[3]/text()";
+			
+			
+			String name  = xpath.compile(nameExpression).evaluate(document);
+			String taw 	 = xpath.compile(tawExpression).evaluate(document);
+			String probe = xpath.compile(probeExpression).evaluate(document);
+			
+			TalentObjekt talentObjekt = new TalentObjekt();
+			talentObjekt.setName(name);
+			talentObjekt.setTalentwert(Integer.parseInt(taw.trim()));
+			splitTalentProben(talentObjekt, probe);
+			
+			talente.add(talentObjekt);
+		}
 	}
 
 	/**
@@ -164,8 +152,6 @@ public class HeroHtmlParser {
 	 */
 	private void gatherGesellschaftlich(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
 			throws XPathExpressionException, Exception {
-		//Koerperliche Talente
-		// get count
 		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
 		String countResult 		= xpath.compile(countExpression).evaluate(document);
 		int count = Integer.parseInt(countResult);
@@ -201,8 +187,6 @@ public class HeroHtmlParser {
 	 */
 	private void gatherHandwerk(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
 			throws XPathExpressionException, Exception {
-		//Koerperliche Talente
-		// get count
 		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
 		String countResult 		= xpath.compile(countExpression).evaluate(document);
 		int count = Integer.parseInt(countResult);
@@ -238,8 +222,6 @@ public class HeroHtmlParser {
 	 */
 	private void gatherKampftechniken(Document document, XPath xpath, int numberOfNet, List<KampftechnikObjekt> kampftechniken)
 			throws XPathExpressionException, Exception {
-		//Kampftechniken
-		// get count
 		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
 		String countResult 		= xpath.compile(countExpression).evaluate(document);
 		int count = Integer.parseInt(countResult);
@@ -281,8 +263,6 @@ public class HeroHtmlParser {
 	 */
 	private void gatherKoerperlich(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
 			throws XPathExpressionException, Exception {
-		//Koerperliche Talente
-		// get count
 		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
 		String countResult 		= xpath.compile(countExpression).evaluate(document);
 		int count = Integer.parseInt(countResult);
@@ -325,8 +305,6 @@ public class HeroHtmlParser {
 	 */
 	private void gatherNaturtalente(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
 			throws XPathExpressionException, Exception {
-		//Koerperliche Talente
-		// get count
 		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
 		String countResult 		= xpath.compile(countExpression).evaluate(document);
 		int count = Integer.parseInt(countResult);
@@ -352,171 +330,6 @@ public class HeroHtmlParser {
 		}
 	}
 	
-	/**
-	 * @param document the Document to parse
-	 * @param xpath the XPath to use
-	 * @param numberOfNet the number of the Gitternetz
-	 * @param talente the List of Talente
-	 * @throws XPathExpressionException when the Expression threw an error
-	 * @throws Exception whenever someting else failed
-	 */
-	private void gatherSchriften(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
-			throws XPathExpressionException, Exception {
-		//Koerperliche Talente
-		// get count
-		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
-		String countResult 		= xpath.compile(countExpression).evaluate(document);
-		int count = Integer.parseInt(countResult);
-		
-		for(int i = 2; i <= count; i++) {
-			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[1]/text()";
-			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[3]/text()";
-			
-			
-			String name  = xpath.compile(nameExpression).evaluate(document);
-			String be 	 = "";
-			String taw 	 = xpath.compile(tawExpression).evaluate(document);
-			String probe = " (--/--/--)";
-			
-			TalentObjekt talent = new TalentObjekt();
-			talent.setName(name);
-			talent.setBe(be);
-			talent.setTalentwert(Integer.parseInt(taw));
-			splitTalentProben(talent, probe);
-			
-			talente.add(talent);
-		}
-	}
-	
-	/**
-	 * @param document the Document to parse
-	 * @param xpath the XPath to use
-	 * @param numberOfNet the number of the Gitternetz
-	 * @param talente the List of Talente
-	 * @throws XPathExpressionException when the Expression threw an error
-	 * @throws Exception whenever someting else failed
-	 */
-	private void gatherGaben(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
-			throws XPathExpressionException, Exception {
-		//Koerperliche Talente
-		// get count
-		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
-		String countResult 		= xpath.compile(countExpression).evaluate(document);
-		int count = Integer.parseInt(countResult);
-		
-		for(int i = 2; i <= count; i++) {
-			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[1]/text()";
-			String probeExpression  = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[2]/text()";
-			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[3]/text()";
-			
-			
-			String name  = xpath.compile(nameExpression).evaluate(document);
-			String taw 	 = xpath.compile(tawExpression).evaluate(document);
-			String probe = xpath.compile(probeExpression).evaluate(document);
-			
-			TalentObjekt talentObjekt = new TalentObjekt();
-			talentObjekt.setName(name);
-			talentObjekt.setTalentwert(Integer.parseInt(taw.trim()));
-			splitTalentProben(talentObjekt, probe);
-			
-			talente.add(talentObjekt);
-		}
-	}
-	
-	/**
-	 * @param document the Document to parse
-	 * @param xpath the XPath to use
-	 * @param numberOfNet the number of the Gitternetz
-	 * @param talente the List of Talente
-	 * @throws XPathExpressionException when the Expression threw an error
-	 * @throws Exception whenever someting else failed
-	 */
-	private void gatherSprachen(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
-			throws XPathExpressionException, Exception {
-		//Koerperliche Talente
-		// get count
-		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
-		String countResult 		= xpath.compile(countExpression).evaluate(document);
-		int count = Integer.parseInt(countResult);
-		for(int i = 2; i <= count; i++) {
-			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[1]/text()";
-			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[2]/text()";
-			
-			String name  = xpath.compile(nameExpression).evaluate(document);
-			String be 	 = "";
-			String taw 	 = xpath.compile(tawExpression).evaluate(document);
-			String probe = " (--/--/--)";
-			
-			TalentObjekt talent = new TalentObjekt();
-			talent.setName(name);
-			talent.setBe(be);
-			talent.setTalentwert(Integer.parseInt(taw));
-			splitTalentProben(talent, probe);
-
-			talente.add(talent);
-		}
-	}
-	
-	/**
-	 * @param document The Document to be parsed
-	 * @param xpath the XPath to use
-	 * @param waffenListe the List to be filled
-	 * @throws XPathExpressionException
-	 * @throws XPathExpressionException when the Expression threw an error
-	 * @throws Exception whenever someting else failed
-	 */
-	private void gatherWaffen(Document document, XPath xpath, List<WaffenObjekt> waffenListe)
-			throws XPathExpressionException, Exception {
-		//Koerperliche Talente
-		// get count
-		String countExpression 	= "count((//table[@class='nkwaffen gitternetz'])/tr)";
-		String countResult 		= xpath.compile(countExpression).evaluate(document);
-		int count = Integer.parseInt(countResult);
-		
-		for(int i = 2; i <= count; i++) {
-			String nameExpression 	= "(//table[@class='nkwaffen gitternetz'])/tr["+ i +"]/td[1]/text()";
-			String dkExpression     = "(//table[@class='nkwaffen gitternetz'])/tr["+ i +"]/td[3]/text()";
-			String iniExpression    = "(//table[@class='nkwaffen gitternetz'])/tr["+ i +"]/td[6]/text()";
-			String atExpression     = "(//table[@class='nkwaffen gitternetz'])/tr["+ i +"]/td[8]/text()";
-			String paExpression     = "(//table[@class='nkwaffen gitternetz'])/tr["+ i +"]/td[9]/text()";
-			String tpExpression     = "(//table[@class='nkwaffen gitternetz'])/tr["+ i +"]/td[10]/text()";
-			
-			
-			String name  	= xpath.compile(nameExpression).evaluate(document);
-			String dk       = xpath.compile(dkExpression).evaluate(document);
-			String iniStr 	= xpath.compile(iniExpression).evaluate(document);
-			String atStr 	= xpath.compile(atExpression).evaluate(document);
-			String paStr 	= xpath.compile(paExpression).evaluate(document);
-			String tpStr	= xpath.compile(tpExpression).evaluate(document);
-			
-			if(name != null && !name.isEmpty()) {
-				WaffenObjekt waffe = new WaffenObjekt();
-				waffe.setName(name);
-				waffe.setDistanzklassen(parseDistanzklassen(dk));
-				waffe.setTrefferpunkte(tpStr);
-				waffe.setAttacke(Integer.parseInt(atStr));
-				waffe.setParade(Integer.parseInt(paStr));
-				waffe.setInitiative(Integer.parseInt(iniStr));
-				
-				waffenListe.add(waffe);
-			}
-		}
-	}
-	
-	/**
-	 * @param dk the String to parse
-	 * @return a List of available Distanzklassen
-	 */
-	private List<DKEnum> parseDistanzklassen(String dk) {
-		List<DKEnum> distanzklassen = new ArrayList<>();
-		String parseString = dk.trim();
-		for(String s : parseString.split(" ")) {
-			distanzklassen.add(DKEnum.valueOf(s));
-		}
-		
-		return distanzklassen;
-	}
-
 	/**
 	 * @param document the Document to parse
 	 * @param xpath the XPath to use
@@ -566,109 +379,142 @@ public class HeroHtmlParser {
 	/**
 	 * @param document the Document to parse
 	 * @param xpath the XPath to use
-	 * @param fernwaffenListe the List of fernwaffen
+	 * @param numberOfNet the number of the Gitternetz
+	 * @param talente the List of Talente
 	 * @throws XPathExpressionException when the Expression threw an error
-	 * @throws Exception whenever something else failed
+	 * @throws Exception whenever someting else failed
 	 */
-	private void gatherFernwaffen(Document document, XPath xpath, List<FernwaffenObjekt> fernwaffenListe)
+	private void gatherSchriften(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
 			throws XPathExpressionException, Exception {
-		String countExpression 	= "count((//table[@class='fkwaffen gitternetz'])/tr)";
+		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
 		String countResult 		= xpath.compile(countExpression).evaluate(document);
 		int count = Integer.parseInt(countResult);
 		
 		for(int i = 2; i <= count; i++) {
-			String nameExpression 	= "(//table[@class='fkwaffen gitternetz'])/tr["+ i +"]/td[1]/text()";
-			String typBeExpression  = "(//table[@class='fkwaffen gitternetz'])/tr["+ i +"]/td[2]/text()";
-			String tpExpression     = "(//table[@class='fkwaffen gitternetz'])/tr["+ i +"]/td[3]/text()";
-			String distExpression	= "(//table[@class='fkwaffen gitternetz'])/tr["+ i +"]/td[4]/text()";
-			String tpDistExpression = "(//table[@class='fkwaffen gitternetz'])/tr["+ i +"]/td[5]/text()";
-			String fkExpression 	= "(//table[@class='fkwaffen gitternetz'])/tr["+ i +"]/td[6]/text()";
-			//String ammoExpression   = "(//table[@class='fkwaffen gitternetz'])/tr["+ i +"]/td[7]/text()";
+			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[1]/text()";
+			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[3]/text()";
 			
-			String name 	= xpath.compile(nameExpression).evaluate(document);
-			String typBe	= xpath.compile(typBeExpression).evaluate(document);
-			String tp 		= xpath.compile(tpExpression).evaluate(document);
-			String dist		= xpath.compile(distExpression).evaluate(document);
-			String tpDist	= xpath.compile(tpDistExpression).evaluate(document);
-			String fk		= xpath.compile(fkExpression).evaluate(document);
-			//String ammo		= xpath.compile(ammoExpression).evaluate(document);
 			
-			if(name != null && !name.isEmpty()) {
-				FernwaffenObjekt fernwaffenObjekt = new FernwaffenObjekt();
-				fernwaffenObjekt.setName(name);
-				fernwaffenObjekt.setTp(tp);
-				fernwaffenObjekt.setFk(Integer.parseInt(fk));
-				setFernwaffeTypeAndBehinderung(fernwaffenObjekt, typBe);
-				setFernwaffeEntfernung(fernwaffenObjekt, dist);
-				setFernwaffeTpEntfernung(fernwaffenObjekt, tpDist);
-				
-				fernwaffenListe.add(fernwaffenObjekt);
-			}
+			String name  = xpath.compile(nameExpression).evaluate(document);
+			String be 	 = "";
+			String taw 	 = xpath.compile(tawExpression).evaluate(document);
+			String probe = " (--/--/--)";
+			
+			TalentObjekt talent = new TalentObjekt();
+			talent.setName(name);
+			talent.setBe(be);
+			talent.setTalentwert(Integer.parseInt(taw));
+			splitTalentProben(talent, probe);
+			
+			talente.add(talent);
 		}
 	}
 	
 	/**
-	 * @param fernwaffenObjekt the Fernwaffenobjekt to set
-	 * @param typBe the Type and Be in a String
+	 * @param document the Document to parse
+	 * @param xpath the XPath to use
+	 * @param hero the HeldenObjekt to use
+	 * @throws XPathExpressionException when the XPath Expression threw an error
+	 * @throws Exception when there was another error
 	 */
-	private void setFernwaffeTypeAndBehinderung(FernwaffenObjekt fernwaffenObjekt, String typBe) {
-		String typ = null;
-		String be  = null;
+	private void gatherSonderfertigkeiten(Document document, XPath xpath, HeldenObjekt hero) throws XPathExpressionException, Exception {
+		String countExpression 	= "count((//div[@class='mitte_innen']/table[@class='sonderfertigkeiten'])/tr)";
+		String countResult 		= xpath.compile(countExpression).evaluate(document);
+		int count = Integer.parseInt(countResult);
 		
-		if(typBe != null && typBe.contains("/")) {
-			String[] parts = typBe.split("/");
-			typ = parts[0].trim();
-			be  = parts[1].trim();
+		List<Sonderfertigkeit> sonderfertigkeiten = new ArrayList<>();
+		
+		for(int i = 2; i < count; i++) {
+			String leftExpression 	= "(//div[@class='mitte_innen']/table[@class='sonderfertigkeiten'])/tr["+i+"]/td[1]/text()";
+			String rightExpression	= "(//div[@class='mitte_innen']/table[@class='sonderfertigkeiten'])/tr["+i+"]/td[2]/text()";
+		
+			String leftValue 		= xpath.compile(leftExpression).evaluate(document);
+			String rightValue 		= xpath.compile(rightExpression).evaluate(document);
+			
+			Sonderfertigkeit sf1 	= new Sonderfertigkeit(leftValue);
+			Sonderfertigkeit sf2 	= new Sonderfertigkeit(rightValue);
+			
+			sonderfertigkeiten.add(sf1);
+			sonderfertigkeiten.add(sf2);
 		}
+		
+		hero.setSonderfertigkeiten(sonderfertigkeiten);
+	}
+	
+	/**
+	 * @param document the Document to parse
+	 * @param xpath the XPath to use
+	 * @param numberOfNet the number of the Gitternetz
+	 * @param talente the List of Talente
+	 * @throws XPathExpressionException when the Expression threw an error
+	 * @throws Exception whenever someting else failed
+	 */
+	private void gatherSprachen(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
+			throws XPathExpressionException, Exception {
+		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
+		String countResult 		= xpath.compile(countExpression).evaluate(document);
+		int count = Integer.parseInt(countResult);
+		for(int i = 2; i <= count; i++) {
+			String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[1]/text()";
+			String tawExpression    = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr["+ i +"]/td[2]/text()";
+			
+			String name  = xpath.compile(nameExpression).evaluate(document);
+			String be 	 = "";
+			String taw 	 = xpath.compile(tawExpression).evaluate(document);
+			String probe = " (--/--/--)";
+			
+			TalentObjekt talent = new TalentObjekt();
+			talent.setName(name);
+			talent.setBe(be);
+			talent.setTalentwert(Integer.parseInt(taw));
+			splitTalentProben(talent, probe);
+
+			talente.add(talent);
+		}
+	}
+	
+	/**
+	 * @param document The Document to be parsed
+	 * @param xpath the XPath to use
+	 * @param waffenListe the List to be filled
+	 * @throws XPathExpressionException
+	 * @throws XPathExpressionException when the Expression threw an error
+	 * @throws Exception whenever someting else failed
+	 */
+	private void gatherWaffen(Document document, XPath xpath, List<WaffenObjekt> waffenListe)
+			throws XPathExpressionException, Exception {
+		String countExpression 	= "count((//table[@class='nkwaffen gitternetz'])/tr)";
+		String countResult 		= xpath.compile(countExpression).evaluate(document);
+		int count = Integer.parseInt(countResult);
+		
+		for(int i = 2; i <= count; i++) {
+			String nameExpression 	= "(//table[@class='nkwaffen gitternetz'])/tr["+ i +"]/td[1]/text()";
+			String dkExpression     = "(//table[@class='nkwaffen gitternetz'])/tr["+ i +"]/td[3]/text()";
+			String iniExpression    = "(//table[@class='nkwaffen gitternetz'])/tr["+ i +"]/td[6]/text()";
+			String atExpression     = "(//table[@class='nkwaffen gitternetz'])/tr["+ i +"]/td[8]/text()";
+			String paExpression     = "(//table[@class='nkwaffen gitternetz'])/tr["+ i +"]/td[9]/text()";
+			String tpExpression     = "(//table[@class='nkwaffen gitternetz'])/tr["+ i +"]/td[10]/text()";
+			
+			
+			String name  	= xpath.compile(nameExpression).evaluate(document);
+			String dk       = xpath.compile(dkExpression).evaluate(document);
+			String iniStr 	= xpath.compile(iniExpression).evaluate(document);
+			String atStr 	= xpath.compile(atExpression).evaluate(document);
+			String paStr 	= xpath.compile(paExpression).evaluate(document);
+			String tpStr	= xpath.compile(tpExpression).evaluate(document);
+			
+			if(name != null && !name.isEmpty()) {
+				WaffenObjekt waffe = new WaffenObjekt();
+				waffe.setName(name);
+				waffe.setDistanzklassen(parseDistanzklassen(dk));
+				waffe.setTrefferpunkte(tpStr);
+				waffe.setAttacke(Integer.parseInt(atStr));
+				waffe.setParade(Integer.parseInt(paStr));
+				waffe.setInitiative(Integer.parseInt(iniStr));
 				
-		if(typ != null && !typ.isEmpty()) {
-			FernwaffenTypEnum typEnum = FernwaffenTypEnum.valueOf(typ);
-			fernwaffenObjekt.setTyp(typEnum);	
+				waffenListe.add(waffe);
+			}
 		}
-		
-		if(be != null && !be.isEmpty()) {
-			fernwaffenObjekt.setBe(be);
-		}
-	}
-
-	/**
-	 * @param fernwaffenObjekt the FernwaffenObjekt to use
-	 * @param dist the Distances of the Weapon
-	 */
-	private void setFernwaffeEntfernung(FernwaffenObjekt fernwaffenObjekt, String dist) {
-		String[] distances = dist.split("/");
-		for(String distance : distances) {
-			fernwaffenObjekt.addEntfernung(Integer.parseInt(distance.trim()));
-		}
- 		
-	}
-
-	/**
-	 * @param fernwaffenObjekt the FernwaffenObjekt
-	 * @param tpDist the tps according to distances
-	 */
-	private void setFernwaffeTpEntfernung(FernwaffenObjekt fernwaffenObjekt, String tpDist) {
-		String[] distances = tpDist.split("/");
-		for(String distance : distances) {
-			fernwaffenObjekt.addTpEntfernung(Integer.parseInt(distance.trim()));
-		}
-		
-	}
-
-	/**
-	 * @param wm the WeaponModificator to parse
-	 * @param paradeObjekt the ParadeObjekt to use
-	 */
-	private void parseWaffenModifikator(String wm, ParadeObjekt paradeObjekt) {
-		int waffenModifikatorAttacke = 0;
-		int waffenModifikatorParade  = 0;
-		
-		String[] split = wm.split("/");
-		waffenModifikatorAttacke = Integer.valueOf(split[0].trim());
-		waffenModifikatorParade  = Integer.valueOf(split[1].trim());
-		
-		paradeObjekt.setWaffenModifikatorAttacke(waffenModifikatorAttacke);
-		paradeObjekt.setWaffenModifikatorParade(waffenModifikatorParade);		
 	}
 
 	/**
@@ -681,8 +527,6 @@ public class HeroHtmlParser {
 	 */
 	private void gatherWissenstalente(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
 			throws XPathExpressionException, Exception {
-		//Koerperliche Talente
-		// get count
 		String countExpression 	= "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
 		String countResult 		= xpath.compile(countExpression).evaluate(document);
 		int count = Integer.parseInt(countResult);
@@ -717,8 +561,6 @@ public class HeroHtmlParser {
 	 */
 	private void gatherZauber(Document document, XPath xpath, List<TalentObjekt> zauberListe)
 			throws XPathExpressionException, Exception {
-		//Koerperliche Talente
-		// get count
 		String countExpression 	= "count((//table[@class='zauber gitternetz'])/tr)";
 		String countResult 		= xpath.compile(countExpression).evaluate(document);
 		int count = Integer.parseInt(countResult);
@@ -744,6 +586,73 @@ public class HeroHtmlParser {
 		}
 	}
 	
+	/**
+	 * @param originalFile the originalFile
+	 * @return a modified file
+	 */
+	private File massageHtmlFile(File originalFile) {
+		File result = null;
+		BufferedReader br = null;
+		BufferedWriter wr = null;
+		try {
+			result = File.createTempFile("dsa_", ".tmp");
+			result.deleteOnExit();
+			
+			br = new BufferedReader(new FileReader(originalFile));
+			wr = new BufferedWriter(new FileWriter(result));
+			String line = null;
+			while((line = br.readLine()) != null) {
+				String modLine = line
+						.replaceAll("&auml;", "ä")
+						.replaceAll("&ouml;", "ö")
+						.replaceAll("&uuml;", "ü")
+						.replaceAll("&Auml;", "Ä")
+						.replaceAll("&Ouml;", "Ö")
+						.replaceAll("&Uuml;", "Ü")
+						.replaceAll("&szlig;", "ss");
+				
+				wr.write(modLine);
+			}
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if(br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if(wr != null) {
+				try {
+					wr.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		
+		return result;
+	}
+
+	/**
+	 * @param dk the String to parse
+	 * @return a List of available Distanzklassen
+	 */
+	private List<DKEnum> parseDistanzklassen(String dk) {
+		List<DKEnum> distanzklassen = new ArrayList<>();
+		String parseString = dk.trim();
+		for(String s : parseString.split(" ")) {
+			distanzklassen.add(DKEnum.valueOf(s));
+		}
+		
+		return distanzklassen;
+	}
+
 	/**
 	 * @param xmlFile the File to parse
 	 * @return a HeldenObjekt to use
@@ -809,17 +718,19 @@ public class HeroHtmlParser {
 				String nameExpression 	= "(//table[@class='talentgruppe gitternetz'])["+i+"]/tr[1]/th[1]/text()";
 				String name  = xpath.compile(nameExpression).evaluate(document);
 				
-				switch(name) {
-				case "Gaben (G)" : gatherGaben(document, xpath, i, talente); break;
-				case "Kampftechniken" : gatherKampftechniken(document, xpath, i, kampfTalente); break;
-				case "Körperliche Talente (D)" : gatherKoerperlich(document, xpath, i, talente); break;
-				case "Gesellschaftliche Talente (B)" : gatherGesellschaftlich(document, xpath, i, talente); break;
-				case "Natur-Talente (B)" : gatherNaturtalente(document, xpath, i, talente); break;
-				case "Wissenstalente (B)" : gatherWissenstalente(document, xpath, i, talente); break;
-				case "Sprachen (A)" : gatherSprachen(document, xpath, i, talente); break;
-				case "Schriften (A)" : gatherSchriften(document, xpath, i, talente); break;
-				case "Handwerkliche Talente (B)" : gatherHandwerk(document, xpath, i, talente); break;
-				default: break;
+				if(name != null && !name.isEmpty()) {
+					switch(name.substring(0, 2).toLowerCase()) {
+						case "ga" : gatherGaben(document, xpath, i, talente); break;
+						case "ge" : gatherGesellschaftlich(document, xpath, i, talente); break;
+						case "ha" : gatherHandwerk(document, xpath, i, talente); break;
+						case "ka" : gatherKampftechniken(document, xpath, i, kampfTalente); break;
+						case "kö" : gatherKoerperlich(document, xpath, i, talente); break;
+						case "na" : gatherNaturtalente(document, xpath, i, talente); break;
+						case "sc" : gatherSchriften(document, xpath, i, talente); break;		
+						case "sp" : gatherSprachen(document, xpath, i, talente); break;	
+						case "wi" : gatherWissenstalente(document, xpath, i, talente); break;			
+						default: break;
+					}
 				}
 			}
 					
@@ -850,14 +761,76 @@ public class HeroHtmlParser {
 			
 			
 		} catch (ParserConfigurationException | SAXException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (XPathExpressionException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		return hero;
+	}
+
+	/**
+	 * @param wm the WeaponModificator to parse
+	 * @param paradeObjekt the ParadeObjekt to use
+	 */
+	private void parseWaffenModifikator(String wm, ParadeObjekt paradeObjekt) {
+		int waffenModifikatorAttacke = 0;
+		int waffenModifikatorParade  = 0;
+		
+		String[] split = wm.split("/");
+		waffenModifikatorAttacke = Integer.valueOf(split[0].trim());
+		waffenModifikatorParade  = Integer.valueOf(split[1].trim());
+		
+		paradeObjekt.setWaffenModifikatorAttacke(waffenModifikatorAttacke);
+		paradeObjekt.setWaffenModifikatorParade(waffenModifikatorParade);		
+	}
+
+	/**
+	 * @param fernwaffenObjekt the FernwaffenObjekt to use
+	 * @param dist the Distances of the Weapon
+	 */
+	private void setFernwaffeEntfernung(FernwaffenObjekt fernwaffenObjekt, String dist) {
+		String[] distances = dist.split("/");
+		for(String distance : distances) {
+			fernwaffenObjekt.addEntfernung(Integer.parseInt(distance.trim()));
+		}
+ 		
+	}
+	
+	/**
+	 * @param fernwaffenObjekt the FernwaffenObjekt
+	 * @param tpDist the tps according to distances
+	 */
+	private void setFernwaffeTpEntfernung(FernwaffenObjekt fernwaffenObjekt, String tpDist) {
+		String[] distances = tpDist.split("/");
+		for(String distance : distances) {
+			fernwaffenObjekt.addTpEntfernung(Integer.parseInt(distance.trim()));
+		}
+		
+	}
+	
+	/**
+	 * @param fernwaffenObjekt the Fernwaffenobjekt to set
+	 * @param typBe the Type and Be in a String
+	 */
+	private void setFernwaffeTypeAndBehinderung(FernwaffenObjekt fernwaffenObjekt, String typBe) {
+		String typ = null;
+		String be  = null;
+		
+		if(typBe != null && typBe.contains("/")) {
+			String[] parts = typBe.split("/");
+			typ = parts[0].trim();
+			be  = parts[1].trim();
+		}
+				
+		if(typ != null && !typ.isEmpty()) {
+			FernwaffenTypEnum typEnum = FernwaffenTypEnum.valueOf(typ);
+			fernwaffenObjekt.setTyp(typEnum);	
+		}
+		
+		if(be != null && !be.isEmpty()) {
+			fernwaffenObjekt.setBe(be);
+		}
 	}
 	
 	/**
