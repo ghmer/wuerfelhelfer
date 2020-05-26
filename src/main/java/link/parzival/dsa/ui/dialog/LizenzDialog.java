@@ -23,7 +23,7 @@ public class LizenzDialog extends JDialog {
 	private final JPanel contentPanel 			= new JPanel();
 	
 	/**
-	 * Create the dialog.
+	 * @param license the type of license to show
 	 */
 	public LizenzDialog(License license) {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
