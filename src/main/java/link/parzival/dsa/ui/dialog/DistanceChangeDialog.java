@@ -41,7 +41,7 @@ public class DistanceChangeDialog extends JDialog {
 	 * @param waffenObjekt the WaffenObjekt to set
 	 */
 	public DistanceChangeDialog(HeldenObjekt hero, WaffenObjekt waffenObjekt) {
-		setBounds(100, 100, 400, 100);
+		setBounds(100, 100, 450, 100);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setModal(true);
 		setLocationRelativeTo(getParent());
