@@ -8,6 +8,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import link.parzival.dsa.Constants;
 import link.parzival.dsa.DsaCalculatorUtil;
 import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.WaffenObjekt;
@@ -27,15 +28,13 @@ public class DistanceChangeDialog extends JDialog {
 	private enum Hopser {
 		verkürzen,verlängern
 	}
-
-	public static final int CANCEL_STATE 		= 1;	
-	public static final int OK_STATE 			= 0;
+	
 	private static final long serialVersionUID 	= 9196060912407937075L;
 	private JComboBox<Hopser> comboBoxDirection = new JComboBox<>();
 	private final JPanel contentPanel	 		= new JPanel();
 	private JComboBox<Integer> dkAenderung		= new JComboBox<>();
 	private String rollCommand 					= null;
-	private int state 							= CANCEL_STATE;
+	private int state 							= Constants.DIALOG_CANCEL_STATE;
 
 	/**
 	 * @param hero the HeldenObjekt to set
@@ -103,7 +102,7 @@ public class DistanceChangeDialog extends JDialog {
 						boolean verdoppeln = ((int) dkAenderung.getSelectedItem() == 2) ? true : false;
 						boolean verkuerzen = (((Hopser) comboBoxDirection.getSelectedItem()).equals(Hopser.verkürzen)) ? true: false;
 						setRollCommand(DsaCalculatorUtil.getChangeDistanceEffectiveRoll(waffenObjekt, verdoppeln, verkuerzen));
-						state = OK_STATE;
+						state = Constants.DIALOG_OK_STATE;
 						dispose();
 					}
 				});
@@ -115,7 +114,7 @@ public class DistanceChangeDialog extends JDialog {
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						state = CANCEL_STATE;
+						state = Constants.DIALOG_CANCEL_STATE;
 						dispose();
 					}
 				});

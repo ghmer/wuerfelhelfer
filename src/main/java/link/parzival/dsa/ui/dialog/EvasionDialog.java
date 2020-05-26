@@ -8,6 +8,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import link.parzival.dsa.Constants;
 import link.parzival.dsa.DsaCalculatorUtil;
 import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.enumeration.DKEnum;
@@ -27,8 +28,6 @@ import java.awt.Insets;
 
 public class EvasionDialog extends JDialog {
 
-	public static final int CANCEL_STATE 		= 1;
-	public static final int OK_STATE 			= 0;
 	private static final long serialVersionUID 	= 6393904558592079317L;
 	private JCheckBox chkboxGezieltesAusweichen = new JCheckBox();
 	private JComboBox<String> comboBoxEnemyCount= new JComboBox<>();
@@ -40,7 +39,7 @@ public class EvasionDialog extends JDialog {
     
     private JButton okButton					= new JButton();
 	private String rollCommand 					= null;
-	private int state 							= CANCEL_STATE;
+	private int state 							= Constants.DIALOG_CANCEL_STATE;
 
 	/**
 	 * @param hero the HeldenObjekt to set
@@ -136,7 +135,7 @@ public class EvasionDialog extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						setRollCommand(DsaCalculatorUtil.getEffectiveEvadingRoll(hero, enemyCount, gezieltesAusweichen, withDk, distanzklasse));
-						state = OK_STATE;
+						state = Constants.DIALOG_OK_STATE;
 						dispose();
 					}
 				});
@@ -148,7 +147,7 @@ public class EvasionDialog extends JDialog {
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						state = CANCEL_STATE;
+						state = Constants.DIALOG_CANCEL_STATE;
 						dispose();
 					}
 				});

@@ -30,6 +30,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import link.parzival.dsa.Constants;
 import link.parzival.dsa.DsaCalculatorUtil;
 import link.parzival.dsa.object.FernwaffenObjekt;
 import java.awt.Font;
@@ -38,11 +39,6 @@ import javax.swing.DefaultComboBoxModel;
 
 public class FernkampfDialog extends JDialog {
 
-	public static final int CANCEL_STATE 				= 1;
-	public static final int OK_STATE					= 0;
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID 			= -5503871340629603661L;
 	private JButton backButton 							= new JButton();
 	private List<JRadioButton>bewegungGroup 			= new ArrayList<>();
@@ -84,7 +80,7 @@ public class FernkampfDialog extends JDialog {
 	private JSpinner spinnerGegnerInDistanzNS 			= new JSpinner();
 	private JSpinner spinnerGroessenModifikator 		= new JSpinner();
 	private JSpinner spinnerZielen 						= new JSpinner();
-	private int state 									= CANCEL_STATE;
+	private int state 									= Constants.DIALOG_CANCEL_STATE;
 	private JTabbedPane tabbedPane 						= new JTabbedPane();
 	private List<JCheckBox> vorteilListe 				= new ArrayList<>();
 	private List<JRadioButton>zielHumanoidGroup 		= new ArrayList<>();	
@@ -1213,7 +1209,7 @@ public class FernkampfDialog extends JDialog {
 							setRollCommand(DsaCalculatorUtil.getFernkampfRollCommand(
 									getFernwaffenObjekt().getFk(), 
 									erschwernis));
-							state = OK_STATE;
+							state = Constants.DIALOG_OK_STATE;
 							dispose();
 							
 						} else {

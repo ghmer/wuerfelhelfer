@@ -12,6 +12,7 @@ import javax.swing.filechooser.FileFilter;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
+import link.parzival.dsa.Constants;
 import link.parzival.dsa.HeroHtmlParser;
 import link.parzival.dsa.VersionCheck;
 import link.parzival.dsa.object.HeldenObjekt;
@@ -50,8 +51,7 @@ import javax.swing.JButton;
 
 public class DzDiceHelperUi extends JFrame {
 	private static final long serialVersionUID 	= 6428768807868759732L;
-	public  static final String remoteUrlString = "https://parzival.link/dz-dice-helper-latest.jar";
-	public  static final String manualUrlString = "https://parzival.link/Wuerfelhelfer-Anleitung.pdf";
+	
 	public  static final int VERSION 			= 10;
 	private JPanel contentPane					= null;
 	private AbilityPanel currentAbility 		= null;	
@@ -216,7 +216,7 @@ public class DzDiceHelperUi extends JFrame {
 		menuItemHilfe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Desktop.getDesktop().browse(new URI(DzDiceHelperUi.manualUrlString));
+					Desktop.getDesktop().browse(new URI(Constants.MANUAL_URL));
 				} catch (IOException | URISyntaxException e1) {
 					e1.printStackTrace();
 				}
@@ -258,7 +258,7 @@ public class DzDiceHelperUi extends JFrame {
 				dialog.setFont(customMainFont);
 				dialog.setLocationRelativeTo(contentPane);
 				switch (dialog.showDialog()) {
-			    case AbilityDialog.OK_STATE:
+			    case Constants.DIALOG_OK_STATE:
 			    	setSelectedAbilityName(dialog.getSelectedAbility());
 			        break;
 				}

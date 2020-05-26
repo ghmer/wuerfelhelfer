@@ -8,7 +8,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import link.parzival.dsa.ui.DzDiceHelperUi;
+import link.parzival.dsa.Constants;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -61,13 +61,13 @@ public class NewVersionAvailableDialog extends JDialog {
 			contentPanel.add(lblTop, gbc_lblTop);
 		}
 		{
-			JLabel lblLinkNewVersion = new JLabel(DzDiceHelperUi.remoteUrlString);
+			JLabel lblLinkNewVersion = new JLabel(Constants.APP_URL);
 			lblLinkNewVersion.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			lblLinkNewVersion.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					try {
-						Desktop.getDesktop().browse(new URI(DzDiceHelperUi.remoteUrlString));
+						Desktop.getDesktop().browse(new URI(Constants.APP_URL));
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

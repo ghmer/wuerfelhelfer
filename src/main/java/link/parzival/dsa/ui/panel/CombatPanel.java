@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 
+import link.parzival.dsa.Constants;
 import link.parzival.dsa.DsaCalculatorUtil;
 import link.parzival.dsa.object.FernwaffenObjekt;
 import link.parzival.dsa.object.HeldenObjekt;
@@ -155,7 +156,7 @@ public class CombatPanel extends JPanel {
 				dialog.setFont(getFont());
 				dialog.setLocationRelativeTo(btnFernkampf.getRootPane());
 				switch (dialog.showDialog()) {
-			    case FernkampfDialog.OK_STATE:
+			    case Constants.DIALOG_OK_STATE:
 			    	DzDiceHelperUi.copyToClipboard(dialog.getRollCommand());
 			        break;
 				}
@@ -327,7 +328,7 @@ public class CombatPanel extends JPanel {
 				dialog.setFont(getFont());
 				dialog.setLocationRelativeTo(btnAusweichen.getRootPane());
 				switch (dialog.showDialog()) {
-			    case EvasionDialog.OK_STATE:
+			    case Constants.DIALOG_OK_STATE:
 			    	DzDiceHelperUi.copyToClipboard(dialog.getRollCommand());
 			        break;
 				}
@@ -573,7 +574,7 @@ public class CombatPanel extends JPanel {
 				dialog.setFont(getFont());
 				dialog.setLocationRelativeTo(btnHopsen.getRootPane());
 				switch (dialog.showDialog()) {
-			    case DistanceChangeDialog.OK_STATE:
+			    case Constants.DIALOG_OK_STATE:
 			    	DzDiceHelperUi.copyToClipboard(dialog.getRollCommand());
 			        break;
 				}

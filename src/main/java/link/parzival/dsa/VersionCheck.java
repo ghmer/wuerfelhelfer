@@ -13,8 +13,6 @@ import java.net.URL;
  *
  */
 public class VersionCheck {
-	public static final String VERSION_URL = "https://parzival.link/dz-helper-version.txt";
-	
 	/**
 	 * @param localVersion the localVersion of the program
 	 * @return true if there is a newer version on the remote site
@@ -24,7 +22,7 @@ public class VersionCheck {
 		int remoteVersion = -1;
 		BufferedInputStream bis = null;
 		try {
-			URL url = new URL(VERSION_URL);
+			URL url = new URL(Constants.VERSION_URL);
 			bis = new BufferedInputStream(url.openStream());
 			
 			byte dataBuffer[] = new byte[1024];

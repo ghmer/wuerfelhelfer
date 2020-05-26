@@ -20,6 +20,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
+import link.parzival.dsa.Constants;
 import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.TalentObjekt;
 
@@ -47,12 +48,10 @@ public class AbilityDialog extends JDialog {
 	 * 
 	 */
 	private static final long serialVersionUID = 5001756584965996173L;
-	public static final int OK_STATE = 0;
-	public static final int CANCEL_STATE = 1;
 	private final JPanel contentPanel = new JPanel();
 	
 	private JTextField textFieldSearch;
-    private int state = CANCEL_STATE;
+    private int state = Constants.DIALOG_CANCEL_STATE;
     
     
     private String selectedAbilityName = null;
@@ -246,7 +245,7 @@ public class AbilityDialog extends JDialog {
 		        	
 		        	selectedAbilityName = (String) sourceTable.getValueAt(row, 0);				        	
 		        	
-		            state = OK_STATE;
+		            state = Constants.DIALOG_OK_STATE;
 		            dispose();
 		        }
 		    }
