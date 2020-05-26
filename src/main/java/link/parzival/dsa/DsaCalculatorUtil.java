@@ -454,7 +454,7 @@ public class DsaCalculatorUtil {
 		case "nah" 			: result +=  0; break;
 		case "mittel" 		: result +=  4; break;
 		case "weit" 		: result +=  8; break;
-		case "extrem weit"	: result += 12; break;
+		case "sehr weit"	: result += 12; break;
 		}
 		
 		return result;
