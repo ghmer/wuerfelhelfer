@@ -52,7 +52,7 @@ public class DzDiceHelperUi extends JFrame {
 	private static final long serialVersionUID 	= 6428768807868759732L;
 	public  static final String remoteUrlString = "https://parzival.link/dz-dice-helper-latest.jar";
 	public  static final String manualUrlString = "https://parzival.link/Wuerfelhelfer-Anleitung.pdf";
-	public  static final int VERSION 			= 8;
+	public  static final int VERSION 			= 10;
 	private JPanel contentPane					= null;
 	private AbilityPanel currentAbility 		= null;	
 	private CombatPanel currentCombatPanel		= null;
