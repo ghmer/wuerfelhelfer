@@ -14,6 +14,7 @@ import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.TalentObjekt;
 import link.parzival.dsa.ui.dialog.AbilityDialog;
 import link.parzival.dsa.ui.dialog.LizenzDialog;
+import link.parzival.dsa.ui.dialog.NewVersionAvailableDialog;
 import link.parzival.dsa.ui.panel.AbilityPanel;
 import link.parzival.dsa.ui.panel.CombatPanel;
 import link.parzival.dsa.ui.panel.HeroPanel;
@@ -38,29 +39,29 @@ import java.awt.datatransfer.StringSelection;
 import javax.swing.JButton;
 
 public class DzDiceHelperUi extends JFrame {
-	public static final String remoteUrlString = "https://parzival.link/dz-dice-helper-latest.jar";
-	public  static final int VERSION = 6;
-	private static final long serialVersionUID = 6428768807868759732L;
-	private JButton btnPruefungWaehlen;
-	private JPanel contentPane;
-	private AbilityPanel currentAbility = null;
+	private static final long serialVersionUID 	= 6428768807868759732L;
+	public  static final String remoteUrlString = "https://parzival.link/dz-dice-helper-latest.jar";
+	public  static final int VERSION 			= 7;
+	private JPanel contentPane					= null;
+	private AbilityPanel currentAbility 		= null;	
+	private CombatPanel currentCombatPanel		= null;
+	private HeroPanel currentHeroPanel 			= null;
+	private Font customHeroNameFont				= null;
+	private Font customMainFont					= null;
+	private HeldenObjekt hero					= null;
+	private String selectedAbilityName			= null;
+	private JSeparator separatorTalentDown		= null;
+	private JSeparator separatorTalentUp		= null;
+	private JButton btnPruefungWaehlen			= null;
 	
-	private CombatPanel currentCombatPanel;
-	private HeroPanel currentHeroPanel = null;
-	private Font customHeroNameFont;
-	private Font customMainFont;
-	private HeldenObjekt hero;
-	private String selectedAbilityName;
-	private JSeparator separatorTalentChoseButtonDown;
-	private JSeparator separatorTalentChoseButtonUp;
 	
 	/**
 	 * Create the frame.
 	 */
 	public DzDiceHelperUi() {
-		this.customMainFont = getFontFromResource("/UbuntuMono-R.ttf");
+		this.customMainFont 	= getFontFromResource("/UbuntuMono-R.ttf");
 		this.customHeroNameFont = getFontFromResource("/Friedolin.ttf");
-		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		GraphicsEnvironment ge 	= GraphicsEnvironment.getLocalGraphicsEnvironment();
 		ge.registerFont(customHeroNameFont);
 		ge.registerFont(customMainFont);
 		
@@ -104,7 +105,6 @@ public class DzDiceHelperUi extends JFrame {
 						hero = null;
 						hero = hxp.parseFile(selectedFile);
 					} catch (Exception e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 					
@@ -119,7 +119,9 @@ public class DzDiceHelperUi extends JFrame {
 		menuItemUpdateCheck.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(VersionCheck.checkForNewVersion(VERSION)) {
-					JOptionPane.showMessageDialog(null, "Eine neue Version kann unter https://parzival.link heruntergeladen werden");
+					NewVersionAvailableDialog dialog = new NewVersionAvailableDialog();
+					dialog.setLocationRelativeTo(getRootPane());
+					dialog.setVisible(true);
 				} else {
 					JOptionPane.showMessageDialog(null, "Du verwendest die aktuelle Version");
 				}
@@ -155,10 +157,10 @@ public class DzDiceHelperUi extends JFrame {
 		contentPane.setLayout(null);
 		
 		
-		separatorTalentChoseButtonUp = new JSeparator();
-		separatorTalentChoseButtonUp.setBounds(6, 200, 720, 12);
-		separatorTalentChoseButtonUp.setVisible(false);
-		contentPane.add(separatorTalentChoseButtonUp);
+		separatorTalentUp = new JSeparator();
+		separatorTalentUp.setBounds(6, 200, 720, 12);
+		separatorTalentUp.setVisible(false);
+		contentPane.add(separatorTalentUp);
 		
 		btnPruefungWaehlen = new JButton("Probe auswählen");
 		btnPruefungWaehlen.setEnabled(false);
@@ -200,10 +202,10 @@ public class DzDiceHelperUi extends JFrame {
 		btnPruefungWaehlen.setBounds(6, 210, 720, 29);
 		contentPane.add(btnPruefungWaehlen);
 		
-		separatorTalentChoseButtonDown = new JSeparator();
-		separatorTalentChoseButtonDown.setVisible(false);
-		separatorTalentChoseButtonDown.setBounds(6, 240, 720, 12);
-		contentPane.add(separatorTalentChoseButtonDown);
+		separatorTalentDown = new JSeparator();
+		separatorTalentDown.setVisible(false);
+		separatorTalentDown.setBounds(6, 240, 720, 12);
+		contentPane.add(separatorTalentDown);
 	}
 
 	public static void copyToClipboard(String text) {
@@ -243,14 +245,12 @@ public class DzDiceHelperUi extends JFrame {
 		} catch (IOException e) {
 		     System.err.println(e.getMessage());
 		} catch (FontFormatException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} finally {
 			if(is != null) {
 				try {
 					is.close();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -297,8 +297,8 @@ public class DzDiceHelperUi extends JFrame {
 	}
 	
 	private void setItemVisibility() {
-		separatorTalentChoseButtonDown.setVisible(true);
-		separatorTalentChoseButtonUp.setVisible(true);
+		separatorTalentDown.setVisible(true);
+		separatorTalentUp.setVisible(true);
 		btnPruefungWaehlen.setVisible(true);	
 	}
 
