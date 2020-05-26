@@ -84,6 +84,7 @@ public class DzDiceHelperUi extends JFrame {
 		setFont(customMainFont);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle(String.format("Würfelhelfer Version %s", Constants.VERSION_EXTERNAL));
 		setBounds(100, 100, 750, 630);
 		
 		JMenuBar menuBar = new JMenuBar();
