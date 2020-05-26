@@ -768,20 +768,24 @@ public class DsaCalculatorUtil {
 		if(talent.getBe() != null) {
 			String talentBehinderung = talent.getBe();
 			if(talentBehinderung.startsWith("BE")) {
-				char operand = talentBehinderung.charAt(2);
-				
-				int length = talentBehinderung.length();
-				int modInt = Integer.parseInt(talentBehinderung.substring(length-1, length));
-				
-				switch(operand) {
-				case '+' : result = behinderung + modInt; break;
-				case '-' : result = behinderung - modInt; break;
-				case 'x' : result = behinderung * modInt; break;
-				case '/' : result = behinderung / modInt; break;
-				}
-				
-				if(result < 0) {
-					result = 0;
+				if(talentBehinderung.trim().equalsIgnoreCase("BE")) {
+					result += behinderung;
+				} else {
+					char operand = talentBehinderung.charAt(2);
+					
+					int length = talentBehinderung.length();
+					int modInt = Integer.parseInt(talentBehinderung.substring(length-1, length));
+					
+					switch(operand) {
+					case '+' : result = behinderung + modInt; break;
+					case '-' : result = behinderung - modInt; break;
+					case 'x' : result = behinderung * modInt; break;
+					case '/' : result = behinderung / modInt; break;
+					}
+					
+					if(result < 0) {
+						result = 0;
+					}
 				}
 			}
 		}
