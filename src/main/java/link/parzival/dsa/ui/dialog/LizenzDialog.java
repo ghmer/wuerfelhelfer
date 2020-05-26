@@ -16,13 +16,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class LizenzDialog extends JDialog {
+	public enum License {
+		Ubuntu,GPL,Apache
+	}
 	private static final long serialVersionUID 	= -789044538891465510L;
 	private final JPanel contentPanel 			= new JPanel();
 	
 	/**
 	 * Create the dialog.
 	 */
-	public LizenzDialog() {
+	public LizenzDialog(License license) {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -37,7 +40,7 @@ public class LizenzDialog extends JDialog {
 			gbl_contentPanel.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 			contentPanel.setLayout(gbl_contentPanel);
 		}
-		JTextArea textArea = new JTextArea(getLizenz());
+		JTextArea textArea = new JTextArea(getLizenz(license));
 		textArea.setEditable(false);
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		scrollPane.setViewportView(textArea);
@@ -66,8 +69,22 @@ public class LizenzDialog extends JDialog {
 	}
 
 	@SuppressWarnings("resource")
-	private String getLizenz() {
-		String text = new Scanner(LizenzDialog.class.getResourceAsStream("/LICENCE.txt"), "UTF-8").useDelimiter("\\A").next();
+	private String getLizenz(License license) {
+		String text = null;
+		switch(license) {
+			case Apache: {
+				text = new Scanner(LizenzDialog.class.getResourceAsStream("/LICENCE_Flatlaf_Apache.txt"), "UTF-8").useDelimiter("\\A").next();
+				break;
+			}
+			case GPL: 	 {
+				text = new Scanner(LizenzDialog.class.getResourceAsStream("/LICENCE_Friedolin_Font.txt"), "UTF-8").useDelimiter("\\A").next();
+				break;
+			}
+			case Ubuntu: {
+				text = new Scanner(LizenzDialog.class.getResourceAsStream("/LICENCE_Ubuntu_Font.txt"), "UTF-8").useDelimiter("\\A").next();
+				break;
+			}	
+		}
 		
 		return text;
 	}

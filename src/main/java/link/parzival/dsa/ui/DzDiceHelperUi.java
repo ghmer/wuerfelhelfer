@@ -194,10 +194,19 @@ public class DzDiceHelperUi extends JFrame {
 		JMenu mnNewMenu = new JMenu("?");
 		menuBar.add(mnNewMenu);
 		
-		JMenuItem menuItemLizenzen = new JMenuItem("3rd Party Lizenzen");
-		menuItemLizenzen.addActionListener(new ActionListener() {
+		JMenuItem menuItemLizenzUbuntu = new JMenuItem("Lizenz: Ubuntu Font");
+		menuItemLizenzUbuntu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LizenzDialog lizenzDialog = new LizenzDialog();
+				LizenzDialog lizenzDialog = new LizenzDialog(LizenzDialog.License.Ubuntu);
+				lizenzDialog.setFont(customMainFont);
+				lizenzDialog.setVisible(true);
+			}
+		});
+		
+		JMenuItem menuItemLizenzGpl = new JMenuItem("Lizenz: Friedolin Font");
+		menuItemLizenzGpl.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LizenzDialog lizenzDialog = new LizenzDialog(LizenzDialog.License.GPL);
 				lizenzDialog.setFont(customMainFont);
 				lizenzDialog.setVisible(true);
 			}
@@ -214,7 +223,21 @@ public class DzDiceHelperUi extends JFrame {
 			}
 		});
 		mnNewMenu.add(menuItemHilfe);
-		mnNewMenu.add(menuItemLizenzen);
+		
+		JMenuItem menuItemLizenzApache = new JMenuItem("Lizenz: Flatlaf L&F");
+		menuItemLizenzApache.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LizenzDialog lizenzDialog = new LizenzDialog(LizenzDialog.License.Apache);
+				lizenzDialog.setFont(customMainFont);
+				lizenzDialog.setVisible(true);
+			}
+		});
+		
+		JSeparator separator_1 = new JSeparator();
+		mnNewMenu.add(separator_1);
+		mnNewMenu.add(menuItemLizenzApache);
+		mnNewMenu.add(menuItemLizenzUbuntu);
+		mnNewMenu.add(menuItemLizenzGpl);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
