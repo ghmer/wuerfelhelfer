@@ -51,8 +51,6 @@ import javax.swing.JButton;
 
 public class DzDiceHelperUi extends JFrame {
 	private static final long serialVersionUID 	= 6428768807868759732L;
-	
-	public  static final int VERSION 			= 11;
 	private JPanel contentPane					= null;
 	private AbilityPanel currentAbility 		= null;	
 	private CombatPanel currentCombatPanel		= null;
@@ -136,7 +134,7 @@ public class DzDiceHelperUi extends JFrame {
 		menuFile.add(menuItemUpdateCheck);
 		menuItemUpdateCheck.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(VersionCheck.checkForNewVersion(VERSION)) {
+				if(VersionCheck.checkForNewVersion(Constants.VERSION)) {
 					NewVersionAvailableDialog dialog = new NewVersionAvailableDialog();
 					dialog.setLocationRelativeTo(getRootPane());
 					dialog.setVisible(true);
