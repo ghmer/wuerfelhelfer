@@ -1197,7 +1197,7 @@ public class FernkampfDialog extends JDialog {
 						JButton button = (JButton)e.getSource();
 						String text = button.getText();
 						
-						if(text.equalsIgnoreCase("roll")) {
+						if(text.equalsIgnoreCase("würfeln")) {
 							setRollCommand(DsaCalculatorUtil.getFernkampfRollCommand(
 									getFernwaffenObjekt().getFk(), 
 									erschwernis));
@@ -1541,7 +1541,7 @@ public class FernkampfDialog extends JDialog {
 		}
 		
 		if(currentIndex == 6) {
-			forwardButton.setText("roll");
+			forwardButton.setText("würfeln");
 		}
 		
 	}

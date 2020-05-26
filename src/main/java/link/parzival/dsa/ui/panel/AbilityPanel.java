@@ -119,7 +119,7 @@ public class AbilityPanel extends JPanel {
 		gbc_lblTawValue.gridy = 1;
 		add(lblTawValue, gbc_lblTawValue);
 		
-		JButton btnCreateRoll = new JButton("roll");
+		JButton btnCreateRoll = new JButton("würfeln");
 		btnCreateRoll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EigenschaftEnum pruefung1 = (EigenschaftEnum)pruefEigenschaft1.getSelectedItem();
