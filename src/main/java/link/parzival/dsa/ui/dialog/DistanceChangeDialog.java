@@ -59,7 +59,6 @@ public class DistanceChangeDialog extends JDialog {
 		comboBoxDirection = new JComboBox<Hopser>();
 		comboBoxDirection.setModel(new DefaultComboBoxModel<Hopser>(Hopser.values()));
 		GridBagConstraints gbc_comboBoxDirection = new GridBagConstraints();
-		gbc_comboBoxDirection.anchor = GridBagConstraints.SOUTH;
 		gbc_comboBoxDirection.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxDirection.insets = new Insets(0, 0, 0, 5);
 		gbc_comboBoxDirection.gridx = 0;
@@ -79,7 +78,7 @@ public class DistanceChangeDialog extends JDialog {
 		dkAenderung.setModel(new DefaultComboBoxModel<Integer>(new Integer[] {1, 2}));
 		dkAenderung.setSelectedIndex(0);
 		GridBagConstraints gbc_distanzklassenAenderung = new GridBagConstraints();
-		gbc_distanzklassenAenderung.anchor = GridBagConstraints.NORTHWEST;
+		gbc_distanzklassenAenderung.anchor = GridBagConstraints.WEST;
 		gbc_distanzklassenAenderung.insets = new Insets(0, 0, 0, 5);
 		gbc_distanzklassenAenderung.gridx = 2;
 		gbc_distanzklassenAenderung.gridy = 0;
