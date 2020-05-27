@@ -20,8 +20,10 @@ import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.ResourceBundle;
 
 public class HeldenPanel extends JPanel {
+	private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("link.parzival.dsa.ui.messages"); //$NON-NLS-1$
 	/**
 	 * 
 	 */
@@ -80,7 +82,7 @@ public class HeldenPanel extends JPanel {
 		gbc_lblHeroName.gridy = 0;
 		add(lblHeroName, gbc_lblHeroName);
 		
-		JLabel lblMut = new JLabel("Mut");
+		JLabel lblMut = new JLabel(BUNDLE.getString("HeldenPanel.lblMut.text")); //$NON-NLS-1$
 		lblMut.setHorizontalAlignment(SwingConstants.TRAILING);
 		GridBagConstraints gbc_lblMut = new GridBagConstraints();
 		gbc_lblMut.anchor = GridBagConstraints.EAST;
@@ -103,7 +105,7 @@ public class HeldenPanel extends JPanel {
 			}
 		});
 		
-		JLabel lblFingerfertigkeit = new JLabel("Fingerfertigkeit");
+		JLabel lblFingerfertigkeit = new JLabel(BUNDLE.getString("HeldenPanel.lblFingerfertigkeit.text")); //$NON-NLS-1$
 		lblFingerfertigkeit.setHorizontalAlignment(SwingConstants.TRAILING);
 		GridBagConstraints gbc_lblFingerfertigkeit = new GridBagConstraints();
 		gbc_lblFingerfertigkeit.anchor = GridBagConstraints.EAST;
@@ -118,7 +120,7 @@ public class HeldenPanel extends JPanel {
 		gbc_btnFingerFertigkeit.gridy = 1;
 		add(btnFingerFertigkeit, gbc_btnFingerFertigkeit);
 		
-		JLabel lblLebensenergie = new JLabel("Lebensenergie");
+		JLabel lblLebensenergie = new JLabel(BUNDLE.getString("HeldenPanel.lblLebensenergie.text")); //$NON-NLS-1$
 		lblLebensenergie.setHorizontalAlignment(SwingConstants.TRAILING);
 		GridBagConstraints gbc_lblLebensenergie = new GridBagConstraints();
 		gbc_lblLebensenergie.anchor = GridBagConstraints.EAST;
@@ -172,7 +174,7 @@ public class HeldenPanel extends JPanel {
 		gbc_spinnerAstralenergie.gridy = 2;
 		add(spinnerAstralenergie, gbc_spinnerAstralenergie);
 		
-		JLabel lblKlugheit = new JLabel("Klugheit");
+		JLabel lblKlugheit = new JLabel(BUNDLE.getString("HeldenPanel.lblKlugheit.text")); //$NON-NLS-1$
 		lblKlugheit.setHorizontalAlignment(SwingConstants.TRAILING);
 		GridBagConstraints gbc_lblKlugheit = new GridBagConstraints();
 		gbc_lblKlugheit.anchor = GridBagConstraints.EAST;
@@ -181,7 +183,7 @@ public class HeldenPanel extends JPanel {
 		gbc_lblKlugheit.gridy = 2;
 		add(lblKlugheit, gbc_lblKlugheit);
 		
-		JLabel lblGewandheit = new JLabel("Gewandheit");
+		JLabel lblGewandheit = new JLabel(BUNDLE.getString("HeldenPanel.lblGewandheit.text")); //$NON-NLS-1$
 		lblGewandheit.setHorizontalAlignment(SwingConstants.TRAILING);
 		GridBagConstraints gbc_lblGewandheit = new GridBagConstraints();
 		gbc_lblGewandheit.anchor = GridBagConstraints.EAST;
@@ -190,7 +192,7 @@ public class HeldenPanel extends JPanel {
 		gbc_lblGewandheit.gridy = 2;
 		add(lblGewandheit, gbc_lblGewandheit);
 		
-		JLabel lblAstralenergie = new JLabel("Astralenergie");
+		JLabel lblAstralenergie = new JLabel(BUNDLE.getString("HeldenPanel.lblAstralenergie.text")); //$NON-NLS-1$
 		lblAstralenergie.setHorizontalAlignment(SwingConstants.TRAILING);
 		GridBagConstraints gbc_lblAstralenergie = new GridBagConstraints();
 		gbc_lblAstralenergie.anchor = GridBagConstraints.EAST;
@@ -235,7 +237,7 @@ public class HeldenPanel extends JPanel {
 		gbc_spinnerBehinderung.gridy = 3;
 		add(spinnerBehinderung, gbc_spinnerBehinderung);
 		
-		JLabel lblIntuition = new JLabel("Intuition");
+		JLabel lblIntuition = new JLabel(BUNDLE.getString("HeldenPanel.lblIntuition.text")); //$NON-NLS-1$
 		lblIntuition.setHorizontalAlignment(SwingConstants.TRAILING);
 		GridBagConstraints gbc_lblIntuition = new GridBagConstraints();
 		gbc_lblIntuition.anchor = GridBagConstraints.EAST;
@@ -244,7 +246,7 @@ public class HeldenPanel extends JPanel {
 		gbc_lblIntuition.gridy = 3;
 		add(lblIntuition, gbc_lblIntuition);
 		
-		JLabel lblKonstitution = new JLabel("Konstitution");
+		JLabel lblKonstitution = new JLabel(BUNDLE.getString("HeldenPanel.lblKonstitution.text")); //$NON-NLS-1$
 		lblKonstitution.setHorizontalAlignment(SwingConstants.TRAILING);
 		GridBagConstraints gbc_lblKonstitution = new GridBagConstraints();
 		gbc_lblKonstitution.anchor = GridBagConstraints.EAST;
@@ -264,7 +266,7 @@ public class HeldenPanel extends JPanel {
 			}
 		});
 		
-		JLabel lblBehinderung = new JLabel("Behinderung");
+		JLabel lblBehinderung = new JLabel(BUNDLE.getString("HeldenPanel.lblBehinderung.text")); //$NON-NLS-1$
 		lblBehinderung.setHorizontalAlignment(SwingConstants.TRAILING);
 		GridBagConstraints gbc_lblBehinderung = new GridBagConstraints();
 		gbc_lblBehinderung.anchor = GridBagConstraints.EAST;
@@ -300,7 +302,7 @@ public class HeldenPanel extends JPanel {
 		gbc_spinnerAusdauer.gridy = 4;
 		add(spinnerAusdauer, gbc_spinnerAusdauer);
 		
-		JLabel lblCharisma = new JLabel("Charisma");
+		JLabel lblCharisma = new JLabel(BUNDLE.getString("HeldenPanel.lblCharisma.text")); //$NON-NLS-1$
 		lblCharisma.setHorizontalAlignment(SwingConstants.TRAILING);
 		GridBagConstraints gbc_lblCharisma = new GridBagConstraints();
 		gbc_lblCharisma.anchor = GridBagConstraints.EAST;
@@ -309,7 +311,7 @@ public class HeldenPanel extends JPanel {
 		gbc_lblCharisma.gridy = 4;
 		add(lblCharisma, gbc_lblCharisma);
 		
-		JLabel lblKoerperkraft = new JLabel("Körperkraft");
+		JLabel lblKoerperkraft = new JLabel(BUNDLE.getString("HeldenPanel.lblKoerperkraft.text")); //$NON-NLS-1$
 		lblKoerperkraft.setHorizontalAlignment(SwingConstants.TRAILING);
 		GridBagConstraints gbc_lblKoerperkraft = new GridBagConstraints();
 		gbc_lblKoerperkraft.anchor = GridBagConstraints.EAST;
@@ -318,7 +320,7 @@ public class HeldenPanel extends JPanel {
 		gbc_lblKoerperkraft.gridy = 4;
 		add(lblKoerperkraft, gbc_lblKoerperkraft);
 		
-		JLabel lblAusdauer = new JLabel("Ausdauer");
+		JLabel lblAusdauer = new JLabel(BUNDLE.getString("HeldenPanel.lblAusdauer.text")); //$NON-NLS-1$
 		lblAusdauer.setHorizontalAlignment(SwingConstants.TRAILING);
 		GridBagConstraints gbc_lblAusdauer = new GridBagConstraints();
 		gbc_lblAusdauer.anchor = GridBagConstraints.EAST;

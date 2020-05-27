@@ -36,8 +36,10 @@ import link.parzival.dsa.object.FernwaffenObjekt;
 import java.awt.Font;
 import javax.swing.JSeparator;
 import javax.swing.DefaultComboBoxModel;
+import java.util.ResourceBundle;
 
 public class FernkampfDialog extends JDialog {
+	private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("link.parzival.dsa.ui.messages"); //$NON-NLS-1$
 
 	private static final long serialVersionUID 			= -5503871340629603661L;
 	private JButton backButton 							= new JButton();
@@ -57,7 +59,7 @@ public class FernkampfDialog extends JDialog {
 	private JLabel lblErschwernisBewegungValue 			= new JLabel();
 	private JLabel lblErschwernisEntfernungValue 		= new JLabel();
 	private JLabel lblErschwernisGezielterSchussValue 	= new JLabel();
-	private JLabel lblErschwernisKomplettWert 			= new JLabel();
+	private JLabel lblKompletteErschwernisValue			= new JLabel();
 	private JLabel lblErschwernisModifikatorenValue 	= new JLabel();
 
 	private JLabel lblErschwernisSichtValue 			= new JLabel();
@@ -143,28 +145,28 @@ public class FernkampfDialog extends JDialog {
 					groessenSelectionPanel.setLayout(new BoxLayout(groessenSelectionPanel, BoxLayout.Y_AXIS));
 					{
 						ButtonGroup groessenButtonGroup = new ButtonGroup();
-						JRadioButton rdbWinzig = new JRadioButton("winzig");
+						JRadioButton rdbWinzig = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbWinzig.text")); //$NON-NLS-1$
 						groessenButtonGroup.add(rdbWinzig);
 						groessenSelectionPanel.add(rdbWinzig);
 
-						JRadioButton rdbSehrKlein = new JRadioButton("sehr klein");
+						JRadioButton rdbSehrKlein = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbSehrKlein.text")); //$NON-NLS-1$
 						groessenButtonGroup.add(rdbSehrKlein);
 						groessenSelectionPanel.add(rdbSehrKlein);
 
-						JRadioButton rdbKlein = new JRadioButton("klein");
+						JRadioButton rdbKlein = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbKlein.text")); //$NON-NLS-1$
 						groessenButtonGroup.add(rdbKlein);
 						groessenSelectionPanel.add(rdbKlein);
 
-						JRadioButton rdbMittel = new JRadioButton("mittel");
+						JRadioButton rdbMittel = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbMittel.text")); //$NON-NLS-1$
 						groessenButtonGroup.add(rdbMittel);
 						rdbMittel.setSelected(true);
 						groessenSelectionPanel.add(rdbMittel);
 
-						JRadioButton rdbGross = new JRadioButton("groß");
+						JRadioButton rdbGross = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbGross.text")); //$NON-NLS-1$
 						groessenButtonGroup.add(rdbGross);
 						groessenSelectionPanel.add(rdbGross);
 
-						JRadioButton rdbSehrGross = new JRadioButton("sehr groß");
+						JRadioButton rdbSehrGross = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbSehrGross.text")); //$NON-NLS-1$
 						groessenButtonGroup.add(rdbSehrGross);
 						groessenSelectionPanel.add(rdbSehrGross);
 
@@ -188,25 +190,25 @@ public class FernkampfDialog extends JDialog {
 				gbc_spinnerGroessenModifikator.gridy = 0;
 				zielgroessenPanel.add(spinnerGroessenModifikator, gbc_spinnerGroessenModifikator);
 				{
-					JLabel lblNewLabel = new JLabel("Modifikator");
-					GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-					gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
-					gbc_lblNewLabel.insets = new Insets(0, 0, 5, 0);
-					gbc_lblNewLabel.gridx = 2;
-					gbc_lblNewLabel.gridy = 0;
-					zielgroessenPanel.add(lblNewLabel, gbc_lblNewLabel);
+					JLabel lblModifikator = new JLabel(BUNDLE.getString("FernkampfDialog.lblModifikator.text")); //$NON-NLS-1$
+					GridBagConstraints gbc_lblModifikator = new GridBagConstraints();
+					gbc_lblModifikator.anchor = GridBagConstraints.WEST;
+					gbc_lblModifikator.insets = new Insets(0, 0, 5, 0);
+					gbc_lblModifikator.gridx = 2;
+					gbc_lblModifikator.gridy = 0;
+					zielgroessenPanel.add(lblModifikator, gbc_lblModifikator);
 				}
 				{
-					JLabel lblNewLabel_1 = new JLabel("Halbdeckung");
-					GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-					gbc_lblNewLabel_1.anchor = GridBagConstraints.WEST;
-					gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 0);
-					gbc_lblNewLabel_1.gridx = 2;
-					gbc_lblNewLabel_1.gridy = 1;
-					zielgroessenPanel.add(lblNewLabel_1, gbc_lblNewLabel_1);
+					JLabel lblHalbdeckung = new JLabel(BUNDLE.getString("FernkampfDialog.lblHalbdeckung.text")); //$NON-NLS-1$
+					GridBagConstraints gbc_lblHalbdeckung = new GridBagConstraints();
+					gbc_lblHalbdeckung.anchor = GridBagConstraints.WEST;
+					gbc_lblHalbdeckung.insets = new Insets(0, 0, 5, 0);
+					gbc_lblHalbdeckung.gridx = 2;
+					gbc_lblHalbdeckung.gridy = 1;
+					zielgroessenPanel.add(lblHalbdeckung, gbc_lblHalbdeckung);
 				}
 				{
-					chkboxHalbdeckung = new JCheckBox("");
+					chkboxHalbdeckung = new JCheckBox(); //$NON-NLS-1$
 					GridBagConstraints gbc_chkboxHalbdeckung = new GridBagConstraints();
 					gbc_chkboxHalbdeckung.anchor = GridBagConstraints.EAST;
 					gbc_chkboxHalbdeckung.insets = new Insets(0, 0, 5, 5);
@@ -215,16 +217,17 @@ public class FernkampfDialog extends JDialog {
 					zielgroessenPanel.add(chkboxHalbdeckung, gbc_chkboxHalbdeckung);
 				}
 				{
-					JLabel lblNewLabel_2 = new JLabel("Dreivierteldeckung");
-					GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
-					gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 0);
-					gbc_lblNewLabel_2.anchor = GridBagConstraints.WEST;
-					gbc_lblNewLabel_2.gridx = 2;
-					gbc_lblNewLabel_2.gridy = 2;
-					zielgroessenPanel.add(lblNewLabel_2, gbc_lblNewLabel_2);
+					JLabel lblDreivierteldeckung = new JLabel(BUNDLE.getString("FernkampfDialog.lblDreivierteldeckung.text")); //$NON-NLS-1$
+					GridBagConstraints gbc_lblDreivierteldeckung = new GridBagConstraints();
+					gbc_lblDreivierteldeckung.insets = new Insets(0, 0, 5, 0);
+					gbc_lblDreivierteldeckung.anchor = GridBagConstraints.WEST;
+					gbc_lblDreivierteldeckung.gridx = 2;
+					gbc_lblDreivierteldeckung.gridy = 2;
+					zielgroessenPanel.add(lblDreivierteldeckung, gbc_lblDreivierteldeckung);
 				}
 				{
-					chkBoxDreivierteldeckung = new JCheckBox("");
+					chkBoxDreivierteldeckung = new JCheckBox(); //$NON-NLS-1$
+					
 					GridBagConstraints gbc_chkBoxDreivierteldeckung = new GridBagConstraints();
 					gbc_chkBoxDreivierteldeckung.insets = new Insets(0, 0, 5, 5);
 					gbc_chkBoxDreivierteldeckung.anchor = GridBagConstraints.EAST;
@@ -244,23 +247,23 @@ public class FernkampfDialog extends JDialog {
 				gbl_entfernungPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 				entfernungPanel.setLayout(gbl_entfernungPanel);
 
-				JLabel lblNewLabel_9 = new JLabel("Distanz zum Gegner");
-				GridBagConstraints gbc_lblNewLabel_9 = new GridBagConstraints();
-				gbc_lblNewLabel_9.insets = new Insets(0, 0, 5, 5);
-				gbc_lblNewLabel_9.gridx = 0;
-				gbc_lblNewLabel_9.gridy = 0;
-				entfernungPanel.add(lblNewLabel_9, gbc_lblNewLabel_9);
+				JLabel lblDistanzZumGegner = new JLabel(BUNDLE.getString("FernkampfDialog.lblDistanzZumGegner.text")); //$NON-NLS-1$
+				GridBagConstraints gbc_lblDistanzZumGegner = new GridBagConstraints();
+				gbc_lblDistanzZumGegner.insets = new Insets(0, 0, 5, 5);
+				gbc_lblDistanzZumGegner.gridx = 0;
+				gbc_lblDistanzZumGegner.gridy = 0;
+				entfernungPanel.add(lblDistanzZumGegner, gbc_lblDistanzZumGegner);
 
-				JLabel lblNewLabel_10 = new JLabel("Reichweite der Waffe (Meter)");
-				GridBagConstraints gbc_lblNewLabel_10 = new GridBagConstraints();
-				gbc_lblNewLabel_10.anchor = GridBagConstraints.WEST;
-				gbc_lblNewLabel_10.insets = new Insets(0, 0, 5, 0);
-				gbc_lblNewLabel_10.gridx = 1;
-				gbc_lblNewLabel_10.gridy = 0;
-				entfernungPanel.add(lblNewLabel_10, gbc_lblNewLabel_10);
+				JLabel lblReichweiteDerWaffe = new JLabel(BUNDLE.getString("FernkampfDialog.lblReichweiteDerWaffe.text")); //$NON-NLS-1$
+				GridBagConstraints gbc_lblReichweiteDerWaffe = new GridBagConstraints();
+				gbc_lblReichweiteDerWaffe.anchor = GridBagConstraints.WEST;
+				gbc_lblReichweiteDerWaffe.insets = new Insets(0, 0, 5, 0);
+				gbc_lblReichweiteDerWaffe.gridx = 1;
+				gbc_lblReichweiteDerWaffe.gridy = 0;
+				entfernungPanel.add(lblReichweiteDerWaffe, gbc_lblReichweiteDerWaffe);
 
 				ButtonGroup entfernungButtonGroup = new ButtonGroup();
-				JRadioButton rdbSehrNah = new JRadioButton("sehr nah");
+				JRadioButton rdbSehrNah = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbSehrNah.text")); //$NON-NLS-1$
 				entfernungButtonGroup.add(rdbSehrNah);
 				GridBagConstraints gbc_rdbSehrNah = new GridBagConstraints();
 				gbc_rdbSehrNah.anchor = GridBagConstraints.WEST;
@@ -278,15 +281,15 @@ public class FernkampfDialog extends JDialog {
 				gbc_lblWaffeDistanzSehrNah.gridy = 1;
 				entfernungPanel.add(lblWaffeDistanzSehrNah, gbc_lblWaffeDistanzSehrNah);
 
-				JRadioButton rdbNah = new JRadioButton("nah");
-				entfernungButtonGroup.add(rdbNah);
-				GridBagConstraints gbc_rdbNah = new GridBagConstraints();
-				gbc_rdbNah.anchor = GridBagConstraints.WEST;
-				gbc_rdbNah.insets = new Insets(0, 0, 5, 5);
-				gbc_rdbNah.gridx = 0;
-				gbc_rdbNah.gridy = 2;
-				entfernungPanel.add(rdbNah, gbc_rdbNah);
-				entfernungGroup.add(rdbNah);
+				JRadioButton rdbDistanzNah = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbDistanzNah.text")); //$NON-NLS-1$
+				entfernungButtonGroup.add(rdbDistanzNah);
+				GridBagConstraints gbc_rdbDistanzNah = new GridBagConstraints();
+				gbc_rdbDistanzNah.anchor = GridBagConstraints.WEST;
+				gbc_rdbDistanzNah.insets = new Insets(0, 0, 5, 5);
+				gbc_rdbDistanzNah.gridx = 0;
+				gbc_rdbDistanzNah.gridy = 2;
+				entfernungPanel.add(rdbDistanzNah, gbc_rdbDistanzNah);
+				entfernungGroup.add(rdbDistanzNah);
 
 				lblWaffeDistanzNah = new JLabel("0");
 				GridBagConstraints gbc_lblWaffeDistanzNah = new GridBagConstraints();
@@ -296,16 +299,16 @@ public class FernkampfDialog extends JDialog {
 				gbc_lblWaffeDistanzNah.gridy = 2;
 				entfernungPanel.add(lblWaffeDistanzNah, gbc_lblWaffeDistanzNah);
 
-				JRadioButton rdbMittel = new JRadioButton("mittel");
-				entfernungButtonGroup.add(rdbMittel);
-				rdbMittel.setSelected(true);
-				GridBagConstraints gbc_rdbMittel = new GridBagConstraints();
-				gbc_rdbMittel.anchor = GridBagConstraints.WEST;
-				gbc_rdbMittel.insets = new Insets(0, 0, 5, 5);
-				gbc_rdbMittel.gridx = 0;
-				gbc_rdbMittel.gridy = 3;
-				entfernungPanel.add(rdbMittel, gbc_rdbMittel);
-				entfernungGroup.add(rdbMittel);
+				JRadioButton rdbDistanzMittel = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbDistanzMittel.text")); //$NON-NLS-1$
+				entfernungButtonGroup.add(rdbDistanzMittel);
+				rdbDistanzMittel.setSelected(true);
+				GridBagConstraints gbc_rdbDistanzMittel = new GridBagConstraints();
+				gbc_rdbDistanzMittel.anchor = GridBagConstraints.WEST;
+				gbc_rdbDistanzMittel.insets = new Insets(0, 0, 5, 5);
+				gbc_rdbDistanzMittel.gridx = 0;
+				gbc_rdbDistanzMittel.gridy = 3;
+				entfernungPanel.add(rdbDistanzMittel, gbc_rdbDistanzMittel);
+				entfernungGroup.add(rdbDistanzMittel);
 
 				lblWaffeDistanzMittel = new JLabel("0");
 				GridBagConstraints gbc_lblWaffeDistanzMittel = new GridBagConstraints();
@@ -315,15 +318,15 @@ public class FernkampfDialog extends JDialog {
 				gbc_lblWaffeDistanzMittel.gridy = 3;
 				entfernungPanel.add(lblWaffeDistanzMittel, gbc_lblWaffeDistanzMittel);
 
-				JRadioButton rdbWeit = new JRadioButton("weit");
-				entfernungButtonGroup.add(rdbWeit);
-				GridBagConstraints gbc_rdbWeit = new GridBagConstraints();
-				gbc_rdbWeit.anchor = GridBagConstraints.WEST;
-				gbc_rdbWeit.insets = new Insets(0, 0, 5, 5);
-				gbc_rdbWeit.gridx = 0;
-				gbc_rdbWeit.gridy = 4;
-				entfernungPanel.add(rdbWeit, gbc_rdbWeit);
-				entfernungGroup.add(rdbWeit);
+				JRadioButton rdbDistanzWeit = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbDistanzWeit.text")); //$NON-NLS-1$
+				entfernungButtonGroup.add(rdbDistanzWeit);
+				GridBagConstraints gbc_rdbDistanzWeit = new GridBagConstraints();
+				gbc_rdbDistanzWeit.anchor = GridBagConstraints.WEST;
+				gbc_rdbDistanzWeit.insets = new Insets(0, 0, 5, 5);
+				gbc_rdbDistanzWeit.gridx = 0;
+				gbc_rdbDistanzWeit.gridy = 4;
+				entfernungPanel.add(rdbDistanzWeit, gbc_rdbDistanzWeit);
+				entfernungGroup.add(rdbDistanzWeit);
 
 				lblWaffeDistanzWeit = new JLabel("0");
 				GridBagConstraints gbc_lblWaffeDistanzWeit = new GridBagConstraints();
@@ -333,15 +336,15 @@ public class FernkampfDialog extends JDialog {
 				gbc_lblWaffeDistanzWeit.gridy = 4;
 				entfernungPanel.add(lblWaffeDistanzWeit, gbc_lblWaffeDistanzWeit);
 
-				JRadioButton rdbSehrWeit = new JRadioButton("sehr weit");
-				entfernungButtonGroup.add(rdbSehrWeit);
-				GridBagConstraints gbc_rdbSehrWeit = new GridBagConstraints();
-				gbc_rdbSehrWeit.insets = new Insets(0, 0, 0, 5);
-				gbc_rdbSehrWeit.anchor = GridBagConstraints.WEST;
-				gbc_rdbSehrWeit.gridx = 0;
-				gbc_rdbSehrWeit.gridy = 5;
-				entfernungPanel.add(rdbSehrWeit, gbc_rdbSehrWeit);
-				entfernungGroup.add(rdbSehrWeit);
+				JRadioButton rdbDistanzSehrWeit = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbDistanzSehrWeit.text")); //$NON-NLS-1$
+				entfernungButtonGroup.add(rdbDistanzSehrWeit);
+				GridBagConstraints gbc_rdbDistanzSehrWeit = new GridBagConstraints();
+				gbc_rdbDistanzSehrWeit.insets = new Insets(0, 0, 0, 5);
+				gbc_rdbDistanzSehrWeit.anchor = GridBagConstraints.WEST;
+				gbc_rdbDistanzSehrWeit.gridx = 0;
+				gbc_rdbDistanzSehrWeit.gridy = 5;
+				entfernungPanel.add(rdbDistanzSehrWeit, gbc_rdbDistanzSehrWeit);
+				entfernungGroup.add(rdbDistanzSehrWeit);
 
 				lblWaffeDistanzSehrWeit = new JLabel("0");
 				GridBagConstraints gbc_lblWaffeDistanzSehrWeit = new GridBagConstraints();
@@ -364,7 +367,7 @@ public class FernkampfDialog extends JDialog {
 			bewegungPanel.setLayout(gbl_bewegungPanel);
 
 			ButtonGroup bewegungButtonGroup = new ButtonGroup();
-			JRadioButton rdbUnbeweglich = new JRadioButton("unbewegliches / fest montiertes Ziel");
+			JRadioButton rdbUnbeweglich = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbUnbeweglich.text")); //$NON-NLS-1$
 			bewegungButtonGroup.add(rdbUnbeweglich);
 			GridBagConstraints gbc_rdbtnNewRadioButton_15 = new GridBagConstraints();
 			gbc_rdbtnNewRadioButton_15.gridwidth = 2;
@@ -374,7 +377,7 @@ public class FernkampfDialog extends JDialog {
 			gbc_rdbtnNewRadioButton_15.gridy = 0;
 			bewegungPanel.add(rdbUnbeweglich, gbc_rdbtnNewRadioButton_15);
 
-			JRadioButton rdbStillstehend = new JRadioButton("Stillstehendes Ziel");
+			JRadioButton rdbStillstehend = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbStillstehend.text")); //$NON-NLS-1$
 			bewegungButtonGroup.add(rdbStillstehend);
 			rdbStillstehend.setSelected(true);
 			GridBagConstraints gbc_rdbtnNewRadioButton_15_1 = new GridBagConstraints();
@@ -385,7 +388,7 @@ public class FernkampfDialog extends JDialog {
 			gbc_rdbtnNewRadioButton_15_1.gridy = 1;
 			bewegungPanel.add(rdbStillstehend, gbc_rdbtnNewRadioButton_15_1);
 
-			JRadioButton rdbLeichteBewegung = new JRadioButton("leichte Bewegung des Ziels");
+			JRadioButton rdbLeichteBewegung = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbLeichteBewegung.text")); //$NON-NLS-1$
 			bewegungButtonGroup.add(rdbLeichteBewegung);
 			GridBagConstraints gbc_rdbtnNewRadioButton_15_1_1 = new GridBagConstraints();
 			gbc_rdbtnNewRadioButton_15_1_1.gridwidth = 2;
@@ -395,7 +398,7 @@ public class FernkampfDialog extends JDialog {
 			gbc_rdbtnNewRadioButton_15_1_1.gridy = 2;
 			bewegungPanel.add(rdbLeichteBewegung, gbc_rdbtnNewRadioButton_15_1_1);
 
-			JRadioButton rdbSchnelleBewegung = new JRadioButton("schnelle Bewegung des Ziels");
+			JRadioButton rdbSchnelleBewegung = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbSchnelleBewegung.text")); //$NON-NLS-1$
 			bewegungButtonGroup.add(rdbSchnelleBewegung);
 			GridBagConstraints gbc_rdbtnNewRadioButton_15_1_2 = new GridBagConstraints();
 			gbc_rdbtnNewRadioButton_15_1_2.gridwidth = 2;
@@ -405,7 +408,7 @@ public class FernkampfDialog extends JDialog {
 			gbc_rdbtnNewRadioButton_15_1_2.gridy = 3;
 			bewegungPanel.add(rdbSchnelleBewegung, gbc_rdbtnNewRadioButton_15_1_2);
 
-			JRadioButton rdbSehrSchnelleBewegung = new JRadioButton("sehr schnelle Bewegung / Ausweichbewegungen");
+			JRadioButton rdbSehrSchnelleBewegung = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbSehrSchnelleBewegung.text")); //$NON-NLS-1$
 			bewegungButtonGroup.add(rdbSehrSchnelleBewegung);
 			GridBagConstraints gbc_rdbtnNewRadioButton_15_1_3 = new GridBagConstraints();
 			gbc_rdbtnNewRadioButton_15_1_3.gridwidth = 2;
@@ -415,7 +418,7 @@ public class FernkampfDialog extends JDialog {
 			gbc_rdbtnNewRadioButton_15_1_3.gridy = 4;
 			bewegungPanel.add(rdbSehrSchnelleBewegung, gbc_rdbtnNewRadioButton_15_1_3);
 
-			JRadioButton rdbKampfgetuemmel = new JRadioButton("Kampfgetümmel");
+			JRadioButton rdbKampfgetuemmel = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbKampfgetuemmel.text")); //$NON-NLS-1$
 			bewegungButtonGroup.add(rdbKampfgetuemmel);
 			GridBagConstraints gbc_rdbtnNewRadioButton_15_1_4 = new GridBagConstraints();
 			gbc_rdbtnNewRadioButton_15_1_4.gridwidth = 2;
@@ -432,13 +435,13 @@ public class FernkampfDialog extends JDialog {
 			bewegungGroup.add(rdbSehrSchnelleBewegung);
 			bewegungGroup.add(rdbKampfgetuemmel);
 
-			JLabel lblNewLabel_7 = new JLabel("Gegner in Distanz H:");
-			GridBagConstraints gbc_lblNewLabel_7 = new GridBagConstraints();
-			gbc_lblNewLabel_7.anchor = GridBagConstraints.EAST;
-			gbc_lblNewLabel_7.insets = new Insets(0, 0, 5, 5);
-			gbc_lblNewLabel_7.gridx = 0;
-			gbc_lblNewLabel_7.gridy = 6;
-			bewegungPanel.add(lblNewLabel_7, gbc_lblNewLabel_7);
+			JLabel lblGegnerInDistanzH = new JLabel(BUNDLE.getString("FernkampfDialog.lblGegnerInDistanzH.text")); //$NON-NLS-1$
+			GridBagConstraints gbc_lblGegnerInDistanzH = new GridBagConstraints();
+			gbc_lblGegnerInDistanzH.anchor = GridBagConstraints.EAST;
+			gbc_lblGegnerInDistanzH.insets = new Insets(0, 0, 5, 5);
+			gbc_lblGegnerInDistanzH.gridx = 0;
+			gbc_lblGegnerInDistanzH.gridy = 6;
+			bewegungPanel.add(lblGegnerInDistanzH, gbc_lblGegnerInDistanzH);
 
 			spinnerGegnerInDistanzH = new JSpinner();
 			GridBagConstraints gbc_spinner = new GridBagConstraints();
@@ -448,13 +451,13 @@ public class FernkampfDialog extends JDialog {
 			gbc_spinner.gridy = 6;
 			bewegungPanel.add(spinnerGegnerInDistanzH, gbc_spinner);
 
-			JLabel lblNewLabel_8 = new JLabel("Gegner in Distanz NS:");
-			GridBagConstraints gbc_lblNewLabel_8 = new GridBagConstraints();
-			gbc_lblNewLabel_8.anchor = GridBagConstraints.EAST;
-			gbc_lblNewLabel_8.insets = new Insets(0, 0, 0, 5);
-			gbc_lblNewLabel_8.gridx = 0;
-			gbc_lblNewLabel_8.gridy = 7;
-			bewegungPanel.add(lblNewLabel_8, gbc_lblNewLabel_8);
+			JLabel lblGegnerInDistanzNS = new JLabel(BUNDLE.getString("FernkampfDialog.lblGegnerInDistanzNS.text")); //$NON-NLS-1$
+			GridBagConstraints gbc_lblGegnerInDistanzNS = new GridBagConstraints();
+			gbc_lblGegnerInDistanzNS.anchor = GridBagConstraints.EAST;
+			gbc_lblGegnerInDistanzNS.insets = new Insets(0, 0, 0, 5);
+			gbc_lblGegnerInDistanzNS.gridx = 0;
+			gbc_lblGegnerInDistanzNS.gridy = 7;
+			bewegungPanel.add(lblGegnerInDistanzNS, gbc_lblGegnerInDistanzNS);
 
 			spinnerGegnerInDistanzNS = new JSpinner();
 			GridBagConstraints gbc_spinner_1 = new GridBagConstraints();
@@ -474,31 +477,31 @@ public class FernkampfDialog extends JDialog {
 						Double.MIN_VALUE };
 				sichtPanel.setLayout(gbl_sichtPanel);
 
-				JLabel lblNewLabel_11 = new JLabel("Lichtquelle");
-				GridBagConstraints gbc_lblNewLabel_11 = new GridBagConstraints();
-				gbc_lblNewLabel_11.anchor = GridBagConstraints.WEST;
-				gbc_lblNewLabel_11.insets = new Insets(0, 0, 5, 5);
-				gbc_lblNewLabel_11.gridx = 0;
-				gbc_lblNewLabel_11.gridy = 0;
-				sichtPanel.add(lblNewLabel_11, gbc_lblNewLabel_11);
+				JLabel lblLichtquelle = new JLabel(BUNDLE.getString("FernkampfDialog.lblLichtquelle.text")); //$NON-NLS-1$
+				GridBagConstraints gbc_lblLichtquelle = new GridBagConstraints();
+				gbc_lblLichtquelle.anchor = GridBagConstraints.WEST;
+				gbc_lblLichtquelle.insets = new Insets(0, 0, 5, 5);
+				gbc_lblLichtquelle.gridx = 0;
+				gbc_lblLichtquelle.gridy = 0;
+				sichtPanel.add(lblLichtquelle, gbc_lblLichtquelle);
 
-				JLabel lblNewLabel_12 = new JLabel("Modifikatoren");
-				GridBagConstraints gbc_lblNewLabel_12 = new GridBagConstraints();
-				gbc_lblNewLabel_12.insets = new Insets(0, 0, 5, 5);
-				gbc_lblNewLabel_12.gridx = 2;
-				gbc_lblNewLabel_12.gridy = 0;
-				sichtPanel.add(lblNewLabel_12, gbc_lblNewLabel_12);
+				JLabel lblModifikatoren = new JLabel(BUNDLE.getString("FernkampfDialog.lblModifikatoren.text")); //$NON-NLS-1$
+				GridBagConstraints gbc_lblModifikatoren = new GridBagConstraints();
+				gbc_lblModifikatoren.insets = new Insets(0, 0, 5, 5);
+				gbc_lblModifikatoren.gridx = 2;
+				gbc_lblModifikatoren.gridy = 0;
+				sichtPanel.add(lblModifikatoren, gbc_lblModifikatoren);
 
-				JLabel lblNewLabel_13 = new JLabel("Vorteile");
-				GridBagConstraints gbc_lblNewLabel_13 = new GridBagConstraints();
-				gbc_lblNewLabel_13.anchor = GridBagConstraints.WEST;
-				gbc_lblNewLabel_13.insets = new Insets(0, 0, 5, 0);
-				gbc_lblNewLabel_13.gridx = 4;
-				gbc_lblNewLabel_13.gridy = 0;
-				sichtPanel.add(lblNewLabel_13, gbc_lblNewLabel_13);
+				JLabel lblVorteile = new JLabel(BUNDLE.getString("FernkampfDialog.lblVorteile.text")); //$NON-NLS-1$
+				GridBagConstraints gbc_lblVorteile = new GridBagConstraints();
+				gbc_lblVorteile.anchor = GridBagConstraints.WEST;
+				gbc_lblVorteile.insets = new Insets(0, 0, 5, 0);
+				gbc_lblVorteile.gridx = 4;
+				gbc_lblVorteile.gridy = 0;
+				sichtPanel.add(lblVorteile, gbc_lblVorteile);
 				
 				ButtonGroup lichtButtonGroup = new ButtonGroup();
-				JRadioButton rdbNormaleSicht = new JRadioButton("Tageslicht");
+				JRadioButton rdbNormaleSicht = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbNormaleSicht.text")); //$NON-NLS-1$
 				lichtButtonGroup.add(rdbNormaleSicht);
 				rdbNormaleSicht.setSelected(true);
 				GridBagConstraints gbc_rdbNormaleSicht = new GridBagConstraints();
@@ -509,7 +512,7 @@ public class FernkampfDialog extends JDialog {
 				sichtPanel.add(rdbNormaleSicht, gbc_rdbNormaleSicht);
 				sichtGroup.add(rdbNormaleSicht);
 
-				JCheckBox chkboxVorteilEntfernungssinn = new JCheckBox("Entfernungssinn");
+				JCheckBox chkboxVorteilEntfernungssinn = new JCheckBox(BUNDLE.getString("FernkampfDialog.chkboxVorteilEntfernungssinn.text")); //$NON-NLS-1$
 				vorteilListe.add(chkboxVorteilEntfernungssinn);
 				GridBagConstraints gbc_chckbxNewCheckBox_8 = new GridBagConstraints();
 				gbc_chckbxNewCheckBox_8.anchor = GridBagConstraints.WEST;
@@ -518,7 +521,7 @@ public class FernkampfDialog extends JDialog {
 				gbc_chckbxNewCheckBox_8.gridy = 1;
 				sichtPanel.add(chkboxVorteilEntfernungssinn, gbc_chckbxNewCheckBox_8);
 
-				JRadioButton rdbDaemmerung = new JRadioButton("Dämmerung");
+				JRadioButton rdbDaemmerung = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbDaemmerung.text")); //$NON-NLS-1$
 				lichtButtonGroup.add(rdbDaemmerung);
 				GridBagConstraints gbc_rdbDaemmerung = new GridBagConstraints();
 				gbc_rdbDaemmerung.anchor = GridBagConstraints.WEST;
@@ -531,7 +534,7 @@ public class FernkampfDialog extends JDialog {
 				sichtModGroup = new ArrayList<>();
 				ButtonGroup sichtModButtonGroup = new ButtonGroup();
 				
-				JRadioButton rdbtnKeine = new JRadioButton("keine");
+				JRadioButton rdbtnKeine = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbtnKeine.text")); //$NON-NLS-1$
 				rdbtnKeine.setSelected(true);
 				sichtModButtonGroup.add(rdbtnKeine);
 				GridBagConstraints gbc_rdbtnKeine = new GridBagConstraints();
@@ -542,7 +545,7 @@ public class FernkampfDialog extends JDialog {
 				sichtPanel.add(rdbtnKeine, gbc_rdbtnKeine);
 				sichtModGroup.add(rdbtnKeine);
 				
-				JRadioButton rdbDunst = new JRadioButton("Dunst");
+				JRadioButton rdbDunst = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbDunst.text")); //$NON-NLS-1$
 				sichtModButtonGroup.add(rdbDunst);
 				GridBagConstraints gbc_rdbDunst = new GridBagConstraints();
 				gbc_rdbDunst.anchor = GridBagConstraints.WEST;
@@ -552,7 +555,7 @@ public class FernkampfDialog extends JDialog {
 				sichtPanel.add(rdbDunst, gbc_rdbDunst);
 				sichtModGroup.add(rdbDunst);
 
-				JCheckBox chkboxDaemmerungssicht = new JCheckBox("Dämmerungssicht");
+				JCheckBox chkboxDaemmerungssicht = new JCheckBox(BUNDLE.getString("FernkampfDialog.chkboxDaemmerungssicht.text")); //$NON-NLS-1$
 				vorteilListe.add(chkboxDaemmerungssicht);
 				GridBagConstraints gbc_chckbxNewCheckBox_9 = new GridBagConstraints();
 				gbc_chckbxNewCheckBox_9.anchor = GridBagConstraints.WEST;
@@ -561,7 +564,7 @@ public class FernkampfDialog extends JDialog {
 				gbc_chckbxNewCheckBox_9.gridy = 2;
 				sichtPanel.add(chkboxDaemmerungssicht, gbc_chckbxNewCheckBox_9);
 
-				JRadioButton rdbMondlicht = new JRadioButton("Mondlicht");
+				JRadioButton rdbMondlicht = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbMondlicht.text")); //$NON-NLS-1$
 				lichtButtonGroup.add(rdbMondlicht);
 				GridBagConstraints gbc_rdbMondlicht = new GridBagConstraints();
 				gbc_rdbMondlicht.anchor = GridBagConstraints.WEST;
@@ -571,7 +574,7 @@ public class FernkampfDialog extends JDialog {
 				sichtPanel.add(rdbMondlicht, gbc_rdbMondlicht);
 				sichtGroup.add(rdbMondlicht);
 				
-				JRadioButton rdbNebel = new JRadioButton("Nebel");
+				JRadioButton rdbNebel = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbNebel.text")); //$NON-NLS-1$
 				sichtModButtonGroup.add(rdbNebel);
 				GridBagConstraints gbc_rdbNebel = new GridBagConstraints();
 				gbc_rdbNebel.anchor = GridBagConstraints.WEST;
@@ -581,7 +584,7 @@ public class FernkampfDialog extends JDialog {
 				sichtPanel.add(rdbNebel, gbc_rdbNebel);
 				sichtModGroup.add(rdbNebel);
 
-				JCheckBox chkboxNachtsicht = new JCheckBox("Nachtsicht");
+				JCheckBox chkboxNachtsicht = new JCheckBox(BUNDLE.getString("FernkampfDialog.chkboxNachtsicht.text")); //$NON-NLS-1$
 				vorteilListe.add(chkboxNachtsicht);
 				GridBagConstraints gbc_chckbxNewCheckBox_10 = new GridBagConstraints();
 				gbc_chckbxNewCheckBox_10.anchor = GridBagConstraints.WEST;
@@ -590,7 +593,7 @@ public class FernkampfDialog extends JDialog {
 				gbc_chckbxNewCheckBox_10.gridy = 3;
 				sichtPanel.add(chkboxNachtsicht, gbc_chckbxNewCheckBox_10);
 
-				JRadioButton rdbSternenlicht = new JRadioButton("Sternenlicht");
+				JRadioButton rdbSternenlicht = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbSternenlicht.text")); //$NON-NLS-1$
 				lichtButtonGroup.add(rdbSternenlicht);
 				GridBagConstraints gbc_rdbSternenlicht = new GridBagConstraints();
 				gbc_rdbSternenlicht.anchor = GridBagConstraints.WEST;
@@ -600,15 +603,15 @@ public class FernkampfDialog extends JDialog {
 				sichtPanel.add(rdbSternenlicht, gbc_rdbSternenlicht);
 				sichtGroup.add(rdbSternenlicht);
 
-				JLabel lblNewLabel_14 = new JLabel("Nachteile");
-				GridBagConstraints gbc_lblNewLabel_14 = new GridBagConstraints();
-				gbc_lblNewLabel_14.anchor = GridBagConstraints.WEST;
-				gbc_lblNewLabel_14.insets = new Insets(0, 0, 5, 0);
-				gbc_lblNewLabel_14.gridx = 4;
-				gbc_lblNewLabel_14.gridy = 4;
-				sichtPanel.add(lblNewLabel_14, gbc_lblNewLabel_14);
+				JLabel lblNachteile = new JLabel(BUNDLE.getString("FernkampfDialog.lblNachteile.text")); //$NON-NLS-1$
+				GridBagConstraints gbc_lblNachteile = new GridBagConstraints();
+				gbc_lblNachteile.anchor = GridBagConstraints.WEST;
+				gbc_lblNachteile.insets = new Insets(0, 0, 5, 0);
+				gbc_lblNachteile.gridx = 4;
+				gbc_lblNachteile.gridy = 4;
+				sichtPanel.add(lblNachteile, gbc_lblNachteile);
 
-				JRadioButton rdbFinsternis = new JRadioButton("Finsternis");
+				JRadioButton rdbFinsternis = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbFinsternis.text")); //$NON-NLS-1$
 				lichtButtonGroup.add(rdbFinsternis);
 				GridBagConstraints gbc_rdbFinsternis = new GridBagConstraints();
 				gbc_rdbFinsternis.anchor = GridBagConstraints.WEST;
@@ -618,7 +621,7 @@ public class FernkampfDialog extends JDialog {
 				sichtPanel.add(rdbFinsternis, gbc_rdbFinsternis);
 				sichtGroup.add(rdbFinsternis);
 
-				JCheckBox chkboxEinaeugig = new JCheckBox("Einäugig");
+				JCheckBox chkboxEinaeugig = new JCheckBox(BUNDLE.getString("FernkampfDialog.chkboxEinaeugig.text")); //$NON-NLS-1$
 				nachteilListe.add(chkboxEinaeugig);
 				GridBagConstraints gbc_chckbxNewCheckBox_12 = new GridBagConstraints();
 				gbc_chckbxNewCheckBox_12.anchor = GridBagConstraints.WEST;
@@ -627,7 +630,7 @@ public class FernkampfDialog extends JDialog {
 				gbc_chckbxNewCheckBox_12.gridy = 5;
 				sichtPanel.add(chkboxEinaeugig, gbc_chckbxNewCheckBox_12);
 
-				JRadioButton rdbUnsichtbar = new JRadioButton("Unsichtbares Ziel");
+				JRadioButton rdbUnsichtbar = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbUnsichtbar.text")); //$NON-NLS-1$
 				lichtButtonGroup.add(rdbUnsichtbar);
 				GridBagConstraints gbc_rdbUnsichtbar = new GridBagConstraints();
 				gbc_rdbUnsichtbar.insets = new Insets(0, 0, 5, 5);
@@ -637,7 +640,7 @@ public class FernkampfDialog extends JDialog {
 				sichtPanel.add(rdbUnsichtbar, gbc_rdbUnsichtbar);
 				sichtGroup.add(rdbUnsichtbar);
 
-				JCheckBox chkboxFarbenblind = new JCheckBox("Farbenblind");
+				JCheckBox chkboxFarbenblind = new JCheckBox(BUNDLE.getString("FernkampfDialog.chkboxFarbenblind.text")); //$NON-NLS-1$
 				nachteilListe.add(chkboxFarbenblind);
 				GridBagConstraints gbc_chckbxNewCheckBox_13 = new GridBagConstraints();
 				gbc_chckbxNewCheckBox_13.anchor = GridBagConstraints.WEST;
@@ -646,7 +649,7 @@ public class FernkampfDialog extends JDialog {
 				gbc_chckbxNewCheckBox_13.gridy = 6;
 				sichtPanel.add(chkboxFarbenblind, gbc_chckbxNewCheckBox_13);
 
-				JCheckBox chkboxKurzsichtig = new JCheckBox("Kurzsichtig");
+				JCheckBox chkboxKurzsichtig = new JCheckBox(BUNDLE.getString("FernkampfDialog.chkboxKurzsichtig.text")); //$NON-NLS-1$
 				nachteilListe.add(chkboxKurzsichtig);
 				GridBagConstraints gbc_chckbxNewCheckBox_14 = new GridBagConstraints();
 				gbc_chckbxNewCheckBox_14.insets = new Insets(0, 0, 5, 0);
@@ -655,7 +658,7 @@ public class FernkampfDialog extends JDialog {
 				gbc_chckbxNewCheckBox_14.gridy = 7;
 				sichtPanel.add(chkboxKurzsichtig, gbc_chckbxNewCheckBox_14);
 
-				JCheckBox chkboxNachtblind = new JCheckBox("Nachtblind");
+				JCheckBox chkboxNachtblind = new JCheckBox(BUNDLE.getString("FernkampfDialog.chkboxNachtblind.text")); //$NON-NLS-1$
 				nachteilListe.add(chkboxNachtblind);
 				GridBagConstraints gbc_chckbxNewCheckBox_11 = new GridBagConstraints();
 				gbc_chckbxNewCheckBox_11.anchor = GridBagConstraints.WEST;
@@ -695,37 +698,37 @@ public class FernkampfDialog extends JDialog {
 				modifikatorPanel.add(modPanel_1, gbc_modPanel_1);
 				modPanel_1.setLayout(new BoxLayout(modPanel_1, BoxLayout.Y_AXIS));
 
-				JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Steilschuss nach unten");
-				modifikatorGroup.add(chckbxNewCheckBox_1);
-				modPanel_1.add(chckbxNewCheckBox_1);
+				JCheckBox chckbxSteilschussNachUnten = new JCheckBox(BUNDLE.getString("FernkampfDialog.chckbxSteilschussNachUnten.text")); //$NON-NLS-1$
+				modifikatorGroup.add(chckbxSteilschussNachUnten);
+				modPanel_1.add(chckbxSteilschussNachUnten);
 
-				JCheckBox chckbxNewCheckBox_1_1 = new JCheckBox("Steilwurf nach unten");
-				modifikatorGroup.add(chckbxNewCheckBox_1_1);
-				modPanel_1.add(chckbxNewCheckBox_1_1);
+				JCheckBox chckbxSteilwurfNachUnten = new JCheckBox(BUNDLE.getString("FernkampfDialog.chckbxSteilwurfNachUnten.text")); //$NON-NLS-1$
+				modifikatorGroup.add(chckbxSteilwurfNachUnten);
+				modPanel_1.add(chckbxSteilwurfNachUnten);
 
-				JCheckBox chckbxNewCheckBox_1_2 = new JCheckBox("Steilschuss nach oben");
-				modifikatorGroup.add(chckbxNewCheckBox_1_2);
-				modPanel_1.add(chckbxNewCheckBox_1_2);
+				JCheckBox chckbxSteilschussNachOben = new JCheckBox(BUNDLE.getString("FernkampfDialog.chckbxSteilschussNachOben.text")); //$NON-NLS-1$
+				modifikatorGroup.add(chckbxSteilschussNachOben);
+				modPanel_1.add(chckbxSteilschussNachOben);
 
-				JCheckBox chckbxNewCheckBox_1_3 = new JCheckBox("Steilwurf nach oben");
-				modifikatorGroup.add(chckbxNewCheckBox_1_3);
-				modPanel_1.add(chckbxNewCheckBox_1_3);
+				JCheckBox chckbxSteilwurfNachOben = new JCheckBox(BUNDLE.getString("FernkampfDialog.chckbxSteilwurfNachOben.text")); //$NON-NLS-1$
+				modifikatorGroup.add(chckbxSteilwurfNachOben);
+				modPanel_1.add(chckbxSteilwurfNachOben);
 
-				JCheckBox chckbxNewCheckBox_1_4 = new JCheckBox("böiger Seitenwind");
-				modifikatorGroup.add(chckbxNewCheckBox_1_4);
-				modPanel_1.add(chckbxNewCheckBox_1_4);
+				JCheckBox chckbxBoeigerSeitenwind = new JCheckBox(BUNDLE.getString("FernkampfDialog.chckbxBoeigerSeitenwind.text")); //$NON-NLS-1$
+				modifikatorGroup.add(chckbxBoeigerSeitenwind);
+				modPanel_1.add(chckbxBoeigerSeitenwind);
 
-				JCheckBox chckbxNewCheckBox_1_5 = new JCheckBox("starker böiger Seitenwind");
-				modifikatorGroup.add(chckbxNewCheckBox_1_5);
-				modPanel_1.add(chckbxNewCheckBox_1_5);
+				JCheckBox chckbxStarkerBoeigerSeitenwind = new JCheckBox(BUNDLE.getString("FernkampfDialog.chckbxStarkerBoeigerSeitenwind.text")); //$NON-NLS-1$
+				modifikatorGroup.add(chckbxStarkerBoeigerSeitenwind);
+				modPanel_1.add(chckbxStarkerBoeigerSeitenwind);
 
-				JCheckBox chckbxNewCheckBox_1_6 = new JCheckBox("Schnellschuss");
-				modifikatorGroup.add(chckbxNewCheckBox_1_6);
-				modPanel_1.add(chckbxNewCheckBox_1_6);
+				JCheckBox chckbxSchnellschuss = new JCheckBox(BUNDLE.getString("FernkampfDialog.chckbxSchnellschuss.text")); //$NON-NLS-1$
+				modifikatorGroup.add(chckbxSchnellschuss);
+				modPanel_1.add(chckbxSchnellschuss);
 
-				JCheckBox chckbxNewCheckBox_5 = new JCheckBox("Unter Wasser");
-				modifikatorGroup.add(chckbxNewCheckBox_5);
-				modPanel_1.add(chckbxNewCheckBox_5);
+				JCheckBox chckbxUnterWasser = new JCheckBox(BUNDLE.getString("FernkampfDialog.chckbxUnterWasser.text")); //$NON-NLS-1$
+				modifikatorGroup.add(chckbxUnterWasser);
+				modPanel_1.add(chckbxUnterWasser);
 
 				JPanel panel_1 = new JPanel();
 				modPanel_1.add(panel_1);
@@ -745,13 +748,13 @@ public class FernkampfDialog extends JDialog {
 				gbc_spinnerAnsage.gridy = 0;
 				panel_1.add(spinnerAnsage, gbc_spinnerAnsage);
 
-				JLabel lblNewLabel_3 = new JLabel("Ansage");
-				GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
-				gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 0);
-				gbc_lblNewLabel_3.anchor = GridBagConstraints.WEST;
-				gbc_lblNewLabel_3.gridx = 1;
-				gbc_lblNewLabel_3.gridy = 0;
-				panel_1.add(lblNewLabel_3, gbc_lblNewLabel_3);
+				JLabel lblModifikatorAnsage = new JLabel(BUNDLE.getString("FernkampfDialog.lblModifikatorAnsage.text")); //$NON-NLS-1$
+				GridBagConstraints gbc_lblModifikatorAnsage = new GridBagConstraints();
+				gbc_lblModifikatorAnsage.insets = new Insets(0, 0, 5, 0);
+				gbc_lblModifikatorAnsage.anchor = GridBagConstraints.WEST;
+				gbc_lblModifikatorAnsage.gridx = 1;
+				gbc_lblModifikatorAnsage.gridy = 0;
+				panel_1.add(lblModifikatorAnsage, gbc_lblModifikatorAnsage);
 				
 				SpinnerNumberModel spinnerModelZielen = new SpinnerNumberModel(0, 0, 4, 1); 
 				spinnerZielen = new JSpinner(spinnerModelZielen);
@@ -763,12 +766,12 @@ public class FernkampfDialog extends JDialog {
 				gbc_spinnerZielen.gridy = 1;
 				panel_1.add(spinnerZielen, gbc_spinnerZielen);
 
-				JLabel lblNewLabel_4 = new JLabel("Zielen");
-				GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
-				gbc_lblNewLabel_4.anchor = GridBagConstraints.WEST;
-				gbc_lblNewLabel_4.gridx = 1;
-				gbc_lblNewLabel_4.gridy = 1;
-				panel_1.add(lblNewLabel_4, gbc_lblNewLabel_4);
+				JLabel lblModifikatorZielen = new JLabel(BUNDLE.getString("FernkampfDialog.lblModifikatorZielen.text")); //$NON-NLS-1$
+				GridBagConstraints gbc_lblModifikatorZielen = new GridBagConstraints();
+				gbc_lblModifikatorZielen.anchor = GridBagConstraints.WEST;
+				gbc_lblModifikatorZielen.gridx = 1;
+				gbc_lblModifikatorZielen.gridy = 1;
+				panel_1.add(lblModifikatorZielen, gbc_lblModifikatorZielen);
 
 				JPanel modPanel_2 = new JPanel();
 				GridBagConstraints gbc_modPanel_2 = new GridBagConstraints();
@@ -778,45 +781,45 @@ public class FernkampfDialog extends JDialog {
 				modifikatorPanel.add(modPanel_2, gbc_modPanel_2);
 				modPanel_2.setLayout(new BoxLayout(modPanel_2, BoxLayout.Y_AXIS));
 
-				JCheckBox chckbxNewCheckBox_2 = new JCheckBox("zweiter Schuss pro KR");
-				modifikatorGroup.add(chckbxNewCheckBox_2);
-				modPanel_2.add(chckbxNewCheckBox_2);
+				JCheckBox chckbxZweiterSchussProKR = new JCheckBox(BUNDLE.getString("FernkampfDialog.chckbxZweiterSchussProKR.text")); //$NON-NLS-1$
+				modifikatorGroup.add(chckbxZweiterSchussProKR);
+				modPanel_2.add(chckbxZweiterSchussProKR);
 
-				JCheckBox chckbxNewCheckBox_2_1 = new JCheckBox("zweiter Wurf pro KR");
-				modifikatorGroup.add(chckbxNewCheckBox_2_1);
-				modPanel_2.add(chckbxNewCheckBox_2_1);
+				JCheckBox chckbxZweiterWurfProKR = new JCheckBox(BUNDLE.getString("FernkampfDialog.chckbxZweiterWurfProKR.text")); //$NON-NLS-1$
+				modifikatorGroup.add(chckbxZweiterWurfProKR);
+				modPanel_2.add(chckbxZweiterWurfProKR);
 
-				JCheckBox chckbxNewCheckBox_2_2 = new JCheckBox("Schuss von stehendem Tier");
-				modifikatorGroup.add(chckbxNewCheckBox_2_2);
-				modPanel_2.add(chckbxNewCheckBox_2_2);
+				JCheckBox chckbxSchussVonStehendemTier = new JCheckBox(BUNDLE.getString("FernkampfDialog.chckbxSchussVonStehendemTier.text")); //$NON-NLS-1$
+				modifikatorGroup.add(chckbxSchussVonStehendemTier);
+				modPanel_2.add(chckbxSchussVonStehendemTier);
 
-				JCheckBox chckbxNewCheckBox_2_3 = new JCheckBox("Wurf von stehenden Tier");
-				modifikatorGroup.add(chckbxNewCheckBox_2_3);
-				modPanel_2.add(chckbxNewCheckBox_2_3);
+				JCheckBox chckbxWurfVonStehendemTier = new JCheckBox(BUNDLE.getString("FernkampfDialog.chckbxWurfVonStehendemTier.text")); //$NON-NLS-1$
+				modifikatorGroup.add(chckbxWurfVonStehendemTier);
+				modPanel_2.add(chckbxWurfVonStehendemTier);
 
-				JCheckBox chckbxNewCheckBox_2_4 = new JCheckBox("Schuss vom Reittier im Schritt");
-				modifikatorGroup.add(chckbxNewCheckBox_2_4);
-				modPanel_2.add(chckbxNewCheckBox_2_4);
+				JCheckBox chckbxSchussVonReittierImSchritt = new JCheckBox(BUNDLE.getString("FernkampfDialog.chckbxSchussVonReittierImSchritt.text")); //$NON-NLS-1$
+				modifikatorGroup.add(chckbxSchussVonReittierImSchritt);
+				modPanel_2.add(chckbxSchussVonReittierImSchritt);
 
-				JCheckBox chckbxNewCheckBox_2_5 = new JCheckBox("Wurf vom Reittier im Schritt");
-				modifikatorGroup.add(chckbxNewCheckBox_2_5);
-				modPanel_2.add(chckbxNewCheckBox_2_5);
+				JCheckBox chckbxWurfVonReittierImSchritt = new JCheckBox(BUNDLE.getString("FernkampfDialog.chckbxWurfVonReittierImSchritt.text")); //$NON-NLS-1$
+				modifikatorGroup.add(chckbxWurfVonReittierImSchritt);
+				modPanel_2.add(chckbxWurfVonReittierImSchritt);
 
-				JCheckBox chckbxNewCheckBox_2_6 = new JCheckBox("Schuss im Galopp");
-				modifikatorGroup.add(chckbxNewCheckBox_2_6);
-				modPanel_2.add(chckbxNewCheckBox_2_6);
+				JCheckBox chckbxSchussImGalopp = new JCheckBox(BUNDLE.getString("FernkampfDialog.chckbxSchussImGalopp.text")); //$NON-NLS-1$
+				modifikatorGroup.add(chckbxSchussImGalopp);
+				modPanel_2.add(chckbxSchussImGalopp);
 
-				JCheckBox chckbxNewCheckBox_2_7 = new JCheckBox("Wurf im Galopp");
-				modifikatorGroup.add(chckbxNewCheckBox_2_7);
-				modPanel_2.add(chckbxNewCheckBox_2_7);
+				JCheckBox chckbxWurfImGalopp = new JCheckBox(BUNDLE.getString("FernkampfDialog.chckbxWurfImGalopp.text")); //$NON-NLS-1$
+				modifikatorGroup.add(chckbxWurfImGalopp);
+				modPanel_2.add(chckbxWurfImGalopp);
 
-				JCheckBox chckbxNewCheckBox_3 = new JCheckBox("Schuss ohne Sattel");
-				modifikatorGroup.add(chckbxNewCheckBox_3);
-				modPanel_2.add(chckbxNewCheckBox_3);
+				JCheckBox chckbxSchussOhneSattel = new JCheckBox(BUNDLE.getString("FernkampfDialog.chckbxSchussOhneSattel.text")); //$NON-NLS-1$
+				modifikatorGroup.add(chckbxSchussOhneSattel);
+				modPanel_2.add(chckbxSchussOhneSattel);
 
-				JCheckBox chckbxNewCheckBox_4 = new JCheckBox("Wurf ohne Sattel");
-				modifikatorGroup.add(chckbxNewCheckBox_4);
-				modPanel_2.add(chckbxNewCheckBox_4);
+				JCheckBox chckbxWurfOhneSattel = new JCheckBox(BUNDLE.getString("FernkampfDialog.chckbxWurfOhneSattel.text")); //$NON-NLS-1$
+				modifikatorGroup.add(chckbxWurfOhneSattel);
+				modPanel_2.add(chckbxWurfOhneSattel);
 				
 			}
 			{
@@ -830,7 +833,7 @@ public class FernkampfDialog extends JDialog {
 				gbl_zielPanel.rowWeights = new double[] { 0.0, 1.0, 0.0, Double.MIN_VALUE };
 				zielPanel.setLayout(gbl_zielPanel);
 
-				chkBoxGezielterSchuss = new JCheckBox("Gezielten Schuss verwenden");
+				chkBoxGezielterSchuss = new JCheckBox(BUNDLE.getString("FernkampfDialog.chkBoxGezielterSchuss.text")); //$NON-NLS-1$
 				chkBoxGezielterSchuss.addItemListener(new ItemListener() {
 					public void itemStateChanged(ItemEvent e) {
 						JCheckBox chkBox = (JCheckBox)e.getSource();
@@ -864,7 +867,7 @@ public class FernkampfDialog extends JDialog {
 				
 				ButtonGroup gezielterSchussGroup = new ButtonGroup();
 
-				lblZielHumanoid = new JLabel("Humanoid");
+				lblZielHumanoid = new JLabel(BUNDLE.getString("FernkampfDialog.lblZielHumanoid.text")); //$NON-NLS-1$
 				lblZielHumanoid.setVerticalAlignment(SwingConstants.TOP);
 				GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
 				gbc_lblNewLabel_5.anchor = GridBagConstraints.WEST;
@@ -873,7 +876,7 @@ public class FernkampfDialog extends JDialog {
 				gbc_lblNewLabel_5.gridy = 0;
 				zielPanel_1.add(lblZielHumanoid, gbc_lblNewLabel_5);
 
-				JRadioButton radioZielHumanoidKopf = new JRadioButton("Kopf");
+				JRadioButton radioZielHumanoidKopf = new JRadioButton(BUNDLE.getString("FernkampfDialog.radioZielHumanoidKopf.text")); //$NON-NLS-1$
 				gezielterSchussGroup.add(radioZielHumanoidKopf);
 				radioZielHumanoidKopf.setEnabled(false);
 				GridBagConstraints gbc_rdbtnNewRadioButton = new GridBagConstraints();
@@ -884,7 +887,7 @@ public class FernkampfDialog extends JDialog {
 				zielPanel_1.add(radioZielHumanoidKopf, gbc_rdbtnNewRadioButton);
 				zielHumanoidGroup.add(radioZielHumanoidKopf);
 
-				JRadioButton radioZielHumanoidHand = new JRadioButton("Hand");
+				JRadioButton radioZielHumanoidHand = new JRadioButton(BUNDLE.getString("FernkampfDialog.radioZielHumanoidHand.text")); //$NON-NLS-1$
 				gezielterSchussGroup.add(radioZielHumanoidHand);
 				radioZielHumanoidHand.setEnabled(false);
 				GridBagConstraints gbc_rdbtnNewRadioButton_5 = new GridBagConstraints();
@@ -895,7 +898,7 @@ public class FernkampfDialog extends JDialog {
 				zielPanel_1.add(radioZielHumanoidHand, gbc_rdbtnNewRadioButton_5);
 				zielHumanoidGroup.add(radioZielHumanoidHand);
 
-				JRadioButton radioZielHumanoidBrust = new JRadioButton("Brust");
+				JRadioButton radioZielHumanoidBrust = new JRadioButton(BUNDLE.getString("FernkampfDialog.radioZielHumanoidBrust.text")); //$NON-NLS-1$
 				gezielterSchussGroup.add(radioZielHumanoidBrust);
 				radioZielHumanoidBrust.setEnabled(false);
 				GridBagConstraints gbc_rdbtnNewRadioButton_1 = new GridBagConstraints();
@@ -906,7 +909,7 @@ public class FernkampfDialog extends JDialog {
 				zielPanel_1.add(radioZielHumanoidBrust, gbc_rdbtnNewRadioButton_1);
 				zielHumanoidGroup.add(radioZielHumanoidBrust);
 
-				JRadioButton radioZielHumanoidFuss = new JRadioButton("Fuß");
+				JRadioButton radioZielHumanoidFuss = new JRadioButton(BUNDLE.getString("FernkampfDialog.radioZielHumanoidFuss.text")); //$NON-NLS-1$
 				gezielterSchussGroup.add(radioZielHumanoidFuss);
 				radioZielHumanoidFuss.setEnabled(false);
 				GridBagConstraints gbc_radioZielHumanoidFuss = new GridBagConstraints();
@@ -917,7 +920,7 @@ public class FernkampfDialog extends JDialog {
 				zielPanel_1.add(radioZielHumanoidFuss, gbc_radioZielHumanoidFuss);
 				zielHumanoidGroup.add(radioZielHumanoidFuss);
 
-				JRadioButton radioZielHumanoidArme = new JRadioButton("Arme");
+				JRadioButton radioZielHumanoidArme = new JRadioButton(BUNDLE.getString("FernkampfDialog.radioZielHumanoidArme.text")); //$NON-NLS-1$
 				gezielterSchussGroup.add(radioZielHumanoidArme);
 				radioZielHumanoidArme.setEnabled(false);
 				GridBagConstraints gbc_radioZielHumanoidArme = new GridBagConstraints();
@@ -928,7 +931,7 @@ public class FernkampfDialog extends JDialog {
 				zielPanel_1.add(radioZielHumanoidArme, gbc_radioZielHumanoidArme);
 				zielHumanoidGroup.add(radioZielHumanoidArme);
 
-				JRadioButton radioZielHumanoidAuge = new JRadioButton("Auge");
+				JRadioButton radioZielHumanoidAuge = new JRadioButton(BUNDLE.getString("FernkampfDialog.radioZielHumanoidAuge.text")); //$NON-NLS-1$
 				gezielterSchussGroup.add(radioZielHumanoidAuge);
 				radioZielHumanoidAuge.setEnabled(false);
 				GridBagConstraints gbc_radioZielHumanoidAuge = new GridBagConstraints();
@@ -939,7 +942,7 @@ public class FernkampfDialog extends JDialog {
 				zielPanel_1.add(radioZielHumanoidAuge, gbc_radioZielHumanoidAuge);
 				zielHumanoidGroup.add(radioZielHumanoidAuge);
 
-				JRadioButton radioZielHumanoidBauch = new JRadioButton("Bauch");
+				JRadioButton radioZielHumanoidBauch = new JRadioButton(BUNDLE.getString("FernkampfDialog.radioZielHumanoidBauch.text")); //$NON-NLS-1$
 				gezielterSchussGroup.add(radioZielHumanoidBauch);
 				radioZielHumanoidBauch.setEnabled(false);
 				GridBagConstraints gbc_radioZielHumanoidBauch = new GridBagConstraints();
@@ -950,7 +953,7 @@ public class FernkampfDialog extends JDialog {
 				zielPanel_1.add(radioZielHumanoidBauch, gbc_radioZielHumanoidBauch);
 				zielHumanoidGroup.add(radioZielHumanoidBauch);
 
-				JRadioButton radioZielHumanoidHerz = new JRadioButton("Herz");
+				JRadioButton radioZielHumanoidHerz = new JRadioButton(BUNDLE.getString("FernkampfDialog.radioZielHumanoidHerz.text")); //$NON-NLS-1$
 				gezielterSchussGroup.add(radioZielHumanoidHerz);
 				radioZielHumanoidHerz.setEnabled(false);
 				GridBagConstraints gbc_radioZielHumanoidHerz = new GridBagConstraints();
@@ -961,7 +964,7 @@ public class FernkampfDialog extends JDialog {
 				zielPanel_1.add(radioZielHumanoidHerz, gbc_radioZielHumanoidHerz);
 				zielHumanoidGroup.add(radioZielHumanoidHerz);
 
-				JRadioButton radioZielHumanoidBeine = new JRadioButton("Beine");
+				JRadioButton radioZielHumanoidBeine = new JRadioButton(BUNDLE.getString("FernkampfDialog.radioZielHumanoidBeine.text")); //$NON-NLS-1$
 				gezielterSchussGroup.add(radioZielHumanoidBeine);
 				radioZielHumanoidBeine.setEnabled(false);
 				GridBagConstraints gbc_radioZielHumanoidBeine = new GridBagConstraints();
@@ -983,36 +986,36 @@ public class FernkampfDialog extends JDialog {
 				gbc_zielPanel_2.gridy = 1;
 				zielPanel.add(zielPanel_2, gbc_zielPanel_2);
 
-				lblZielTier = new JLabel("Vierbeiner");
+				lblZielTier = new JLabel(BUNDLE.getString("FernkampfDialog.lblZielTier.text")); //$NON-NLS-1$
 				lblZielTier.setVerticalAlignment(SwingConstants.TOP);
 				zielPanel_2.add(lblZielTier);
 
-				JRadioButton radioZielTierRumpf = new JRadioButton("Rumpf");
+				JRadioButton radioZielTierRumpf = new JRadioButton(BUNDLE.getString("FernkampfDialog.radioZielTierRumpf.text")); //$NON-NLS-1$
 				gezielterSchussGroup.add(radioZielTierRumpf);
 				radioZielTierRumpf.setEnabled(false);
 				zielPanel_2.add(radioZielTierRumpf);
 
-				JRadioButton radioZielTierBein = new JRadioButton("Bein");
+				JRadioButton radioZielTierBein = new JRadioButton(BUNDLE.getString("FernkampfDialog.radioZielTierBein.text")); //$NON-NLS-1$
 				gezielterSchussGroup.add(radioZielTierBein);
 				radioZielTierBein.setEnabled(false);
 				zielPanel_2.add(radioZielTierBein);
 
-				JRadioButton radioZielTierVStelle = new JRadioButton("verwundbare Stelle");
+				JRadioButton radioZielTierVStelle = new JRadioButton(BUNDLE.getString("FernkampfDialog.radioZielTierVStelle.text")); //$NON-NLS-1$
 				gezielterSchussGroup.add(radioZielTierVStelle);
 				radioZielTierVStelle.setEnabled(false);
 				zielPanel_2.add(radioZielTierVStelle);
 
-				JRadioButton radioZielTierKopf = new JRadioButton("Kopf");
+				JRadioButton radioZielTierKopf = new JRadioButton(BUNDLE.getString("FernkampfDialog.radioZielTierKopf.text")); //$NON-NLS-1$
 				gezielterSchussGroup.add(radioZielTierKopf);
 				radioZielTierKopf.setEnabled(false);
 				zielPanel_2.add(radioZielTierKopf);
 
-				JRadioButton radioZielTierSchwanz = new JRadioButton("Schwanz");
+				JRadioButton radioZielTierSchwanz = new JRadioButton(BUNDLE.getString("FernkampfDialog.radioZielTierSchwanz.text")); //$NON-NLS-1$
 				gezielterSchussGroup.add(radioZielTierSchwanz);
 				radioZielTierSchwanz.setEnabled(false);
 				zielPanel_2.add(radioZielTierSchwanz);
 
-				JRadioButton radioZielTierSinnesorgan = new JRadioButton("Sinnesorgan");
+				JRadioButton radioZielTierSinnesorgan = new JRadioButton(BUNDLE.getString("FernkampfDialog.radioZielTierSinnesorgan.text")); //$NON-NLS-1$
 				gezielterSchussGroup.add(radioZielTierSinnesorgan);
 				radioZielTierSinnesorgan.setEnabled(false);
 				zielPanel_2.add(radioZielTierSinnesorgan);
@@ -1024,7 +1027,7 @@ public class FernkampfDialog extends JDialog {
 				zielTierGroup.add(radioZielTierSchwanz);
 				zielTierGroup.add(radioZielTierSinnesorgan);
 
-				chkBoxKoerperteilBewegung = new JCheckBox("Körperteil in Bewegung");
+				chkBoxKoerperteilBewegung = new JCheckBox(BUNDLE.getString("FernkampfDialog.chkBoxKoerperteilBewegung.text")); //$NON-NLS-1$
 				chkBoxKoerperteilBewegung.setEnabled(false);
 				GridBagConstraints gbc_chkBoxKoerperteilBewegung = new GridBagConstraints();
 				gbc_chkBoxKoerperteilBewegung.gridwidth = 2;
@@ -1045,24 +1048,24 @@ public class FernkampfDialog extends JDialog {
 			gbl_summaryPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0};
 			summaryPanel.setLayout(gbl_summaryPanel);
 			
-			JLabel lblNewLabel_5 = new JLabel("Zusammenfassung");
-			lblNewLabel_5.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-			GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
-			gbc_lblNewLabel_5.anchor = GridBagConstraints.WEST;
-			gbc_lblNewLabel_5.insets = new Insets(0, 0, 5, 5);
-			gbc_lblNewLabel_5.gridx = 0;
-			gbc_lblNewLabel_5.gridy = 0;
-			summaryPanel.add(lblNewLabel_5, gbc_lblNewLabel_5);
+			JLabel lblZusammenfassungHeadline = new JLabel(BUNDLE.getString("FernkampfDialog.lblZusammenfassungHeadline.text")); //$NON-NLS-1$
+			lblZusammenfassungHeadline.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+			GridBagConstraints gbc_lblZusammenfassungHeadline = new GridBagConstraints();
+			gbc_lblZusammenfassungHeadline.anchor = GridBagConstraints.WEST;
+			gbc_lblZusammenfassungHeadline.insets = new Insets(0, 0, 5, 5);
+			gbc_lblZusammenfassungHeadline.gridx = 0;
+			gbc_lblZusammenfassungHeadline.gridy = 0;
+			summaryPanel.add(lblZusammenfassungHeadline, gbc_lblZusammenfassungHeadline);
 			
-			JLabel lblNewLabel_6 = new JLabel("Erschwernis durch Zielgröße");
-			GridBagConstraints gbc_lblNewLabel_6 = new GridBagConstraints();
-			gbc_lblNewLabel_6.insets = new Insets(0, 0, 5, 5);
-			gbc_lblNewLabel_6.anchor = GridBagConstraints.EAST;
-			gbc_lblNewLabel_6.gridx = 0;
-			gbc_lblNewLabel_6.gridy = 1;
-			summaryPanel.add(lblNewLabel_6, gbc_lblNewLabel_6);
+			JLabel lblErschwernisZielgroesse = new JLabel(BUNDLE.getString("FernkampfDialog.lblErschwernisZielgroesse.text")); //$NON-NLS-1$
+			GridBagConstraints gbc_lblErschwernisZielgroesse = new GridBagConstraints();
+			gbc_lblErschwernisZielgroesse.insets = new Insets(0, 0, 5, 5);
+			gbc_lblErschwernisZielgroesse.anchor = GridBagConstraints.EAST;
+			gbc_lblErschwernisZielgroesse.gridx = 0;
+			gbc_lblErschwernisZielgroesse.gridy = 1;
+			summaryPanel.add(lblErschwernisZielgroesse, gbc_lblErschwernisZielgroesse);
 			
-			lblErschwernisZielgroesseValue = new JLabel("0");
+			lblErschwernisZielgroesseValue = new JLabel(BUNDLE.getString("FernkampfDialog.lblErschwernisZielgroesseValue.text")); //$NON-NLS-1$
 			GridBagConstraints gbc_lblErschwernisZielgroesseValue = new GridBagConstraints();
 			gbc_lblErschwernisZielgroesseValue.anchor = GridBagConstraints.EAST;
 			gbc_lblErschwernisZielgroesseValue.insets = new Insets(0, 0, 5, 5);
@@ -1070,15 +1073,15 @@ public class FernkampfDialog extends JDialog {
 			gbc_lblErschwernisZielgroesseValue.gridy = 1;
 			summaryPanel.add(lblErschwernisZielgroesseValue, gbc_lblErschwernisZielgroesseValue);
 			
-			JLabel lblNewLabel_15 = new JLabel("Erschwernis durch Entfernung");
-			GridBagConstraints gbc_lblNewLabel_15 = new GridBagConstraints();
-			gbc_lblNewLabel_15.anchor = GridBagConstraints.EAST;
-			gbc_lblNewLabel_15.insets = new Insets(0, 0, 5, 5);
-			gbc_lblNewLabel_15.gridx = 0;
-			gbc_lblNewLabel_15.gridy = 2;
-			summaryPanel.add(lblNewLabel_15, gbc_lblNewLabel_15);
+			JLabel lblErschwernisEntfernung = new JLabel(BUNDLE.getString("FernkampfDialog.lblErschwernisEntfernung.text")); //$NON-NLS-1$
+			GridBagConstraints gbc_lblErschwernisEntfernung = new GridBagConstraints();
+			gbc_lblErschwernisEntfernung.anchor = GridBagConstraints.EAST;
+			gbc_lblErschwernisEntfernung.insets = new Insets(0, 0, 5, 5);
+			gbc_lblErschwernisEntfernung.gridx = 0;
+			gbc_lblErschwernisEntfernung.gridy = 2;
+			summaryPanel.add(lblErschwernisEntfernung, gbc_lblErschwernisEntfernung);
 			
-			lblErschwernisEntfernungValue = new JLabel("0");
+			lblErschwernisEntfernungValue = new JLabel(BUNDLE.getString("FernkampfDialog.lblErschwernisEntfernungValue.text")); //$NON-NLS-1$
 			GridBagConstraints gbc_lblErschwernisEntfernungValue = new GridBagConstraints();
 			gbc_lblErschwernisEntfernungValue.anchor = GridBagConstraints.EAST;
 			gbc_lblErschwernisEntfernungValue.insets = new Insets(0, 0, 5, 5);
@@ -1086,15 +1089,15 @@ public class FernkampfDialog extends JDialog {
 			gbc_lblErschwernisEntfernungValue.gridy = 2;
 			summaryPanel.add(lblErschwernisEntfernungValue, gbc_lblErschwernisEntfernungValue);
 			
-			JLabel lblNewLabel_16 = new JLabel("Erschwernis durch Bewegung");
-			GridBagConstraints gbc_lblNewLabel_16 = new GridBagConstraints();
-			gbc_lblNewLabel_16.anchor = GridBagConstraints.EAST;
-			gbc_lblNewLabel_16.insets = new Insets(0, 0, 5, 5);
-			gbc_lblNewLabel_16.gridx = 0;
-			gbc_lblNewLabel_16.gridy = 3;
-			summaryPanel.add(lblNewLabel_16, gbc_lblNewLabel_16);
+			JLabel lblErschwernisBewegung = new JLabel(BUNDLE.getString("FernkampfDialog.lblErschwernisBewegung.text")); //$NON-NLS-1$
+			GridBagConstraints gbc_lblErschwernisBewegung = new GridBagConstraints();
+			gbc_lblErschwernisBewegung.anchor = GridBagConstraints.EAST;
+			gbc_lblErschwernisBewegung.insets = new Insets(0, 0, 5, 5);
+			gbc_lblErschwernisBewegung.gridx = 0;
+			gbc_lblErschwernisBewegung.gridy = 3;
+			summaryPanel.add(lblErschwernisBewegung, gbc_lblErschwernisBewegung);
 			
-			lblErschwernisBewegungValue = new JLabel("0");
+			lblErschwernisBewegungValue = new JLabel(BUNDLE.getString("FernkampfDialog.lblErschwernisBewegungValue.text")); //$NON-NLS-1$
 			GridBagConstraints gbc_lblErschwernisBewegungValue = new GridBagConstraints();
 			gbc_lblErschwernisBewegungValue.anchor = GridBagConstraints.EAST;
 			gbc_lblErschwernisBewegungValue.insets = new Insets(0, 0, 5, 5);
@@ -1102,15 +1105,15 @@ public class FernkampfDialog extends JDialog {
 			gbc_lblErschwernisBewegungValue.gridy = 3;
 			summaryPanel.add(lblErschwernisBewegungValue, gbc_lblErschwernisBewegungValue);
 			
-			JLabel lblNewLabel_17 = new JLabel("Erschwernis durch Sicht");
-			GridBagConstraints gbc_lblNewLabel_17 = new GridBagConstraints();
-			gbc_lblNewLabel_17.anchor = GridBagConstraints.EAST;
-			gbc_lblNewLabel_17.insets = new Insets(0, 0, 5, 5);
-			gbc_lblNewLabel_17.gridx = 0;
-			gbc_lblNewLabel_17.gridy = 4;
-			summaryPanel.add(lblNewLabel_17, gbc_lblNewLabel_17);
+			JLabel lblErschwernisSicht = new JLabel(BUNDLE.getString("FernkampfDialog.lblErschwernisSicht.text")); //$NON-NLS-1$
+			GridBagConstraints gbc_lblErschwernisSicht = new GridBagConstraints();
+			gbc_lblErschwernisSicht.anchor = GridBagConstraints.EAST;
+			gbc_lblErschwernisSicht.insets = new Insets(0, 0, 5, 5);
+			gbc_lblErschwernisSicht.gridx = 0;
+			gbc_lblErschwernisSicht.gridy = 4;
+			summaryPanel.add(lblErschwernisSicht, gbc_lblErschwernisSicht);
 			
-			lblErschwernisSichtValue = new JLabel("0");
+			lblErschwernisSichtValue = new JLabel(BUNDLE.getString("FernkampfDialog.lblErschwernisSichtValue.text")); //$NON-NLS-1$
 			GridBagConstraints gbc_lblErschwernisSichtValue = new GridBagConstraints();
 			gbc_lblErschwernisSichtValue.anchor = GridBagConstraints.EAST;
 			gbc_lblErschwernisSichtValue.insets = new Insets(0, 0, 5, 5);
@@ -1118,15 +1121,15 @@ public class FernkampfDialog extends JDialog {
 			gbc_lblErschwernisSichtValue.gridy = 4;
 			summaryPanel.add(lblErschwernisSichtValue, gbc_lblErschwernisSichtValue);
 			
-			JLabel lblNewLabel_18 = new JLabel("Erschwernis durch Modifikatoren");
-			GridBagConstraints gbc_lblNewLabel_18 = new GridBagConstraints();
-			gbc_lblNewLabel_18.anchor = GridBagConstraints.EAST;
-			gbc_lblNewLabel_18.insets = new Insets(0, 0, 5, 5);
-			gbc_lblNewLabel_18.gridx = 0;
-			gbc_lblNewLabel_18.gridy = 5;
-			summaryPanel.add(lblNewLabel_18, gbc_lblNewLabel_18);
+			JLabel lblErschwernisModifikatoren = new JLabel(BUNDLE.getString("FernkampfDialog.lblErschwernisModifikatoren.text")); //$NON-NLS-1$
+			GridBagConstraints gbc_lblErschwernisModifikatoren = new GridBagConstraints();
+			gbc_lblErschwernisModifikatoren.anchor = GridBagConstraints.EAST;
+			gbc_lblErschwernisModifikatoren.insets = new Insets(0, 0, 5, 5);
+			gbc_lblErschwernisModifikatoren.gridx = 0;
+			gbc_lblErschwernisModifikatoren.gridy = 5;
+			summaryPanel.add(lblErschwernisModifikatoren, gbc_lblErschwernisModifikatoren);
 			
-			lblErschwernisModifikatorenValue = new JLabel("0");
+			lblErschwernisModifikatorenValue = new JLabel(BUNDLE.getString("FernkampfDialog.lblErschwernisModifikatorenValue.text")); //$NON-NLS-1$
 			GridBagConstraints gbc_lblErschwernisModifikatorenValue = new GridBagConstraints();
 			gbc_lblErschwernisModifikatorenValue.anchor = GridBagConstraints.EAST;
 			gbc_lblErschwernisModifikatorenValue.insets = new Insets(0, 0, 5, 5);
@@ -1134,15 +1137,15 @@ public class FernkampfDialog extends JDialog {
 			gbc_lblErschwernisModifikatorenValue.gridy = 5;
 			summaryPanel.add(lblErschwernisModifikatorenValue, gbc_lblErschwernisModifikatorenValue);
 			
-			JLabel lblNewLabel_19 = new JLabel("Erschwernis durch gezielten Schuss");
-			GridBagConstraints gbc_lblNewLabel_19 = new GridBagConstraints();
-			gbc_lblNewLabel_19.anchor = GridBagConstraints.EAST;
-			gbc_lblNewLabel_19.insets = new Insets(0, 0, 5, 5);
-			gbc_lblNewLabel_19.gridx = 0;
-			gbc_lblNewLabel_19.gridy = 6;
-			summaryPanel.add(lblNewLabel_19, gbc_lblNewLabel_19);
+			JLabel lblErschwernisGezielterSchuss = new JLabel(BUNDLE.getString("FernkampfDialog.lblErschwernisGezielterSchuss.text")); //$NON-NLS-1$
+			GridBagConstraints gbc_lblErschwernisGezielterSchuss = new GridBagConstraints();
+			gbc_lblErschwernisGezielterSchuss.anchor = GridBagConstraints.EAST;
+			gbc_lblErschwernisGezielterSchuss.insets = new Insets(0, 0, 5, 5);
+			gbc_lblErschwernisGezielterSchuss.gridx = 0;
+			gbc_lblErschwernisGezielterSchuss.gridy = 6;
+			summaryPanel.add(lblErschwernisGezielterSchuss, gbc_lblErschwernisGezielterSchuss);
 			
-			lblErschwernisGezielterSchussValue = new JLabel("0");
+			lblErschwernisGezielterSchussValue = new JLabel(BUNDLE.getString("FernkampfDialog.lblErschwernisGezielterSchussValue.text")); //$NON-NLS-1$
 			GridBagConstraints gbc_lblErschwernisGezielterSchussValue = new GridBagConstraints();
 			gbc_lblErschwernisGezielterSchussValue.anchor = GridBagConstraints.EAST;
 			gbc_lblErschwernisGezielterSchussValue.insets = new Insets(0, 0, 5, 5);
@@ -1163,23 +1166,23 @@ public class FernkampfDialog extends JDialog {
 			separatorPanel.add(separator, BorderLayout.CENTER);
 			summaryPanel.add(separatorPanel, gbc_panel);
 			
-			JLabel lblKompletteErschwernisValue = new JLabel("Komplette Erschwernis");
-			lblKompletteErschwernisValue.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-			GridBagConstraints gbc_lblNewLabel_20 = new GridBagConstraints();
-			gbc_lblNewLabel_20.anchor = GridBagConstraints.EAST;
-			gbc_lblNewLabel_20.insets = new Insets(0, 0, 5, 5);
-			gbc_lblNewLabel_20.gridx = 0;
-			gbc_lblNewLabel_20.gridy = 8;
-			summaryPanel.add(lblKompletteErschwernisValue, gbc_lblNewLabel_20);
+			JLabel lblKompletteErschwernis = new JLabel(BUNDLE.getString("FernkampfDialog.lblKompletteErschwernis.text")); //$NON-NLS-1$
+			lblKompletteErschwernis.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+			GridBagConstraints gbc_lblKompletteErschwernis = new GridBagConstraints();
+			gbc_lblKompletteErschwernis.anchor = GridBagConstraints.EAST;
+			gbc_lblKompletteErschwernis.insets = new Insets(0, 0, 5, 5);
+			gbc_lblKompletteErschwernis.gridx = 0;
+			gbc_lblKompletteErschwernis.gridy = 8;
+			summaryPanel.add(lblKompletteErschwernis, gbc_lblKompletteErschwernis);
 			
-			lblErschwernisKomplettWert = new JLabel("0");
-			lblErschwernisKomplettWert.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-			GridBagConstraints gbc_lblErschwernisKomplettWert = new GridBagConstraints();
-			gbc_lblErschwernisKomplettWert.anchor = GridBagConstraints.EAST;
-			gbc_lblErschwernisKomplettWert.insets = new Insets(0, 0, 5, 5);
-			gbc_lblErschwernisKomplettWert.gridx = 2;
-			gbc_lblErschwernisKomplettWert.gridy = 8;
-			summaryPanel.add(lblErschwernisKomplettWert, gbc_lblErschwernisKomplettWert);
+			lblKompletteErschwernisValue = new JLabel("0");
+			lblKompletteErschwernisValue.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+			GridBagConstraints gbc_lblKompletteErschwernisValue = new GridBagConstraints();
+			gbc_lblKompletteErschwernisValue.anchor = GridBagConstraints.EAST;
+			gbc_lblKompletteErschwernisValue.insets = new Insets(0, 0, 5, 5);
+			gbc_lblKompletteErschwernisValue.gridx = 2;
+			gbc_lblKompletteErschwernisValue.gridy = 8;
+			summaryPanel.add(lblKompletteErschwernisValue, gbc_lblKompletteErschwernisValue);
 			
 		}
 		{
@@ -1187,7 +1190,7 @@ public class FernkampfDialog extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				backButton = new JButton("zurück");
+				backButton = new JButton(BUNDLE.getString("FernkampfDialog.backButton.text")); //$NON-NLS-1$
 				backButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {						
 						tabbedPane.setSelectedIndex(tabbedPane.getSelectedIndex() - 1);
@@ -1199,7 +1202,7 @@ public class FernkampfDialog extends JDialog {
 				getRootPane().setDefaultButton(backButton);
 			}
 			{
-				forwardButton = new JButton("weiter");
+				forwardButton = new JButton(BUNDLE.getString("FernkampfDialog.forwardButton.text")); //$NON-NLS-1$
 				forwardButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						JButton button = (JButton)e.getSource();
@@ -1326,9 +1329,9 @@ public class FernkampfDialog extends JDialog {
 			}
 		}
 		
-		int modifikator = (Integer) spinnerGroessenModifikator.getValue();
-		boolean halbdeckung = chkboxHalbdeckung.isSelected();
-		boolean dreivierteldeckung = chkBoxDreivierteldeckung.isSelected();
+		int modifikator 			= (Integer) spinnerGroessenModifikator.getValue();
+		boolean halbdeckung 		= chkboxHalbdeckung.isSelected();
+		boolean dreivierteldeckung 	= chkBoxDreivierteldeckung.isSelected();
 		
 		result = DsaCalculatorUtil.getFernkampfGroessenModifikator(groesse, modifikator, halbdeckung, dreivierteldeckung);
 		
@@ -1585,6 +1588,6 @@ public class FernkampfDialog extends JDialog {
 		lblErschwernisModifikatorenValue.setText(String.valueOf(modModifikatoren));
 		lblErschwernisGezielterSchussValue.setText(String.valueOf(modGezielt));
 		
-		lblErschwernisKomplettWert.setText(String.valueOf(resultat));
+		lblKompletteErschwernisValue.setText(String.valueOf(resultat));
 	}
 }

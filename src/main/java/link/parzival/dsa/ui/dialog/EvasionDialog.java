@@ -25,8 +25,10 @@ import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.ResourceBundle;
 
 public class EvasionDialog extends JDialog {
+	private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("link.parzival.dsa.ui.messages"); //$NON-NLS-1$
 
 	private static final long serialVersionUID 	= 6393904558592079317L;
 	private JCheckBox chkboxGezieltesAusweichen = new JCheckBox();
@@ -61,7 +63,7 @@ public class EvasionDialog extends JDialog {
 			gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 			contentPanel.setLayout(gbl_contentPanel);
 			{
-				lblEvasionNotPossible = new JLabel("Bei mehr als 3 Gegnern ist das Ausweichen nicht mehr möglich!");
+				lblEvasionNotPossible = new JLabel(BUNDLE.getString("EvasionDialog.lblEvasionNotPossible.text")); //$NON-NLS-1$
 				lblEvasionNotPossible.setForeground(Color.RED);
 				lblEvasionNotPossible.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 				lblEvasionNotPossible.setVisible(false);
@@ -84,7 +86,7 @@ public class EvasionDialog extends JDialog {
 							}				
 						}
 					});
-					chkboxGezieltesAusweichen = new JCheckBox("gezieltes Ausweichen");
+					chkboxGezieltesAusweichen = new JCheckBox(BUNDLE.getString("EvasionDialog.chkboxGezieltesAusweichen.text")); //$NON-NLS-1$
 					chkboxGezieltesAusweichen.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							JCheckBox source = (JCheckBox) e.getSource();
@@ -99,7 +101,7 @@ public class EvasionDialog extends JDialog {
 					gbc_chkboxGezieltesAusweichen.gridy = 0;
 					contentPanel.add(chkboxGezieltesAusweichen, gbc_chkboxGezieltesAusweichen);
 					{
-						JLabel lblEnemyCount = new JLabel("Anzahl der Gegner");
+						JLabel lblEnemyCount = new JLabel(BUNDLE.getString("EvasionDialog.lblEnemyCount.text")); //$NON-NLS-1$
 						lblEnemyCount.setHorizontalAlignment(SwingConstants.TRAILING);
 						GridBagConstraints gbc_lblEnemyCount = new GridBagConstraints();
 						gbc_lblEnemyCount.fill = GridBagConstraints.HORIZONTAL;
@@ -131,7 +133,7 @@ public class EvasionDialog extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				okButton = new JButton("OK");
+				okButton = new JButton(BUNDLE.getString("EvasionDialog.okButton.text")); //$NON-NLS-1$
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						setRollCommand(DsaCalculatorUtil.getEffectiveEvadingRoll(hero, enemyCount, gezieltesAusweichen, withDk, distanzklasse));
@@ -139,19 +141,19 @@ public class EvasionDialog extends JDialog {
 						dispose();
 					}
 				});
-				okButton.setActionCommand("OK");
+				okButton.setActionCommand(BUNDLE.getString("EvasionDialog.okButton.actionCommand")); //$NON-NLS-1$
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton(BUNDLE.getString("EvasionDialog.cancelButton.text")); //$NON-NLS-1$
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						state = Constants.DIALOG_CANCEL_STATE;
 						dispose();
 					}
 				});
-				cancelButton.setActionCommand("Cancel");
+				cancelButton.setActionCommand(BUNDLE.getString("EvasionDialog.cancelButton.actionCommand")); //$NON-NLS-1$
 				buttonPane.add(cancelButton);
 			}
 		}

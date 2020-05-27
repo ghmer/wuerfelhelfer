@@ -38,8 +38,10 @@ import java.awt.Insets;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import javax.swing.JLabel;
+import java.util.ResourceBundle;
 
 public class AbilityDialog extends JDialog {
+	private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("link.parzival.dsa.ui.messages"); //$NON-NLS-1$
 
 	private enum AbilityTypeEnum {
 		Talent, Magie
@@ -98,7 +100,7 @@ public class AbilityDialog extends JDialog {
 			}
 		});
 		
-		JLabel lblNewLabel = new JLabel("Suchen");
+		JLabel lblNewLabel = new JLabel(BUNDLE.getString("AbilityDialog.lblNewLabel.text")); //$NON-NLS-1$
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
@@ -151,13 +153,13 @@ public class AbilityDialog extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton cancelButton = new JButton("Abbruch");
+				JButton cancelButton = new JButton(BUNDLE.getString("AbilityDialog.cancelButton.text")); //$NON-NLS-1$
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
 					}
 				});
-				cancelButton.setActionCommand("Cancel");
+				cancelButton.setActionCommand(BUNDLE.getString("AbilityDialog.cancelButton.actionCommand")); //$NON-NLS-1$
 				buttonPane.add(cancelButton);
 			}
 		}

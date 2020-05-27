@@ -48,6 +48,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.ResourceBundle;
 
 public class WuerfelHelferGUI extends JFrame {
 	private static final long serialVersionUID 	= 6428768807868759732L;
@@ -86,10 +87,10 @@ public class WuerfelHelferGUI extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenu menuFile = new JMenu("Datei");
+		JMenu menuFile = new JMenu(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuFile.text")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuBar.add(menuFile);
 		
-		JMenuItem menuItemLoadHtml = new JMenuItem("lade HTML");
+		JMenuItem menuItemLoadHtml = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemLoadHtml.text")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuItemLoadHtml.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -130,7 +131,7 @@ public class WuerfelHelferGUI extends JFrame {
 		});
 		menuFile.add(menuItemLoadHtml);
 		
-		JMenuItem menuItemUpdateCheck = new JMenuItem("auf Update prüfen");
+		JMenuItem menuItemUpdateCheck = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemUpdateCheck.text")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuFile.add(menuItemUpdateCheck);
 		menuItemUpdateCheck.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -147,7 +148,7 @@ public class WuerfelHelferGUI extends JFrame {
 		JSeparator separator = new JSeparator();
 		menuFile.add(separator);
 		
-		JMenuItem menuItemExit = new JMenuItem("exit");
+		JMenuItem menuItemExit = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemExit.text")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuItemExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
@@ -155,10 +156,10 @@ public class WuerfelHelferGUI extends JFrame {
 		});
 		menuFile.add(menuItemExit);
 		
-		JMenu mntMenuDarstellung = new JMenu("Darstellung");
+		JMenu mntMenuDarstellung = new JMenu(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.mntMenuDarstellung.text")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuBar.add(mntMenuDarstellung);
 		
-		menuItemHelleDarstellung = new JMenuItem("Helles UI");
+		menuItemHelleDarstellung = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemHelleDarstellung.text")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuItemHelleDarstellung.setEnabled(false);
 		menuItemHelleDarstellung.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -174,7 +175,7 @@ public class WuerfelHelferGUI extends JFrame {
 		});
 		mntMenuDarstellung.add(menuItemHelleDarstellung);
 		
-		menuItemDunkleDarstellung = new JMenuItem("Dunkles UI");
+		menuItemDunkleDarstellung = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemDunkleDarstellung.text")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuItemDunkleDarstellung.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -189,10 +190,10 @@ public class WuerfelHelferGUI extends JFrame {
 		});
 		mntMenuDarstellung.add(menuItemDunkleDarstellung);
 		
-		JMenu mnNewMenu = new JMenu("?");
+		JMenu mnNewMenu = new JMenu(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.mnNewMenu.text")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuBar.add(mnNewMenu);
 		
-		JMenuItem menuItemLizenzUbuntu = new JMenuItem("Lizenz: Ubuntu Font");
+		JMenuItem menuItemLizenzUbuntu = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemLizenzUbuntu.text")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuItemLizenzUbuntu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LizenzDialog lizenzDialog = new LizenzDialog(LizenzDialog.License.Ubuntu);
@@ -201,7 +202,7 @@ public class WuerfelHelferGUI extends JFrame {
 			}
 		});
 		
-		JMenuItem menuItemLizenzGpl = new JMenuItem("Lizenz: Friedolin Font");
+		JMenuItem menuItemLizenzGpl = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemLizenzGpl.text")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuItemLizenzGpl.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LizenzDialog lizenzDialog = new LizenzDialog(LizenzDialog.License.GPL);
@@ -210,7 +211,7 @@ public class WuerfelHelferGUI extends JFrame {
 			}
 		});
 		
-		JMenuItem menuItemHilfe = new JMenuItem("Hilfe herunterladen");
+		JMenuItem menuItemHilfe = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemHilfe.text")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuItemHilfe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -222,7 +223,7 @@ public class WuerfelHelferGUI extends JFrame {
 		});
 		mnNewMenu.add(menuItemHilfe);
 		
-		JMenuItem menuItemLizenzApache = new JMenuItem("Lizenz: Flatlaf L&F");
+		JMenuItem menuItemLizenzApache = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemLizenzApache.text")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuItemLizenzApache.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LizenzDialog lizenzDialog = new LizenzDialog(LizenzDialog.License.Apache);

@@ -22,8 +22,10 @@ import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.ResourceBundle;
 
 public class DistanceChangeDialog extends JDialog {
+	private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("link.parzival.dsa.ui.messages"); //$NON-NLS-1$
 
 	private enum Hopser {
 		verkürzen,verlängern
@@ -65,7 +67,7 @@ public class DistanceChangeDialog extends JDialog {
 		gbc_comboBoxDirection.gridy = 0;
 		contentPanel.add(comboBoxDirection, gbc_comboBoxDirection);
 		
-		JLabel lblNewLabel = new JLabel("um");
+		JLabel lblNewLabel = new JLabel(BUNDLE.getString("DistanceChangeDialog.lblNewLabel.text")); //$NON-NLS-1$
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.fill = GridBagConstraints.HORIZONTAL;
@@ -84,7 +86,7 @@ public class DistanceChangeDialog extends JDialog {
 		gbc_distanzklassenAenderung.gridy = 0;
 		contentPanel.add(dkAenderung, gbc_distanzklassenAenderung);
 		
-		JLabel lblNewLabel_1 = new JLabel("Distanzklassen");
+		JLabel lblNewLabel_1 = new JLabel(BUNDLE.getString("DistanceChangeDialog.lblNewLabel_1.text")); //$NON-NLS-1$
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblNewLabel_1.gridx = 3;
@@ -95,7 +97,7 @@ public class DistanceChangeDialog extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				JButton okButton = new JButton(BUNDLE.getString("DistanceChangeDialog.okButton.text")); //$NON-NLS-1$
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						boolean verdoppeln = ((int) dkAenderung.getSelectedItem() == 2) ? true : false;
@@ -105,19 +107,19 @@ public class DistanceChangeDialog extends JDialog {
 						dispose();
 					}
 				});
-				okButton.setActionCommand("OK");
+				okButton.setActionCommand(BUNDLE.getString("DistanceChangeDialog.okButton.actionCommand")); //$NON-NLS-1$
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton(BUNDLE.getString("DistanceChangeDialog.cancelButton.text")); //$NON-NLS-1$
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						state = Constants.DIALOG_CANCEL_STATE;
 						dispose();
 					}
 				});
-				cancelButton.setActionCommand("Cancel");
+				cancelButton.setActionCommand(BUNDLE.getString("DistanceChangeDialog.cancelButton.actionCommand")); //$NON-NLS-1$
 				buttonPane.add(cancelButton);
 			}
 		}

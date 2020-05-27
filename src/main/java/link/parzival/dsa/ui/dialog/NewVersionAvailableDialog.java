@@ -25,8 +25,10 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ResourceBundle;
 
 public class NewVersionAvailableDialog extends JDialog {
+	private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("link.parzival.dsa.ui.messages"); //$NON-NLS-1$
 
 	/**
 	 * 
@@ -50,7 +52,7 @@ public class NewVersionAvailableDialog extends JDialog {
 		gbl_contentPanel.rowWeights = new double[]{1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
-			JLabel lblTop = new JLabel("Eine neue Version kann auf");
+			JLabel lblTop = new JLabel(BUNDLE.getString("NewVersionAvailableDialog.lblTop.text")); //$NON-NLS-1$
 			lblTop.setHorizontalAlignment(SwingConstants.CENTER);
 			GridBagConstraints gbc_lblTop = new GridBagConstraints();
 			gbc_lblTop.gridheight = 2;
@@ -85,7 +87,7 @@ public class NewVersionAvailableDialog extends JDialog {
 			contentPanel.add(lblLinkNewVersion, gbc_lblLinkNewVersion);
 		}
 		{
-			JLabel lblBottom = new JLabel("heruntergeladen werden.");
+			JLabel lblBottom = new JLabel(BUNDLE.getString("NewVersionAvailableDialog.lblBottom.text")); //$NON-NLS-1$
 			GridBagConstraints gbc_lblBottom = new GridBagConstraints();
 			gbc_lblBottom.anchor = GridBagConstraints.NORTH;
 			gbc_lblBottom.gridx = 0;
@@ -97,13 +99,13 @@ public class NewVersionAvailableDialog extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				JButton okButton = new JButton(BUNDLE.getString("NewVersionAvailableDialog.okButton.text")); //$NON-NLS-1$
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
 					}
 				});
-				okButton.setActionCommand("OK");
+				okButton.setActionCommand(BUNDLE.getString("NewVersionAvailableDialog.okButton.actionCommand")); //$NON-NLS-1$
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
