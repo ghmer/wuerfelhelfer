@@ -75,6 +75,21 @@ public class KampfPanel extends JPanel {
 	private JSpinner attackeModifier;
 	
 	HeldenObjekt hero;
+
+	private JPanel panel;
+	private JSeparator separator;
+	private JPanel panel_1;
+	private JPanel panel_2;
+	private JSeparator separator_1;
+	private JSeparator separator_2;
+	private JPanel panel_3;
+	private JSeparator separator_3;
+	private JLabel lblFernkampfWaffe;
+	private JComboBox<String> comboBoxFernkampfwaffe;
+	private JLabel lblAttackeMit;
+	private JComboBox<AttackenOption> comboBoxAttacke;
+	private JLabel lblDkWaffe;
+
 	/**
 	 * @return the hero
 	 */
@@ -105,24 +120,7 @@ public class KampfPanel extends JPanel {
 		comboBoxFernkampfwaffe.setModel(new DefaultComboBoxModel<>(hero.getFernWaffenNamenAsArray()));
 		updateDistanzklasse();
 	}
-
-	private JPanel panel;
-	private JSeparator separator;
-	private JPanel panel_1;
-	private JPanel panel_2;
-	private JSeparator separator_1;
-	private JSeparator separator_2;
-	private JPanel panel_3;
-	private JSeparator separator_3;
-	private JLabel lblFernkampfWaffe;
-	private JComboBox<String> comboBoxFernkampfwaffe;
-	private JLabel lblAttackeMit;
-	private JComboBox<AttackenOption> comboBoxAttacke;
-	private JLabel lblDkWaffe;
-
-	/**
-	 * @param hero the HeldenObjekt to use
-	 */
+	
 	@SuppressWarnings("unchecked")
 	public KampfPanel() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
