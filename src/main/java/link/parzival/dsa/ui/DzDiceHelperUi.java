@@ -20,9 +20,9 @@ import link.parzival.dsa.object.TalentObjekt;
 import link.parzival.dsa.ui.dialog.AbilityDialog;
 import link.parzival.dsa.ui.dialog.LizenzDialog;
 import link.parzival.dsa.ui.dialog.NewVersionAvailableDialog;
-import link.parzival.dsa.ui.panel.AbilityPanel;
-import link.parzival.dsa.ui.panel.CombatPanel;
-import link.parzival.dsa.ui.panel.HeroPanel;
+import link.parzival.dsa.ui.panel.orig.AbilityPanel;
+import link.parzival.dsa.ui.panel.orig.CombatPanel;
+import link.parzival.dsa.ui.panel.orig.HeroPanel;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
