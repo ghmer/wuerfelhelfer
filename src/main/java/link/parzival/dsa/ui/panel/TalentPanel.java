@@ -58,10 +58,6 @@ public class TalentPanel extends JPanel {
 	private JLabel lblAbility;
 	private JLabel lblTawValue;
 
-	/**
-	 * @param talent the Talent to Display
-	 * @param hero the HeldenObjekt to use
-	 */
 	public TalentPanel() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{181, 40, 70, 70, 70, 75, 100, 0};

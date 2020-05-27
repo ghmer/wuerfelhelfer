@@ -42,9 +42,6 @@ public class HeldenPanel extends JPanel {
 	private JButton btnKoerperkraft;
 	private JButton btnFingerFertigkeit;
 	
-	/**
-	 * @param hero the HeldenObjekt to use
-	 */
 	public HeldenPanel() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{25, 120, 50, 120, 50, 120, 50, 25, 0};
