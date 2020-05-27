@@ -7,7 +7,7 @@
   </parent>
   <groupId>parzival.link</groupId>
   <artifactId>dz-dice-helper</artifactId>
-  <version>0.5.2</version>
+  <version>0.6.0</version>
   <name>dz-dice-helper</name>
   
     <build>
@@ -29,7 +29,7 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>link.parzival.dsa.ui.DzDiceHelperUi</mainClass>
+              <mainClass>link.parzival.dsa.ui.WuerfelHelferGUI</mainClass>
             </manifest>
           </archive>
         </configuration>
@@ -41,7 +41,7 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>link.parzival.dsa.ui.DzDiceHelperUi</mainClass>
+              <mainClass>link.parzival.dsa.ui.WuerfelHelferGUI</mainClass>
             </manifest>
           </archive>
         </configuration>
