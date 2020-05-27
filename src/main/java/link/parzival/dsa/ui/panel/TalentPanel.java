@@ -283,21 +283,19 @@ public class TalentPanel extends JPanel {
 					break;
 				}
 				case 110: {
-					// alle Auswahlen waren NA. Prüfe rein auf Talentwert
-					String rollFormatString   = "!%s,%s  %s";
+					// Auswahl zwei und drei waren NA
+					String rollFormatString   = "!%s,%s,%s  %s";
 					rollCommand  = String.format(rollFormatString, 
+							hero.getFertigkeit(pruefung1),
 							talent.getTalentwert(),
 							effectiveModifier,
 							talent.getName());
 					break;
 				}
 				case 111: {
-					// alle Auswahlen haben eine ordentliche Probenauswahl
-					String rollFormatString   = "!%s,%s,%s,%s,%s  %s";
+					// alle Auswahlen waren NA. Prüfe auf Talentwert
+					String rollFormatString   = "!%s,%s  %s";
 					rollCommand  = String.format(rollFormatString, 
-							hero.getFertigkeit(pruefung1),
-							hero.getFertigkeit(pruefung2),
-							hero.getFertigkeit(pruefung3),
 							talent.getTalentwert(),
 							effectiveModifier,
 							talent.getName());
