@@ -13,7 +13,7 @@ import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.ParadeObjekt;
 import link.parzival.dsa.object.WaffenObjekt;
 import link.parzival.dsa.object.enumeration.DKEnum;
-import link.parzival.dsa.ui.DzDiceHelperUi;
+import link.parzival.dsa.ui.WuerfelHelferGUI;
 import link.parzival.dsa.ui.dialog.DistanceChangeDialog;
 import link.parzival.dsa.ui.dialog.EvasionDialog;
 import link.parzival.dsa.ui.dialog.FernkampfDialog;
@@ -172,7 +172,7 @@ public class KampfPanel extends JPanel {
 				dialog.setLocationRelativeTo(btnFernkampf.getRootPane());
 				switch (dialog.showDialog()) {
 			    case Constants.DIALOG_OK_STATE:
-			    	DzDiceHelperUi.copyToClipboard(dialog.getRollCommand());
+			    	WuerfelHelferGUI.copyToClipboard(dialog.getRollCommand());
 			        break;
 				}
 				
@@ -183,7 +183,7 @@ public class KampfPanel extends JPanel {
 		btnInitiative.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String rollCommand = DsaCalculatorUtil.getEffectiveInitiativeRoll(hero, waffenObjekt, paradeObjekt);
-				DzDiceHelperUi.copyToClipboard(rollCommand);
+				WuerfelHelferGUI.copyToClipboard(rollCommand);
 			}
 		});
 		GridBagConstraints gbc_btnInitiative = new GridBagConstraints();
@@ -335,7 +335,7 @@ public class KampfPanel extends JPanel {
 				dialog.setLocationRelativeTo(btnAusweichen.getRootPane());
 				switch (dialog.showDialog()) {
 			    case Constants.DIALOG_OK_STATE:
-			    	DzDiceHelperUi.copyToClipboard(dialog.getRollCommand());
+			    	WuerfelHelferGUI.copyToClipboard(dialog.getRollCommand());
 			        break;
 				}
 			}
@@ -389,11 +389,11 @@ public class KampfPanel extends JPanel {
 							JOptionPane.showMessageDialog( btnAttacke.getRootPane(), "Attacke aufgrund der aktuellen Entfernung zum Gegner nicht möglich. Wähle Hopsen!" );
 						} else {
 							String rollCommand = DsaCalculatorUtil.getEffectiveWeaponAttackRoll(getWaffenObjekt(), modificator, useDistanceClasses(), getCombatWeaponDistance(), getSelectedWeaponDistance());
-							DzDiceHelperUi.copyToClipboard(rollCommand);
+							WuerfelHelferGUI.copyToClipboard(rollCommand);
 						}
 					} else {
 						String rollCommand = DsaCalculatorUtil.getEffectiveWeaponAttackRoll(getWaffenObjekt(), modificator, useDistanceClasses(), getCombatWeaponDistance(), getSelectedWeaponDistance());
-						DzDiceHelperUi.copyToClipboard(rollCommand);
+						WuerfelHelferGUI.copyToClipboard(rollCommand);
 					}
 					break;
 				}
@@ -464,12 +464,12 @@ public class KampfPanel extends JPanel {
 				switch(paradenOption) {
 					case Schild : {
 						String rollCommand = DsaCalculatorUtil.getEffectiveShieldParadeRoll(getWaffenObjekt(), getParadeObjekt(), modificator, getInitiative(), useDistanceClasses(), getCombatWeaponDistance(), getSelectedWeaponDistance());
-						DzDiceHelperUi.copyToClipboard(rollCommand);
+						WuerfelHelferGUI.copyToClipboard(rollCommand);
 						break;
 					}
 					case Waffe: {
 						String rollCommand = DsaCalculatorUtil.getEffectiveWeaponParadeRoll(getWaffenObjekt(), modificator, getInitiative(), useDistanceClasses(), getCombatWeaponDistance(), getSelectedWeaponDistance());
-						DzDiceHelperUi.copyToClipboard(rollCommand);
+						WuerfelHelferGUI.copyToClipboard(rollCommand);
 						break;
 					}
 					default: {
@@ -578,7 +578,7 @@ public class KampfPanel extends JPanel {
 				dialog.setLocationRelativeTo(btnHopsen.getRootPane());
 				switch (dialog.showDialog()) {
 			    case Constants.DIALOG_OK_STATE:
-			    	DzDiceHelperUi.copyToClipboard(dialog.getRollCommand());
+			    	WuerfelHelferGUI.copyToClipboard(dialog.getRollCommand());
 			        break;
 				}
 			}
@@ -739,11 +739,11 @@ public class KampfPanel extends JPanel {
 				} else {
 					
 					String rollCommand = DsaCalculatorUtil.getEffectiveTechnicalAttackRoll(hero.getKampftechnikByName(selectedKampfTechnikName), modificator, useDistanceClasses(), getCombatWeaponDistance(), DKEnum.H);
-					DzDiceHelperUi.copyToClipboard(rollCommand);
+					WuerfelHelferGUI.copyToClipboard(rollCommand);
 				}
 			} else {
 				String rollCommand = DsaCalculatorUtil.getEffectiveTechnicalAttackRoll(hero.getKampftechnikByName(selectedKampfTechnikName), modificator, useDistanceClasses(), getCombatWeaponDistance(), DKEnum.H);
-				DzDiceHelperUi.copyToClipboard(rollCommand);
+				WuerfelHelferGUI.copyToClipboard(rollCommand);
 			}
 		}
 	}
@@ -763,11 +763,11 @@ public class KampfPanel extends JPanel {
 				} else {
 					
 					String rollCommand = DsaCalculatorUtil.getEffectiveTechnicalParadeRoll(hero.getKampftechnikByName(selectedKampfTechnikName), modificator, initiative, useDistanceClasses(), getCombatWeaponDistance(), selectedKampfTechnikName);
-					DzDiceHelperUi.copyToClipboard(rollCommand);
+					WuerfelHelferGUI.copyToClipboard(rollCommand);
 				}
 			} else {
 				String rollCommand = DsaCalculatorUtil.getEffectiveTechnicalParadeRoll(hero.getKampftechnikByName(selectedKampfTechnikName), modificator, initiative, useDistanceClasses(), getCombatWeaponDistance(), selectedKampfTechnikName);
-				DzDiceHelperUi.copyToClipboard(rollCommand);
+				WuerfelHelferGUI.copyToClipboard(rollCommand);
 			}
 		}
 	}

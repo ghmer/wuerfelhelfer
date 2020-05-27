@@ -11,7 +11,7 @@ import javax.swing.JSpinner.DefaultEditor;
 import javax.swing.event.ChangeListener;
 
 import link.parzival.dsa.object.HeldenObjekt;
-import link.parzival.dsa.ui.DzDiceHelperUi;
+import link.parzival.dsa.ui.WuerfelHelferGUI;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.JButton;
@@ -54,7 +54,7 @@ public class HeldenPanel extends JPanel {
 		btnIntuition.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String rollCommand = String.format("!%s Intuition", hero.getIntuition());
-				DzDiceHelperUi.copyToClipboard(rollCommand);
+				WuerfelHelferGUI.copyToClipboard(rollCommand);
 			}
 		});
 		
@@ -65,7 +65,7 @@ public class HeldenPanel extends JPanel {
 		btnMut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String rollCommand = String.format("!%s Mut", hero.getMut());
-				DzDiceHelperUi.copyToClipboard(rollCommand);
+				WuerfelHelferGUI.copyToClipboard(rollCommand);
 			}
 		});
 		
@@ -99,7 +99,7 @@ public class HeldenPanel extends JPanel {
 		btnFingerFertigkeit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String rollCommand = String.format("!%s Fingerfertigkeit", hero.getFingerfertigkeit());
-				DzDiceHelperUi.copyToClipboard(rollCommand);
+				WuerfelHelferGUI.copyToClipboard(rollCommand);
 			}
 		});
 		
@@ -138,7 +138,7 @@ public class HeldenPanel extends JPanel {
 		btnKlugheit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String rollCommand = String.format("!%s Klugheit", hero.getKlugheit());
-				DzDiceHelperUi.copyToClipboard(rollCommand);
+				WuerfelHelferGUI.copyToClipboard(rollCommand);
 			}
 		});
 		GridBagConstraints gbc_btnKlugheit = new GridBagConstraints();
@@ -155,7 +155,7 @@ public class HeldenPanel extends JPanel {
 		btnGewandtheit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String rollCommand = String.format("!%s Gewandtheit", hero.getGewandtheit());
-				DzDiceHelperUi.copyToClipboard(rollCommand);
+				WuerfelHelferGUI.copyToClipboard(rollCommand);
 			}
 		});
 		GridBagConstraints gbc_btnGewandtheit = new GridBagConstraints();
@@ -218,7 +218,7 @@ public class HeldenPanel extends JPanel {
 		btnKonstitution.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String rollCommand = String.format("!%s Konstitution", hero.getKonstitution());
-				DzDiceHelperUi.copyToClipboard(rollCommand);
+				WuerfelHelferGUI.copyToClipboard(rollCommand);
 			}
 		});
 		GridBagConstraints gbc_btnKonstitution = new GridBagConstraints();
@@ -260,7 +260,7 @@ public class HeldenPanel extends JPanel {
 		btnKoerperkraft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String rollCommand = String.format("!%s Koerperkraft", hero.getKoerperkraft());
-				DzDiceHelperUi.copyToClipboard(rollCommand);
+				WuerfelHelferGUI.copyToClipboard(rollCommand);
 			}
 		});
 		
@@ -277,7 +277,7 @@ public class HeldenPanel extends JPanel {
 		btnCharisma.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String rollCommand = String.format("!%s Charisma", hero.getCharisma());
-				DzDiceHelperUi.copyToClipboard(rollCommand);
+				WuerfelHelferGUI.copyToClipboard(rollCommand);
 			}
 		});
 		GridBagConstraints gbc_btnCharisma = new GridBagConstraints();

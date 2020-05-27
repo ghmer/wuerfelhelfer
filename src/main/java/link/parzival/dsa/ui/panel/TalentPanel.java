@@ -13,7 +13,7 @@ import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.TalentObjekt;
 import link.parzival.dsa.object.TalentObjektPlatzhalter;
 import link.parzival.dsa.object.enumeration.EigenschaftEnum;
-import link.parzival.dsa.ui.DzDiceHelperUi;
+import link.parzival.dsa.ui.WuerfelHelferGUI;
 import link.parzival.dsa.ui.dialog.AbilityDialog;
 
 import javax.swing.DefaultComboBoxModel;
@@ -315,7 +315,7 @@ public class TalentPanel extends JPanel {
 			}
 			
 				
-			DzDiceHelperUi.copyToClipboard(rollCommand);
+			WuerfelHelferGUI.copyToClipboard(rollCommand);
 			
 			}
 		});
