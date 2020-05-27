@@ -81,7 +81,7 @@ public class WuerfelHelferGUI extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle(String.format("Würfelhelfer Version %s", Constants.VERSION_EXTERNAL));
-		setBounds(100, 100, 730, 600);
+		setBounds(100, 100, 300, 100);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -339,5 +339,6 @@ public class WuerfelHelferGUI extends JFrame {
 		heldenPanel.setVisible(true);
 		talentPanel.setVisible(true);
 		kampfPanel.setVisible(true);	
+		pack();
 	}
 }
