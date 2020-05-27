@@ -1,4 +1,4 @@
-package link.parzival.dsa.ui.panel;
+package link.parzival.dsa.ui.panel.orig;
 
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
