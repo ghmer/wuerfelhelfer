@@ -1,4 +1,4 @@
-package link.parzival.dsa.ui.panel;
+package link.parzival.dsa.ui.panel.orig;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -37,7 +37,7 @@ public class HeroPanel extends JPanel {
 	 */
 	public HeroPanel(HeldenObjekt hero) {
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{25, 120, 60, 120, 60, 120, 50, 25, 0};
+		gridBagLayout.columnWidths = new int[]{25, 120, 50, 120, 50, 120, 50, 25, 0};
 		gridBagLayout.rowHeights = new int[]{40, 29, 21, 21, 24, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
@@ -82,7 +82,6 @@ public class HeroPanel extends JPanel {
 		gbc_lblMut.gridy = 1;
 		add(lblMut, gbc_lblMut);
 		GridBagConstraints gbc_btnMut = new GridBagConstraints();
-		gbc_btnMut.anchor = GridBagConstraints.SOUTH;
 		gbc_btnMut.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnMut.insets = new Insets(0, 0, 5, 5);
 		gbc_btnMut.gridx = 2;
@@ -106,7 +105,6 @@ public class HeroPanel extends JPanel {
 		gbc_lblFingerfertigkeit.gridy = 1;
 		add(lblFingerfertigkeit, gbc_lblFingerfertigkeit);
 		GridBagConstraints gbc_btnFingerFertigkeit = new GridBagConstraints();
-		gbc_btnFingerFertigkeit.anchor = GridBagConstraints.NORTH;
 		gbc_btnFingerFertigkeit.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnFingerFertigkeit.insets = new Insets(0, 0, 5, 5);
 		gbc_btnFingerFertigkeit.gridx = 4;
