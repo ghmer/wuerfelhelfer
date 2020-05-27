@@ -62,7 +62,7 @@ public class TalentPanel extends JPanel {
 
 	public TalentPanel() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{181, 40, 70, 70, 70, 75, 100, 0};
+		gridBagLayout.columnWidths = new int[]{180, 40, 75, 75, 75, 75, 100, 0};
 		gridBagLayout.rowHeights = new int[]{15, 0, 15, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
