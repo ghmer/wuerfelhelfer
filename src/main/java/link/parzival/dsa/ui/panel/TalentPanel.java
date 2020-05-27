@@ -220,18 +220,105 @@ public class TalentPanel extends JPanel {
 				EigenschaftEnum pruefung3 = (EigenschaftEnum)pruefEigenschaft3.getSelectedItem();
 				int modifier  		  	  = (Integer)pruefModifier.getValue();
 				
-				String rollFormatString   = "!%s,%s,%s,%s,%s  %s";
+				int pruefAuswahl = 0;
+				if(pruefung1.equals(EigenschaftEnum.NA)) pruefAuswahl += 1;
+				if(pruefung2.equals(EigenschaftEnum.NA)) pruefAuswahl += 10;
+				if(pruefung3.equals(EigenschaftEnum.NA)) pruefAuswahl += 100;
 				
-				int effectiveModifier	  = DsaCalculatorUtil.calculateModifier(modifier, hero.getBehinderung(), talent);
-				String rollCommand 		  = String.format(rollFormatString, 
-												hero.getFertigkeit(pruefung1),
-												hero.getFertigkeit(pruefung2),
-												hero.getFertigkeit(pruefung3),
-												talent.getTalentwert(),
-												effectiveModifier,
-												talent.getName());
+				int effectiveModifier 	= DsaCalculatorUtil.calculateModifier(modifier, hero.getBehinderung(), talent);
+				String rollCommand		= null;
 				
-				DzDiceHelperUi.copyToClipboard(rollCommand);
+				switch(pruefAuswahl) {
+				case 1  : {
+					// erste Auswahl war NA
+					String rollFormatString   = "!%s,%s,%s,%s  %s";
+					rollCommand  = String.format(rollFormatString, 
+							hero.getFertigkeit(pruefung2),
+							hero.getFertigkeit(pruefung3),
+							talent.getTalentwert(),
+							effectiveModifier,
+							talent.getName());
+					break;
+				}
+				case 10 : {
+					// zweite Auswahl war NA
+					String rollFormatString   = "!%s,%s,%s,%s  %s";
+					rollCommand  = String.format(rollFormatString, 
+							hero.getFertigkeit(pruefung1),
+							hero.getFertigkeit(pruefung3),
+							talent.getTalentwert(),
+							effectiveModifier,
+							talent.getName());
+					break;
+				}
+				case 11 : {
+					// erste und zweite Auswahl war NA
+					String rollFormatString   = "!%s,%s,%s  %s";
+					rollCommand  = String.format(rollFormatString, 
+							hero.getFertigkeit(pruefung3),
+							talent.getTalentwert(),
+							effectiveModifier,
+							talent.getName());
+					break;
+				}
+				case 100: {
+					// dritte Auswahl war NA
+					String rollFormatString   = "!%s,%s,%s,%s  %s";
+					rollCommand  = String.format(rollFormatString, 
+							hero.getFertigkeit(pruefung1),
+							hero.getFertigkeit(pruefung2),
+							talent.getTalentwert(),
+							effectiveModifier,
+							talent.getName());
+					break;
+				}
+				case 101: {
+					// erste und dritte Auswahl war NA
+					String rollFormatString   = "!%s,%s,%s  %s";
+					rollCommand  = String.format(rollFormatString, 
+							hero.getFertigkeit(pruefung2),
+							talent.getTalentwert(),
+							effectiveModifier,
+							talent.getName());
+					break;
+				}
+				case 110: {
+					// alle Auswahlen waren NA. Prüfe rein auf Talentwert
+					String rollFormatString   = "!%s,%s  %s";
+					rollCommand  = String.format(rollFormatString, 
+							talent.getTalentwert(),
+							effectiveModifier,
+							talent.getName());
+					break;
+				}
+				case 111: {
+					// alle Auswahlen haben eine ordentliche Probenauswahl
+					String rollFormatString   = "!%s,%s,%s,%s,%s  %s";
+					rollCommand  = String.format(rollFormatString, 
+							hero.getFertigkeit(pruefung1),
+							hero.getFertigkeit(pruefung2),
+							hero.getFertigkeit(pruefung3),
+							talent.getTalentwert(),
+							effectiveModifier,
+							talent.getName());
+					break;
+				}
+				default : {
+					String rollFormatString   = "!%s,%s,%s,%s,%s  %s";
+					rollCommand  = String.format(rollFormatString, 
+							hero.getFertigkeit(pruefung1),
+							hero.getFertigkeit(pruefung2),
+							hero.getFertigkeit(pruefung3),
+							talent.getTalentwert(),
+							effectiveModifier,
+							talent.getName());
+					break;
+				}
+			}
+			
+				
+			DzDiceHelperUi.copyToClipboard(rollCommand);
+			
 			}
 		});
 		
