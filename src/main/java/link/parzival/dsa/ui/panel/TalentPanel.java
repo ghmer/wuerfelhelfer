@@ -14,7 +14,7 @@ import link.parzival.dsa.object.TalentObjekt;
 import link.parzival.dsa.object.TalentObjektPlatzhalter;
 import link.parzival.dsa.object.enumeration.EigenschaftEnum;
 import link.parzival.dsa.ui.WuerfelHelferGUI;
-import link.parzival.dsa.ui.dialog.AbilityDialog;
+import link.parzival.dsa.ui.dialog.TalentAuswahlDialog;
 
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
@@ -85,7 +85,7 @@ public class TalentPanel extends JPanel {
 		
 		btnProbeWaehlen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AbilityDialog dialog = new AbilityDialog(hero);
+				TalentAuswahlDialog dialog = new TalentAuswahlDialog(hero);
 				dialog.setFont(getFont());
 				dialog.setLocationRelativeTo(getRootPane());
 				switch (dialog.showDialog()) {

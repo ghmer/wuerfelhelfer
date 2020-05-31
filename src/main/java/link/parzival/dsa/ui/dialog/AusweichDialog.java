@@ -27,7 +27,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.util.ResourceBundle;
 
-public class EvasionDialog extends JDialog {
+public class AusweichDialog extends JDialog {
 	private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("link.parzival.dsa.ui.messages"); //$NON-NLS-1$
 
 	private static final long serialVersionUID 	= 6393904558592079317L;
@@ -48,7 +48,7 @@ public class EvasionDialog extends JDialog {
 	 * @param withDk whether to use Distanzklassen
 	 * @param distanzklasse the Distanzklasse to use
 	 */
-	public EvasionDialog(HeldenObjekt hero, boolean withDk, DKEnum distanzklasse) {
+	public AusweichDialog(HeldenObjekt hero, boolean withDk, DKEnum distanzklasse) {
 		setBounds(100, 100, 450, 130);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setModal(true);

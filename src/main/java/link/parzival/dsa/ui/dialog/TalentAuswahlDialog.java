@@ -40,7 +40,7 @@ import java.awt.event.ItemEvent;
 import javax.swing.JLabel;
 import java.util.ResourceBundle;
 
-public class AbilityDialog extends JDialog {
+public class TalentAuswahlDialog extends JDialog {
 	private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("link.parzival.dsa.ui.messages"); //$NON-NLS-1$
 
 	private enum AbilityTypeEnum {
@@ -63,7 +63,7 @@ public class AbilityDialog extends JDialog {
 	/**
 	 * @param hero the HeldenObjekt to use
 	 */
-	public AbilityDialog(HeldenObjekt hero) {
+	public TalentAuswahlDialog(HeldenObjekt hero) {
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setModal(true);
 		setBounds(100, 100, 450, 300);

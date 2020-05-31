@@ -27,7 +27,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ResourceBundle;
 
-public class NewVersionAvailableDialog extends JDialog {
+public class UpdateHinweisDialog extends JDialog {
 	private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("link.parzival.dsa.ui.messages"); //$NON-NLS-1$
 
 	/**
@@ -39,7 +39,7 @@ public class NewVersionAvailableDialog extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public NewVersionAvailableDialog() {
+	public UpdateHinweisDialog() {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 150);
 		getContentPane().setLayout(new BorderLayout());

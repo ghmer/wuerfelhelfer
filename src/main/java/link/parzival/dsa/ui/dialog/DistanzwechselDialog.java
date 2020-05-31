@@ -24,7 +24,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.util.ResourceBundle;
 
-public class DistanceChangeDialog extends JDialog {
+public class DistanzwechselDialog extends JDialog {
 	private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("link.parzival.dsa.ui.messages"); //$NON-NLS-1$
 
 	private enum Hopser {
@@ -42,7 +42,7 @@ public class DistanceChangeDialog extends JDialog {
 	 * @param hero the HeldenObjekt to set
 	 * @param waffenObjekt the WaffenObjekt to set
 	 */
-	public DistanceChangeDialog(HeldenObjekt hero, WaffenObjekt waffenObjekt) {
+	public DistanzwechselDialog(HeldenObjekt hero, WaffenObjekt waffenObjekt) {
 		setBounds(100, 100, 450, 100);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setModal(true);

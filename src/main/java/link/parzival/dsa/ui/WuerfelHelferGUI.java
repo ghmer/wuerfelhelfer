@@ -17,8 +17,9 @@ import link.parzival.dsa.Constants;
 import link.parzival.dsa.HeroHtmlParser;
 import link.parzival.dsa.VersionCheck;
 import link.parzival.dsa.object.HeldenObjekt;
+import link.parzival.dsa.ui.dialog.KampfbedingungenDialog;
 import link.parzival.dsa.ui.dialog.LizenzDialog;
-import link.parzival.dsa.ui.dialog.NewVersionAvailableDialog;
+import link.parzival.dsa.ui.dialog.UpdateHinweisDialog;
 import link.parzival.dsa.ui.dialog.PatzerTabellenDialog;
 import link.parzival.dsa.ui.dialog.PatzerTabellenDialog.PatzerTyp;
 import link.parzival.dsa.ui.panel.HeldenPanel;
@@ -139,7 +140,7 @@ public class WuerfelHelferGUI extends JFrame {
 		menuItemUpdateCheck.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(VersionCheck.checkForNewVersion(Constants.VERSION)) {
-					NewVersionAvailableDialog dialog = new NewVersionAvailableDialog();
+					UpdateHinweisDialog dialog = new UpdateHinweisDialog();
 					dialog.setLocationRelativeTo(getRootPane());
 					dialog.setVisible(true);
 				} else {
@@ -193,8 +194,8 @@ public class WuerfelHelferGUI extends JFrame {
 		});
 		mntMenuDarstellung.add(menuItemDunkleDarstellung);
 		
-		JMenu menuPatzertabellen = new JMenu(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuPatzertabellen.text")); //$NON-NLS-1$ //$NON-NLS-2$
-		menuBar.add(menuPatzertabellen);
+		JMenu menuTabellen = new JMenu(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuTabellen.text")); //$NON-NLS-1$ //$NON-NLS-2$
+		menuBar.add(menuTabellen);
 		
 		JMenuItem menuItemPatzerTabelleNahkampf = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemPatzerTabelleNahkampf.text")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuItemPatzerTabelleNahkampf.addActionListener(new ActionListener() {
@@ -206,7 +207,7 @@ public class WuerfelHelferGUI extends JFrame {
 				patzerTabellenDialog.setVisible(true);
 			}
 		});
-		menuPatzertabellen.add(menuItemPatzerTabelleNahkampf);
+		menuTabellen.add(menuItemPatzerTabelleNahkampf);
 		
 		JMenuItem menuItemPatzerTabelleFernkampf = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemPatzerTabelleFernkampf.text")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuItemPatzerTabelleFernkampf.addActionListener(new ActionListener() {
@@ -218,10 +219,23 @@ public class WuerfelHelferGUI extends JFrame {
 				patzerTabellenDialog.setVisible(true);
 			}
 		});
-		menuPatzertabellen.add(menuItemPatzerTabelleFernkampf);
+		menuTabellen.add(menuItemPatzerTabelleFernkampf);
 		
-		JMenu mnNewMenu = new JMenu(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.mnNewMenu.text")); //$NON-NLS-1$ //$NON-NLS-2$
-		menuBar.add(mnNewMenu);
+		JMenuItem menuItemKampfbedingungen = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemKampfbedingungenTabelle.text")); //$NON-NLS-1$ //$NON-NLS-2$
+		menuItemKampfbedingungen.setEnabled(false);
+		menuItemKampfbedingungen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				KampfbedingungenDialog kampfbedingungenDialog = new KampfbedingungenDialog();
+				kampfbedingungenDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+				kampfbedingungenDialog.setFont(getFont());
+				kampfbedingungenDialog.setLocationRelativeTo(getRootPane());
+				kampfbedingungenDialog.setVisible(true);
+			}
+		});
+		menuTabellen.add(menuItemKampfbedingungen);
+		
+		JMenu menuHilfe = new JMenu(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuHilfe.text")); //$NON-NLS-1$ //$NON-NLS-2$
+		menuBar.add(menuHilfe);
 		
 		JMenuItem menuItemLizenzUbuntu = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemLizenzUbuntu.text")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuItemLizenzUbuntu.addActionListener(new ActionListener() {
@@ -251,7 +265,7 @@ public class WuerfelHelferGUI extends JFrame {
 				}
 			}
 		});
-		mnNewMenu.add(menuItemHilfe);
+		menuHilfe.add(menuItemHilfe);
 		
 		JMenuItem menuItemLizenzApache = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemLizenzApache.text")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuItemLizenzApache.addActionListener(new ActionListener() {
@@ -263,10 +277,10 @@ public class WuerfelHelferGUI extends JFrame {
 		});
 		
 		JSeparator separator_1 = new JSeparator();
-		mnNewMenu.add(separator_1);
-		mnNewMenu.add(menuItemLizenzApache);
-		mnNewMenu.add(menuItemLizenzUbuntu);
-		mnNewMenu.add(menuItemLizenzGpl);
+		menuHilfe.add(separator_1);
+		menuHilfe.add(menuItemLizenzApache);
+		menuHilfe.add(menuItemLizenzUbuntu);
+		menuHilfe.add(menuItemLizenzGpl);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
