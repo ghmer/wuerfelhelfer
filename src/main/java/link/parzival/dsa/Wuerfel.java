@@ -60,27 +60,4 @@ public class Wuerfel {
 		
 		return wurf;
 	}
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		Wuerfel wuerfel = new Wuerfel(WuerfelTyp.D20);
-		
-		Map<Integer, Integer> map = new HashMap<>();
-		for(int i = 0; i < 9999999; i++){
-			int wurf = wuerfel.wuerfeln();
-			
-			if(!map.containsKey(wurf)) {
-				map.put(wurf, 0);
-			}
-			
-			map.put(wurf, (map.get(wurf) + 1));
-		}
-
-		for(Map.Entry<Integer, Integer> entry : map.entrySet()) {
-			System.out.println(String.format("%s: %s", entry.getKey(), entry.getValue()));
-		}
-	}
-
 }
