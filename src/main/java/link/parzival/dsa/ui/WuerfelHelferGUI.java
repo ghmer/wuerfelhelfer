@@ -193,8 +193,8 @@ public class WuerfelHelferGUI extends JFrame {
 		});
 		mntMenuDarstellung.add(menuItemDunkleDarstellung);
 		
-		JMenu menuHelfer = new JMenu(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuHelfer.text")); //$NON-NLS-1$ //$NON-NLS-2$
-		menuBar.add(menuHelfer);
+		JMenu menuPatzertabellen = new JMenu(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuPatzertabellen.text")); //$NON-NLS-1$ //$NON-NLS-2$
+		menuBar.add(menuPatzertabellen);
 		
 		JMenuItem menuItemPatzerTabelleNahkampf = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemPatzerTabelleNahkampf.text")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuItemPatzerTabelleNahkampf.addActionListener(new ActionListener() {
@@ -206,7 +206,7 @@ public class WuerfelHelferGUI extends JFrame {
 				patzerTabellenDialog.setVisible(true);
 			}
 		});
-		menuHelfer.add(menuItemPatzerTabelleNahkampf);
+		menuPatzertabellen.add(menuItemPatzerTabelleNahkampf);
 		
 		JMenuItem menuItemPatzerTabelleFernkampf = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemPatzerTabelleFernkampf.text")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuItemPatzerTabelleFernkampf.addActionListener(new ActionListener() {
@@ -218,7 +218,7 @@ public class WuerfelHelferGUI extends JFrame {
 				patzerTabellenDialog.setVisible(true);
 			}
 		});
-		menuHelfer.add(menuItemPatzerTabelleFernkampf);
+		menuPatzertabellen.add(menuItemPatzerTabelleFernkampf);
 		
 		JMenu mnNewMenu = new JMenu(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.mnNewMenu.text")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuBar.add(mnNewMenu);
