@@ -22,8 +22,10 @@ public class PatzerBeschreibungDialog extends JDialog {
 	 */
 	private static final long serialVersionUID = -6015712592515827295L;
 	private final JPanel contentPanel = new JPanel();
+	
 	/**
 	 * Create the dialog.
+	 * @param patzerBeschreibung Die Beschreibung zum Anzeigen
 	 */
 	public PatzerBeschreibungDialog(String patzerBeschreibung) {
 		setBounds(100, 100, 300, 275);

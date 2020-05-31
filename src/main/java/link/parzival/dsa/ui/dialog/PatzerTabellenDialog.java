@@ -53,8 +53,10 @@ public class PatzerTabellenDialog extends JDialog {
 			"INI -2; der Schuss geht ungezielt daneben, das Projektil ist verloren; die Mechanik der Armbrust blockiert oder die Sehne droht vom Bogen zu rutschen - der Schütze benötigt zwei Aktionen, um die Waffe wieder schussfähig zu machen. Bei Wurfwaffen gilt, dass das Projektil ebenfalls verloren ist und der Werfer zwei Aktionen benötigt, um sein verlorenes Gleichgewicht wiederzufinden.",
 			"INI -3; der Schuss löst sich unbeabsichtigt und trifft den am nächsten an der geplanten Flugbahn stehenden befreundeten Helden. Würfeln Sie für diesen Trefferpunkte gemäß der Entfernung aus; Ansagen (aus angesagten Fernkampfangriffen) kommen jedoch nicht zum Tragen. Ist kein Gefährte in der Nähe, der getroffen werden könnte, hat der Schütze sich selbst verletzt (TP gemäß geringster Entfernung)." };
 
+
 	/**
 	 * Create the dialog.
+	 * @param patzerTyp gibt den Typ der Patzertabelle an
 	 */
 	public PatzerTabellenDialog(PatzerTyp patzerTyp) {
 		setTitle(String.format("Patzertabelle: %s", patzerTyp.name()));
