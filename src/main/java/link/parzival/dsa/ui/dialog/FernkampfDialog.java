@@ -146,27 +146,33 @@ public class FernkampfDialog extends JDialog {
 					{
 						ButtonGroup groessenButtonGroup = new ButtonGroup();
 						JRadioButton rdbWinzig = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbWinzig.text")); //$NON-NLS-1$
+						rdbWinzig.setToolTipText(BUNDLE.getString("FernkampfDialog.rdbWinzig.toolTipText")); //$NON-NLS-1$
 						groessenButtonGroup.add(rdbWinzig);
 						groessenSelectionPanel.add(rdbWinzig);
 
 						JRadioButton rdbSehrKlein = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbSehrKlein.text")); //$NON-NLS-1$
+						rdbSehrKlein.setToolTipText(BUNDLE.getString("FernkampfDialog.rdbSehrKlein.toolTipText")); //$NON-NLS-1$
 						groessenButtonGroup.add(rdbSehrKlein);
 						groessenSelectionPanel.add(rdbSehrKlein);
 
 						JRadioButton rdbKlein = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbKlein.text")); //$NON-NLS-1$
+						rdbKlein.setToolTipText(BUNDLE.getString("FernkampfDialog.rdbKlein.toolTipText")); //$NON-NLS-1$
 						groessenButtonGroup.add(rdbKlein);
 						groessenSelectionPanel.add(rdbKlein);
 
 						JRadioButton rdbMittel = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbMittel.text")); //$NON-NLS-1$
+						rdbMittel.setToolTipText(BUNDLE.getString("FernkampfDialog.rdbMittel.toolTipText")); //$NON-NLS-1$
 						groessenButtonGroup.add(rdbMittel);
 						rdbMittel.setSelected(true);
 						groessenSelectionPanel.add(rdbMittel);
 
 						JRadioButton rdbGross = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbGross.text")); //$NON-NLS-1$
+						rdbGross.setToolTipText(BUNDLE.getString("FernkampfDialog.rdbGross.toolTipText")); //$NON-NLS-1$
 						groessenButtonGroup.add(rdbGross);
 						groessenSelectionPanel.add(rdbGross);
 
 						JRadioButton rdbSehrGross = new JRadioButton(BUNDLE.getString("FernkampfDialog.rdbSehrGross.text")); //$NON-NLS-1$
+						rdbSehrGross.setToolTipText(BUNDLE.getString("FernkampfDialog.rdbSehrGross.toolTipText")); //$NON-NLS-1$
 						groessenButtonGroup.add(rdbSehrGross);
 						groessenSelectionPanel.add(rdbSehrGross);
 
