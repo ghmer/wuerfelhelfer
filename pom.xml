@@ -5,7 +5,7 @@
     <artifactId>global-settings</artifactId>
     <version>1.11.0</version>
   </parent>
-  <groupId>parzival.link</groupId>
+  <groupId>link.parzival</groupId>
   <artifactId>dz-dice-helper</artifactId>
   <version>0.6.5</version>
   <name>dz-dice-helper</name>
