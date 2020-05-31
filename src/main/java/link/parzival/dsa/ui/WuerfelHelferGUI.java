@@ -1,5 +1,6 @@
 package link.parzival.dsa.ui;
 
+import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.EventQueue;
 
@@ -18,6 +19,7 @@ import link.parzival.dsa.VersionCheck;
 import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.ui.dialog.LizenzDialog;
 import link.parzival.dsa.ui.dialog.NewVersionAvailableDialog;
+import link.parzival.dsa.ui.dialog.PatzerTabellenDialog;
 import link.parzival.dsa.ui.panel.HeldenPanel;
 import link.parzival.dsa.ui.panel.KampfPanel;
 import link.parzival.dsa.ui.panel.TalentPanel;
@@ -190,6 +192,21 @@ public class WuerfelHelferGUI extends JFrame {
 		});
 		mntMenuDarstellung.add(menuItemDunkleDarstellung);
 		
+		JMenu menuHelfer = new JMenu(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuHelfer.text")); //$NON-NLS-1$ //$NON-NLS-2$
+		menuBar.add(menuHelfer);
+		
+		JMenuItem menuItemPatzerTabelle = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemPatzerTabelle.text")); //$NON-NLS-1$ //$NON-NLS-2$
+		menuItemPatzerTabelle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PatzerTabellenDialog patzerTabellenDialog = new PatzerTabellenDialog();
+				patzerTabellenDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+				patzerTabellenDialog.setFont(getFont());
+				patzerTabellenDialog.setLocationRelativeTo(getRootPane());
+				patzerTabellenDialog.setVisible(true);
+			}
+		});
+		menuHelfer.add(menuItemPatzerTabelle);
+		
 		JMenu mnNewMenu = new JMenu(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.mnNewMenu.text")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuBar.add(mnNewMenu);
 		
@@ -286,11 +303,15 @@ public class WuerfelHelferGUI extends JFrame {
 	}
 
 	public static void copyToClipboard(String text) {
+		copyToClipboard(text, getFrames()[0]);
+	}
+	
+	public static void copyToClipboard(String text, Component parentComponent) {
 		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 		StringSelection selection = new StringSelection(text);
 		clipboard.setContents(selection, null);
 		
-		JOptionPane.showMessageDialog( null, "Kommando wurde in die Zwischenablage kopiert" );
+		JOptionPane.showMessageDialog(parentComponent, "Kommando wurde in die Zwischenablage kopiert" );
 	}
 	
 	/**
