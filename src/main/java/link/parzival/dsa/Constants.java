@@ -16,5 +16,5 @@ public class Constants {
 	public static final int DIALOG_CANCEL_STATE = 1;
 	public static final int DIALOG_OK_STATE 	= 0;
 	
-	public  static final int VERSION 			= 14;	
+	public  static final int VERSION 			= 15;	
 }
