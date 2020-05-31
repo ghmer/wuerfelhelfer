@@ -794,4 +794,10 @@ public class DsaCalculatorUtil {
 		
 		return result;
 	}
+
+	public static String getPatzerWurf() {
+		String result = "(2w6) Patzer";
+		
+		return result;
+	}
 }
