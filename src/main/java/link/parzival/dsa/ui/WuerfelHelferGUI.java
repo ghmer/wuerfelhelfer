@@ -20,6 +20,7 @@ import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.ui.dialog.LizenzDialog;
 import link.parzival.dsa.ui.dialog.NewVersionAvailableDialog;
 import link.parzival.dsa.ui.dialog.PatzerTabellenDialog;
+import link.parzival.dsa.ui.dialog.PatzerTabellenDialog.PatzerTyp;
 import link.parzival.dsa.ui.panel.HeldenPanel;
 import link.parzival.dsa.ui.panel.KampfPanel;
 import link.parzival.dsa.ui.panel.TalentPanel;
@@ -195,17 +196,29 @@ public class WuerfelHelferGUI extends JFrame {
 		JMenu menuHelfer = new JMenu(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuHelfer.text")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuBar.add(menuHelfer);
 		
-		JMenuItem menuItemPatzerTabelle = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemPatzerTabelle.text")); //$NON-NLS-1$ //$NON-NLS-2$
-		menuItemPatzerTabelle.addActionListener(new ActionListener() {
+		JMenuItem menuItemPatzerTabelleNahkampf = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemPatzerTabelleNahkampf.text")); //$NON-NLS-1$ //$NON-NLS-2$
+		menuItemPatzerTabelleNahkampf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PatzerTabellenDialog patzerTabellenDialog = new PatzerTabellenDialog();
+				PatzerTabellenDialog patzerTabellenDialog = new PatzerTabellenDialog(PatzerTyp.Nahkampf);
 				patzerTabellenDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				patzerTabellenDialog.setFont(getFont());
 				patzerTabellenDialog.setLocationRelativeTo(getRootPane());
 				patzerTabellenDialog.setVisible(true);
 			}
 		});
-		menuHelfer.add(menuItemPatzerTabelle);
+		menuHelfer.add(menuItemPatzerTabelleNahkampf);
+		
+		JMenuItem menuItemPatzerTabelleFernkampf = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemPatzerTabelleFernkampf.text")); //$NON-NLS-1$ //$NON-NLS-2$
+		menuItemPatzerTabelleFernkampf.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PatzerTabellenDialog patzerTabellenDialog = new PatzerTabellenDialog(PatzerTyp.Fernkampf);
+				patzerTabellenDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+				patzerTabellenDialog.setFont(getFont());
+				patzerTabellenDialog.setLocationRelativeTo(getRootPane());
+				patzerTabellenDialog.setVisible(true);
+			}
+		});
+		menuHelfer.add(menuItemPatzerTabelleFernkampf);
 		
 		JMenu mnNewMenu = new JMenu(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.mnNewMenu.text")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuBar.add(mnNewMenu);
