@@ -173,17 +173,19 @@ public class DsaCalculatorUtil {
 	
 	/**
 	 * @param hero The HeroObjekt to use
+	 * @param initiative the initiative of the hero in the fight
 	 * @param enemyCount the number of enemies 
 	 * @param gezieltesAusweichen whether to use gezieltes Ausweichen
 	 * @param withDk whether to use Distanzklassen
 	 * @param distanzklasse the Distanzklasse to use
 	 * @return the rollCommand for evasion
 	 */
-	public static String getEffectiveEvadingRoll(HeldenObjekt hero, int enemyCount, boolean gezieltesAusweichen, boolean withDk, DKEnum distanzklasse) {
+	public static String getEffectiveEvadingRoll(HeldenObjekt hero, int initiative, int enemyCount, boolean gezieltesAusweichen, boolean withDk, DKEnum distanzklasse) {
 		String result 	= null;
 		int effective   = 0;
 		int basis     	= hero.getBasisparade();
 		int behinderung = hero.getBehinderung();
+		int iniParade 	= getAdditionalParadeByInitiative(initiative);
 		int sfMod		= 0;
 		int enemyBe		= (2 * enemyCount) - 2;
 		int distanzklassenErschwernis = 0;
@@ -223,7 +225,7 @@ public class DsaCalculatorUtil {
 			}			
 		}
 		
-		effective = ((((basis - behinderung) - enemyBe) - distanzklassenErschwernis) + sfMod) + athletikMod;
+		effective = (((((basis - behinderung) - enemyBe) - distanzklassenErschwernis) + sfMod) + athletikMod) + iniParade;
 		result    = String.format("!%s Ausweichen", effective);
 		
 		return result;

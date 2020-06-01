@@ -48,7 +48,7 @@ public class AusweichDialog extends JDialog {
 	 * @param withDk whether to use Distanzklassen
 	 * @param distanzklasse the Distanzklasse to use
 	 */
-	public AusweichDialog(HeldenObjekt hero, boolean withDk, DKEnum distanzklasse) {
+	public AusweichDialog(HeldenObjekt hero, int initiative, boolean withDk, DKEnum distanzklasse) {
 		setBounds(100, 100, 450, 130);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setModal(true);
@@ -136,7 +136,7 @@ public class AusweichDialog extends JDialog {
 				okButton = new JButton(BUNDLE.getString("EvasionDialog.okButton.text")); //$NON-NLS-1$
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						setRollCommand(DsaCalculatorUtil.getEffectiveEvadingRoll(hero, enemyCount, gezieltesAusweichen, withDk, distanzklasse));
+						setRollCommand(DsaCalculatorUtil.getEffectiveEvadingRoll(hero, initiative, enemyCount, gezieltesAusweichen, withDk, distanzklasse));
 						state = Constants.DIALOG_OK_STATE;
 						dispose();
 					}
