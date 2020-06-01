@@ -375,6 +375,54 @@ public class HeldenObjekt {
 	public List<TalentObjekt> getTalente() {
 		return talente;
 	}
+	
+	/**
+	 * @param talentName the Talent to get
+	 * @return the TalentObjekt matching the talentName
+	 */
+	public TalentObjekt getTalentByName(String talentName) {
+		TalentObjekt result = null;
+		for(TalentObjekt objekt : getTalente()) {
+			if(objekt.getName().equalsIgnoreCase(talentName)) {
+				result = objekt;
+				break;
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * @return Talentnamen as List
+	 */
+	public List<String> getTalentNamen() {
+		List<String> result = new ArrayList<>();
+		for(TalentObjekt objekt : getTalente()) {
+			result.add(objekt.getName());
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * @return the Talentnamen as List
+	 */
+	public List<String> getTalentNamenAsList() {
+		return getTalentNamen();
+	}
+	
+	/**
+	 * @return the talentNamen
+	 */
+	public String[] getTalentNamenAsArray() {
+		int size = talente.size();
+		String[] result = new String[size];
+		for(int i = 0; i < size; i++) {
+			result[i] = talente.get(i).getName();
+		}
+		
+		return result;
+	}
 
 	/**
 	 * @param waffenName the name of the waffe
