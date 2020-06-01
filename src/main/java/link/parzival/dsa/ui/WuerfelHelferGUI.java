@@ -345,9 +345,15 @@ public class WuerfelHelferGUI extends JFrame {
 	 * @param args the default arguments
 	 */
 	public static void main(String[] args) {
-		if(args != null && args.length == 1 && args[0].equalsIgnoreCase("-version")) {
-			System.out.println(Constants.VERSION);
-			return;
+		if(args != null && args.length == 1) {
+			if(args[0].equalsIgnoreCase("-version")) {
+				System.out.println(Constants.VERSION);
+				return;
+			}
+			if(args[0].equalsIgnoreCase("-updatecheck")) {
+				System.out.println(VersionCheck.checkForNewVersion(Constants.VERSION));
+				return;
+			}
 		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
