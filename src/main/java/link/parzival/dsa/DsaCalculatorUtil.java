@@ -212,7 +212,18 @@ public class DsaCalculatorUtil {
 			}
 		}
 		
-		effective = (((basis - behinderung) - enemyBe) - distanzklassenErschwernis) + sfMod;
+		// Wenn Athletik >= 9, alle drei weiteren Punkte ein Punkt mehr
+		int athletikMod = 0;
+		TalentObjekt athletik = hero.getTalentByName("Athletik");
+		
+		if(athletik != null) {
+			int athletikTaw = athletik.getTalentwert();
+			if(athletikTaw >= 9) {
+				athletikMod     = (athletikTaw - 9) / 3;
+			}			
+		}
+		
+		effective = ((((basis - behinderung) - enemyBe) - distanzklassenErschwernis) + sfMod) + athletikMod;
 		result    = String.format("!%s Ausweichen", effective);
 		
 		return result;
