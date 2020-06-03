@@ -74,8 +74,8 @@ public class WuerfelHelferGUI extends JFrame {
         } catch( Exception ex ) {
             System.err.println( "Failed to initialize LaF" );
         }
-        this.customMainFont     = UIHelper.getFontFromResource("/UbuntuMono-R.ttf");
-        this.customHeroNameFont = UIHelper.getFontFromResource("/Friedolin.ttf");
+        this.customMainFont     = UIHelfer.getFontFromResource("/UbuntuMono-R.ttf");
+        this.customHeroNameFont = UIHelfer.getFontFromResource("/Friedolin.ttf");
         GraphicsEnvironment ge  = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(customHeroNameFont);
         ge.registerFont(customMainFont);
@@ -98,7 +98,7 @@ public class WuerfelHelferGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-                fileChooser.setFileFilter(UIHelper.getHtmlFileFilter());
+                fileChooser.setFileFilter(UIHelfer.getHtmlFileFilter());
                 
                 int result = fileChooser.showOpenDialog(contentPane);
                 if (result == JFileChooser.APPROVE_OPTION) {

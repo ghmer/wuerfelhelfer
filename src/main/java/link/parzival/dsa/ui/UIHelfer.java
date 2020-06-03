@@ -15,7 +15,7 @@ import javax.swing.filechooser.FileFilter;
  * @author mario
  *
  */
-public class UIHelper {
+public class UIHelfer {
 
     /**
      * @return a FileFilter filtering for .html files
@@ -45,7 +45,7 @@ public class UIHelper {
         Font font      = null;
         InputStream is = null;
         try {
-            is   = UIHelper.class.getResourceAsStream(pathToFont);
+            is   = UIHelfer.class.getResourceAsStream(pathToFont);
             font = Font.createFont(Font.TRUETYPE_FONT,is);          
         } catch (IOException e) {
              System.err.println(e.getMessage());
