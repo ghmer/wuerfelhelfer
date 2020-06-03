@@ -8,5 +8,5 @@ package link.parzival.dsa.object.enumeration;
  *
  */
 public enum ParadeObjektTypEnum {
-	Paradewaffe,Schild
+    Paradewaffe, Schild
 }

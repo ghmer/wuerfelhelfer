@@ -8,5 +8,5 @@ package link.parzival.dsa.object.enumeration;
  *
  */
 public enum EigenschaftEnum {
-	MU,KL,IN,CH,FF,GE,KO,KK,NA
+    MU, KL, IN, CH, FF, GE, KO, KK, NA
 }

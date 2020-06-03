@@ -11,16 +11,16 @@ import link.parzival.dsa.object.enumeration.EigenschaftEnum;
  */
 public class TalentObjektPlatzhalter extends TalentObjekt {
 
-	/**
-	 * 
-	 */
-	public TalentObjektPlatzhalter() {
-		setBe("");
-		setName("Keine Probe gewählt");
-		setProbenTalent1(EigenschaftEnum.NA);
-		setProbenTalent2(EigenschaftEnum.NA);
-		setProbenTalent3(EigenschaftEnum.NA);
-		setTalentwert(0);
-	}
+    /**
+     * 
+     */
+    public TalentObjektPlatzhalter() {
+        setBe("");
+        setName("Keine Probe gewählt");
+        setProbenTalent1(EigenschaftEnum.NA);
+        setProbenTalent2(EigenschaftEnum.NA);
+        setProbenTalent3(EigenschaftEnum.NA);
+        setTalentwert(0);
+    }
 
 }

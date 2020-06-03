@@ -8,12 +8,5 @@ package link.parzival.dsa.object.enumeration;
  *
  */
 public enum FernwaffenTypEnum {
-	Ar,
-	Bl,
-	Bo,
-	Di,
-	Sl,
-	Wb,
-	Wm,
-	Ws
+    Ar, Bl, Bo, Di, Sl, Wb, Wm, Ws
 }

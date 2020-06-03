@@ -8,5 +8,5 @@ package link.parzival.dsa.object.enumeration;
  *
  */
 public enum DKEnum {
-	H,N,S,P
+    H, N, S, P
 }
