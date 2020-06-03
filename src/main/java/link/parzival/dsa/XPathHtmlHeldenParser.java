@@ -40,7 +40,7 @@ import link.parzival.dsa.object.enumeration.ParadeObjektTypEnum;
  * @author mario
  *
  */
-public class HeroHtmlParser {
+public class XPathHtmlHeldenParser {
     
     /**
      * @param document the Document to parse

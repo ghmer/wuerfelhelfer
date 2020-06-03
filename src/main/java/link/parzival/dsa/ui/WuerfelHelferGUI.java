@@ -13,7 +13,7 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import link.parzival.dsa.Constants;
-import link.parzival.dsa.HeroHtmlParser;
+import link.parzival.dsa.XPathHtmlHeldenParser;
 import link.parzival.dsa.VersionCheck;
 import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.enumeration.LizenzTypEnum;
@@ -107,7 +107,7 @@ public class WuerfelHelferGUI extends JFrame {
                         @Override
                         public void run() {
                             File selectedFile = fileChooser.getSelectedFile();
-                            HeroHtmlParser hxp = new HeroHtmlParser();
+                            XPathHtmlHeldenParser hxp = new XPathHtmlHeldenParser();
                             try {
                                 hero = null;
                                 hero = hxp.parseFile(selectedFile);
