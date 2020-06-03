@@ -304,18 +304,6 @@ public class DsaCalculatorUtil {
             case  0: result = String.format("!%s Parade (optimale Distanzklasse)", parade);                        break;
             case  1: result = String.format("!%s Parade (erschwert aufgrund falscher Distanz)", parade);           break;
             }
-            
-            
-            //TODO?
-            if(effectiveDistance != 0) {
-                if(effectiveDistance == -1) {
-                    
-                } else {
-                    
-                }
-            } else {
-                
-            }
         }
         
         return result;
@@ -415,17 +403,6 @@ public class DsaCalculatorUtil {
             case -1: result = String.format("!%s Parade (falsche Distanz, keine Erschwerung auf Parade)", parade); break;
             case  0: result = String.format("!%s Parade (optimale Distanzklasse)", parade);                        break;
             case  1: result = String.format("!%s Parade (erschwert aufgrund falscher Distanz)", parade);           break;
-            }
-            
-            //TODO?
-            if(effectiveDistance != 0) {
-                if(effectiveDistance == -1) {
-                    
-                } else {
-                    
-                }
-            } else {
-                
             }
         }
         
