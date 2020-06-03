@@ -33,16 +33,14 @@ public class TalentPanel extends JPanel {
     /**
      * 
      */
-    private static final long serialVersionUID = -4466855899017287952L;
-    private JComboBox<EigenschaftEnum> pruefEigenschaft1;
-    private JComboBox<EigenschaftEnum> pruefEigenschaft2;
-    private JComboBox<EigenschaftEnum> pruefEigenschaft3;
-    private JSpinner pruefModifier;
-    
-    private String selectedAbilityName = null;
-    
-    TalentObjekt talent = new TalentObjektPlatzhalter();
-    HeldenObjekt hero   = new HeldenObjekt();
+    private static final long serialVersionUID           = -4466855899017287952L;
+    private JComboBox<EigenschaftEnum> pruefEigenschaft1 = null;
+    private JComboBox<EigenschaftEnum> pruefEigenschaft2 = null;
+    private JComboBox<EigenschaftEnum> pruefEigenschaft3 = null;
+    private JSpinner pruefModifier                       = null;
+    private String selectedAbilityName                   = null;   
+    private TalentObjekt talent                          = new TalentObjektPlatzhalter();
+    private HeldenObjekt hero                            = new HeldenObjekt();
     /**
      * @return the hero
      */
