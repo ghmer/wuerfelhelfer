@@ -8,7 +8,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.filechooser.FileFilter;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -38,12 +37,10 @@ import javax.swing.UnsupportedLookAndFeelException;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
@@ -76,8 +73,8 @@ public class WuerfelHelferGUI extends JFrame {
         } catch( Exception ex ) {
             System.err.println( "Failed to initialize LaF" );
         }
-        this.customMainFont     = getFontFromResource("/UbuntuMono-R.ttf");
-        this.customHeroNameFont = getFontFromResource("/Friedolin.ttf");
+        this.customMainFont     = UIHelper.getFontFromResource("/UbuntuMono-R.ttf");
+        this.customHeroNameFont = UIHelper.getFontFromResource("/Friedolin.ttf");
         GraphicsEnvironment ge  = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(customHeroNameFont);
         ge.registerFont(customMainFont);
@@ -100,36 +97,30 @@ public class WuerfelHelferGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-                fileChooser.setFileFilter(new FileFilter() {
-                    @Override
-                    public boolean accept(File f) {
-                        if (f.isDirectory()) {
-                            return true;
-                        } else {
-                            return f.getName().toLowerCase().endsWith(".html");
-                        }
-                    }                    
-                    @Override
-                    public String getDescription() {
-                        return "*.html";
-                    }
-                });
+                fileChooser.setFileFilter(UIHelper.getHtmlFileFilter());
                 
                 int result = fileChooser.showOpenDialog(contentPane);
                 if (result == JFileChooser.APPROVE_OPTION) {
-                    File selectedFile = fileChooser.getSelectedFile();
-                    HeroHtmlParser hxp = new HeroHtmlParser();
-                    try {
-                        hero = null;
-                        hero = hxp.parseFile(selectedFile);
-                    } catch (Exception e1) {
-                        e1.printStackTrace();
-                    }
-                    
-                    heldenPanel.setHero(hero);
-                    talentPanel.setHero(hero);
-                    kampfPanel.setHero(hero);
-                    setItemVisibility();
+                    SwingUtilities.invokeLater(new Runnable() {
+                        
+                        @Override
+                        public void run() {
+                            File selectedFile = fileChooser.getSelectedFile();
+                            HeroHtmlParser hxp = new HeroHtmlParser();
+                            try {
+                                hero = null;
+                                hero = hxp.parseFile(selectedFile);
+                            } catch (Exception e1) {
+                                e1.printStackTrace();
+                            }
+                            
+                            heldenPanel.setHero(hero);
+                            talentPanel.setHero(hero);
+                            kampfPanel.setHero(hero);
+                            setItemVisibility();
+                            
+                        }
+                    });
                 }
             }            
         });
@@ -139,13 +130,20 @@ public class WuerfelHelferGUI extends JFrame {
         menuFile.add(menuItemUpdateCheck);
         menuItemUpdateCheck.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(VersionCheck.checkForNewVersion(Constants.VERSION)) {
-                    UpdateHinweisDialog dialog = new UpdateHinweisDialog();
-                    dialog.setLocationRelativeTo(getRootPane());
-                    dialog.setVisible(true);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Du verwendest die aktuelle Version");
-                }
+                SwingUtilities.invokeLater(new Runnable() {
+                    
+                    @Override
+                    public void run() {
+                        if(VersionCheck.checkForNewVersion(Constants.VERSION)) {
+                            UpdateHinweisDialog dialog = new UpdateHinweisDialog();
+                            dialog.setLocationRelativeTo(getRootPane());
+                            dialog.setVisible(true);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Du verwendest die aktuelle Version");
+                        }
+                        
+                    }
+                });
             }
         });
         
@@ -369,28 +367,7 @@ public class WuerfelHelferGUI extends JFrame {
         });
     }
     
-    private Font getFontFromResource(String pathToFont) {
-        Font font = null;
-        InputStream is = null;
-        try {
-            is = this.getClass().getResourceAsStream(pathToFont);
-            font = Font.createFont(Font.TRUETYPE_FONT,is);          
-        } catch (IOException e) {
-             System.err.println(e.getMessage());
-        } catch (FontFormatException e1) {
-            e1.printStackTrace();
-        } finally {
-            if(is != null) {
-                try {
-                    is.close();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-            }
-        }
-        
-        return font;
-    }
+    
     
     private void setItemVisibility() {
         heldenPanel.setVisible(true);
