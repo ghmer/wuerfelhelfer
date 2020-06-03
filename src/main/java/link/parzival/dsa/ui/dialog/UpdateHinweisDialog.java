@@ -8,7 +8,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import link.parzival.dsa.Constants;
+import link.parzival.dsa.Konstanten;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -63,13 +63,13 @@ public class UpdateHinweisDialog extends JDialog {
             contentPanel.add(lblTop, gbc_lblTop);
         }
         {
-            JLabel lblLinkNewVersion = new JLabel(Constants.APP_URL);
+            JLabel lblLinkNewVersion = new JLabel(Konstanten.APP_URL);
             lblLinkNewVersion.setCursor(new Cursor(Cursor.HAND_CURSOR));
             lblLinkNewVersion.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     try {
-                        Desktop.getDesktop().browse(new URI(Constants.APP_URL));
+                        Desktop.getDesktop().browse(new URI(Konstanten.APP_URL));
                     } catch (IOException e1) {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();

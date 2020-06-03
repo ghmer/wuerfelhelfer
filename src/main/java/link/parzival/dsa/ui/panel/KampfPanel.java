@@ -6,7 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 
-import link.parzival.dsa.Constants;
+import link.parzival.dsa.Konstanten;
 import link.parzival.dsa.BerechnungsHelfer;
 import link.parzival.dsa.object.FernwaffenObjekt;
 import link.parzival.dsa.object.HeldenObjekt;
@@ -168,7 +168,7 @@ public class KampfPanel extends JPanel {
                 dialog.setFont(getFont());
                 dialog.setLocationRelativeTo(btnFernkampf.getRootPane());
                 switch (dialog.showDialog()) {
-                case Constants.DIALOG_OK_STATE:
+                case Konstanten.DIALOG_OK_STATE:
                     WuerfelHelferGUI.copyToClipboard(dialog.getRollCommand());
                     break;
                 }
@@ -333,7 +333,7 @@ public class KampfPanel extends JPanel {
                 dialog.setFont(getFont());
                 dialog.setLocationRelativeTo(btnAusweichen.getRootPane());
                 switch (dialog.showDialog()) {
-                case Constants.DIALOG_OK_STATE:
+                case Konstanten.DIALOG_OK_STATE:
                     WuerfelHelferGUI.copyToClipboard(dialog.getRollCommand());
                     break;
                 }
@@ -591,7 +591,7 @@ public class KampfPanel extends JPanel {
                 dialog.setFont(getFont());
                 dialog.setLocationRelativeTo(btnHopsen.getRootPane());
                 switch (dialog.showDialog()) {
-                case Constants.DIALOG_OK_STATE:
+                case Konstanten.DIALOG_OK_STATE:
                     WuerfelHelferGUI.copyToClipboard(dialog.getRollCommand());
                     break;
                 }

@@ -7,7 +7,7 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
-import link.parzival.dsa.Constants;
+import link.parzival.dsa.Konstanten;
 import link.parzival.dsa.BerechnungsHelfer;
 import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.TalentObjekt;
@@ -87,7 +87,7 @@ public class TalentPanel extends JPanel {
                 dialog.setFont(getFont());
                 dialog.setLocationRelativeTo(getRootPane());
                 switch (dialog.showDialog()) {
-                case Constants.DIALOG_OK_STATE:
+                case Konstanten.DIALOG_OK_STATE:
                     setSelectedAbilityName(dialog.getSelectedAbility());
                     break;
                 }

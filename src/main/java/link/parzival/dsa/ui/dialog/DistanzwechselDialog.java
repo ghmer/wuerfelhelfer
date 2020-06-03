@@ -8,7 +8,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import link.parzival.dsa.Constants;
+import link.parzival.dsa.Konstanten;
 import link.parzival.dsa.BerechnungsHelfer;
 import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.WaffenObjekt;
@@ -33,7 +33,7 @@ public class DistanzwechselDialog extends JDialog {
     private final JPanel contentPanel           = new JPanel();
     private JComboBox<Integer> dkAenderung      = new JComboBox<>();
     private String rollCommand                  = null;
-    private int state                           = Constants.DIALOG_CANCEL_STATE;
+    private int state                           = Konstanten.DIALOG_CANCEL_STATE;
 
     /**
      * @param hero the HeldenObjekt to set
@@ -100,7 +100,7 @@ public class DistanzwechselDialog extends JDialog {
                         boolean verdoppeln = ((int) dkAenderung.getSelectedItem() == 2) ? true : false;
                         boolean verkuerzen = (((HopserOptionEnum) comboBoxDirection.getSelectedItem()).equals(HopserOptionEnum.verkürzen)) ? true: false;
                         setRollCommand(BerechnungsHelfer.getChangeDistanceEffectiveRoll(waffenObjekt, verdoppeln, verkuerzen));
-                        state = Constants.DIALOG_OK_STATE;
+                        state = Konstanten.DIALOG_OK_STATE;
                         dispose();
                     }
                 });
@@ -112,7 +112,7 @@ public class DistanzwechselDialog extends JDialog {
                 JButton cancelButton = new JButton(BUNDLE.getString("DistanceChangeDialog.cancelButton.text")); //$NON-NLS-1$
                 cancelButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        state = Constants.DIALOG_CANCEL_STATE;
+                        state = Konstanten.DIALOG_CANCEL_STATE;
                         dispose();
                     }
                 });

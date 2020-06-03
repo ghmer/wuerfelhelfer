@@ -7,7 +7,7 @@ package link.parzival.dsa;
  * @author mario
  *
  */
-public class Constants {
+public class Konstanten {
     public static final String APP_URL          = "https://parzival.link/dz-dice-helper-latest.jar";
     public static final String MANUAL_URL       = "https://parzival.link/Wuerfelhelfer-Anleitung.pdf";
     public static final String VERSION_URL      = "https://parzival.link/dz-helper-version.txt";

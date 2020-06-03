@@ -22,7 +22,7 @@ public class VersionCheck {
         int remoteVersion       = -1;
         BufferedInputStream bis = null;
         try {
-            URL url = new URL(Constants.VERSION_URL);
+            URL url = new URL(Konstanten.VERSION_URL);
             bis     = new BufferedInputStream(url.openStream());
             
             byte dataBuffer[]   = new byte[1024];

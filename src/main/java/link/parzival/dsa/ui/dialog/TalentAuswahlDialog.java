@@ -20,7 +20,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
-import link.parzival.dsa.Constants;
+import link.parzival.dsa.Konstanten;
 import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.TalentObjekt;
 import link.parzival.dsa.object.enumeration.FaehigkeitsTypEnum;
@@ -51,7 +51,7 @@ public class TalentAuswahlDialog extends JDialog {
     private final JPanel contentPanel          = new JPanel();
 
     private JTextField textFieldSearch         = null;
-    private int state                          = Constants.DIALOG_CANCEL_STATE;
+    private int state                          = Konstanten.DIALOG_CANCEL_STATE;
 
     private String selectedAbilityName = null;
     private JComboBox<FaehigkeitsTypEnum> comboBox;
@@ -241,7 +241,7 @@ public class TalentAuswahlDialog extends JDialog {
 
                     selectedAbilityName = (String) sourceTable.getValueAt(row, 0);
 
-                    state = Constants.DIALOG_OK_STATE;
+                    state = Konstanten.DIALOG_OK_STATE;
                     dispose();
                 }
             }

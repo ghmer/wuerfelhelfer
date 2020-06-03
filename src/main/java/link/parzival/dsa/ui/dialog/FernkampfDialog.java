@@ -30,7 +30,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import link.parzival.dsa.Constants;
+import link.parzival.dsa.Konstanten;
 import link.parzival.dsa.BerechnungsHelfer;
 import link.parzival.dsa.object.FernwaffenObjekt;
 import java.awt.Font;
@@ -82,7 +82,7 @@ public class FernkampfDialog extends JDialog {
     private JSpinner spinnerGegnerInDistanzNS           = new JSpinner();
     private JSpinner spinnerGroessenModifikator         = new JSpinner();
     private JSpinner spinnerZielen                      = new JSpinner();
-    private int state                                   = Constants.DIALOG_CANCEL_STATE;
+    private int state                                   = Konstanten.DIALOG_CANCEL_STATE;
     private JTabbedPane tabbedPane                      = new JTabbedPane();
     private List<JCheckBox> vorteilListe                = new ArrayList<>();
     private List<JRadioButton>zielHumanoidGroup         = new ArrayList<>();    
@@ -1218,7 +1218,7 @@ public class FernkampfDialog extends JDialog {
                             setRollCommand(BerechnungsHelfer.getFernkampfRollCommand(
                                     getFernwaffenObjekt().getFk(), 
                                     erschwernis));
-                            state = Constants.DIALOG_OK_STATE;
+                            state = Konstanten.DIALOG_OK_STATE;
                             dispose();
                             
                         } else {

@@ -8,7 +8,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import link.parzival.dsa.Constants;
+import link.parzival.dsa.Konstanten;
 import link.parzival.dsa.BerechnungsHelfer;
 import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.enumeration.DKEnum;
@@ -41,7 +41,7 @@ public class AusweichDialog extends JDialog {
     
     private JButton okButton                     = new JButton();
     private String rollCommand                   = null;
-    private int state                            = Constants.DIALOG_CANCEL_STATE;
+    private int state                            = Konstanten.DIALOG_CANCEL_STATE;
 
     /**
      * @param hero the HeldenObjekt to set
@@ -138,7 +138,7 @@ public class AusweichDialog extends JDialog {
                 okButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         setRollCommand(BerechnungsHelfer.getEffectiveEvadingRoll(hero, initiative, enemyCount, gezieltesAusweichen, withDk, distanzklasse));
-                        state = Constants.DIALOG_OK_STATE;
+                        state = Konstanten.DIALOG_OK_STATE;
                         dispose();
                     }
                 });
@@ -150,7 +150,7 @@ public class AusweichDialog extends JDialog {
                 JButton cancelButton = new JButton(BUNDLE.getString("EvasionDialog.cancelButton.text")); //$NON-NLS-1$
                 cancelButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        state = Constants.DIALOG_CANCEL_STATE;
+                        state = Konstanten.DIALOG_CANCEL_STATE;
                         dispose();
                     }
                 });

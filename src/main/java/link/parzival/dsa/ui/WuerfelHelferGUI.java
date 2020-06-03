@@ -12,7 +12,7 @@ import javax.swing.border.EmptyBorder;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
-import link.parzival.dsa.Constants;
+import link.parzival.dsa.Konstanten;
 import link.parzival.dsa.XPathHtmlHeldenParser;
 import link.parzival.dsa.VersionCheck;
 import link.parzival.dsa.object.HeldenObjekt;
@@ -83,7 +83,7 @@ public class WuerfelHelferGUI extends JFrame {
         setFont(customMainFont);
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle(String.format("Würfelhelfer Version %s", Constants.VERSION_EXTERNAL));
+        setTitle(String.format("Würfelhelfer Version %s", Konstanten.VERSION_EXTERNAL));
         setBounds(100, 100, 300, 100);
         
         JMenuBar menuBar = new JMenuBar();
@@ -135,7 +135,7 @@ public class WuerfelHelferGUI extends JFrame {
                     
                     @Override
                     public void run() {
-                        if(VersionCheck.checkForNewVersion(Constants.VERSION)) {
+                        if(VersionCheck.checkForNewVersion(Konstanten.VERSION)) {
                             UpdateHinweisDialog dialog = new UpdateHinweisDialog();
                             dialog.setLocationRelativeTo(getRootPane());
                             dialog.setVisible(true);
@@ -258,7 +258,7 @@ public class WuerfelHelferGUI extends JFrame {
         menuItemHilfe.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Desktop.getDesktop().browse(new URI(Constants.MANUAL_URL));
+                    Desktop.getDesktop().browse(new URI(Konstanten.MANUAL_URL));
                 } catch (IOException | URISyntaxException e1) {
                     e1.printStackTrace();
                 }
@@ -346,11 +346,11 @@ public class WuerfelHelferGUI extends JFrame {
     public static void main(String[] args) {
         if(args != null && args.length == 1) {
             if(args[0].equalsIgnoreCase("-version")) {
-                System.out.println(Constants.VERSION);
+                System.out.println(Konstanten.VERSION);
                 return;
             }
             if(args[0].equalsIgnoreCase("-updatecheck")) {
-                System.out.println(VersionCheck.checkForNewVersion(Constants.VERSION));
+                System.out.println(VersionCheck.checkForNewVersion(Konstanten.VERSION));
                 return;
             }
         }
