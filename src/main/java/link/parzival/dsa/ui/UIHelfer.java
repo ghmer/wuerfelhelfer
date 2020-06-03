@@ -12,7 +12,7 @@ import java.io.InputStream;
 import javax.swing.filechooser.FileFilter;
 
 /**
- * @author mario
+ * @author Mario Enrico Ragucci
  *
  */
 public class UIHelfer {

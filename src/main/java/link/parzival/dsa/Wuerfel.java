@@ -6,7 +6,7 @@ package link.parzival.dsa;
 import java.util.Random;
 
 /**
- * @author mario
+ * @author Mario Enrico Ragucci
  *
  */
 public class Wuerfel {

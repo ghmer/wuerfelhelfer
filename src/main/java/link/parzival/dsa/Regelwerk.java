@@ -4,7 +4,7 @@
 package link.parzival.dsa;
 
 /**
- * @author mario
+ * @author Mario Enrico Ragucci
  *
  */
 public class Regelwerk {

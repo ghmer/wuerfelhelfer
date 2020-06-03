@@ -9,7 +9,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * @author mario
+ * @author Mario Enrico Ragucci
  *
  */
 public class VersionCheck {

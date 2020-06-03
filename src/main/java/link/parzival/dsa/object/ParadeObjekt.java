@@ -6,7 +6,7 @@ package link.parzival.dsa.object;
 import link.parzival.dsa.object.enumeration.ParadeObjektTypEnum;
 
 /**
- * @author mario
+ * @author Mario Enrico Ragucci
  *
  */
 public class ParadeObjekt {

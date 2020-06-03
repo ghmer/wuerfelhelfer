@@ -15,7 +15,7 @@ import link.parzival.dsa.object.WaffenObjekt;
 import link.parzival.dsa.object.enumeration.DKEnum;
 
 /**
- * @author mario
+ * @author Mario Enrico Ragucci
  *
  */
 public class BerechnungsHelfer {

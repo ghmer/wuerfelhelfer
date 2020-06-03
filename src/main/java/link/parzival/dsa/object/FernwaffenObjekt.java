@@ -9,7 +9,7 @@ import java.util.List;
 import link.parzival.dsa.object.enumeration.FernwaffenTypEnum;
 
 /**
- * @author mario
+ * @author Mario Enrico Ragucci
  *
  */
 public class FernwaffenObjekt {

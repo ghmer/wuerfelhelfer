@@ -37,7 +37,7 @@ import link.parzival.dsa.object.enumeration.FernwaffenTypEnum;
 import link.parzival.dsa.object.enumeration.ParadeObjektTypEnum;
 
 /**
- * @author mario
+ * @author Mario Enrico Ragucci
  *
  */
 public class XPathHtmlHeldenParser {

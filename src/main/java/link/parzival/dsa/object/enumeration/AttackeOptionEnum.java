@@ -5,7 +5,7 @@
 package link.parzival.dsa.object.enumeration;
 
 /**
- * @author mario
+ * @author Mario Enrico Ragucci
  *
  */
 public enum AttackeOptionEnum {

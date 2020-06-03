@@ -9,7 +9,7 @@ import java.util.List;
 import link.parzival.dsa.object.enumeration.EigenschaftEnum;
 
 /**
- * @author mario
+ * @author Mario Enrico Ragucci
  *
  */
 public class HeldenObjekt {

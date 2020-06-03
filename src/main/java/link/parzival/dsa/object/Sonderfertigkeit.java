@@ -4,7 +4,7 @@
 package link.parzival.dsa.object;
 
 /**
- * @author mario
+ * @author Mario Enrico Ragucci
  *
  */
 public class Sonderfertigkeit {
