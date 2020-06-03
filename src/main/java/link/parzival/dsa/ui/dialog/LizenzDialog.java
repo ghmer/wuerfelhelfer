@@ -8,6 +8,9 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import link.parzival.dsa.object.enumeration.LizenzTypEnum;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import java.awt.GridBagLayout;
@@ -19,17 +22,13 @@ import java.util.ResourceBundle;
 public class LizenzDialog extends JDialog {
     private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("link.parzival.dsa.ui.messages"); //$NON-NLS-1$
 
-    public enum License {
-        Ubuntu, GPL, Apache
-    }
-
     private static final long serialVersionUID = -789044538891465510L;
     private final JPanel contentPanel          = new JPanel();
 
     /**
      * @param license the type of license to show
      */
-    public LizenzDialog(License license) {
+    public LizenzDialog(LizenzTypEnum license) {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setBounds(100, 100, 450, 300);
         getContentPane().setLayout(new BorderLayout());
@@ -77,7 +76,7 @@ public class LizenzDialog extends JDialog {
      * @return the license text
      */
     @SuppressWarnings("resource")
-    private String getLizenz(License license) {
+    private String getLizenz(LizenzTypEnum license) {
         String text = null;
         switch (license) {
         case Apache: {

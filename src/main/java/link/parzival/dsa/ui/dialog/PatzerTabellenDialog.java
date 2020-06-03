@@ -10,6 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import link.parzival.dsa.DsaCalculatorUtil;
+import link.parzival.dsa.object.enumeration.PatzerTypEnum;
 import link.parzival.dsa.ui.WuerfelHelferGUI;
 
 import java.awt.GridBagLayout;
@@ -30,10 +31,6 @@ import javax.swing.JLabel;
 import java.util.ResourceBundle;
 
 public class PatzerTabellenDialog extends JDialog {
-
-    public enum PatzerTyp {
-        Nahkampf, Fernkampf
-    }
 
     private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("link.parzival.dsa.ui.messages"); //$NON-NLS-1$
     private static final long serialVersionUID = 7916749926071186310L;
@@ -58,7 +55,7 @@ public class PatzerTabellenDialog extends JDialog {
      * 
      * @param patzerTyp gibt den Typ der Patzertabelle an
      */
-    public PatzerTabellenDialog(PatzerTyp patzerTyp) {
+    public PatzerTabellenDialog(PatzerTypEnum patzerTyp) {
         setTitle(String.format("Patzertabelle: %s", patzerTyp.name()));
         setBounds(100, 100, 300, 275);
         getContentPane().setLayout(new BorderLayout());
@@ -195,7 +192,7 @@ public class PatzerTabellenDialog extends JDialog {
         }
     }
 
-    private String[][] prepareTableEntries(PatzerTyp patzerTyp) {
+    private String[][] prepareTableEntries(PatzerTypEnum patzerTyp) {
         String[][] tableRows = null;
         switch (patzerTyp) {
         case Nahkampf: {

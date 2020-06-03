@@ -12,7 +12,9 @@ import link.parzival.dsa.object.FernwaffenObjekt;
 import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.ParadeObjekt;
 import link.parzival.dsa.object.WaffenObjekt;
+import link.parzival.dsa.object.enumeration.AttackeOptionEnum;
 import link.parzival.dsa.object.enumeration.DKEnum;
+import link.parzival.dsa.object.enumeration.ParadeOptionEnum;
 import link.parzival.dsa.ui.WuerfelHelferGUI;
 import link.parzival.dsa.ui.dialog.DistanzwechselDialog;
 import link.parzival.dsa.ui.dialog.AusweichDialog;
@@ -36,14 +38,6 @@ import java.util.ResourceBundle;
 public class KampfPanel extends JPanel {
     private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("link.parzival.dsa.ui.messages"); //$NON-NLS-1$
 
-    private enum ParadenOption {
-        Waffe, Schild, Raufen, Ringen
-    }
-
-    private enum AttackenOption {
-        Waffe, Raufen, Ringen
-    }
-
     /**
      * 
      */
@@ -62,7 +56,7 @@ public class KampfPanel extends JPanel {
     private JLabel lblAttackeModifier                 = null;
     private JButton btnAttacke                        = null;
     private JLabel lblParade                          = null;
-    private JComboBox<ParadenOption> comboBoxParade   = null;
+    private JComboBox<ParadeOptionEnum> comboBoxParade   = null;
     private JLabel lblParadeModifier                  = null;
     private JSpinner paradeModifier                   = null;
     private JButton btnParade                         = null;
@@ -89,7 +83,7 @@ public class KampfPanel extends JPanel {
     private JLabel lblFernkampfWaffe                  = null;
     private JComboBox<String> comboBoxFernkampfwaffe  = null;
     private JLabel lblAttackeMit                      = null;
-    private JComboBox<AttackenOption> comboBoxAttacke = null;
+    private JComboBox<AttackeOptionEnum> comboBoxAttacke = null;
     private JLabel lblDkWaffe                         = null;
 
     /**
@@ -356,9 +350,9 @@ public class KampfPanel extends JPanel {
         gbc_lblAttackeMit.gridy = 7;
         add(lblAttackeMit, gbc_lblAttackeMit);
 
-        comboBoxAttacke = new JComboBox<AttackenOption>();
+        comboBoxAttacke = new JComboBox<AttackeOptionEnum>();
         comboBoxAttacke.setToolTipText(BUNDLE.getString("KampfPanel.comboBoxAttacke.toolTipText")); //$NON-NLS-1$
-        comboBoxAttacke.setModel(new DefaultComboBoxModel<>(AttackenOption.values()));
+        comboBoxAttacke.setModel(new DefaultComboBoxModel<>(AttackeOptionEnum.values()));
         comboBoxAttacke.setSelectedIndex(0);
         GridBagConstraints gbc_comboBoxAttacke = new GridBagConstraints();
         gbc_comboBoxAttacke.fill = GridBagConstraints.HORIZONTAL;
@@ -381,10 +375,10 @@ public class KampfPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 int modificator = getAttackeModifier();
 
-                AttackenOption option = (AttackenOption) comboBoxAttacke.getSelectedItem();
+                AttackeOptionEnum option = (AttackeOptionEnum) comboBoxAttacke.getSelectedItem();
                 switch (option) {
                 case Waffe: {
-                    if (getWaffenObjekt() == null && option.equals(AttackenOption.Waffe)) {
+                    if (getWaffenObjekt() == null && option.equals(AttackeOptionEnum.Waffe)) {
                         JOptionPane.showMessageDialog(getParent(), "Du trägst doch gar keine Waffe!");
                         return;
                     }
@@ -410,7 +404,7 @@ public class KampfPanel extends JPanel {
                     break;
                 }
                 default: {
-                    String selectedKampfTechnikName = ((AttackenOption) comboBoxAttacke.getSelectedItem()).name();
+                    String selectedKampfTechnikName = ((AttackeOptionEnum) comboBoxAttacke.getSelectedItem()).name();
                     applyKampftechnikAttack(hero, modificator, selectedKampfTechnikName);
 
                     break;
@@ -452,16 +446,16 @@ public class KampfPanel extends JPanel {
         btnParade = new JButton(BUNDLE.getString("KampfPanel.btnParade.text")); //$NON-NLS-1$
         btnParade.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ParadenOption paradenOption = (ParadenOption) comboBoxParade.getSelectedItem();
+                ParadeOptionEnum paradenOption = (ParadeOptionEnum) comboBoxParade.getSelectedItem();
 
                 int modificator = getParadeModifier();
 
-                if (getWaffenObjekt() == null && paradenOption.equals(ParadenOption.Waffe)) {
+                if (getWaffenObjekt() == null && paradenOption.equals(ParadeOptionEnum.Waffe)) {
                     JOptionPane.showMessageDialog(getParent(), "Du trägst doch gar keine Waffe!");
                     return;
                 }
 
-                if (paradeObjekt == null && paradenOption.equals(ParadenOption.Schild)) {
+                if (paradeObjekt == null && paradenOption.equals(ParadeOptionEnum.Schild)) {
                     JOptionPane.showMessageDialog(getParent(), "Du hast doch gar keinen Schild!");
                     return;
                 }
@@ -492,7 +486,7 @@ public class KampfPanel extends JPanel {
                     break;
                 }
                 default: {
-                    String selectedKampfTechnikName = ((ParadenOption) comboBoxParade.getSelectedItem()).name();
+                    String selectedKampfTechnikName = ((ParadeOptionEnum) comboBoxParade.getSelectedItem()).name();
                     applyKampftechniParade(hero, modificator, getInitiative(), selectedKampfTechnikName);
                     break;
                 }
@@ -500,9 +494,9 @@ public class KampfPanel extends JPanel {
             }
         });
 
-        comboBoxParade = new JComboBox<ParadenOption>();
+        comboBoxParade = new JComboBox<ParadeOptionEnum>();
         comboBoxParade.setToolTipText(BUNDLE.getString("KampfPanel.comboBoxParade.toolTipText")); //$NON-NLS-1$
-        comboBoxParade.setModel(new DefaultComboBoxModel<ParadenOption>(ParadenOption.values()));
+        comboBoxParade.setModel(new DefaultComboBoxModel<ParadeOptionEnum>(ParadeOptionEnum.values()));
         comboBoxParade.setSelectedIndex(0);
         GridBagConstraints gbc_comboBoxParade = new GridBagConstraints();
         gbc_comboBoxParade.fill = GridBagConstraints.HORIZONTAL;

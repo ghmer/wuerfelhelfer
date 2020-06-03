@@ -23,6 +23,7 @@ import javax.swing.text.Document;
 import link.parzival.dsa.Constants;
 import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.TalentObjekt;
+import link.parzival.dsa.object.enumeration.AbilityTypeEnum;
 
 import java.awt.Color;
 import javax.swing.ListSelectionModel;
@@ -42,10 +43,6 @@ import java.util.ResourceBundle;
 
 public class TalentAuswahlDialog extends JDialog {
     private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("link.parzival.dsa.ui.messages"); //$NON-NLS-1$
-
-    private enum AbilityTypeEnum {
-        Talent, Magie
-    }
 
     /**
      * 

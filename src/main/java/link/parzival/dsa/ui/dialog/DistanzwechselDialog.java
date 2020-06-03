@@ -12,6 +12,7 @@ import link.parzival.dsa.Constants;
 import link.parzival.dsa.DsaCalculatorUtil;
 import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.WaffenObjekt;
+import link.parzival.dsa.object.enumeration.HopserOptionEnum;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -27,12 +28,8 @@ import java.util.ResourceBundle;
 public class DistanzwechselDialog extends JDialog {
     private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("link.parzival.dsa.ui.messages"); //$NON-NLS-1$
 
-    private enum Hopser {
-        verkürzen,verlängern
-    }
-    
     private static final long serialVersionUID  = 9196060912407937075L;
-    private JComboBox<Hopser> comboBoxDirection = new JComboBox<>();
+    private JComboBox<HopserOptionEnum> comboBoxDirection = new JComboBox<>();
     private final JPanel contentPanel           = new JPanel();
     private JComboBox<Integer> dkAenderung      = new JComboBox<>();
     private String rollCommand                  = null;
@@ -58,8 +55,8 @@ public class DistanzwechselDialog extends JDialog {
         gbl_contentPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
         contentPanel.setLayout(gbl_contentPanel);
         
-        comboBoxDirection = new JComboBox<Hopser>();
-        comboBoxDirection.setModel(new DefaultComboBoxModel<Hopser>(Hopser.values()));
+        comboBoxDirection = new JComboBox<HopserOptionEnum>();
+        comboBoxDirection.setModel(new DefaultComboBoxModel<HopserOptionEnum>(HopserOptionEnum.values()));
         GridBagConstraints gbc_comboBoxDirection = new GridBagConstraints();
         gbc_comboBoxDirection.fill = GridBagConstraints.HORIZONTAL;
         gbc_comboBoxDirection.insets = new Insets(0, 0, 0, 5);
@@ -101,7 +98,7 @@ public class DistanzwechselDialog extends JDialog {
                 okButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         boolean verdoppeln = ((int) dkAenderung.getSelectedItem() == 2) ? true : false;
-                        boolean verkuerzen = (((Hopser) comboBoxDirection.getSelectedItem()).equals(Hopser.verkürzen)) ? true: false;
+                        boolean verkuerzen = (((HopserOptionEnum) comboBoxDirection.getSelectedItem()).equals(HopserOptionEnum.verkürzen)) ? true: false;
                         setRollCommand(DsaCalculatorUtil.getChangeDistanceEffectiveRoll(waffenObjekt, verdoppeln, verkuerzen));
                         state = Constants.DIALOG_OK_STATE;
                         dispose();

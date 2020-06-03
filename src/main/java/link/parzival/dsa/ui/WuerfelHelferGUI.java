@@ -16,11 +16,12 @@ import link.parzival.dsa.Constants;
 import link.parzival.dsa.HeroHtmlParser;
 import link.parzival.dsa.VersionCheck;
 import link.parzival.dsa.object.HeldenObjekt;
+import link.parzival.dsa.object.enumeration.LizenzTypEnum;
+import link.parzival.dsa.object.enumeration.PatzerTypEnum;
 import link.parzival.dsa.ui.dialog.KampfbedingungenDialog;
 import link.parzival.dsa.ui.dialog.LizenzDialog;
 import link.parzival.dsa.ui.dialog.UpdateHinweisDialog;
 import link.parzival.dsa.ui.dialog.PatzerTabellenDialog;
-import link.parzival.dsa.ui.dialog.PatzerTabellenDialog.PatzerTyp;
 import link.parzival.dsa.ui.panel.HeldenPanel;
 import link.parzival.dsa.ui.panel.KampfPanel;
 import link.parzival.dsa.ui.panel.TalentPanel;
@@ -198,7 +199,7 @@ public class WuerfelHelferGUI extends JFrame {
         JMenuItem menuItemPatzerTabelleNahkampf = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemPatzerTabelleNahkampf.text")); //$NON-NLS-1$ //$NON-NLS-2$
         menuItemPatzerTabelleNahkampf.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                PatzerTabellenDialog patzerTabellenDialog = new PatzerTabellenDialog(PatzerTyp.Nahkampf);
+                PatzerTabellenDialog patzerTabellenDialog = new PatzerTabellenDialog(PatzerTypEnum.Nahkampf);
                 patzerTabellenDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 patzerTabellenDialog.setFont(getFont());
                 patzerTabellenDialog.setLocationRelativeTo(getRootPane());
@@ -210,7 +211,7 @@ public class WuerfelHelferGUI extends JFrame {
         JMenuItem menuItemPatzerTabelleFernkampf = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemPatzerTabelleFernkampf.text")); //$NON-NLS-1$ //$NON-NLS-2$
         menuItemPatzerTabelleFernkampf.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                PatzerTabellenDialog patzerTabellenDialog = new PatzerTabellenDialog(PatzerTyp.Fernkampf);
+                PatzerTabellenDialog patzerTabellenDialog = new PatzerTabellenDialog(PatzerTypEnum.Fernkampf);
                 patzerTabellenDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 patzerTabellenDialog.setFont(getFont());
                 patzerTabellenDialog.setLocationRelativeTo(getRootPane());
@@ -238,7 +239,7 @@ public class WuerfelHelferGUI extends JFrame {
         JMenuItem menuItemLizenzUbuntu = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemLizenzUbuntu.text")); //$NON-NLS-1$ //$NON-NLS-2$
         menuItemLizenzUbuntu.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                LizenzDialog lizenzDialog = new LizenzDialog(LizenzDialog.License.Ubuntu);
+                LizenzDialog lizenzDialog = new LizenzDialog(LizenzTypEnum.Ubuntu);
                 lizenzDialog.setFont(customMainFont);
                 lizenzDialog.setVisible(true);
             }
@@ -247,7 +248,7 @@ public class WuerfelHelferGUI extends JFrame {
         JMenuItem menuItemLizenzGpl = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemLizenzGpl.text")); //$NON-NLS-1$ //$NON-NLS-2$
         menuItemLizenzGpl.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                LizenzDialog lizenzDialog = new LizenzDialog(LizenzDialog.License.GPL);
+                LizenzDialog lizenzDialog = new LizenzDialog(LizenzTypEnum.GPL);
                 lizenzDialog.setFont(customMainFont);
                 lizenzDialog.setVisible(true);
             }
@@ -268,7 +269,7 @@ public class WuerfelHelferGUI extends JFrame {
         JMenuItem menuItemLizenzApache = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemLizenzApache.text")); //$NON-NLS-1$ //$NON-NLS-2$
         menuItemLizenzApache.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                LizenzDialog lizenzDialog = new LizenzDialog(LizenzDialog.License.Apache);
+                LizenzDialog lizenzDialog = new LizenzDialog(LizenzTypEnum.Apache);
                 lizenzDialog.setFont(customMainFont);
                 lizenzDialog.setVisible(true);
             }
