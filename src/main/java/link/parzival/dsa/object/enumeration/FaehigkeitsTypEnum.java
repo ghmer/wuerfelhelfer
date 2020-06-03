@@ -7,6 +7,6 @@ package link.parzival.dsa.object.enumeration;
  * @author mario
  *
  */
-public enum AbilityTypeEnum {
+public enum FaehigkeitsTypEnum {
     Talent, Magie
 }

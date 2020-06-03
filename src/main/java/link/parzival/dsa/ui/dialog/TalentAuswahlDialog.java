@@ -23,7 +23,7 @@ import javax.swing.text.Document;
 import link.parzival.dsa.Constants;
 import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.TalentObjekt;
-import link.parzival.dsa.object.enumeration.AbilityTypeEnum;
+import link.parzival.dsa.object.enumeration.FaehigkeitsTypEnum;
 
 import java.awt.Color;
 import javax.swing.ListSelectionModel;
@@ -54,7 +54,7 @@ public class TalentAuswahlDialog extends JDialog {
     private int state                          = Constants.DIALOG_CANCEL_STATE;
 
     private String selectedAbilityName = null;
-    private JComboBox<AbilityTypeEnum> comboBox;
+    private JComboBox<FaehigkeitsTypEnum> comboBox;
     JScrollPane scrollPane;
 
     /**
@@ -125,7 +125,7 @@ public class TalentAuswahlDialog extends JDialog {
 
             }
         });
-        comboBox.setModel(new DefaultComboBoxModel<AbilityTypeEnum>(AbilityTypeEnum.values()));
+        comboBox.setModel(new DefaultComboBoxModel<FaehigkeitsTypEnum>(FaehigkeitsTypEnum.values()));
         comboBox.setSelectedIndex(0);
         comboBox.transferFocus();
         GridBagConstraints gbc_comboBox = new GridBagConstraints();
@@ -184,7 +184,7 @@ public class TalentAuswahlDialog extends JDialog {
         List<TalentObjekt> zauber = hero.getZauber();
         List<TalentObjekt> matches = new ArrayList<>();
 
-        AbilityTypeEnum chosenEnum = (AbilityTypeEnum) comboBox.getSelectedItem();
+        FaehigkeitsTypEnum chosenEnum = (FaehigkeitsTypEnum) comboBox.getSelectedItem();
         switch (chosenEnum) {
         case Talent: {
             prepareMatchingAbilityList(searchText, talente, matches);
