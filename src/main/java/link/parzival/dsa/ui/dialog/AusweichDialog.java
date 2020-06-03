@@ -45,6 +45,7 @@ public class AusweichDialog extends JDialog {
 
     /**
      * @param hero the HeldenObjekt to set
+     * @param initiative the Initiative to use
      * @param withDk whether to use Distanzklassen
      * @param distanzklasse the Distanzklasse to use
      */
