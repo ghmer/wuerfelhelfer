@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import link.parzival.dsa.Constants;
-import link.parzival.dsa.DsaCalculatorUtil;
+import link.parzival.dsa.BerechnungsHelfer;
 import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.enumeration.DKEnum;
 
@@ -137,7 +137,7 @@ public class AusweichDialog extends JDialog {
                 okButton = new JButton(BUNDLE.getString("EvasionDialog.okButton.text")); //$NON-NLS-1$
                 okButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        setRollCommand(DsaCalculatorUtil.getEffectiveEvadingRoll(hero, initiative, enemyCount, gezieltesAusweichen, withDk, distanzklasse));
+                        setRollCommand(BerechnungsHelfer.getEffectiveEvadingRoll(hero, initiative, enemyCount, gezieltesAusweichen, withDk, distanzklasse));
                         state = Constants.DIALOG_OK_STATE;
                         dispose();
                     }

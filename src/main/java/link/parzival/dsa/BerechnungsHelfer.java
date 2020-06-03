@@ -18,7 +18,7 @@ import link.parzival.dsa.object.enumeration.DKEnum;
  * @author mario
  *
  */
-public class DsaCalculatorUtil {
+public class BerechnungsHelfer {
     
     /**
      * @param initiative the initiative

@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
-import link.parzival.dsa.DsaCalculatorUtil;
+import link.parzival.dsa.BerechnungsHelfer;
 import link.parzival.dsa.object.enumeration.PatzerTypEnum;
 import link.parzival.dsa.ui.WuerfelHelferGUI;
 
@@ -71,7 +71,7 @@ public class PatzerTabellenDialog extends JDialog {
             JButton btnPatzerWuerfeln = new JButton(BUNDLE.getString("PatzerTabellenDialog.btnPatzerWuerfeln.text")); //$NON-NLS-1$
             btnPatzerWuerfeln.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    WuerfelHelferGUI.copyToClipboard(DsaCalculatorUtil.getPatzerWurf(), getContentPane());
+                    WuerfelHelferGUI.copyToClipboard(BerechnungsHelfer.getPatzerWurf(), getContentPane());
                 }
             });
             GridBagConstraints gbc_btnPatzerWuerfeln = new GridBagConstraints();

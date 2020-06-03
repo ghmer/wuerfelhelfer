@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
 import link.parzival.dsa.Constants;
-import link.parzival.dsa.DsaCalculatorUtil;
+import link.parzival.dsa.BerechnungsHelfer;
 import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.TalentObjekt;
 import link.parzival.dsa.object.TalentObjektPlatzhalter;
@@ -223,7 +223,7 @@ public class TalentPanel extends JPanel {
                 if(pruefung2.equals(EigenschaftEnum.NA)) pruefAuswahl += 10;
                 if(pruefung3.equals(EigenschaftEnum.NA)) pruefAuswahl += 100;
                 
-                int effectiveModifier     = DsaCalculatorUtil.calculateModifier(modifier, hero.getBehinderung(), talent);
+                int effectiveModifier     = BerechnungsHelfer.calculateModifier(modifier, hero.getBehinderung(), talent);
                 String rollCommand        = null;
                 
                 switch(pruefAuswahl) {

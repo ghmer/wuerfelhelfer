@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import link.parzival.dsa.Constants;
-import link.parzival.dsa.DsaCalculatorUtil;
+import link.parzival.dsa.BerechnungsHelfer;
 import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.WaffenObjekt;
 import link.parzival.dsa.object.enumeration.HopserOptionEnum;
@@ -99,7 +99,7 @@ public class DistanzwechselDialog extends JDialog {
                     public void actionPerformed(ActionEvent e) {
                         boolean verdoppeln = ((int) dkAenderung.getSelectedItem() == 2) ? true : false;
                         boolean verkuerzen = (((HopserOptionEnum) comboBoxDirection.getSelectedItem()).equals(HopserOptionEnum.verkürzen)) ? true: false;
-                        setRollCommand(DsaCalculatorUtil.getChangeDistanceEffectiveRoll(waffenObjekt, verdoppeln, verkuerzen));
+                        setRollCommand(BerechnungsHelfer.getChangeDistanceEffectiveRoll(waffenObjekt, verdoppeln, verkuerzen));
                         state = Constants.DIALOG_OK_STATE;
                         dispose();
                     }

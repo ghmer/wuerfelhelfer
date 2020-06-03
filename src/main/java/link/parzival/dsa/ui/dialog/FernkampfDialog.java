@@ -31,7 +31,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import link.parzival.dsa.Constants;
-import link.parzival.dsa.DsaCalculatorUtil;
+import link.parzival.dsa.BerechnungsHelfer;
 import link.parzival.dsa.object.FernwaffenObjekt;
 import java.awt.Font;
 import javax.swing.JSeparator;
@@ -1215,7 +1215,7 @@ public class FernkampfDialog extends JDialog {
                         String text = button.getText();
                         
                         if(text.equalsIgnoreCase("würfeln")) {
-                            setRollCommand(DsaCalculatorUtil.getFernkampfRollCommand(
+                            setRollCommand(BerechnungsHelfer.getFernkampfRollCommand(
                                     getFernwaffenObjekt().getFk(), 
                                     erschwernis));
                             state = Constants.DIALOG_OK_STATE;
@@ -1256,7 +1256,7 @@ public class FernkampfDialog extends JDialog {
             anzahlGegnerInDistanzNS = (Integer)spinnerGegnerInDistanzNS.getValue();
         }
         
-        result = DsaCalculatorUtil.getFernkampfBewegungsModifikator(bewegung, anzahlGegnerInDistanzH, anzahlGegnerInDistanzNS);
+        result = BerechnungsHelfer.getFernkampfBewegungsModifikator(bewegung, anzahlGegnerInDistanzH, anzahlGegnerInDistanzNS);
         
         return result;
     }
@@ -1273,7 +1273,7 @@ public class FernkampfDialog extends JDialog {
                 break;
             }
         }
-        result = DsaCalculatorUtil.getFernkampfEntfernungsModifikator(entfernung);
+        result = BerechnungsHelfer.getFernkampfEntfernungsModifikator(entfernung);
         
         return result;
     }
@@ -1316,7 +1316,7 @@ public class FernkampfDialog extends JDialog {
                 }
             }
             boolean inBewegung = chkBoxKoerperteilBewegung.isSelected();
-            result = DsaCalculatorUtil.getFernkampfGezielterSchussModifikator(schuetzentyp, humanoid, inBewegung, trefferzone, zielgroesse);
+            result = BerechnungsHelfer.getFernkampfGezielterSchussModifikator(schuetzentyp, humanoid, inBewegung, trefferzone, zielgroesse);
         }
         
         return result;
@@ -1339,7 +1339,7 @@ public class FernkampfDialog extends JDialog {
         boolean halbdeckung         = chkboxHalbdeckung.isSelected();
         boolean dreivierteldeckung     = chkBoxDreivierteldeckung.isSelected();
         
-        result = DsaCalculatorUtil.getFernkampfGroessenModifikator(groesse, modifikator, halbdeckung, dreivierteldeckung);
+        result = BerechnungsHelfer.getFernkampfGroessenModifikator(groesse, modifikator, halbdeckung, dreivierteldeckung);
         
         return result;
     }
@@ -1361,7 +1361,7 @@ public class FernkampfDialog extends JDialog {
             }
         }
         
-        result = DsaCalculatorUtil.getFernkampfModifikatorenModifikator(modifikatoren, schuetzentyp, ansage, zielen);
+        result = BerechnungsHelfer.getFernkampfModifikatorenModifikator(modifikatoren, schuetzentyp, ansage, zielen);
         
         return result;
     }
@@ -1430,7 +1430,7 @@ public class FernkampfDialog extends JDialog {
                 break;
             }
         }        
-        result = DsaCalculatorUtil.getFernkampfSichtModifikator(
+        result = BerechnungsHelfer.getFernkampfSichtModifikator(
                 lichtquelle, 
                 dunst, nebel, 
                 entfernungssinn, daemmerungssicht, nachtsicht, 
