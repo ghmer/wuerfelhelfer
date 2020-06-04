@@ -72,7 +72,7 @@ public class XPathHtmlHeldenParser {
      * @throws XPathExpressionException when the Expression threw an error
      * @throws Exception whenever something else failed
      */
-    private void gatherFernwaffen(Document document, XPath xpath, List<FernwaffenObjekt> fernwaffenListe)
+    protected void gatherFernwaffen(Document document, XPath xpath, List<FernwaffenObjekt> fernwaffenListe)
             throws XPathExpressionException, Exception {
         String countExpression      = "count((//table[@class='fkwaffen gitternetz'])/tr)";
         String countResult          = xpath.compile(countExpression).evaluate(document);
@@ -115,7 +115,7 @@ public class XPathHtmlHeldenParser {
      * @throws XPathExpressionException when the Expression threw an error
      * @throws Exception whenever someting else failed
      */
-    private void gatherGaben(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
+    protected void gatherGaben(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
             throws XPathExpressionException, Exception {
         String countExpression     = "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
         String countResult         = xpath.compile(countExpression).evaluate(document);
@@ -148,7 +148,7 @@ public class XPathHtmlHeldenParser {
      * @throws XPathExpressionException when the Expression threw an error
      * @throws Exception whenever something else failed
      */
-    private void gatherGesellschaftlich(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
+    protected void gatherGesellschaftlich(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
             throws XPathExpressionException, Exception {
         String countExpression      = "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
         String countResult          = xpath.compile(countExpression).evaluate(document);
@@ -183,7 +183,7 @@ public class XPathHtmlHeldenParser {
      * @throws XPathExpressionException when the Expression threw an error
      * @throws Exception whenever something else failed
      */
-    private void gatherHandwerk(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
+    protected void gatherHandwerk(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
             throws XPathExpressionException, Exception {
         String countExpression      = "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
         String countResult          = xpath.compile(countExpression).evaluate(document);
@@ -218,7 +218,7 @@ public class XPathHtmlHeldenParser {
      * @throws XPathExpressionException when the Expression threw an error
      * @throws Exception whenever something else failed
      */
-    private void gatherKampftechniken(Document document, XPath xpath, int numberOfNet, List<KampftechnikObjekt> kampftechniken)
+    protected void gatherKampftechniken(Document document, XPath xpath, int numberOfNet, List<KampftechnikObjekt> kampftechniken)
             throws XPathExpressionException, Exception {
         String countExpression      = "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
         String countResult          = xpath.compile(countExpression).evaluate(document);
@@ -259,7 +259,7 @@ public class XPathHtmlHeldenParser {
      * @throws XPathExpressionException when the Expression threw an error
      * @throws Exception whenever someting else failed
      */
-    private void gatherKoerperlich(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
+    protected void gatherKoerperlich(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
             throws XPathExpressionException, Exception {
         String countExpression      = "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
         String countResult          = xpath.compile(countExpression).evaluate(document);
@@ -301,7 +301,7 @@ public class XPathHtmlHeldenParser {
      * @throws XPathExpressionException when the Expression threw an error
      * @throws Exception whenever someting else failed
      */
-    private void gatherNaturtalente(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
+    protected void gatherNaturtalente(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
             throws XPathExpressionException, Exception {
         String countExpression      = "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
         String countResult          = xpath.compile(countExpression).evaluate(document);
@@ -335,7 +335,7 @@ public class XPathHtmlHeldenParser {
      * @throws XPathExpressionException when the Expression threw an error
      * @throws Exception whenever something else failed
      */
-    private void gatherParadeWaffen(Document document, XPath xpath, List<ParadeObjekt> paradewaffenListe)
+    protected void gatherParadeWaffen(Document document, XPath xpath, List<ParadeObjekt> paradewaffenListe)
             throws XPathExpressionException, Exception {
         String countExpression      = "count((//table[@class='schilde gitternetz'])/tr)";
         String countResult          = xpath.compile(countExpression).evaluate(document);
@@ -381,7 +381,7 @@ public class XPathHtmlHeldenParser {
      * @throws XPathExpressionException when the Expression threw an error
      * @throws Exception whenever someting else failed
      */
-    private void gatherSchriften(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
+    protected void gatherSchriften(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
             throws XPathExpressionException, Exception {
         String countExpression        = "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
         String countResult            = xpath.compile(countExpression).evaluate(document);
@@ -413,7 +413,7 @@ public class XPathHtmlHeldenParser {
      * @throws XPathExpressionException when the XPath Expression threw an error
      * @throws Exception when there was another error
      */
-    private void gatherSonderfertigkeiten(Document document, XPath xpath, HeldenObjekt hero) throws XPathExpressionException, Exception {
+    protected void gatherSonderfertigkeiten(Document document, XPath xpath, HeldenObjekt hero) throws XPathExpressionException, Exception {
         String countExpression        = "count((//div[@class='mitte_innen']/table[@class='sonderfertigkeiten'])/tr)";
         String countResult            = xpath.compile(countExpression).evaluate(document);
         int count = Integer.parseInt(countResult);
@@ -445,7 +445,7 @@ public class XPathHtmlHeldenParser {
      * @throws XPathExpressionException when the Expression threw an error
      * @throws Exception whenever someting else failed
      */
-    private void gatherSprachen(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
+    protected void gatherSprachen(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
             throws XPathExpressionException, Exception {
         String countExpression         = "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
         String countResult             = xpath.compile(countExpression).evaluate(document);
@@ -477,7 +477,7 @@ public class XPathHtmlHeldenParser {
      * @throws XPathExpressionException when the Expression threw an error
      * @throws Exception whenever someting else failed
      */
-    private void gatherWaffen(Document document, XPath xpath, List<WaffenObjekt> waffenListe)
+    protected void gatherWaffen(Document document, XPath xpath, List<WaffenObjekt> waffenListe)
             throws XPathExpressionException, Exception {
         String countExpression     = "count((//table[@class='nkwaffen gitternetz'])/tr)";
         String countResult         = xpath.compile(countExpression).evaluate(document);
@@ -521,7 +521,7 @@ public class XPathHtmlHeldenParser {
      * @throws XPathExpressionException when the Expression threw an error
      * @throws Exception whenever something else failed
      */
-    private void gatherWissenstalente(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
+    protected void gatherWissenstalente(Document document, XPath xpath, int numberOfNet, List<TalentObjekt> talente)
             throws XPathExpressionException, Exception {
         String countExpression         = "count((//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]/tr)";
         String countResult             = xpath.compile(countExpression).evaluate(document);
@@ -554,7 +554,7 @@ public class XPathHtmlHeldenParser {
      * @throws XPathExpressionException when the Expression threw an error
      * @throws Exception whenever something else failed
      */
-    private void gatherZauber(Document document, XPath xpath, List<TalentObjekt> zauberListe)
+    protected void gatherZauber(Document document, XPath xpath, List<TalentObjekt> zauberListe)
             throws XPathExpressionException, Exception {
         String countExpression      = "count((//table[@class='zauber gitternetz'])/tr)";
         String countResult          = xpath.compile(countExpression).evaluate(document);
@@ -585,7 +585,7 @@ public class XPathHtmlHeldenParser {
      * @param originalFile the originalFile
      * @return a modified file
      */
-    private File massageHtmlFile(File originalFile) {
+    protected File massageHtmlFile(File originalFile) {
         File result       = null;
         BufferedReader br = null;
         BufferedWriter wr = null;
@@ -768,7 +768,7 @@ public class XPathHtmlHeldenParser {
      * @param wm the WeaponModificator to parse
      * @param paradeObjekt the ParadeObjekt to use
      */
-    private void parseWaffenModifikator(String wm, ParadeObjekt paradeObjekt) {
+    protected void parseWaffenModifikator(String wm, ParadeObjekt paradeObjekt) {
         int waffenModifikatorAttacke = 0;
         int waffenModifikatorParade  = 0;
         
@@ -784,7 +784,7 @@ public class XPathHtmlHeldenParser {
      * @param fernwaffenObjekt the FernwaffenObjekt to use
      * @param dist the Distances of the Weapon
      */
-    private void setFernwaffeEntfernung(FernwaffenObjekt fernwaffenObjekt, String dist) {
+    protected void setFernwaffeEntfernung(FernwaffenObjekt fernwaffenObjekt, String dist) {
         String[] distances = dist.split("/");
         for(String distance : distances) {
             fernwaffenObjekt.addEntfernung(Integer.parseInt(distance.trim()));
@@ -796,7 +796,7 @@ public class XPathHtmlHeldenParser {
      * @param fernwaffenObjekt the FernwaffenObjekt
      * @param tpDist the tps according to distances
      */
-    private void setFernwaffeTpEntfernung(FernwaffenObjekt fernwaffenObjekt, String tpDist) {
+    protected void setFernwaffeTpEntfernung(FernwaffenObjekt fernwaffenObjekt, String tpDist) {
         String[] distances = tpDist.split("/");
         for(String distance : distances) {
             fernwaffenObjekt.addTpEntfernung(Integer.parseInt(distance.trim()));
@@ -808,7 +808,7 @@ public class XPathHtmlHeldenParser {
      * @param fernwaffenObjekt the Fernwaffenobjekt to set
      * @param typBe the Type and Be in a String
      */
-    private void setFernwaffeTypeAndBehinderung(FernwaffenObjekt fernwaffenObjekt, String typBe) {
+    protected void setFernwaffeTypeAndBehinderung(FernwaffenObjekt fernwaffenObjekt, String typBe) {
         String typ = null;
         String be  = null;
         
@@ -833,7 +833,7 @@ public class XPathHtmlHeldenParser {
      * @param probe the probe to split
      * @throws Exception when there was an issue
      */
-    private void splitTalentProben(TalentObjekt talentObjekt, String probe) throws Exception {
+    protected void splitTalentProben(TalentObjekt talentObjekt, String probe) throws Exception {
         String localprobe = probe.trim();
         localprobe        = localprobe.replaceAll("--", "NA").replaceAll("\\*\\*", "NA");
         
