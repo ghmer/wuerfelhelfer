@@ -14,13 +14,13 @@ import link.parzival.dsa.object.enumeration.FernwaffenTypEnum;
  */
 public class FernwaffenObjekt {
 
-    private String name;
-    private FernwaffenTypEnum typ;
-    private String be;
-    private List<Integer> entfernungList  = new ArrayList<>();
-    private String tp;
-    private List<Integer> tpEnfernungList = new ArrayList<>();
-    private int fk;
+    private String name                     = null;
+    private FernwaffenTypEnum typ           = null;
+    private String be                       = null;
+    private List<Integer> entfernungList    = new ArrayList<>();
+    private String tp                       = null;
+    private List<Integer> tpEnfernungList   = new ArrayList<>();
+    private int fk                          = 0;
     /**
      * @return the name
      */

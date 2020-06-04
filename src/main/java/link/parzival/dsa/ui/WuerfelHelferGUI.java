@@ -53,16 +53,16 @@ import java.awt.Insets;
 import java.util.ResourceBundle;
 
 public class WuerfelHelferGUI extends JFrame {
-    private static final long serialVersionUID  = 6428768807868759732L;
-    private JPanel contentPane                  = null;
-    private Font customHeroNameFont             = null;
-    private Font customMainFont                 = null;
-    private HeldenObjekt hero                   = null;
-    private JMenuItem menuItemHelleDarstellung;
-    private JMenuItem menuItemDunkleDarstellung;
-    private HeldenPanel heldenPanel;
-    private TalentPanel talentPanel;
-    private KampfPanel kampfPanel;
+    private static final long serialVersionUID      = 6428768807868759732L;
+    private JPanel contentPane                      = null;
+    private Font customHeroNameFont                 = null;
+    private Font customMainFont                     = null;
+    private HeldenObjekt hero                       = null;
+    private JMenuItem menuItemHelleDarstellung      = null;
+    private JMenuItem menuItemDunkleDarstellung     = null;
+    private HeldenPanel heldenPanel                 = null;
+    private TalentPanel talentPanel                 = null;
+    private KampfPanel kampfPanel                   = null;
     
     
     /**

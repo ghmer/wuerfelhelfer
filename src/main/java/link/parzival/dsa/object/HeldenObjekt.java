@@ -14,25 +14,25 @@ import link.parzival.dsa.object.enumeration.EigenschaftEnum;
  */
 public class HeldenObjekt {
 
-    private int astralenergie;
-    private int ausdauer;
-    private int basisattacke;
-    private int basisinitiative;
-    private int basisparade;
-    private int behinderung;
-    private int charisma;
-    private int fernkampfbasis;
-    private int fingerfertigkeit;
-    private int gewandtheit;
-    private int intuition;
-    private int karmalenergie;
-    private int klugheit;
-    private int koerperkraft;
-    private int konstitution;
-    private int lebensenergie;
-    private int magieresistenz;    
-    private int mut;
-    private String name;
+    private int astralenergie       = 0;
+    private int ausdauer            = 0;
+    private int basisattacke        = 0;
+    private int basisinitiative     = 0;
+    private int basisparade         = 0;
+    private int behinderung         = 0;
+    private int charisma            = 0;
+    private int fernkampfbasis      = 0;
+    private int fingerfertigkeit    = 0;
+    private int gewandtheit         = 0;
+    private int intuition           = 0;
+    private int karmalenergie       = 0;
+    private int klugheit            = 0;
+    private int koerperkraft        = 0;
+    private int konstitution        = 0;
+    private int lebensenergie       = 0;
+    private int magieresistenz      = 0;
+    private int mut                 = 0;
+    private String name             = null;
     
     private List<FernwaffenObjekt> fernWaffen           = new ArrayList<>();
     private List<KampftechnikObjekt> kampftechniken     = new ArrayList<>();

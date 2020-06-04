@@ -112,8 +112,7 @@ public class BerechnungsHelfer {
      * @param result the result if DK is not applied
      * @return the actual result
      */
-    private static String applyDistanceClasses(boolean useDistanceClass, DKEnum kampfDk, DKEnum waffenDk, int attack,
-            String result) {
+    private static String applyDistanceClasses(boolean useDistanceClass, DKEnum kampfDk, DKEnum waffenDk, int attack, String result) {
         if(useDistanceClass) {
             int effectiveDistance = getDistanceBetween(waffenDk, kampfDk);
             int distanceModificator = 0;
@@ -238,9 +237,9 @@ public class BerechnungsHelfer {
      * @return the rollCommand
      */
     public static String getEffectiveInitiativeRoll(HeldenObjekt hero, WaffenObjekt waffe, ParadeObjekt paradeObjekt) {
-        String result = null;
+        String result       = null;
         boolean bladedancer = false;
-        int basis  = hero.getBasisinitiative();
+        int basis           = hero.getBasisinitiative();
         
         for(Sonderfertigkeit sf : hero.getSonderfertigkeiten()) {
             if(sf.getName().equalsIgnoreCase("kampfreflexe")) {
@@ -457,8 +456,8 @@ public class BerechnungsHelfer {
      * @return Erschwernis
      */
     public static int getFernkampfGezielterSchussModifikator(String schuetzentyp, boolean humanoidesZiel, boolean inBewegung, String trefferzone, String zielgroesse) {
-        int result = 0;
-        int zielgroeseInt = 0;
+        int result          = 0;
+        int zielgroeseInt   = 0;
         switch(zielgroesse.toLowerCase()) {
         case "winzig"       : zielgroeseInt += 8; break;
         case "sehr klein"   : zielgroeseInt += 6; break;
@@ -637,7 +636,7 @@ public class BerechnungsHelfer {
      * @return Erschwernis
      */
     public static int getFernkampfModifikatorenModifikator(List<String> modifikatoren, String schuetzentyp, int ansage, int zielen) {
-        int result = 0;
+        int result          = 0;
         int schuetzentypInt = 0;
         
         switch(schuetzentyp.toLowerCase()) {
@@ -674,8 +673,8 @@ public class BerechnungsHelfer {
     }
     
     public static String getFernkampfRollCommand(int fk, int erschwernis) {
-        String result     = null;
-        result    = String.format("!%s,+%s Fernkampf", fk, erschwernis);
+        String result   = null;
+        result          = String.format("!%s,+%s Fernkampf", fk, erschwernis);
         
         return result;
     }
@@ -783,6 +782,9 @@ public class BerechnungsHelfer {
         return result;
     }
 
+    /**
+     * @return Patzerwurfbefehl
+     */
     public static String getPatzerWurf() {
         String result = "(2w6) Patzer";
         

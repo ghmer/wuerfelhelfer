@@ -680,7 +680,7 @@ public class XPathHtmlHeldenParser {
                 case 3: hero.setKlugheit(Integer.parseInt(value));          break;
                 case 4: hero.setIntuition(Integer.parseInt(value));         break;
                 case 5: hero.setCharisma(Integer.parseInt(value));          break;
-                case 6: hero.setFingerfertigkeit(Integer.parseInt(value));    break;
+                case 6: hero.setFingerfertigkeit(Integer.parseInt(value));  break;
                 case 7: hero.setGewandtheit(Integer.parseInt(value));       break;
                 case 8: hero.setKonstitution(Integer.parseInt(value));      break;
                 case 9: hero.setKoerperkraft(Integer.parseInt(value));      break;
@@ -695,7 +695,7 @@ public class XPathHtmlHeldenParser {
                 }
 
                 switch(i) {
-                case  2: hero.setLebensenergie(Integer.parseInt(value));       break;
+                case  2: hero.setLebensenergie(Integer.parseInt(value));    break;
                 case  3: hero.setAusdauer(Integer.parseInt(value));         break;
                 case  4: hero.setAstralenergie(Integer.parseInt(value));    break;
                 case  5: hero.setKarmalenergie(Integer.parseInt(value));    break;

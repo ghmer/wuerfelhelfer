@@ -8,12 +8,14 @@ package link.parzival.dsa.object;
  *
  */
 public class KampftechnikObjekt {
-    private int    attacke;
-    private String be;
-    private String name;
-    private int    parade;
-    private int    talentwert;
-    private String type;
+    private String be           = null;
+    private String name         = null;
+    private String type         = null;
+    
+    private int    attacke      = 0;
+    private int    parade       = 0;
+    private int    talentwert   = 0;
+    
     /**
      * @return the attacke
      */

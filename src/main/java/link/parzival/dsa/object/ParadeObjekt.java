@@ -10,14 +10,14 @@ import link.parzival.dsa.object.enumeration.ParadeObjektTypEnum;
  *
  */
 public class ParadeObjekt {
-    private String name;
-    private ParadeObjektTypEnum typ;
-    private int ini;
-    private int waffenModifikatorAttacke;
-    private int waffenModifikatorParade;
-    private int parade;
-    private int minBf;
-    private int aktBf;
+    private String name                     = null;
+    private ParadeObjektTypEnum typ         = null;
+    private int ini                         = 0;
+    private int waffenModifikatorAttacke    = 0;
+    private int waffenModifikatorParade     = 0;
+    private int parade                      = 0;
+    private int minBf                       = 0;
+    private int aktBf                       = 0;
     
     /**
      * @return the name

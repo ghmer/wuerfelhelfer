@@ -41,50 +41,50 @@ public class KampfPanel extends JPanel {
     /**
      * 
      */
-    private static final long serialVersionUID        = -4466855899017287952L;
-    private JComboBox<String> comboBoxRightWeaponHand = null;
-    private JLabel lblRightWeaponHand                 = null;
-    private JComboBox<String> comboBoxOwnDK           = null;
-    private JCheckBox chkUseDK                        = null;
-    private JComboBox<DKEnum> comboBoxCurrentDK       = null;
-    private JLabel lblCurrentDK                       = null;
-    private JLabel lblKampfHeadline                   = null;
-    private JButton btnInitiative                     = null;
-    private JButton btnAusweichen                     = null;
-    private JLabel lblSchild                          = null;
-    private JComboBox<String> comboBoxSchildhand      = null;
-    private JLabel lblAttackeModifier                 = null;
-    private JButton btnAttacke                        = null;
-    private JLabel lblParade                          = null;
-    private JComboBox<ParadeOptionEnum> comboBoxParade   = null;
-    private JLabel lblParadeModifier                  = null;
-    private JSpinner paradeModifier                   = null;
-    private JButton btnParade                         = null;
-    private JButton btnHopsen                         = null;
+    private static final long serialVersionUID              = -4466855899017287952L;
+    private JComboBox<String> comboBoxRightWeaponHand       = null;
+    private JLabel lblRightWeaponHand                       = null;
+    private JComboBox<String> comboBoxOwnDK                 = null;
+    private JCheckBox chkUseDK                              = null;
+    private JComboBox<DKEnum> comboBoxCurrentDK             = null;
+    private JLabel lblCurrentDK                             = null;
+    private JLabel lblKampfHeadline                         = null;
+    private JButton btnInitiative                           = null;
+    private JButton btnAusweichen                           = null;
+    private JLabel lblSchild                                = null;
+    private JComboBox<String> comboBoxSchildhand            = null;
+    private JLabel lblAttackeModifier                       = null;
+    private JButton btnAttacke                              = null;
+    private JLabel lblParade                                = null;
+    private JComboBox<ParadeOptionEnum> comboBoxParade      = null;
+    private JLabel lblParadeModifier                        = null;
+    private JSpinner paradeModifier                         = null;
+    private JButton btnParade                               = null;
+    private JButton btnHopsen                               = null;
 
-    private WaffenObjekt waffenObjekt                 = null;
-    private ParadeObjekt paradeObjekt                 = null;
-    private FernwaffenObjekt fernwaffenObjekt         = null;
-    private JButton btnFernkampf                      = null;
-    private JLabel lblInitiativeEingeben              = null;
-    private JSpinner tfInitiative                     = null;
-    private JSpinner attackeModifier                  = null;
+    private WaffenObjekt waffenObjekt                       = null;
+    private ParadeObjekt paradeObjekt                       = null;
+    private FernwaffenObjekt fernwaffenObjekt               = null;
+    private JButton btnFernkampf                            = null;
+    private JLabel lblInitiativeEingeben                    = null;
+    private JSpinner tfInitiative                           = null;
+    private JSpinner attackeModifier                        = null;
 
-    HeldenObjekt hero                                 = null;
+    HeldenObjekt hero                                       = null;
     
-    private JPanel separatorPanel1                    = null;
-    private JSeparator separator_1                    = null;
-    private JPanel separatorPanel2                    = null;
-    private JSeparator separator_2                    = null;
-    private JPanel separatorPanel3                    = null;
-    private JSeparator separator_3                    = null;
-    private JPanel separatorPanel4                    = null;
-    private JSeparator separator_4                    = null;
-    private JLabel lblFernkampfWaffe                  = null;
-    private JComboBox<String> comboBoxFernkampfwaffe  = null;
-    private JLabel lblAttackeMit                      = null;
-    private JComboBox<AttackeOptionEnum> comboBoxAttacke = null;
-    private JLabel lblDkWaffe                         = null;
+    private JPanel separatorPanel1                          = null;
+    private JSeparator separator_1                          = null;
+    private JPanel separatorPanel2                          = null;
+    private JSeparator separator_2                          = null;
+    private JPanel separatorPanel3                          = null;
+    private JSeparator separator_3                          = null;
+    private JPanel separatorPanel4                          = null;
+    private JSeparator separator_4                          = null;
+    private JLabel lblFernkampfWaffe                        = null;
+    private JComboBox<String> comboBoxFernkampfwaffe        = null;
+    private JLabel lblAttackeMit                            = null;
+    private JComboBox<AttackeOptionEnum> comboBoxAttacke    = null;
+    private JLabel lblDkWaffe                               = null;
 
     /**
      * @return the hero

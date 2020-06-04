@@ -10,12 +10,12 @@ import link.parzival.dsa.object.enumeration.EigenschaftEnum;
  *
  */
 public class TalentObjekt {
-    private String name;
-    private String be;
-    private EigenschaftEnum probenTalent1;
-    private EigenschaftEnum probenTalent2;
-    private EigenschaftEnum probenTalent3;
-    private int talentwert;
+    private String name                     = null;
+    private String be                       = null;
+    private EigenschaftEnum probenTalent1   = null;
+    private EigenschaftEnum probenTalent2   = null;
+    private EigenschaftEnum probenTalent3   = null;
+    private int talentwert                  = 0;
     /**
      * @return the be
      */

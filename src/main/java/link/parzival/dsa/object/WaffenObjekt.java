@@ -13,13 +13,13 @@ import link.parzival.dsa.object.enumeration.DKEnum;
  *
  */
 public class WaffenObjekt {
-    private String name;
-    private String trefferpunkte;
-    private int attacke;
-    private int parade;
-    private int initiative;
-    private int waffenModAttacke;
-    private int waffenModParade;
+    private String name                 = null;
+    private String trefferpunkte        = null;
+    private int attacke                 = 0;
+    private int parade                  = 0;
+    private int initiative              = 0;
+    private int waffenModAttacke        = 0;
+    private int waffenModParade         = 0;
     private List<DKEnum> distanzklassen = new ArrayList<>();
     
     /**
