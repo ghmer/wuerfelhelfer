@@ -48,7 +48,7 @@ public class XPathHtmlHeldenParser {
      * @return the Behinderung
      * @throws XPathExpressionException when there was an issue
      */
-    private int gatherBehinderung(Document document, XPath xpath) throws XPathExpressionException {
+    protected int gatherBehinderung(Document document, XPath xpath) throws XPathExpressionException {
         int result = 0;
         String countExpression     = "count((//table[@class='zonenruestungen gitternetz'])/tr)";
         String countResult         = xpath.compile(countExpression).evaluate(document);
@@ -638,7 +638,7 @@ public class XPathHtmlHeldenParser {
      * @param dk the String to parse
      * @return a List of available Distanzklassen
      */
-    private List<DKEnum> parseDistanzklassen(String dk) {
+    protected List<DKEnum> parseDistanzklassen(String dk) {
         List<DKEnum> distanzklassen = new ArrayList<>();
         String parseString = dk.trim();
         for(String s : parseString.split(" ")) {
