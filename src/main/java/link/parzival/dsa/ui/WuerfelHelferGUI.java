@@ -13,11 +13,11 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import link.parzival.dsa.Konstanten;
-import link.parzival.dsa.XPathHtmlHeldenParser;
 import link.parzival.dsa.VersionCheck;
 import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.enumeration.LizenzTypEnum;
 import link.parzival.dsa.object.enumeration.PatzerTypEnum;
+import link.parzival.dsa.parser.XPathHtmlHeldenParser;
 import link.parzival.dsa.ui.dialog.KampfbedingungenDialog;
 import link.parzival.dsa.ui.dialog.LizenzDialog;
 import link.parzival.dsa.ui.dialog.UpdateHinweisDialog;
