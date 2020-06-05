@@ -17,7 +17,7 @@ import link.parzival.dsa.VersionCheck;
 import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.enumeration.LizenzTypEnum;
 import link.parzival.dsa.object.enumeration.PatzerTypEnum;
-import link.parzival.dsa.parser.XPathHtmlHeldenParser;
+import link.parzival.dsa.parser.HeldenDokumentParser;
 import link.parzival.dsa.ui.dialog.KampfbedingungenDialog;
 import link.parzival.dsa.ui.dialog.LizenzDialog;
 import link.parzival.dsa.ui.dialog.UpdateHinweisDialog;
@@ -40,6 +40,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.Duration;
+import java.time.Instant;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
@@ -96,6 +98,7 @@ public class WuerfelHelferGUI extends JFrame {
         menuItemLoadHtml.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                HeldenDokumentParser hxp = new HeldenDokumentParser();
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
                 fileChooser.setFileFilter(UIHelfer.getHtmlFileFilter());
@@ -107,10 +110,12 @@ public class WuerfelHelferGUI extends JFrame {
                         @Override
                         public void run() {
                             File selectedFile = fileChooser.getSelectedFile();
-                            XPathHtmlHeldenParser hxp = new XPathHtmlHeldenParser();
                             try {
                                 hero = null;
+                                Instant start = Instant.now();
                                 hero = hxp.parseFile(selectedFile);
+                                Instant end = Instant.now();
+                                System.out.println("Dauer des parsens: " + Duration.between(start, end));
                             } catch (Exception e1) {
                                 e1.printStackTrace();
                             }
