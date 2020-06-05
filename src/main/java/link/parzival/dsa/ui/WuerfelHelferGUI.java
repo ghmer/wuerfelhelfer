@@ -1,7 +1,5 @@
 package link.parzival.dsa.ui;
 
-import java.awt.AlphaComposite;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.EventQueue;
@@ -55,7 +53,6 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.RenderingHints;
 import java.awt.SplashScreen;
 import java.util.ResourceBundle;
 
