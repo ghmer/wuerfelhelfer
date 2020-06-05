@@ -31,6 +31,9 @@
               <addClasspath>true</addClasspath>
               <mainClass>link.parzival.dsa.ui.WuerfelHelferGUI</mainClass>
             </manifest>
+            <manifestEntries>
+               <SplashScreen-Image>images/splash.png</SplashScreen-Image>
+             </manifestEntries>
           </archive>
         </configuration>
       </plugin>
@@ -43,6 +46,9 @@
               <addClasspath>true</addClasspath>
               <mainClass>link.parzival.dsa.ui.WuerfelHelferGUI</mainClass>
             </manifest>
+            <manifestEntries>
+               <SplashScreen-Image>images/splash.png</SplashScreen-Image>
+             </manifestEntries>
           </archive>
         </configuration>
       </plugin>

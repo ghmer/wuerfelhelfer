@@ -1,5 +1,7 @@
 package link.parzival.dsa.ui;
 
+import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.EventQueue;
@@ -44,6 +46,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
@@ -52,6 +55,8 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.RenderingHints;
+import java.awt.SplashScreen;
 import java.util.ResourceBundle;
 
 public class WuerfelHelferGUI extends JFrame {
@@ -66,16 +71,31 @@ public class WuerfelHelferGUI extends JFrame {
     private TalentPanel talentPanel                 = null;
     private KampfPanel kampfPanel                   = null;
     
+    private SplashScreen splash                     = null;
     
+    protected void showSplashScreen() {
+        splash = SplashScreen.getSplashScreen();
+        if (splash == null) {
+            System.out.println("SplashScreen.getSplashScreen() returned null");
+            return;
+        }
+        Graphics2D graphics = splash.createGraphics();
+        if (graphics == null) {
+            System.out.println("g is null");
+            return;
+        }
+    }
     /**
      * Create the frame.
      */
     public WuerfelHelferGUI() {
+        showSplashScreen();
         try {
             UIManager.setLookAndFeel( new FlatLightLaf() );
         } catch( Exception ex ) {
             System.err.println( "Failed to initialize LaF" );
         }
+        
         this.customMainFont     = UIHelfer.getFontFromResource("/UbuntuMono-R.ttf");
         this.customHeroNameFont = UIHelfer.getFontFromResource("/Friedolin.ttf");
         GraphicsEnvironment ge  = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -321,6 +341,8 @@ public class WuerfelHelferGUI extends JFrame {
         gbc_panel_1.gridx = 0;
         gbc_panel_1.gridy = 2;
         contentPane.add(kampfPanel, gbc_panel_1);
+        
+        if(splash != null) splash.close();
     }
 
     protected void updateDarstellungMenuItems(boolean dark) {
@@ -361,11 +383,14 @@ public class WuerfelHelferGUI extends JFrame {
         }
         EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {                   
+                try {
+                    Instant start = Instant.now();
                     WuerfelHelferGUI frame = new WuerfelHelferGUI();
                     frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
                     frame.setResizable(false);
                     frame.setVisible(true);
+                    Instant end = Instant.now();
+                    System.out.println("Startup Zeit: " + Duration.between(start, end));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
