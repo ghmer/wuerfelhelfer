@@ -149,8 +149,4 @@ public class Regelwerk {
         
         return result;
     }
-    
-    public static void main(String[] args) {
-        System.out.println(Regelwerk.berechneBasisLebenspunkte(12, 12));
-    }
 }
