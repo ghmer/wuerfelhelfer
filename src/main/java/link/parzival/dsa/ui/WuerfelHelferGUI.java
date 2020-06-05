@@ -73,12 +73,12 @@ public class WuerfelHelferGUI extends JFrame {
     protected void showSplashScreen() {
         splash = SplashScreen.getSplashScreen();
         if (splash == null) {
-            System.out.println("SplashScreen.getSplashScreen() returned null");
+            System.err.println("SplashScreen.getSplashScreen() returned null");
             return;
         }
         Graphics2D graphics = splash.createGraphics();
         if (graphics == null) {
-            System.out.println("g is null");
+            System.err.println("g is null");
             return;
         }
     }
