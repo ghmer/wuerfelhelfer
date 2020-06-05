@@ -69,7 +69,7 @@ public class HeldenDokumentParser {
     }
     
     protected void gatherBasisWerte(HeldenObjekt hero, Document document)
-            throws XPathExpressionException, Exception {
+            throws Exception {
         String nodeExpression      = "(//table[@class='basiswerte gitternetz'])";
         Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
         
@@ -107,9 +107,8 @@ public class HeldenDokumentParser {
     
     /**
      * @param document the Document to parse
-     * @param xpath the XPath to use
      * @return the Behinderung
-     * @throws XPathExpressionException when there was an issue
+     * @throws Exception when there was an issue
      */
     protected int gatherBehinderung(Document document) throws Exception {
         int result = 0;
@@ -135,14 +134,12 @@ public class HeldenDokumentParser {
     }
 
     /**
-     * @param hero
-     * @param document
-     * @param xpath
-     * @throws XPathExpressionException
-     * @throws Exception
+     * @param hero the HeldenObjekt to use
+     * @param document the Document to parse
+     * @throws Exception when there was an issue
      */
     protected void gatherEigenschaften(HeldenObjekt hero, Document document)
-            throws XPathExpressionException, Exception {
+            throws Exception {
         String nodeExpression      = "(//table[@class='eigenschaften gitternetz'])";
         Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
         
@@ -172,13 +169,11 @@ public class HeldenDokumentParser {
     
     /**
      * @param document the Document to parse
-     * @param xpath the XPath to use
      * @param fernwaffenListe the List of fernwaffen
-     * @throws XPathExpressionException when the Expression threw an error
      * @throws Exception whenever something else failed
      */
     protected void gatherFernwaffen(Document document, List<FernwaffenObjekt> fernwaffenListe)
-            throws XPathExpressionException, Exception {
+            throws Exception {
         String nodeExpression      = "(//table[@class='fkwaffen gitternetz'])";
         Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
         
@@ -210,14 +205,12 @@ public class HeldenDokumentParser {
 
     /**
      * @param document the Document to parse
-     * @param xpath the XPath to use
      * @param numberOfNet the number of the Gitternetz
      * @param talente the List of Talente
-     * @throws XPathExpressionException when the Expression threw an error
      * @throws Exception whenever someting else failed
      */
     protected void gatherGaben(Document document, int numberOfNet, List<TalentObjekt> talente)
-            throws XPathExpressionException, Exception {
+            throws Exception {
         String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]";
         Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
         
@@ -242,14 +235,12 @@ public class HeldenDokumentParser {
     
     /**
      * @param document the Document to parse
-     * @param xpath the XPath to use
      * @param numberOfNet the number of the Gitternetz
      * @param talente the List of talente
-     * @throws XPathExpressionException when the Expression threw an error
      * @throws Exception whenever something else failed
      */
     protected void gatherGesellschaftlich(Document document, int numberOfNet, List<TalentObjekt> talente)
-            throws XPathExpressionException, Exception {       
+            throws Exception {       
         String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]";
         Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
         
@@ -274,14 +265,12 @@ public class HeldenDokumentParser {
     
     /**
      * @param document the Document to parse
-     * @param xpath the XPath to use
      * @param numberOfNet the number of the Gitternetz
      * @param talente the List of talente
-     * @throws XPathExpressionException when the Expression threw an error
      * @throws Exception whenever something else failed
      */
     protected void gatherHandwerk(Document document, int numberOfNet, List<TalentObjekt> talente)
-            throws XPathExpressionException, Exception {
+            throws Exception {
         String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]";
         Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
         
@@ -306,14 +295,12 @@ public class HeldenDokumentParser {
     
     /**
      * @param document the Document to parse
-     * @param xpath the XPath to use
      * @param numberOfNet the number of the Gitternetz
      * @param kampftechniken the List of Kampftechniken
-     * @throws XPathExpressionException when the Expression threw an error
      * @throws Exception whenever something else failed
      */
     protected void gatherKampftechniken(Document document, int numberOfNet, List<KampftechnikObjekt> kampftechniken)
-            throws XPathExpressionException, Exception {
+            throws Exception {
         String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]";
         Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
         Document newDocument = nodeToDocument(node);
@@ -345,14 +332,12 @@ public class HeldenDokumentParser {
     
     /**
      * @param document the Document to parse
-     * @param xpath the XPath to use
      * @param numberOfNet the number of the Gitternetz
      * @param talente the List of Talente
-     * @throws XPathExpressionException when the Expression threw an error
      * @throws Exception whenever someting else failed
      */
     protected void gatherKoerperlich(Document document, int numberOfNet, List<TalentObjekt> talente)
-            throws XPathExpressionException, Exception {
+            throws Exception {
         String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]";
         Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
         
@@ -378,14 +363,12 @@ public class HeldenDokumentParser {
     
     /**
      * @param document the Document to parse
-     * @param xpath the XPath to use
      * @param numberOfNet the number of the Gitternetz
      * @param talente the List of Talente
-     * @throws XPathExpressionException when the Expression threw an error
      * @throws Exception whenever someting else failed
      */
     protected void gatherNaturtalente(Document document, int numberOfNet, List<TalentObjekt> talente)
-            throws XPathExpressionException, Exception {
+            throws Exception {
         String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]";
         Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
         
@@ -410,13 +393,11 @@ public class HeldenDokumentParser {
     
     /**
      * @param document the Document to parse
-     * @param xpath the XPath to use
      * @param paradewaffenListe the List of paradewaffen
-     * @throws XPathExpressionException when the Expression threw an error
      * @throws Exception whenever something else failed
      */
     protected void gatherParadeWaffen(Document document, List<ParadeObjekt> paradewaffenListe)
-            throws XPathExpressionException, Exception {
+            throws Exception {
         String nodeExpression      = "(//table[@class='schilde gitternetz'])";
         Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
         
@@ -449,14 +430,12 @@ public class HeldenDokumentParser {
 
     /**
      * @param document the Document to parse
-     * @param xpath the XPath to use
      * @param numberOfNet the number of the Gitternetz
      * @param talente the List of Talente
-     * @throws XPathExpressionException when the Expression threw an error
      * @throws Exception whenever someting else failed
      */
     protected void gatherSchriften(Document document, int numberOfNet, List<TalentObjekt> talente)
-            throws XPathExpressionException, Exception {
+            throws Exception {
         String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]";
         Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
         
@@ -480,12 +459,10 @@ public class HeldenDokumentParser {
     
     /**
      * @param document the Document to parse
-     * @param xpath the XPath to use
      * @param hero the HeldenObjekt to use
-     * @throws XPathExpressionException when the XPath Expression threw an error
      * @throws Exception when there was another error
      */
-    protected void gatherSonderfertigkeiten(Document document, HeldenObjekt hero) throws XPathExpressionException, Exception {
+    protected void gatherSonderfertigkeiten(Document document, HeldenObjekt hero) throws Exception {
         String nodeExpression      = "(//div[@class='mitte_innen']/table[@class='sonderfertigkeiten'])";
         Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
 
@@ -511,14 +488,12 @@ public class HeldenDokumentParser {
     
     /**
      * @param document the Document to parse
-     * @param xpath the XPath to use
      * @param numberOfNet the number of the Gitternetz
      * @param talente the List of Talente
-     * @throws XPathExpressionException when the Expression threw an error
      * @throws Exception whenever someting else failed
      */
     protected void gatherSprachen(Document document, int numberOfNet, List<TalentObjekt> talente)
-            throws XPathExpressionException, Exception {
+            throws Exception {
         String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]";
         Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
         
@@ -542,14 +517,11 @@ public class HeldenDokumentParser {
 
     /**
      * @param document The Document to be parsed
-     * @param xpath the XPath to use
      * @param waffenListe the List to be filled
-     * @throws XPathExpressionException
-     * @throws XPathExpressionException when the Expression threw an error
      * @throws Exception whenever someting else failed
      */
     protected void gatherWaffen(Document document, List<WaffenObjekt> waffenListe)
-            throws XPathExpressionException, Exception {
+            throws Exception {
         String nodeExpression      = "(//table[@class='nkwaffen gitternetz'])";
         Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
         
@@ -582,14 +554,12 @@ public class HeldenDokumentParser {
     
     /**
      * @param document the Document to parse
-     * @param xpath the XPath to use
      * @param numberOfNet the number of the Gitternetz
      * @param talente the List of talente
-     * @throws XPathExpressionException when the Expression threw an error
      * @throws Exception whenever something else failed
      */
     protected void gatherWissenstalente(Document document, int numberOfNet, List<TalentObjekt> talente)
-            throws XPathExpressionException, Exception {
+            throws Exception {
         String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]";
         Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
         
@@ -614,13 +584,12 @@ public class HeldenDokumentParser {
 
     /**
      * @param document the Document to parse
-     * @param xpath the XPath to use
      * @param zauberListe the List of zauber
      * @throws XPathExpressionException when the Expression threw an error
      * @throws Exception whenever something else failed
      */
     protected void gatherZauber(Document document, List<TalentObjekt> zauberListe)
-            throws XPathExpressionException, Exception {
+            throws Exception {
         String nodeExpression      = "(//table[@class='zauber gitternetz'])";
         Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
         
@@ -697,6 +666,11 @@ public class HeldenDokumentParser {
     }
     
     
+    /**
+     * @param node the node to transform to a Document
+     * @return the Document object
+     * @throws Exception when there was an issue
+     */
     protected Document nodeToDocument(Node node) throws Exception {
         Document newDocument = builder.newDocument();
         
@@ -707,14 +681,6 @@ public class HeldenDokumentParser {
             Node importedNode = newDocument.importNode(node, true);
             newDocument.appendChild(importedNode);
         }
-        
-        /*
-        StringWriter writer = new StringWriter();
-        Transformer transformer = TransformerFactory.newInstance().newTransformer();
-        transformer.transform(new DOMSource(newDocument), new StreamResult(writer));
-        String xml = writer.toString();
-        */
-        //System.out.println(xml);
         
         return newDocument;
     }
