@@ -44,15 +44,15 @@ public class TalentPanel extends JPanel {
     /**
      * @return the hero
      */
-    public HeldenObjekt getHero() {
+    public HeldenObjekt holeHeldenObjekt() {
         return hero;
     }
 
     /**
-     * @param hero the hero to set
+     * @param heldenObjekt ein HeldenObjekt
      */
-    public void setHero(HeldenObjekt hero) {
-        this.hero = hero;
+    public void setzeHeldenObjekt(HeldenObjekt heldenObjekt) {
+        this.hero = heldenObjekt;
     }
 
     private JLabel lblAbility;

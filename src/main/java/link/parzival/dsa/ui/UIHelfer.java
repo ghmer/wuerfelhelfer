@@ -42,8 +42,8 @@ public class UIHelfer {
     }
     
     /**
-     * @param pathToFont the path in the jar file where the Font can be found
-     * @return the Font object, or null
+     * @param pathToFont der Pfad, an dem die Font-Datei gefunden werden kann
+     * @return das Font-Objekt, oder null
      */
     public static Font getFontFromResource(String pathToFont) {
         Font font      = null;
@@ -69,13 +69,13 @@ public class UIHelfer {
     }
     
     /**
-     * @param license which license to present
-     * @return the license text
+     * @param lizenzTyp welche Lizenz soll geholt werden
+     * @return der Lizenztext als String Objekt
      */
     @SuppressWarnings("resource")
-    public static String getLizenz(LizenzTypEnum license) {
+    public static String getLizenz(LizenzTypEnum lizenzTyp) {
         String text = null;
-        switch (license) {
+        switch (lizenzTyp) {
         case Apache: {
             text = new Scanner(AboutDialog.class.getResourceAsStream("/LICENCE_Flatlaf_Apache.txt"), "UTF-8")
                     .useDelimiter("\\A").next();

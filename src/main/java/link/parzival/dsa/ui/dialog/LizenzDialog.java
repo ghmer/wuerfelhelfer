@@ -27,9 +27,9 @@ public class LizenzDialog extends JDialog {
     private final JPanel contentPanel          = new JPanel();
 
     /**
-     * @param license the type of license to show
+     * @param lizenzTyp der anzuzeigende Lizenztyp
      */
-    public LizenzDialog(LizenzTypEnum license) {
+    public LizenzDialog(LizenzTypEnum lizenzTyp) {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setBounds(100, 100, 500, 500);
         getContentPane().setLayout(new BorderLayout());
@@ -44,7 +44,7 @@ public class LizenzDialog extends JDialog {
             gbl_contentPanel.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
             contentPanel.setLayout(gbl_contentPanel);
         }
-        JTextArea textArea = new JTextArea(UIHelfer.getLizenz(license));
+        JTextArea textArea = new JTextArea(UIHelfer.getLizenz(lizenzTyp));
         textArea.setFont(new Font("Ubuntu Mono", Font.PLAIN, 14));
         textArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(textArea);

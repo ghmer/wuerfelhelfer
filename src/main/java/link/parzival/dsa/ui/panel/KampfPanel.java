@@ -37,10 +37,6 @@ import java.util.ResourceBundle;
 
 public class KampfPanel extends JPanel {
     private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("link.parzival.dsa.ui.messages"); //$NON-NLS-1$
-
-    /**
-     * 
-     */
     private static final long serialVersionUID              = -4466855899017287952L;
     private JComboBox<String> comboBoxRightWeaponHand       = null;
     private JLabel lblRightWeaponHand                       = null;
@@ -87,33 +83,33 @@ public class KampfPanel extends JPanel {
     private JLabel lblDkWaffe                               = null;
 
     /**
-     * @return the hero
+     * @return das HeldenObjekt
      */
-    public HeldenObjekt getHero() {
+    public HeldenObjekt holeHeldenObjekt() {
         return hero;
     }
 
     /**
-     * @param hero the hero to set
+     * @param heldenObjekt Ein HeldenObjekt
      */
-    public void setHero(HeldenObjekt hero) {
-        this.hero = hero;
-        if (hero.getWaffen().size() > 0) {
-            setWaffenObjekt(hero.getWaffen().get(0));
+    public void setzeHeldenObjekt(HeldenObjekt heldenObjekt) {
+        this.hero = heldenObjekt;
+        if (heldenObjekt.getWaffen().size() > 0) {
+            setWaffenObjekt(heldenObjekt.getWaffen().get(0));
         }
 
-        if (hero.getParadeWaffen().size() > 0) {
-            setParadeObjekt(hero.getParadeWaffen().get(0));
+        if (heldenObjekt.getParadeWaffen().size() > 0) {
+            setParadeObjekt(heldenObjekt.getParadeWaffen().get(0));
         }
 
-        if (hero.getFernWaffen().size() > 0) {
-            setFernwaffenObjekt(hero.getFernWaffen().get(0));
+        if (heldenObjekt.getFernWaffen().size() > 0) {
+            setFernwaffenObjekt(heldenObjekt.getFernWaffen().get(0));
         }
 
-        comboBoxRightWeaponHand.setModel(new DefaultComboBoxModel<>(hero.getWaffenNamenAsArray()));
-        comboBoxSchildhand.setModel(new DefaultComboBoxModel<>(hero.getParadeWaffenNamenAsArray()));
+        comboBoxRightWeaponHand.setModel(new DefaultComboBoxModel<>(heldenObjekt.getWaffenNamenAsArray()));
+        comboBoxSchildhand.setModel(new DefaultComboBoxModel<>(heldenObjekt.getParadeWaffenNamenAsArray()));
         comboBoxSchildhand.insertItemAt("", 0);
-        comboBoxFernkampfwaffe.setModel(new DefaultComboBoxModel<>(hero.getFernWaffenNamenAsArray()));
+        comboBoxFernkampfwaffe.setModel(new DefaultComboBoxModel<>(heldenObjekt.getFernWaffenNamenAsArray()));
         updateDistanzklasse();
     }
 

@@ -58,9 +58,9 @@ public class TalentAuswahlDialog extends JDialog {
     JScrollPane scrollPane;
 
     /**
-     * @param hero the HeldenObjekt to use
+     * @param heldenObjekt ein HeldenObjekt
      */
-    public TalentAuswahlDialog(HeldenObjekt hero) {
+    public TalentAuswahlDialog(HeldenObjekt heldenObjekt) {
         setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
         setModal(true);
         setBounds(100, 100, 450, 300);
@@ -87,12 +87,12 @@ public class TalentAuswahlDialog extends JDialog {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                generateTable(hero, e);
+                generateTable(heldenObjekt, e);
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                generateTable(hero, e);
+                generateTable(heldenObjekt, e);
 
             }
         });
@@ -117,7 +117,7 @@ public class TalentAuswahlDialog extends JDialog {
         comboBox.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent e) {
                 textFieldSearch.setText("");
-                generateTable(hero);
+                generateTable(heldenObjekt);
             }
         });
         comboBox.addActionListener(new ActionListener() {
@@ -161,10 +161,10 @@ public class TalentAuswahlDialog extends JDialog {
             }
         }
 
-        generateTable(hero);
+        generateTable(heldenObjekt);
     }
 
-    private void generateTable(HeldenObjekt hero, DocumentEvent e) {
+    private void generateTable(HeldenObjekt heldenObjekt, DocumentEvent e) {
         Document document = e.getDocument();
         String text = null;
         try {
@@ -172,16 +172,16 @@ public class TalentAuswahlDialog extends JDialog {
         } catch (BadLocationException e1) {
             e1.printStackTrace();
         }
-        generateTable(hero, text);
+        generateTable(heldenObjekt, text);
     }
 
-    private void generateTable(HeldenObjekt hero) {
-        generateTable(hero, new String());
+    private void generateTable(HeldenObjekt heldenObjekt) {
+        generateTable(heldenObjekt, new String());
     }
 
-    private void generateTable(HeldenObjekt hero, String searchText) {
-        List<TalentObjekt> talente = hero.getTalente();
-        List<TalentObjekt> zauber = hero.getZauber();
+    private void generateTable(HeldenObjekt heldenObjekt, String searchText) {
+        List<TalentObjekt> talente = heldenObjekt.getTalente();
+        List<TalentObjekt> zauber = heldenObjekt.getZauber();
         List<TalentObjekt> matches = new ArrayList<>();
 
         FaehigkeitsTypEnum chosenEnum = (FaehigkeitsTypEnum) comboBox.getSelectedItem();

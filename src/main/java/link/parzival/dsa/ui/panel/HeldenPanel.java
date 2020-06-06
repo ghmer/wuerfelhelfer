@@ -330,21 +330,24 @@ public class HeldenPanel extends JPanel {
         add(lblAusdauer, gbc_lblAusdauer);
     }
     
-    public void setHero(HeldenObjekt hero) {
-        this.hero = hero;
-        lblHeroName.setText(hero.getName());
-        btnMut.setText(String.valueOf(hero.getMut()));
-        btnIntuition.setText(String.valueOf(hero.getIntuition()));
-        btnKlugheit.setText(String.valueOf(hero.getKlugheit()));
-        btnGewandtheit.setText(String.valueOf(hero.getGewandtheit()));
-        btnFingerFertigkeit.setText(String.valueOf(hero.getFingerfertigkeit()));
-        btnCharisma.setText(String.valueOf(hero.getCharisma()));
-        btnKoerperkraft.setText(String.valueOf(hero.getKoerperkraft()));
-        btnKonstitution.setText(String.valueOf(hero.getKonstitution()));
+    /**
+     * @param heldenObjekt ein HeldenObjekt
+     */
+    public void setzeHeldenObjekt(HeldenObjekt heldenObjekt) {
+        this.hero = heldenObjekt;
+        lblHeroName.setText(heldenObjekt.getName());
+        btnMut.setText(String.valueOf(heldenObjekt.getMut()));
+        btnIntuition.setText(String.valueOf(heldenObjekt.getIntuition()));
+        btnKlugheit.setText(String.valueOf(heldenObjekt.getKlugheit()));
+        btnGewandtheit.setText(String.valueOf(heldenObjekt.getGewandtheit()));
+        btnFingerFertigkeit.setText(String.valueOf(heldenObjekt.getFingerfertigkeit()));
+        btnCharisma.setText(String.valueOf(heldenObjekt.getCharisma()));
+        btnKoerperkraft.setText(String.valueOf(heldenObjekt.getKoerperkraft()));
+        btnKonstitution.setText(String.valueOf(heldenObjekt.getKonstitution()));
         
-        spinnerLebensenergie.setValue(hero.getLebensenergie());
-        spinnerAstralenergie.setValue(hero.getAstralenergie());
-        spinnerAusdauer.setValue(hero.getAusdauer());
-        spinnerBehinderung.setValue(hero.getBehinderung());
+        spinnerLebensenergie.setValue(heldenObjekt.getLebensenergie());
+        spinnerAstralenergie.setValue(heldenObjekt.getAstralenergie());
+        spinnerAusdauer.setValue(heldenObjekt.getAusdauer());
+        spinnerBehinderung.setValue(heldenObjekt.getBehinderung());
     }
 }

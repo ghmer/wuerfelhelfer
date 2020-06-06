@@ -138,9 +138,9 @@ public class WuerfelHelferGUI extends JFrame {
                                 e1.printStackTrace();
                             }
                             
-                            heldenPanel.setHero(hero);
-                            talentPanel.setHero(hero);
-                            kampfPanel.setHero(hero);
+                            heldenPanel.setzeHeldenObjekt(hero);
+                            talentPanel.setzeHeldenObjekt(hero);
+                            kampfPanel.setzeHeldenObjekt(hero);
                             setItemVisibility();
                             
                         }
