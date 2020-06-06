@@ -357,7 +357,29 @@ public class WuerfelHelferGUI extends JFrame {
         gbc_panel_1.gridy = 2;
         contentPane.add(kampfPanel, gbc_panel_1);
         
-        if(splash != null) splash.close();
+        Thread t1 = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    Thread.sleep(3000);
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(splash != null) splash.close();
+                        }
+                    });
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        t1.start();
+        try {
+            t1.join();
+        } catch (InterruptedException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        //if(splash != null) splash.close();
     }
 
     protected void updateDarstellungMenuItems(boolean dark) {
