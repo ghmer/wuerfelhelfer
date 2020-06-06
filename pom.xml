@@ -33,6 +33,8 @@
             </manifest>
             <manifestEntries>
                <SplashScreen-Image>images/splash.png</SplashScreen-Image>
+               <License>MIT</License>
+               <seeAlso>LICENSE_MIT.txt</seeAlso>
              </manifestEntries>
           </archive>
         </configuration>
@@ -48,6 +50,8 @@
             </manifest>
             <manifestEntries>
                <SplashScreen-Image>images/splash.png</SplashScreen-Image>
+               <License>MIT</License>
+               <seeAlso>LICENSE_MIT.txt</seeAlso>
              </manifestEntries>
           </archive>
         </configuration>
