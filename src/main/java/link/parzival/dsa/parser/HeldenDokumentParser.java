@@ -49,11 +49,17 @@ public class HeldenDokumentParser {
     protected DocumentBuilder builder;
     protected XPath xpath;
     
+    /**
+     * Konstruktor
+     */
     public HeldenDokumentParser() {
-        initialize();
+        initialisieren();
     }
     
-    private void initialize() {
+    /**
+     * Initialisiert die Document- und XPath Instanzen
+     */
+    private void initialisieren() {
         DocumentBuilderFactory factory  = DocumentBuilderFactory.newInstance();
         try {
             Instant initializationStart = Instant.now();
@@ -68,10 +74,17 @@ public class HeldenDokumentParser {
         }
     }
     
-    protected void gatherBasisWerte(HeldenObjekt hero, Document document)
+    /**
+     * Parsed das Dokument auf Basiswerte:
+     * Lebensenergie, Ausdauer, Astralenergie, Karmalenergie, Magieresistenz, BasisInitiative, BasisAttacke, BasisParade, Fernkampfbasis
+     * @param heldenDokument das HeldenDokument
+     * @param heldenObjekt das HeldenObjekt
+     * @throws Exception wenn beim Parsen etwas schief lief
+     */
+    protected void holeBasisWerte(Document heldenDokument, HeldenObjekt heldenObjekt)
             throws Exception {
         String nodeExpression      = "(//table[@class='basiswerte gitternetz'])";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
+        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
         Document newDocument = nodeToDocument(node);
         
@@ -91,30 +104,30 @@ public class HeldenDokumentParser {
             }
             
             switch(i) {
-                case  1: hero.setLebensenergie(value);    break;
-                case  2: hero.setAusdauer(value);         break;
-                case  3: hero.setAstralenergie(value);    break;
-                case  4: hero.setKarmalenergie(value);    break;
-                case  5: hero.setMagieresistenz(value);   break;
-                case  6: hero.setBasisinitiative(value);  break;
-                case  7: hero.setBasisattacke(value);     break;
-                case  8: hero.setBasisparade(value);      break;
-                case  9: hero.setFernkampfbasis(value);   break;
+                case  1: heldenObjekt.setLebensenergie(value);    break;
+                case  2: heldenObjekt.setAusdauer(value);         break;
+                case  3: heldenObjekt.setAstralenergie(value);    break;
+                case  4: heldenObjekt.setKarmalenergie(value);    break;
+                case  5: heldenObjekt.setMagieresistenz(value);   break;
+                case  6: heldenObjekt.setBasisinitiative(value);  break;
+                case  7: heldenObjekt.setBasisattacke(value);     break;
+                case  8: heldenObjekt.setBasisparade(value);      break;
+                case  9: heldenObjekt.setFernkampfbasis(value);   break;
             }
             
         }
     }
     
     /**
-     * @param document the Document to parse
-     * @return the Behinderung
-     * @throws Exception when there was an issue
+     * @param heldenDokument das zu Parsende Dokument
+     * @return die Behinderung
+     * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected int gatherBehinderung(Document document) throws Exception {
+    protected int holeBehinderung(Document heldenDokument) throws Exception {
         int result = 0;
         
         String nodeExpression      = "(//table[@class='zonenruestungen gitternetz'])";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
+        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
         Document newDocument = nodeToDocument(node);
         NodeList nList = newDocument.getElementsByTagName("td");
@@ -134,14 +147,14 @@ public class HeldenDokumentParser {
     }
 
     /**
-     * @param hero the HeldenObjekt to use
-     * @param document the Document to parse
-     * @throws Exception when there was an issue
+     * @param heldenDokument das HeldenDokument
+     * @param heldenObjekt das HeldenObjekt
+     * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected void gatherEigenschaften(HeldenObjekt hero, Document document)
+    protected void holeEigenschaften(Document heldenDokument, HeldenObjekt heldenObjekt)
             throws Exception {
         String nodeExpression      = "(//table[@class='eigenschaften gitternetz'])";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
+        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
         Document newDocument = nodeToDocument(node);
         
@@ -154,25 +167,25 @@ public class HeldenDokumentParser {
             String value = valueNode.getTextContent().trim();
             
             switch(i) {
-                case 1: hero.setMut(Integer.parseInt(value));               break;
-                case 2: hero.setKlugheit(Integer.parseInt(value));          break;
-                case 3: hero.setIntuition(Integer.parseInt(value));         break;
-                case 4: hero.setCharisma(Integer.parseInt(value));          break;
-                case 5: hero.setFingerfertigkeit(Integer.parseInt(value));  break;
-                case 6: hero.setGewandtheit(Integer.parseInt(value));       break;
-                case 7: hero.setKonstitution(Integer.parseInt(value));      break;
-                case 8: hero.setKoerperkraft(Integer.parseInt(value));      break;
+                case 1: heldenObjekt.setMut(Integer.parseInt(value));               break;
+                case 2: heldenObjekt.setKlugheit(Integer.parseInt(value));          break;
+                case 3: heldenObjekt.setIntuition(Integer.parseInt(value));         break;
+                case 4: heldenObjekt.setCharisma(Integer.parseInt(value));          break;
+                case 5: heldenObjekt.setFingerfertigkeit(Integer.parseInt(value));  break;
+                case 6: heldenObjekt.setGewandtheit(Integer.parseInt(value));       break;
+                case 7: heldenObjekt.setKonstitution(Integer.parseInt(value));      break;
+                case 8: heldenObjekt.setKoerperkraft(Integer.parseInt(value));      break;
             }
             
         }
     }
     
     /**
-     * @param document the Document to parse
-     * @param fernwaffenListe the List of fernwaffen
-     * @throws Exception whenever something else failed
+     * @param heldenDokument das HeldenDokument
+     * @param fernwaffenListe die Liste der Fernwaffen
+     * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected void gatherFernwaffen(Document document, List<FernwaffenObjekt> fernwaffenListe)
+    protected void holeFernwaffen(Document document, List<FernwaffenObjekt> fernwaffenListe)
             throws Exception {
         String nodeExpression      = "(//table[@class='fkwaffen gitternetz'])";
         Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
@@ -193,9 +206,9 @@ public class HeldenDokumentParser {
                 fernwaffenObjekt.setName(name);
                 fernwaffenObjekt.setTp(tp);
                 fernwaffenObjekt.setFk(Integer.parseInt(fk));
-                setFernwaffeTypeAndBehinderung(fernwaffenObjekt, typBe);
-                setFernwaffeEntfernung(fernwaffenObjekt, dist);
-                setFernwaffeTpEntfernung(fernwaffenObjekt, tpDist);
+                setzeFernwaffenTypUndBehinderung(fernwaffenObjekt, typBe);
+                setzeFernwaffenEntfernung(fernwaffenObjekt, dist);
+                setzeFernwaffenTrefferpunkte(fernwaffenObjekt, tpDist);
                 
                 fernwaffenListe.add(fernwaffenObjekt);
             }                
@@ -204,15 +217,15 @@ public class HeldenDokumentParser {
     }
 
     /**
-     * @param document the Document to parse
-     * @param numberOfNet the number of the Gitternetz
-     * @param talente the List of Talente
-     * @throws Exception whenever someting else failed
+     * @param heldenDokument das Dokument zum Parsen
+     * @param gitternetzNummer die Nummer des zu parsenden Gitternetzes im Dokument
+     * @param talentListe die Liste der Talente
+     * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected void gatherGaben(Document document, int numberOfNet, List<TalentObjekt> talente)
+    protected void holeGaben(Document heldenDokument, int gitternetzNummer, List<TalentObjekt> talentListe)
             throws Exception {
-        String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
+        String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+gitternetzNummer+"]";
+        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
         Document newDocument = nodeToDocument(node);
         NodeList nList = newDocument.getElementsByTagName("td");
@@ -229,20 +242,20 @@ public class HeldenDokumentParser {
             talent.setTalentwert(Integer.parseInt(taw));
             splitTalentProben(talent, probe);
             
-            talente.add(talent);                  
+            talentListe.add(talent);                  
         }
     }
     
     /**
-     * @param document the Document to parse
-     * @param numberOfNet the number of the Gitternetz
-     * @param talente the List of talente
-     * @throws Exception whenever something else failed
+     * @param heldenDokument das Dokument zum Parsen
+     * @param gitternetzNummer die Nummer des zu parsenden Gitternetzes im Dokument
+     * @param talentListe die Liste der Talente
+     * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected void gatherGesellschaftlich(Document document, int numberOfNet, List<TalentObjekt> talente)
+    protected void holeGesellschaftlich(Document heldenDokument, int gitternetzNummer, List<TalentObjekt> talentListe)
             throws Exception {       
-        String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
+        String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+gitternetzNummer+"]";
+        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
         Document newDocument = nodeToDocument(node);
         NodeList nList = newDocument.getElementsByTagName("td");
@@ -259,20 +272,20 @@ public class HeldenDokumentParser {
             talent.setTalentwert(Integer.parseInt(taw));
             splitTalentProben(talent, probe);
             
-            talente.add(talent);                  
+            talentListe.add(talent);                  
         }
     }
     
     /**
-     * @param document the Document to parse
-     * @param numberOfNet the number of the Gitternetz
-     * @param talente the List of talente
-     * @throws Exception whenever something else failed
+     * @param heldenDokument das Dokument zum Parsen
+     * @param gitternetzNummer die Nummer des zu parsenden Gitternetzes im Dokument
+     * @param talentListe die Liste der Talente
+     * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected void gatherHandwerk(Document document, int numberOfNet, List<TalentObjekt> talente)
+    protected void holeHandwerk(Document heldenDokument, int gitternetzNummer, List<TalentObjekt> talentListe)
             throws Exception {
-        String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
+        String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+gitternetzNummer+"]";
+        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
         Document newDocument = nodeToDocument(node);
         NodeList nList = newDocument.getElementsByTagName("td");
@@ -289,20 +302,20 @@ public class HeldenDokumentParser {
             talent.setTalentwert(Integer.parseInt(taw));
             splitTalentProben(talent, probe);
             
-            talente.add(talent);                  
+            talentListe.add(talent);                  
         }
     }
     
     /**
-     * @param document the Document to parse
-     * @param numberOfNet the number of the Gitternetz
-     * @param kampftechniken the List of Kampftechniken
-     * @throws Exception whenever something else failed
+     * @param heldenDokument das Dokument zum Parsen
+     * @param gitternetzNummer die Nummer des zu parsenden Gitternetzes im Dokument
+     * @param kampftechnikListe die Liste der Kampftechniken
+     * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected void gatherKampftechniken(Document document, int numberOfNet, List<KampftechnikObjekt> kampftechniken)
+    protected void holeKampftechniken(Document heldenDokument, int gitternetzNummer, List<KampftechnikObjekt> kampftechnikListe)
             throws Exception {
-        String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
+        String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+gitternetzNummer+"]";
+        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         Document newDocument = nodeToDocument(node);
         
         NodeList nList = newDocument.getElementsByTagName("td");
@@ -323,23 +336,21 @@ public class HeldenDokumentParser {
             kampftechnik.setParade(Integer.parseInt(pa));
             kampftechnik.setTalentwert(Integer.parseInt(taw));
             
-            kampftechniken.add(kampftechnik);                 
+            kampftechnikListe.add(kampftechnik);                 
         }
         
     }
-    
-    
-    
+       
     /**
-     * @param document the Document to parse
-     * @param numberOfNet the number of the Gitternetz
-     * @param talente the List of Talente
-     * @throws Exception whenever someting else failed
+     * @param heldenDokument das Dokument zum Parsen
+     * @param gitternetzNummer die Nummer des zu parsenden Gitternetzes im Dokument
+     * @param talentListe die Liste der Talente
+     * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected void gatherKoerperlich(Document document, int numberOfNet, List<TalentObjekt> talente)
+    protected void holeKoerperlich(Document heldenDokument, int gitternetzNummer, List<TalentObjekt> talentListe)
             throws Exception {
-        String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
+        String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+gitternetzNummer+"]";
+        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
         Document newDocument = nodeToDocument(node);
         NodeList nList = newDocument.getElementsByTagName("td");
@@ -357,20 +368,20 @@ public class HeldenDokumentParser {
             talent.setTalentwert(Integer.parseInt(taw));
             splitTalentProben(talent, probe);
             
-            talente.add(talent);                  
+            talentListe.add(talent);                  
         }
     }
     
     /**
-     * @param document the Document to parse
-     * @param numberOfNet the number of the Gitternetz
-     * @param talente the List of Talente
-     * @throws Exception whenever someting else failed
+     * @param heldenDokument das Dokument zum Parsen
+     * @param gitternetzNummer die Nummer des zu parsenden Gitternetzes im Dokument
+     * @param talentListe die Liste der Talente
+     * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected void gatherNaturtalente(Document document, int numberOfNet, List<TalentObjekt> talente)
+    protected void holeNaturtalente(Document heldenDokument, int gitternetzNummer, List<TalentObjekt> talentListe)
             throws Exception {
-        String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
+        String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+gitternetzNummer+"]";
+        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
         Document newDocument = nodeToDocument(node);
         NodeList nList = newDocument.getElementsByTagName("td");
@@ -387,19 +398,19 @@ public class HeldenDokumentParser {
             talent.setTalentwert(Integer.parseInt(taw));
             splitTalentProben(talent, probe);
             
-            talente.add(talent);                  
+            talentListe.add(talent);                  
         }
     }
     
     /**
-     * @param document the Document to parse
-     * @param paradewaffenListe the List of paradewaffen
-     * @throws Exception whenever something else failed
+     * @param heldenDokument the Document to parse
+     * @param paradewaffenListe die Liste der ParadeObjekte
+     * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected void gatherParadeWaffen(Document document, List<ParadeObjekt> paradewaffenListe)
+    protected void holeParadeWaffen(Document heldenDokument, List<ParadeObjekt> paradewaffenListe)
             throws Exception {
         String nodeExpression      = "(//table[@class='schilde gitternetz'])";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
+        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
         Document newDocument = nodeToDocument(node);
         NodeList nList = newDocument.getElementsByTagName("td");
@@ -429,15 +440,15 @@ public class HeldenDokumentParser {
     }
 
     /**
-     * @param document the Document to parse
-     * @param numberOfNet the number of the Gitternetz
-     * @param talente the List of Talente
-     * @throws Exception whenever someting else failed
+     * @param heldenDokument das Dokument zum Parsen
+     * @param gitternetzNummer die Nummer des zu parsenden Gitternetzes im Dokument
+     * @param talentListe die Liste der Talente
+     * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected void gatherSchriften(Document document, int numberOfNet, List<TalentObjekt> talente)
+    protected void holeSchriften(Document heldenDokument, int gitternetzNummer, List<TalentObjekt> talentListe)
             throws Exception {
-        String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
+        String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+gitternetzNummer+"]";
+        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
         Document newDocument = nodeToDocument(node);
         NodeList nList = newDocument.getElementsByTagName("td");
@@ -453,18 +464,18 @@ public class HeldenDokumentParser {
             talent.setTalentwert(Integer.parseInt(taw));
             splitTalentProben(talent, "(--/--/--)");
             
-            talente.add(talent);                  
+            talentListe.add(talent);                  
         }
     }
     
     /**
-     * @param document the Document to parse
-     * @param hero the HeldenObjekt to use
-     * @throws Exception when there was another error
+     * @param heldenDokument das zu parsende Dokument
+     * @param heldenObjekt das HeldenObjekt
+     * @throws Exception wenn etwas schief lief
      */
-    protected void gatherSonderfertigkeiten(Document document, HeldenObjekt hero) throws Exception {
+    protected void holeSonderfertigkeiten(Document heldenDokument, HeldenObjekt heldenObjekt) throws Exception {
         String nodeExpression      = "(//div[@class='mitte_innen']/table[@class='sonderfertigkeiten'])";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
+        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
 
         Document newDocument = nodeToDocument(node);
         NodeList nList = newDocument.getElementsByTagName("td");
@@ -483,19 +494,19 @@ public class HeldenDokumentParser {
             sonderfertigkeiten.add(sf2);
         }
         
-        hero.setSonderfertigkeiten(sonderfertigkeiten);
+        heldenObjekt.setSonderfertigkeiten(sonderfertigkeiten);
     }
     
     /**
-     * @param document the Document to parse
-     * @param numberOfNet the number of the Gitternetz
-     * @param talente the List of Talente
-     * @throws Exception whenever someting else failed
+     * @param heldenDokument das Dokument zum Parsen
+     * @param gitternetzNummer die Nummer des zu parsenden Gitternetzes im Dokument
+     * @param talentListe die Liste der Talente
+     * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected void gatherSprachen(Document document, int numberOfNet, List<TalentObjekt> talente)
+    protected void holeSprachen(Document heldenDokument, int gitternetzNummer, List<TalentObjekt> talentListe)
             throws Exception {
-        String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
+        String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+gitternetzNummer+"]";
+        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
         Document newDocument = nodeToDocument(node);
         NodeList nList = newDocument.getElementsByTagName("td");
@@ -511,19 +522,19 @@ public class HeldenDokumentParser {
             talent.setTalentwert(Integer.parseInt(taw));
             splitTalentProben(talent, "(--/--/--)");
             
-            talente.add(talent);                  
+            talentListe.add(talent);                  
         }
     }
 
     /**
-     * @param document The Document to be parsed
-     * @param waffenListe the List to be filled
-     * @throws Exception whenever someting else failed
+     * @param heldenDokument das zu parsende Dokument
+     * @param waffenListe die Liste der WaffenObjekte
+     * @throws Exception wenn etwas schief lief
      */
-    protected void gatherWaffen(Document document, List<WaffenObjekt> waffenListe)
+    protected void holeWaffen(Document heldenDokument, List<WaffenObjekt> waffenListe)
             throws Exception {
         String nodeExpression      = "(//table[@class='nkwaffen gitternetz'])";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
+        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
         Document newDocument = nodeToDocument(node);
         NodeList nList = newDocument.getElementsByTagName("td");
@@ -553,15 +564,15 @@ public class HeldenDokumentParser {
     }
     
     /**
-     * @param document the Document to parse
-     * @param numberOfNet the number of the Gitternetz
-     * @param talente the List of talente
-     * @throws Exception whenever something else failed
+     * @param heldenDokument das Dokument zum Parsen
+     * @param gitternetzNummer die Nummer des zu parsenden Gitternetzes im Dokument
+     * @param talentListe die Liste der Talente
+     * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected void gatherWissenstalente(Document document, int numberOfNet, List<TalentObjekt> talente)
+    protected void holeWissenstalente(Document heldenDokument, int gitternetzNummer, List<TalentObjekt> talentListe)
             throws Exception {
-        String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+numberOfNet+"]";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
+        String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+gitternetzNummer+"]";
+        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
         Document newDocument = nodeToDocument(node);
         NodeList nList = newDocument.getElementsByTagName("td");
@@ -578,20 +589,19 @@ public class HeldenDokumentParser {
             talent.setTalentwert(Integer.parseInt(taw));
             splitTalentProben(talent, probe);
             
-            talente.add(talent);                  
+            talentListe.add(talent);                  
         }
     }
 
     /**
-     * @param document the Document to parse
-     * @param zauberListe the List of zauber
-     * @throws XPathExpressionException when the Expression threw an error
-     * @throws Exception whenever something else failed
+     * @param heldenDokument das Dokument zum Parsen
+     * @param zauberListe die Liste der Zauber
+     * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected void gatherZauber(Document document, List<TalentObjekt> zauberListe)
+    protected void holeZauber(Document heldenDokument, List<TalentObjekt> zauberListe)
             throws Exception {
         String nodeExpression      = "(//table[@class='zauber gitternetz'])";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
+        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
         Document newDocument = nodeToDocument(node);
         NodeList nList = newDocument.getElementsByTagName("td");
@@ -613,10 +623,10 @@ public class HeldenDokumentParser {
     }
 
     /**
-     * @param originalFile the originalFile
-     * @return a modified file
+     * @param originalDateiObjekt die Originaldatei
+     * @return eine modifizierte Datei
      */
-    protected File massageHtmlFile(File originalFile) {
+    protected File massageHtmlFile(File originalDateiObjekt) {
         File result       = null;
         BufferedReader br = null;
         BufferedWriter wr = null;
@@ -624,7 +634,7 @@ public class HeldenDokumentParser {
             result = File.createTempFile("dsa_", ".tmp");
             result.deleteOnExit();
             
-            br = new BufferedReader(new FileReader(originalFile));
+            br = new BufferedReader(new FileReader(originalDateiObjekt));
             wr = new BufferedWriter(new FileWriter(result));
             String line = null;
             
@@ -667,9 +677,9 @@ public class HeldenDokumentParser {
     
     
     /**
-     * @param node the node to transform to a Document
-     * @return the Document object
-     * @throws Exception when there was an issue
+     * @param node die Node, die zu einem Document transformiert werden soll
+     * @return ein Document Objekt
+     * @throws Exception wenn etwas schief lief
      */
     protected Document nodeToDocument(Node node) throws Exception {
         Document newDocument = builder.newDocument();
@@ -687,12 +697,12 @@ public class HeldenDokumentParser {
     
 
     /**
-     * @param dk the String to parse
-     * @return a List of available Distanzklassen
+     * @param distanzklasse der zu parsende String
+     * @return die Liste der geparsten Distanzklassen
      */
-    protected List<DKEnum> parseDistanzklassen(String dk) {
+    protected List<DKEnum> parseDistanzklassen(String distanzklasse) {
         List<DKEnum> distanzklassen = new ArrayList<>();
-        String parseString = dk.trim();
+        String parseString = distanzklasse.trim();
         for(String s : parseString.split(" ")) {
             distanzklassen.add(DKEnum.valueOf(s));
         }
@@ -701,9 +711,9 @@ public class HeldenDokumentParser {
     }
 
     /**
-     * @param xmlFile the File to parse
-     * @return a HeldenObjekt to use
-     * @throws Exception when there was an error
+     * @param xmlFile die Datei, die geparsed werden soll
+     * @return ein HeldenObjekt
+     * @throws Exception wenn etwas schief lief
      */
     public HeldenObjekt parseFile(File xmlFile) throws Exception {
         HeldenObjekt hero               = new HeldenObjekt();
@@ -721,8 +731,8 @@ public class HeldenDokumentParser {
             String heroName        = xpath.compile(titleExpression).evaluate(document);
             hero.setName(heroName);
             
-            gatherEigenschaften(hero, document);         
-            gatherBasisWerte(hero, document);
+            holeEigenschaften(document, hero);         
+            holeBasisWerte(document, hero);
             
             Instant eigenschaftenEnd = Instant.now();
             System.out.println("Eigenschaften: " + Duration.between(eigenschaftenStart, eigenschaftenEnd));
@@ -738,15 +748,15 @@ public class HeldenDokumentParser {
                     Instant gatherStart = Instant.now();
                     
                     switch(name.substring(0, 2).toLowerCase()) {
-                        case "ga" : gatherGaben(document, i, talente);               break;
-                        case "ge" : gatherGesellschaftlich(document, i, talente);    break;
-                        case "ha" : gatherHandwerk(document, i, talente);            break;
-                        case "ka" : gatherKampftechniken(document, i, kampfTalente); break;
-                        case "kö" : gatherKoerperlich(document, i, talente);         break;
-                        case "na" : gatherNaturtalente(document, i, talente);        break;
-                        case "sc" : gatherSchriften(document, i, talente);           break;        
-                        case "sp" : gatherSprachen(document, i, talente);            break;    
-                        case "wi" : gatherWissenstalente(document, i, talente);      break;            
+                        case "ga" : holeGaben(document, i, talente);               break;
+                        case "ge" : holeGesellschaftlich(document, i, talente);    break;
+                        case "ha" : holeHandwerk(document, i, talente);            break;
+                        case "ka" : holeKampftechniken(document, i, kampfTalente); break;
+                        case "kö" : holeKoerperlich(document, i, talente);         break;
+                        case "na" : holeNaturtalente(document, i, talente);        break;
+                        case "sc" : holeSchriften(document, i, talente);           break;        
+                        case "sp" : holeSprachen(document, i, talente);            break;    
+                        case "wi" : holeWissenstalente(document, i, talente);      break;            
                         default: break;
                     }
                     
@@ -763,7 +773,7 @@ public class HeldenDokumentParser {
             
             Instant gatherZauberStart = Instant.now();
             List<TalentObjekt> zauber = new ArrayList<>();
-            gatherZauber(document, zauber);
+            holeZauber(document, zauber);
             
             hero.setZauber(zauber);
             Instant gatherZauberEnd = Instant.now();
@@ -772,14 +782,14 @@ public class HeldenDokumentParser {
             
             Instant gatherWaffenStart = Instant.now();
             List<WaffenObjekt> waffenListe = new ArrayList<>();
-            gatherWaffen(document, waffenListe);            
+            holeWaffen(document, waffenListe);            
             hero.setWaffen(waffenListe);
             Instant gatherWaffenEnd = Instant.now();
             System.out.println(String.format("Waffen: %s", Duration.between(gatherWaffenStart, gatherWaffenEnd)));
             
             Instant gatherPWaffenStart = Instant.now();
             List<ParadeObjekt> paradeObjektListe = new ArrayList<>();
-            gatherParadeWaffen(document, paradeObjektListe);            
+            holeParadeWaffen(document, paradeObjektListe);            
             hero.setParadeWaffen(paradeObjektListe);
             Instant gatherPWaffenEnd = Instant.now();
             System.out.println(String.format("Parade: %s", Duration.between(gatherPWaffenStart, gatherPWaffenEnd)));
@@ -787,18 +797,18 @@ public class HeldenDokumentParser {
             
             Instant gatherFWaffenStart = Instant.now();
             List<FernwaffenObjekt> fernwaffenListe = new ArrayList<>();
-            gatherFernwaffen(document, fernwaffenListe);
+            holeFernwaffen(document, fernwaffenListe);
             hero.setFernWaffen(fernwaffenListe);
             Instant gatherFWaffenEnd = Instant.now();
             System.out.println(String.format("Fernwaffen: %s", Duration.between(gatherFWaffenStart, gatherFWaffenEnd)));
             
             
             
-            int behinderung = gatherBehinderung(document);
+            int behinderung = holeBehinderung(document);
             hero.setBehinderung(behinderung);
             
             Instant gatherSonderfertigkeitenStart = Instant.now();
-            gatherSonderfertigkeiten(document, hero);
+            holeSonderfertigkeiten(document, hero);
             Instant gatherSonderfertigkeitenEnd = Instant.now();
             System.out.println(String.format("SF: %s", Duration.between(gatherSonderfertigkeitenStart, gatherSonderfertigkeitenEnd)));
             
@@ -815,8 +825,8 @@ public class HeldenDokumentParser {
     }
     
     /**
-     * @param wm the WeaponModificator to parse
-     * @param paradeObjekt the ParadeObjekt to use
+     * @param wm der zu parsende Waffenmodifikator
+     * @param paradeObjekt das ParadeObjekt
      */
     protected void parseWaffenModifikator(String wm, ParadeObjekt paradeObjekt) {
         int waffenModifikatorAttacke = 0;
@@ -831,35 +841,33 @@ public class HeldenDokumentParser {
     }
     
     /**
-     * @param fernwaffenObjekt the FernwaffenObjekt to use
-     * @param dist the Distances of the Weapon
+     * @param fernwaffenObjekt das zu verwendende FernwaffenObjekt
+     * @param dist die Distanzen der Fernwaffe
      */
-    protected void setFernwaffeEntfernung(FernwaffenObjekt fernwaffenObjekt, String dist) {
+    protected void setzeFernwaffenEntfernung(FernwaffenObjekt fernwaffenObjekt, String dist) {
         String[] distances = dist.split("/");
         for(String distance : distances) {
             fernwaffenObjekt.addEntfernung(Integer.parseInt(distance.trim()));
-        }
-         
+        }        
     }
     
     /**
-     * @param fernwaffenObjekt the FernwaffenObjekt
-     * @param tpDist the tps according to distances
+     * @param fernwaffenObjekt das FernwaffenObjekt
+     * @param tpDist Die Trefferpunkte pro Distanz
      */
-    protected void setFernwaffeTpEntfernung(FernwaffenObjekt fernwaffenObjekt, String tpDist) {
+    protected void setzeFernwaffenTrefferpunkte(FernwaffenObjekt fernwaffenObjekt, String tpDist) {
         String[] distances = tpDist.split("/");
         for(String distance : distances) {
             fernwaffenObjekt.addTpEntfernung(Integer.parseInt(distance.trim()));
-        }
-        
+        }        
     }
     
     
     /**
-     * @param fernwaffenObjekt the Fernwaffenobjekt to set
-     * @param typBe the Type and Be in a String
+     * @param fernwaffenObjekt das FernwaffenObjekt
+     * @param typBe Typ und Behinderung
      */
-    protected void setFernwaffeTypeAndBehinderung(FernwaffenObjekt fernwaffenObjekt, String typBe) {
+    protected void setzeFernwaffenTypUndBehinderung(FernwaffenObjekt fernwaffenObjekt, String typBe) {
         String typ = null;
         String be  = null;
         
@@ -880,9 +888,9 @@ public class HeldenDokumentParser {
     }
     
     /**
-     * @param talentObjekt the TalentObjekt to use
-     * @param probe the probe to split
-     * @throws Exception when there was an issue
+     * @param talentObjekt das TalentObjekt
+     * @param probe die zu splittende Probe
+     * @throws Exception wenn etwas schief lief
      */
     protected void splitTalentProben(TalentObjekt talentObjekt, String probe) throws Exception {
         String localprobe = probe.trim();
@@ -909,5 +917,4 @@ public class HeldenDokumentParser {
         talentObjekt.setProbenTalent2(probenList.get(1));
         talentObjekt.setProbenTalent3(probenList.get(2));
     }
-
 }

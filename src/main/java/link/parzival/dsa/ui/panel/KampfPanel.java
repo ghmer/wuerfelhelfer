@@ -179,7 +179,7 @@ public class KampfPanel extends JPanel {
         btnInitiative = new JButton(BUNDLE.getString("KampfPanel.btnInitiative.text")); //$NON-NLS-1$
         btnInitiative.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String rollCommand = BerechnungsHelfer.getEffectiveInitiativeRoll(hero, waffenObjekt, paradeObjekt);
+                String rollCommand = BerechnungsHelfer.berechneEffektiveInitiative(hero, waffenObjekt, paradeObjekt);
                 WuerfelHelferGUI.copyToClipboard(rollCommand);
             }
         });
@@ -383,20 +383,20 @@ public class KampfPanel extends JPanel {
                         return;
                     }
                     if (useDistanceClasses()) {
-                        int effectiveDistance = BerechnungsHelfer.getDistanceBetween(getSelectedWeaponDistance(),
+                        int effectiveDistance = BerechnungsHelfer.berechneDistanz(getSelectedWeaponDistance(),
                                 getCombatWeaponDistance());
 
                         if (effectiveDistance >= 2 || effectiveDistance <= -2) {
                             JOptionPane.showMessageDialog(btnAttacke.getRootPane(),
                                     "Attacke aufgrund der aktuellen Entfernung zum Gegner nicht möglich. Wähle Hopsen!");
                         } else {
-                            String rollCommand = BerechnungsHelfer.getEffectiveWeaponAttackRoll(getWaffenObjekt(),
+                            String rollCommand = BerechnungsHelfer.berechneEffektiveWaffenAttacke(getWaffenObjekt(),
                                     modificator, useDistanceClasses(), getCombatWeaponDistance(),
                                     getSelectedWeaponDistance());
                             WuerfelHelferGUI.copyToClipboard(rollCommand);
                         }
                     } else {
-                        String rollCommand = BerechnungsHelfer.getEffectiveWeaponAttackRoll(getWaffenObjekt(),
+                        String rollCommand = BerechnungsHelfer.berechneEffektiveWaffenAttacke(getWaffenObjekt(),
                                 modificator, useDistanceClasses(), getCombatWeaponDistance(),
                                 getSelectedWeaponDistance());
                         WuerfelHelferGUI.copyToClipboard(rollCommand);
@@ -461,7 +461,7 @@ public class KampfPanel extends JPanel {
                 }
 
                 if (useDistanceClasses()) {
-                    int effectiveDistance = BerechnungsHelfer.getDistanceBetween(getSelectedWeaponDistance(),
+                    int effectiveDistance = BerechnungsHelfer.berechneDistanz(getSelectedWeaponDistance(),
                             getCombatWeaponDistance());
                     if (effectiveDistance >= 2) {
                         JOptionPane.showMessageDialog(btnAttacke.getRootPane(),
@@ -472,14 +472,14 @@ public class KampfPanel extends JPanel {
 
                 switch (paradenOption) {
                 case Schild: {
-                    String rollCommand = BerechnungsHelfer.getEffectiveShieldParadeRoll(getWaffenObjekt(),
+                    String rollCommand = BerechnungsHelfer.berechneEffektiveSchildParade(getWaffenObjekt(),
                             getParadeObjekt(), modificator, getInitiative(), useDistanceClasses(),
                             getCombatWeaponDistance(), getSelectedWeaponDistance());
                     WuerfelHelferGUI.copyToClipboard(rollCommand);
                     break;
                 }
                 case Waffe: {
-                    String rollCommand = BerechnungsHelfer.getEffectiveWeaponParadeRoll(getWaffenObjekt(), modificator,
+                    String rollCommand = BerechnungsHelfer.berechneEffektiveWaffenParade(getWaffenObjekt(), modificator,
                             getInitiative(), useDistanceClasses(), getCombatWeaponDistance(),
                             getSelectedWeaponDistance());
                     WuerfelHelferGUI.copyToClipboard(rollCommand);
@@ -747,19 +747,19 @@ public class KampfPanel extends JPanel {
     private void applyKampftechnikAttack(HeldenObjekt hero, int modificator, String selectedKampfTechnikName) {
         if (selectedKampfTechnikName != null && !selectedKampfTechnikName.isEmpty()) {
             if (useDistanceClasses()) {
-                int effectiveDistance = BerechnungsHelfer.getDistanceBetween(DKEnum.H, getCombatWeaponDistance());
+                int effectiveDistance = BerechnungsHelfer.berechneDistanz(DKEnum.H, getCombatWeaponDistance());
                 if (effectiveDistance >= 1 || effectiveDistance <= -1) {
                     JOptionPane.showMessageDialog(btnAttacke.getRootPane(),
                             "Attacke aufgrund der aktuellen Entfernung zum Gegner nicht möglich. Wähle Hopsen!");
                 } else {
 
-                    String rollCommand = BerechnungsHelfer.getEffectiveTechnicalAttackRoll(
+                    String rollCommand = BerechnungsHelfer.berechneEffektiveTechnischeAttacke(
                             hero.getKampftechnikByName(selectedKampfTechnikName), modificator, useDistanceClasses(),
                             getCombatWeaponDistance(), DKEnum.H);
                     WuerfelHelferGUI.copyToClipboard(rollCommand);
                 }
             } else {
-                String rollCommand = BerechnungsHelfer.getEffectiveTechnicalAttackRoll(
+                String rollCommand = BerechnungsHelfer.berechneEffektiveTechnischeAttacke(
                         hero.getKampftechnikByName(selectedKampfTechnikName), modificator, useDistanceClasses(),
                         getCombatWeaponDistance(), DKEnum.H);
                 WuerfelHelferGUI.copyToClipboard(rollCommand);
@@ -777,19 +777,19 @@ public class KampfPanel extends JPanel {
             String selectedKampfTechnikName) {
         if (selectedKampfTechnikName != null && !selectedKampfTechnikName.isEmpty()) {
             if (useDistanceClasses()) {
-                int effectiveDistance = BerechnungsHelfer.getDistanceBetween(DKEnum.H, getCombatWeaponDistance());
+                int effectiveDistance = BerechnungsHelfer.berechneDistanz(DKEnum.H, getCombatWeaponDistance());
                 if (effectiveDistance >= 1 || effectiveDistance <= -1) {
                     JOptionPane.showMessageDialog(btnAttacke.getRootPane(),
                             "Attacke aufgrund der aktuellen Entfernung zum Gegner nicht möglich. Wähle Hopsen!");
                 } else {
 
-                    String rollCommand = BerechnungsHelfer.getEffectiveTechnicalParadeRoll(
+                    String rollCommand = BerechnungsHelfer.berechneEffektiveTechnischeParade(
                             hero.getKampftechnikByName(selectedKampfTechnikName), modificator, initiative,
                             useDistanceClasses(), getCombatWeaponDistance(), selectedKampfTechnikName);
                     WuerfelHelferGUI.copyToClipboard(rollCommand);
                 }
             } else {
-                String rollCommand = BerechnungsHelfer.getEffectiveTechnicalParadeRoll(
+                String rollCommand = BerechnungsHelfer.berechneEffektiveTechnischeParade(
                         hero.getKampftechnikByName(selectedKampfTechnikName), modificator, initiative,
                         useDistanceClasses(), getCombatWeaponDistance(), selectedKampfTechnikName);
                 WuerfelHelferGUI.copyToClipboard(rollCommand);

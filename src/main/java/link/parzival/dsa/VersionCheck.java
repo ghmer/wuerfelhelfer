@@ -14,8 +14,8 @@ import java.net.URL;
  */
 public class VersionCheck {
     /**
-     * @param localVersion the localVersion of the program
-     * @return true if there is a newer version on the remote site
+     * @param localVersion die lokale Versions des Programms
+     * @return true wenn es eine neue Version zum Download gibt
      */
     public static boolean checkForNewVersion(int localVersion) {
         boolean result          = false;

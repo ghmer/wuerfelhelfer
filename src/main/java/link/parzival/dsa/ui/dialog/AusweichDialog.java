@@ -137,7 +137,7 @@ public class AusweichDialog extends JDialog {
                 okButton = new JButton(BUNDLE.getString("EvasionDialog.okButton.text")); //$NON-NLS-1$
                 okButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        setRollCommand(BerechnungsHelfer.getEffectiveEvadingRoll(hero, initiative, enemyCount, gezieltesAusweichen, withDk, distanzklasse));
+                        setRollCommand(BerechnungsHelfer.berechneEffektivesAusweichen(hero, initiative, enemyCount, gezieltesAusweichen, withDk, distanzklasse));
                         state = Konstanten.DIALOG_OK_STATE;
                         dispose();
                     }

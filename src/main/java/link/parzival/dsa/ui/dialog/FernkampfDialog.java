@@ -1256,7 +1256,7 @@ public class FernkampfDialog extends JDialog {
             anzahlGegnerInDistanzNS = (Integer)spinnerGegnerInDistanzNS.getValue();
         }
         
-        result = BerechnungsHelfer.getFernkampfBewegungsModifikator(bewegung, anzahlGegnerInDistanzH, anzahlGegnerInDistanzNS);
+        result = BerechnungsHelfer.berechneFernkampfBewegungsModifikator(bewegung, anzahlGegnerInDistanzH, anzahlGegnerInDistanzNS);
         
         return result;
     }
@@ -1273,7 +1273,7 @@ public class FernkampfDialog extends JDialog {
                 break;
             }
         }
-        result = BerechnungsHelfer.getFernkampfEntfernungsModifikator(entfernung);
+        result = BerechnungsHelfer.berechneFernkampfEntfernungsModifikator(entfernung);
         
         return result;
     }
@@ -1316,7 +1316,7 @@ public class FernkampfDialog extends JDialog {
                 }
             }
             boolean inBewegung = chkBoxKoerperteilBewegung.isSelected();
-            result = BerechnungsHelfer.getFernkampfGezielterSchussModifikator(schuetzentyp, humanoid, inBewegung, trefferzone, zielgroesse);
+            result = BerechnungsHelfer.berechneFernkampfGezielterSchussModifikator(schuetzentyp, humanoid, inBewegung, trefferzone, zielgroesse);
         }
         
         return result;
@@ -1339,7 +1339,7 @@ public class FernkampfDialog extends JDialog {
         boolean halbdeckung         = chkboxHalbdeckung.isSelected();
         boolean dreivierteldeckung     = chkBoxDreivierteldeckung.isSelected();
         
-        result = BerechnungsHelfer.getFernkampfGroessenModifikator(groesse, modifikator, halbdeckung, dreivierteldeckung);
+        result = BerechnungsHelfer.berechneFernkampfGroessenModifikator(groesse, modifikator, halbdeckung, dreivierteldeckung);
         
         return result;
     }
@@ -1361,7 +1361,7 @@ public class FernkampfDialog extends JDialog {
             }
         }
         
-        result = BerechnungsHelfer.getFernkampfModifikatorenModifikator(modifikatoren, schuetzentyp, ansage, zielen);
+        result = BerechnungsHelfer.berechneFernkampfModifikatoren(modifikatoren, schuetzentyp, ansage, zielen);
         
         return result;
     }
@@ -1430,7 +1430,7 @@ public class FernkampfDialog extends JDialog {
                 break;
             }
         }        
-        result = BerechnungsHelfer.getFernkampfSichtModifikator(
+        result = BerechnungsHelfer.berechneFernkampfSichtModifikator(
                 lichtquelle, 
                 dunst, nebel, 
                 entfernungssinn, daemmerungssicht, nachtsicht, 

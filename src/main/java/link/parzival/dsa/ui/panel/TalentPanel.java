@@ -223,7 +223,7 @@ public class TalentPanel extends JPanel {
                 if(pruefung2.equals(EigenschaftEnum.NA)) pruefAuswahl += 10;
                 if(pruefung3.equals(EigenschaftEnum.NA)) pruefAuswahl += 100;
                 
-                int effectiveModifier     = BerechnungsHelfer.calculateModifier(modifier, hero.getBehinderung(), talent);
+                int effectiveModifier     = BerechnungsHelfer.berechneEffektivenTalentModifikator(modifier, hero.getBehinderung(), talent);
                 String rollCommand        = null;
                 
                 switch(pruefAuswahl) {

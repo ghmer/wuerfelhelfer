@@ -21,10 +21,10 @@ import link.parzival.dsa.object.enumeration.DKEnum;
 public class BerechnungsHelfer {
     
     /**
-     * @param initiative the initiative
-     * @return the additional parade by the initiative
+     * @param initiative die Initiative des Charakters
+     * @return der zusätzliche Paradenmodifikator des Charakters
      */
-    public static int getAdditionalParadeByInitiative(int initiative) {
+    public static int berechneZusatzParade(int initiative) {
         int additionalParade = 0;
         
         if(initiative > 20) {
@@ -43,12 +43,12 @@ public class BerechnungsHelfer {
     }
     
     /**
-     * @param waffenObjekt the WaffenObjekt to use
-     * @param verdoppeln whether to double the stakes
-     * @param verkuerzen whether to get closer to the enemy
-     * @return the rollCommand for the distance change
+     * @param waffenObjekt das zu verwendende WaffenObjekt
+     * @param verdoppeln Gibt an, ob man verdoppeln möchte
+     * @param verkuerzen Gibt an, ob man sich dem Gegner nähern (true) möchte
+     * @return das berechnete Würfelkommando
      */
-    public static String getChangeDistanceEffectiveRoll(WaffenObjekt waffenObjekt, boolean verdoppeln, boolean verkuerzen) {
+    public static String berechneEffektivenDistanzwechsel(WaffenObjekt waffenObjekt, boolean verdoppeln, boolean verkuerzen) {
         String result = "";
         int attacke   = 0;
         if(verkuerzen) {
@@ -74,11 +74,11 @@ public class BerechnungsHelfer {
     }
     
     /**
-     * @param waffenDk the distanzklasse of the current weapon
-     * @param kampfDk the distanzklasse of the combat (aka current distanzklasse)
-     * @return integer defining the distance between the current weapon distanzklasse and the combat distanzklasse
+     * @param waffenDk die Distanzklasse der aktuell verwendeten Waffe
+     * @param kampfDk die Distanzklasse, in welcher der aktuelle Kampf derzeit stattfindet
+     * @return die Distanz zwischen der verwendeten Waffe und der aktuellen Kampfdistanz
      */
-    public static int getDistanceBetween(DKEnum waffenDk, DKEnum kampfDk) {
+    public static int berechneDistanz(DKEnum waffenDk, DKEnum kampfDk) {
         int result = 0;
         result     = waffenDk.ordinal() - kampfDk.ordinal();
         
@@ -87,34 +87,34 @@ public class BerechnungsHelfer {
     }
     
     /**
-     * @param waffenObjekt the WaffenObjekt
-     * @param modificator another modificator
-     * @param useDistanceClass whether to use Distanzklassen
-     * @param kampfDk Distanzklasse of the combat
-     * @param waffenDk Distanzklasse of the weapon
-     * @return the rollCommand
+     * @param waffenObjekt das WaffenObjekt
+     * @param modificator zusätzlich angesagter Modifikator
+     * @param useDistanceClass true, wenn Distanzklassenberechnung verwendet werden soll
+     * @param kampfDk Distanzklasse des Kampfes
+     * @param waffenDk Distanzklasse der Waffe
+     * @return das Würfelkommando
      */
-    public static String getEffectiveWeaponAttackRoll(WaffenObjekt waffenObjekt, int modificator, boolean useDistanceClass, DKEnum kampfDk, DKEnum waffenDk) {
+    public static String berechneEffektiveWaffenAttacke(WaffenObjekt waffenObjekt, int modificator, boolean useDistanceClass, DKEnum kampfDk, DKEnum waffenDk) {
         int attack      = waffenObjekt.getAttacke();
         attack         -= modificator;
         String result   = String.format("!%s Attacke (Waffe)", attack);
         
-        result = applyDistanceClasses(useDistanceClass, kampfDk, waffenDk, attack, result);
+        result = distanzklassenAnwenden(useDistanceClass, kampfDk, waffenDk, attack, result);
         
         return result;
     }
 
     /**
-     * @param useDistanceClass use distance classes
-     * @param kampfDk the current distance class
-     * @param waffenDk the distance class of the weapon of kampftechnik
-     * @param attack the attack TaW
-     * @param result the result if DK is not applied
-     * @return the actual result
+     * @param useDistanceClass true, wenn Distanzklassenberechnung verwendet werden soll
+     * @param kampfDk Distanzklasse des Kampfes
+     * @param waffenDk Distanzklasse der Waffe
+     * @param attack der TaW der Attacke
+     * @param result das unmodifizierte Würfelkommando
+     * @return das Würfelkommando
      */
-    private static String applyDistanceClasses(boolean useDistanceClass, DKEnum kampfDk, DKEnum waffenDk, int attack, String result) {
+    private static String distanzklassenAnwenden(boolean useDistanceClass, DKEnum kampfDk, DKEnum waffenDk, int attack, String result) {
         if(useDistanceClass) {
-            int effectiveDistance = getDistanceBetween(waffenDk, kampfDk);
+            int effectiveDistance = berechneDistanz(waffenDk, kampfDk);
             int distanceModificator = 0;
             switch(effectiveDistance) {
                 case -1: distanceModificator = -6; break;
@@ -135,56 +135,56 @@ public class BerechnungsHelfer {
     }
     
     /**
-     * @param kampftechnik the Kampftechnik to use
-     * @param modificator the Modifikator
-     * @param useDistanceClass whether to use Distance Classes
-     * @param kampfDk the current distance class
-     * @param waffenDk the distance class of the Kampftechnik
-     * @return the roll command
+     * @param kampftechnik die zu verwendende Kampftechnik
+     * @param modificator ein zusätzlicher Modifikator
+     * @param useDistanceClass true, wenn Distanzklassenberechnung verwendet werden soll
+     * @param kampfDk Distanzklasse des Kampfes
+     * @param waffenDk Distanzklasse der Waffe
+     * @return das Würfelkommando
      */
-    public static String getEffectiveTechnicalAttackRoll(KampftechnikObjekt kampftechnik, int modificator, boolean useDistanceClass, DKEnum kampfDk, DKEnum waffenDk) {
+    public static String berechneEffektiveTechnischeAttacke(KampftechnikObjekt kampftechnik, int modificator, boolean useDistanceClass, DKEnum kampfDk, DKEnum waffenDk) {
         int attack    = kampftechnik.getAttacke();
         attack       -= modificator;
         String result = String.format("!%s Attacke (Kampftechnik: %s)", attack, kampftechnik.getName());
         
-        result = applyDistanceClasses(useDistanceClass, kampfDk, waffenDk, attack, result);
+        result = distanzklassenAnwenden(useDistanceClass, kampfDk, waffenDk, attack, result);
         
         return result;
     }
     
     /**
-     * @param attackeBasis the attacke before any modifications
-     * @param modificator a Modifikator
-     * @param useDistanceClass whether to use distance classes
-     * @param kampfDk the current distance class
-     * @param waffenDk the distance class of the weapon or kampftechnik
-     * @return the roll command
+     * @param attackeBasis die BasisAttacke vor jeglichen Modifikatoren
+     * @param modificator ein zusätzlicher Modifikator
+     * @param useDistanceClass true, wenn Distanzklassenberechnung verwendet werden soll
+     * @param kampfDk Distanzklasse des Kampfes
+     * @param waffenDk Distanzklasse der Waffe
+     * @return das Würfelkommando
      */
-    public static String getEffectiveAttackRoll(int attackeBasis, int modificator, boolean useDistanceClass, DKEnum kampfDk, DKEnum waffenDk) {
+    public static String berechneEffektiveParade(int attackeBasis, int modificator, boolean useDistanceClass, DKEnum kampfDk, DKEnum waffenDk) {
         int attack    = attackeBasis;
         attack       -= modificator;
         String result = String.format("!%s Attacke", attack);
         
-        result = applyDistanceClasses(useDistanceClass, kampfDk, waffenDk, attack, result);
+        result = distanzklassenAnwenden(useDistanceClass, kampfDk, waffenDk, attack, result);
         
         return result;
     }
     
     /**
-     * @param hero The HeroObjekt to use
-     * @param initiative the initiative of the hero in the fight
-     * @param enemyCount the number of enemies 
-     * @param gezieltesAusweichen whether to use gezieltes Ausweichen
-     * @param withDk whether to use Distanzklassen
-     * @param distanzklasse the Distanzklasse to use
-     * @return the rollCommand for evasion
+     * @param hero das HeldenObjekt
+     * @param initiative der aktuelle Initiativewert des Helden im Kampf
+     * @param enemyCount die Anzahl umstehender Feinde
+     * @param gezieltesAusweichen true, wenn man gezieltes Ausweichen einsetzen will
+     * @param withDk true, wenn Distanzklassenberechnung verwendet werden soll
+     * @param distanzklasse die zu verwendende Distanzklasse
+     * @return das Würfelkommando
      */
-    public static String getEffectiveEvadingRoll(HeldenObjekt hero, int initiative, int enemyCount, boolean gezieltesAusweichen, boolean withDk, DKEnum distanzklasse) {
+    public static String berechneEffektivesAusweichen(HeldenObjekt hero, int initiative, int enemyCount, boolean gezieltesAusweichen, boolean withDk, DKEnum distanzklasse) {
         String result   = null;
         int effective   = 0;
         int basis       = hero.getBasisparade();
         int behinderung = hero.getBehinderung();
-        int iniParade   = getAdditionalParadeByInitiative(initiative);
+        int iniParade   = berechneZusatzParade(initiative);
         int sfMod       = 0;
         int enemyBe     = (2 * enemyCount) - 2;
         int distanzklassenErschwernis = 0;
@@ -231,12 +231,12 @@ public class BerechnungsHelfer {
     }
     
     /**
-     * @param hero The HeroObjekt to use
-     * @param waffe the WaffenObjekt to use
-     * @param paradeObjekt the ParadeObjekt to use
-     * @return the rollCommand
+     * @param hero das HeldenObjekt
+     * @param waffe das WaffenObjekt
+     * @param paradeObjekt das ParadeObjekt
+     * @return das Würfelkommando
      */
-    public static String getEffectiveInitiativeRoll(HeldenObjekt hero, WaffenObjekt waffe, ParadeObjekt paradeObjekt) {
+    public static String berechneEffektiveInitiative(HeldenObjekt hero, WaffenObjekt waffe, ParadeObjekt paradeObjekt) {
         String result       = null;
         boolean bladedancer = false;
         int basis           = hero.getBasisinitiative();
@@ -271,24 +271,24 @@ public class BerechnungsHelfer {
     }
     
     /**
-     * @param paradeBasis the basis parade value
-     * @param modificator the Modifikator
-     * @param initiative the initiative in the current combat
-     * @param useDistanceClass whether to use distance classes
-     * @param combatWeaponDistance the current distance class in the combat
-     * @param typeOfParade the type of Parade (Ringen/Raufen)
+     * @param paradeBasis der ParadeBasis Wert des Charakters
+     * @param modificator ein weiterer Modifikator
+     * @param initiative der Initiativwert des Charakters im aktuellen Kampf
+     * @param useDistanceClass true, wenn Distanzklassenberechnung verwendet werden soll
+     * @param combatWeaponDistance die aktuelle Distanzklasse des Kampfes
+     * @param typeOfParade die Art der Parade (Ringen/Raufen)
      * @return the rollCommand
      */
-    public static String getEffectiveParadeRoll(int paradeBasis, int modificator,
+    public static String berechneEffektiveParade(int paradeBasis, int modificator,
             int initiative, boolean useDistanceClass, DKEnum combatWeaponDistance, String typeOfParade) {
         int parade    = paradeBasis;
-        int iniParade = getAdditionalParadeByInitiative(initiative);
+        int iniParade = berechneZusatzParade(initiative);
         parade       += iniParade;
         parade       -= modificator;
         String result = String.format("!%s Parade (%s)", parade, typeOfParade);
         
         if(useDistanceClass) {
-            int effectiveDistance   = getDistanceBetween(DKEnum.H, combatWeaponDistance);
+            int effectiveDistance   = berechneDistanz(DKEnum.H, combatWeaponDistance);
             int distanceModificator = 0;
             switch(effectiveDistance) {
                 case -1: distanceModificator =  0; break;
@@ -309,16 +309,16 @@ public class BerechnungsHelfer {
     }
     
     /**
-     * @param waffenObjekt the WaffenObjekt
-     * @param paradeObjekt the ParadeObjekt
-     * @param modificator another modificator
-     * @param initiative the initiative to use
-     * @param useDistanceClass whether to use Distanzklassen
-     * @param kampfDk Distanzklasse of the combat
-     * @param waffenDk Distanzklasse of the weapon
-     * @return the rollCommand
+     * @param waffenObjekt das WaffenObjekt
+     * @param paradeObjekt das ParadeObjekt
+     * @param modificator ein weiterer Modifikator
+     * @param initiative der zu verwendende Initiativwert
+     * @param useDistanceClass true, wenn Distanzklassenberechnung verwendet werden soll
+     * @param kampfDk Distanzklasse des Kampfes
+     * @param waffenDk Distanzklasse der Waffe
+     * @return das Würfelkommando
      */
-    public static String getEffectiveShieldParadeRoll(WaffenObjekt waffenObjekt, ParadeObjekt paradeObjekt, int modificator, int initiative, boolean useDistanceClass, DKEnum kampfDk, DKEnum waffenDk) {
+    public static String berechneEffektiveSchildParade(WaffenObjekt waffenObjekt, ParadeObjekt paradeObjekt, int modificator, int initiative, boolean useDistanceClass, DKEnum kampfDk, DKEnum waffenDk) {
         int parade = 0;
         switch(paradeObjekt.getTyp()) {
             case Schild        : {parade = paradeObjekt.getParade(); break;}
@@ -331,14 +331,14 @@ public class BerechnungsHelfer {
         }
         
         
-        int iniParade = getAdditionalParadeByInitiative(initiative);
+        int iniParade = berechneZusatzParade(initiative);
         parade += iniParade;      
         parade -= modificator;
         String result = String.format("!%s Parade (%s)", parade, paradeObjekt.getTyp().name());
         
         
         if(useDistanceClass) {
-            int effectiveDistance = getDistanceBetween(waffenDk, kampfDk);
+            int effectiveDistance = berechneDistanz(waffenDk, kampfDk);
             int distanceModificator = 0;
             switch(effectiveDistance) {
                 case -1: distanceModificator =  0; break;
@@ -357,38 +357,38 @@ public class BerechnungsHelfer {
     }
     
     /**
-     * @param kampftechnikObjekt the KampftechnikObjekt to use
-     * @param modificator the Modifikator
-     * @param initiative the initiative in the current combat
-     * @param useDistanceClass whether to use distance classes
-     * @param combatWeaponDistance the current distance class in the combat
-     * @param typeOfParade the type of Parade (Ringen/Raufen)
-     * @return the rollCommand
+     * @param kampftechnikObjekt das KampftechnikObjekt
+     * @param modificator ein weiterer Modifikator
+     * @param initiative der Initiativwert des Charakters im aktuellen Kampf
+     * @param useDistanceClass true, wenn Distanzklassenberechnung verwendet werden soll
+     * @param combatWeaponDistance die eigene Distanzklasse im Kampf
+     * @param typeOfParade der Paradetyp (Ringen/Raufen)
+     * @return das Würfelkommando
      */
-    public static String getEffectiveTechnicalParadeRoll(KampftechnikObjekt kampftechnikObjekt, int modificator,
+    public static String berechneEffektiveTechnischeParade(KampftechnikObjekt kampftechnikObjekt, int modificator,
             int initiative, boolean useDistanceClass, DKEnum combatWeaponDistance, String typeOfParade) {
         int paradeBasis = kampftechnikObjekt.getParade();
-        return getEffectiveParadeRoll(paradeBasis, modificator, initiative, useDistanceClass, combatWeaponDistance, typeOfParade);
+        return berechneEffektiveParade(paradeBasis, modificator, initiative, useDistanceClass, combatWeaponDistance, typeOfParade);
     }
     
     /**
-     * @param waffenObjekt the WaffenObjekt
-     * @param modificator another modificator
-     * @param initiative the initiative to use
-     * @param useDistanceClass whether to use Distanzklassen
-     * @param kampfDk Distanzklasse of the combat
-     * @param waffenDk Distanzklasse of the weapon
-     * @return the rollCommand
+     * @param waffenObjekt das WaffenObjekt
+     * @param modificator ein weiterer Modifikator
+     * @param initiative der Initiativwert des Charakters
+     * @param useDistanceClass true, wenn Distanzklassenberechnung verwendet werden soll
+     * @param kampfDk Distanzklasse des Kampfes
+     * @param waffenDk Distanzklasse der Waffe
+     * @return das Würfelkommando
      */
-    public static String getEffectiveWeaponParadeRoll(WaffenObjekt waffenObjekt, int modificator, int initiative, boolean useDistanceClass, DKEnum kampfDk, DKEnum waffenDk) {
+    public static String berechneEffektiveWaffenParade(WaffenObjekt waffenObjekt, int modificator, int initiative, boolean useDistanceClass, DKEnum kampfDk, DKEnum waffenDk) {
         int parade      = waffenObjekt.getParade();
-        int iniParade   = getAdditionalParadeByInitiative(initiative);
+        int iniParade   = berechneZusatzParade(initiative);
         parade         += iniParade;
         parade         -= modificator;
         String result   = String.format("!%s Parade (Waffe)", parade);
         
         if(useDistanceClass) {
-            int effectiveDistance   = getDistanceBetween(waffenDk, kampfDk);
+            int effectiveDistance   = berechneDistanz(waffenDk, kampfDk);
             int distanceModificator = 0;
             switch(effectiveDistance) {
                 case -1: distanceModificator =  0; break;
@@ -414,7 +414,7 @@ public class BerechnungsHelfer {
      * @param anzahlGegnerInDistanzNS Anzahl der Gegner in Distanz NS (bei Kampfgetümmel)
      * @return Erschwernis
      */
-    public static int getFernkampfBewegungsModifikator(String bewegung, int anzahlGegnerInDistanzH, int anzahlGegnerInDistanzNS) {
+    public static int berechneFernkampfBewegungsModifikator(String bewegung, int anzahlGegnerInDistanzH, int anzahlGegnerInDistanzNS) {
         int result = 0;
         switch(bewegung.toLowerCase()) {
         case "unbewegliches / fest montiertes ziel"         : result += -4; break;
@@ -434,7 +434,7 @@ public class BerechnungsHelfer {
      * @param entfernung Entfernung zum Ziel
      * @return Erschwernis
      */
-    public static int getFernkampfEntfernungsModifikator(String entfernung) {
+    public static int berechneFernkampfEntfernungsModifikator(String entfernung) {
         int result = 0;
         switch(entfernung.toLowerCase()) {
         case "sehr nah"     : result += -2; break;
@@ -455,7 +455,7 @@ public class BerechnungsHelfer {
      * @param zielgroesse Größe des Ziels (benötigt für Schwanztreffer bei Tieren)
      * @return Erschwernis
      */
-    public static int getFernkampfGezielterSchussModifikator(String schuetzentyp, boolean humanoidesZiel, boolean inBewegung, String trefferzone, String zielgroesse) {
+    public static int berechneFernkampfGezielterSchussModifikator(String schuetzentyp, boolean humanoidesZiel, boolean inBewegung, String trefferzone, String zielgroesse) {
         int result          = 0;
         int zielgroeseInt   = 0;
         switch(zielgroesse.toLowerCase()) {
@@ -610,7 +610,7 @@ public class BerechnungsHelfer {
      * @param dreivierteldeckung Ziel hinter Dreivierteldeckung
      * @return Erschwernis
      */
-    public static int getFernkampfGroessenModifikator(String groesse, int modifikator, boolean halbdeckung, boolean dreivierteldeckung) {
+    public static int berechneFernkampfGroessenModifikator(String groesse, int modifikator, boolean halbdeckung, boolean dreivierteldeckung) {
         int result = 0;
         switch(groesse.toLowerCase()) {
         case "winzig"       : result +=  8; break;
@@ -635,7 +635,7 @@ public class BerechnungsHelfer {
      * @param zielen Erleichterung durch Zielen
      * @return Erschwernis
      */
-    public static int getFernkampfModifikatorenModifikator(List<String> modifikatoren, String schuetzentyp, int ansage, int zielen) {
+    public static int berechneFernkampfModifikatoren(List<String> modifikatoren, String schuetzentyp, int ansage, int zielen) {
         int result          = 0;
         int schuetzentypInt = 0;
         
@@ -694,7 +694,7 @@ public class BerechnungsHelfer {
      * @param fernwaffe das FernwaffenObjekt
      * @return Erschwernis
      */
-    public static int getFernkampfSichtModifikator(String lichtquelle,
+    public static int berechneFernkampfSichtModifikator(String lichtquelle,
             boolean dunst, 
             boolean nebel, 
             boolean entfernungssinn,
@@ -744,12 +744,12 @@ public class BerechnungsHelfer {
     }
 
     /**
-     * @param modifier the modifier to apply
-     * @param behinderung the current behinderung of the character
-     * @param talent the talent to calculate the modifier for
-     * @return the effective modifier
+     * @param modifier der zu verwendende Modifikator
+     * @param behinderung die aktuelle Behinderung des Charakters
+     * @param talent das Talent, für den der Modifikator berechnet werden soll
+     * @return der effektive Modifikator
      */
-    public static int calculateModifier(int modifier, int behinderung, TalentObjekt talent) {
+    public static int berechneEffektivenTalentModifikator(int modifier, int behinderung, TalentObjekt talent) {
         int result = 0;
         
         if(talent.getBe() != null) {

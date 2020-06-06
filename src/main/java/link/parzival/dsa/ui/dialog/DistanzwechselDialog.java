@@ -99,7 +99,7 @@ public class DistanzwechselDialog extends JDialog {
                     public void actionPerformed(ActionEvent e) {
                         boolean verdoppeln = ((int) dkAenderung.getSelectedItem() == 2) ? true : false;
                         boolean verkuerzen = (((HopserOptionEnum) comboBoxDirection.getSelectedItem()).equals(HopserOptionEnum.verkürzen)) ? true: false;
-                        setRollCommand(BerechnungsHelfer.getChangeDistanceEffectiveRoll(waffenObjekt, verdoppeln, verkuerzen));
+                        setRollCommand(BerechnungsHelfer.berechneEffektivenDistanzwechsel(waffenObjekt, verdoppeln, verkuerzen));
                         state = Konstanten.DIALOG_OK_STATE;
                         dispose();
                     }
