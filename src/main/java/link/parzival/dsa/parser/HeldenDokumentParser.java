@@ -185,10 +185,10 @@ public class HeldenDokumentParser {
      * @param fernwaffenListe die Liste der Fernwaffen
      * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected void holeFernwaffen(Document document, List<FernwaffenObjekt> fernwaffenListe)
+    protected void holeFernwaffen(Document heldenDokument, List<FernwaffenObjekt> fernwaffenListe)
             throws Exception {
         String nodeExpression      = "(//table[@class='fkwaffen gitternetz'])";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(document, XPathConstants.NODE);
+        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
         Document newDocument = nodeToDocument(node);
         NodeList nList = newDocument.getElementsByTagName("td");
