@@ -8,8 +8,12 @@ import java.awt.FontFormatException;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Scanner;
 
 import javax.swing.filechooser.FileFilter;
+
+import link.parzival.dsa.object.enumeration.LizenzTypEnum;
+import link.parzival.dsa.ui.dialog.AboutDialog;
 
 /**
  * @author Mario Enrico Ragucci
@@ -63,5 +67,37 @@ public class UIHelfer {
         
         return font;
     }
+    
+    /**
+     * @param license which license to present
+     * @return the license text
+     */
+    @SuppressWarnings("resource")
+    public static String getLizenz(LizenzTypEnum license) {
+        String text = null;
+        switch (license) {
+        case Apache: {
+            text = new Scanner(AboutDialog.class.getResourceAsStream("/LICENCE_Flatlaf_Apache.txt"), "UTF-8")
+                    .useDelimiter("\\A").next();
+            break;
+        }
+        case GPL: {
+            text = new Scanner(AboutDialog.class.getResourceAsStream("/LICENCE_Friedolin_Font.txt"), "UTF-8")
+                    .useDelimiter("\\A").next();
+            break;
+        }
+        case Ubuntu: {
+            text = new Scanner(AboutDialog.class.getResourceAsStream("/LICENCE_Ubuntu_Font.txt"), "UTF-8")
+                    .useDelimiter("\\A").next();
+            break;
+        }
+        case MIT: {
+            text = new Scanner(AboutDialog.class.getResourceAsStream("/LICENCE_MIT.txt"), "UTF-8")
+                    .useDelimiter("\\A").next();
+            break;
+        }
+        }
 
+        return text;
+    }
 }

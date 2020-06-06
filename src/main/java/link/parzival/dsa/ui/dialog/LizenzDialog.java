@@ -2,7 +2,6 @@ package link.parzival.dsa.ui.dialog;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -10,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import link.parzival.dsa.object.enumeration.LizenzTypEnum;
+import link.parzival.dsa.ui.UIHelfer;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -30,7 +30,7 @@ public class LizenzDialog extends JDialog {
      */
     public LizenzDialog(LizenzTypEnum license) {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
+        setBounds(100, 100, 500, 500);
         getContentPane().setLayout(new BorderLayout());
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -43,7 +43,7 @@ public class LizenzDialog extends JDialog {
             gbl_contentPanel.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
             contentPanel.setLayout(gbl_contentPanel);
         }
-        JTextArea textArea = new JTextArea(getLizenz(license));
+        JTextArea textArea = new JTextArea(UIHelfer.getLizenz(license));
         textArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(textArea);
         scrollPane.setViewportView(textArea);
@@ -70,33 +70,4 @@ public class LizenzDialog extends JDialog {
             }
         }
     }
-
-    /**
-     * @param license which license to present
-     * @return the license text
-     */
-    @SuppressWarnings("resource")
-    private String getLizenz(LizenzTypEnum license) {
-        String text = null;
-        switch (license) {
-        case Apache: {
-            text = new Scanner(LizenzDialog.class.getResourceAsStream("/LICENCE_Flatlaf_Apache.txt"), "UTF-8")
-                    .useDelimiter("\\A").next();
-            break;
-        }
-        case GPL: {
-            text = new Scanner(LizenzDialog.class.getResourceAsStream("/LICENCE_Friedolin_Font.txt"), "UTF-8")
-                    .useDelimiter("\\A").next();
-            break;
-        }
-        case Ubuntu: {
-            text = new Scanner(LizenzDialog.class.getResourceAsStream("/LICENCE_Ubuntu_Font.txt"), "UTF-8")
-                    .useDelimiter("\\A").next();
-            break;
-        }
-        }
-
-        return text;
-    }
-
 }

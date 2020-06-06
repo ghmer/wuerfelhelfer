@@ -18,6 +18,7 @@ import link.parzival.dsa.object.HeldenObjekt;
 import link.parzival.dsa.object.enumeration.LizenzTypEnum;
 import link.parzival.dsa.object.enumeration.PatzerTypEnum;
 import link.parzival.dsa.parser.HeldenDokumentParser;
+import link.parzival.dsa.ui.dialog.AboutDialog;
 import link.parzival.dsa.ui.dialog.KampfbedingungenDialog;
 import link.parzival.dsa.ui.dialog.LizenzDialog;
 import link.parzival.dsa.ui.dialog.UpdateHinweisDialog;
@@ -263,6 +264,7 @@ public class WuerfelHelferGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 LizenzDialog lizenzDialog = new LizenzDialog(LizenzTypEnum.Ubuntu);
                 lizenzDialog.setFont(customMainFont);
+                lizenzDialog.setLocationRelativeTo(getRootPane());
                 lizenzDialog.setVisible(true);
             }
         });
@@ -272,9 +274,34 @@ public class WuerfelHelferGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 LizenzDialog lizenzDialog = new LizenzDialog(LizenzTypEnum.GPL);
                 lizenzDialog.setFont(customMainFont);
+                lizenzDialog.setLocationRelativeTo(getRootPane());
                 lizenzDialog.setVisible(true);
             }
         });
+        
+        JMenuItem menuItemLizenzApache = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemLizenzApache.text")); //$NON-NLS-1$ //$NON-NLS-2$
+        menuItemLizenzApache.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                LizenzDialog lizenzDialog = new LizenzDialog(LizenzTypEnum.Apache);
+                lizenzDialog.setFont(customMainFont);
+                lizenzDialog.setLocationRelativeTo(getRootPane());
+                lizenzDialog.setVisible(true);
+            }
+        });
+        
+        JMenuItem menuItemAbout = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemAbout.text")); //$NON-NLS-1$ //$NON-NLS-2$
+        menuItemAbout.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                AboutDialog aboutDialog = new AboutDialog();
+                aboutDialog.setFont(customMainFont);
+                aboutDialog.setLocationRelativeTo(getRootPane());
+                aboutDialog.setVisible(true);
+            }
+        });
+        menuHilfe.add(menuItemAbout);
+        
+        JSeparator separator_1 = new JSeparator();
+        menuHilfe.add(separator_1);
         
         JMenuItem menuItemHilfe = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemHilfe.text")); //$NON-NLS-1$ //$NON-NLS-2$
         menuItemHilfe.addActionListener(new ActionListener() {
@@ -288,17 +315,8 @@ public class WuerfelHelferGUI extends JFrame {
         });
         menuHilfe.add(menuItemHilfe);
         
-        JMenuItem menuItemLizenzApache = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemLizenzApache.text")); //$NON-NLS-1$ //$NON-NLS-2$
-        menuItemLizenzApache.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                LizenzDialog lizenzDialog = new LizenzDialog(LizenzTypEnum.Apache);
-                lizenzDialog.setFont(customMainFont);
-                lizenzDialog.setVisible(true);
-            }
-        });
-        
-        JSeparator separator_1 = new JSeparator();
-        menuHilfe.add(separator_1);
+        JSeparator separator_2 = new JSeparator();
+        menuHilfe.add(separator_2);
         menuHilfe.add(menuItemLizenzApache);
         menuHilfe.add(menuItemLizenzUbuntu);
         menuHilfe.add(menuItemLizenzGpl);
@@ -394,9 +412,7 @@ public class WuerfelHelferGUI extends JFrame {
             }
         });
     }
-    
-    
-    
+        
     private void setItemVisibility() {
         heldenPanel.setVisible(true);
         talentPanel.setVisible(true);
