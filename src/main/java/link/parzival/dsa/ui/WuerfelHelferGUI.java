@@ -364,7 +364,13 @@ public class WuerfelHelferGUI extends JFrame {
                     SwingUtilities.invokeLater(new Runnable() {
                         @Override
                         public void run() {
-                            if(splash != null) splash.close();
+                            if(splash != null) {
+                                try {
+                                    splash.close();
+                                }catch(Exception e) {
+                                    
+                                }
+                            }
                         }
                     });
                 } catch (InterruptedException e) {
