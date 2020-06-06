@@ -18,6 +18,7 @@ import java.awt.GridBagConstraints;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ResourceBundle;
+import java.awt.Font;
 
 public class LizenzDialog extends JDialog {
     private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("link.parzival.dsa.ui.messages"); //$NON-NLS-1$
@@ -44,6 +45,7 @@ public class LizenzDialog extends JDialog {
             contentPanel.setLayout(gbl_contentPanel);
         }
         JTextArea textArea = new JTextArea(UIHelfer.getLizenz(license));
+        textArea.setFont(new Font("Ubuntu Mono", Font.PLAIN, 14));
         textArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(textArea);
         scrollPane.setViewportView(textArea);
