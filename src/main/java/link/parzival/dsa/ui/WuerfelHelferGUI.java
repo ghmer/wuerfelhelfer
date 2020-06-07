@@ -357,7 +357,7 @@ public class WuerfelHelferGUI extends JFrame {
         gbc_panel_1.gridy = 2;
         contentPane.add(kampfPanel, gbc_panel_1);
         
-        Thread t1 = new Thread(new Runnable() {
+        Thread splashScreenThread = new Thread(new Runnable() {
             public void run() {
                 try {
                     Thread.sleep(3000);
@@ -378,14 +378,13 @@ public class WuerfelHelferGUI extends JFrame {
                 }
             }
         });
-        t1.start();
         try {
-            t1.join();
+            splashScreenThread.start();
+            splashScreenThread.join();
         } catch (InterruptedException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
-        //if(splash != null) splash.close();
     }
 
     protected void updateDarstellungMenuItems(boolean dark) {
