@@ -102,6 +102,15 @@ public class TalentPanel extends JPanel {
                     }
                 }
                 
+                if(talentObjekt == null) {
+                    for(TalentObjekt objekt : hero.getZauber()) {
+                        if(objekt.getName().equalsIgnoreCase(getSelectedAbilityName())) {
+                            talentObjekt = objekt;
+                            break;
+                        }
+                    }
+                }
+                
                 if(talentObjekt != null) {
                     setTalentProbe(talentObjekt);
                 }
