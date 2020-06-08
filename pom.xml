@@ -7,7 +7,7 @@
   </parent>
   <groupId>link.parzival</groupId>
   <artifactId>dz-dice-helper</artifactId>
-  <version>0.7.3</version>
+  <version>0.7.4</version>
   <name>dz-dice-helper</name>
   
     <build>
