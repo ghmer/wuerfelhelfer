@@ -376,6 +376,7 @@ public class TalentPanel extends JPanel {
         pruefEigenschaft1.setSelectedItem(talentObjekt.getProbenTalent1());
         pruefEigenschaft2.setSelectedItem(talentObjekt.getProbenTalent2());
         pruefEigenschaft3.setSelectedItem(talentObjekt.getProbenTalent3());
+        pruefModifier.setValue(0);
         
         lblAbility.setText(talentObjekt.getName());
         lblTawValue.setText(String.valueOf(talentObjekt.getTalentwert()));
