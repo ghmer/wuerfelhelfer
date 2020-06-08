@@ -685,8 +685,8 @@ public class HeldenDokumentParser {
         Document newDocument = builder.newDocument();
         
         if(node != null) {
-            node = node.getParentNode().removeChild(node);
-            
+          //node = node.getParentNode().removeChild(node);
+            node = node.cloneNode(true);
             
             Node importedNode = newDocument.importNode(node, true);
             newDocument.appendChild(importedNode);
