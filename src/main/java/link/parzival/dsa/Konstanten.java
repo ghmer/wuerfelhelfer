@@ -23,11 +23,11 @@ public class Konstanten {
     /**
      * Nach außen angezeigte Version, matched mit der Version aus der pom.xml
      */
-    public static final String VERSION_EXTERNAL = "0.7.2";
+    public static final String VERSION_EXTERNAL = "0.7.3";
     /**
      * Intern verwendete Version, z.B. für Abfrage, ob eine neuere Version vorliegt
      */
-    public static final int VERSION             = 22;
+    public static final int VERSION             = 23;
     /**
      * Status, der von Modal-Dialogen zurückgegeben wird, falls der Cancel Button gedrückt wurde
      */
