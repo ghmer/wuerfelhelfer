@@ -40,19 +40,19 @@ public class TalentPanel extends JPanel {
     private JSpinner pruefModifier                       = null;
     private String selectedAbilityName                   = null;   
     private TalentObjekt talent                          = new TalentObjektPlatzhalter();
-    private HeldenObjekt hero                            = new HeldenObjekt();
+    private HeldenObjekt heldenObjekt                    = new HeldenObjekt();
     /**
      * @return the hero
      */
     public HeldenObjekt holeHeldenObjekt() {
-        return hero;
+        return heldenObjekt;
     }
 
     /**
      * @param heldenObjekt ein HeldenObjekt
      */
     public void setzeHeldenObjekt(HeldenObjekt heldenObjekt) {
-        this.hero = heldenObjekt;
+        this.heldenObjekt = heldenObjekt;
     }
 
     private JLabel lblAbility;
@@ -83,38 +83,18 @@ public class TalentPanel extends JPanel {
         
         btnProbeWaehlen.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TalentAuswahlDialog dialog = new TalentAuswahlDialog(hero);
+                TalentAuswahlDialog dialog = new TalentAuswahlDialog(heldenObjekt);
                 dialog.setFont(getFont());
                 dialog.setLocationRelativeTo(getRootPane());
                 switch (dialog.showDialog()) {
                 case Konstanten.DIALOG_OK_STATE:
-                    setSelectedAbilityName(dialog.getSelectedAbility());
+                    TalentObjekt talentObjekt = dialog.getSelectedAbility();
+                    if(talentObjekt != null) {
+                        setTalentProbe(talentObjekt);
+                    }
+                    
                     break;
                 }
-                
-                TalentObjekt talentObjekt = null;
-                if(getSelectedAbilityName() != null) {
-                    for(TalentObjekt objekt : hero.getTalente()) {
-                        if(objekt.getName().equalsIgnoreCase(getSelectedAbilityName())) {
-                            talentObjekt = objekt;
-                            break;
-                        }
-                    }
-                }
-                
-                if(talentObjekt == null) {
-                    for(TalentObjekt objekt : hero.getZauber()) {
-                        if(objekt.getName().equalsIgnoreCase(getSelectedAbilityName())) {
-                            talentObjekt = objekt;
-                            break;
-                        }
-                    }
-                }
-                
-                if(talentObjekt != null) {
-                    setTalentProbe(talentObjekt);
-                }
-                
             }
         });
         GridBagConstraints gbc_btnProbeWaehlen = new GridBagConstraints();
@@ -225,14 +205,14 @@ public class TalentPanel extends JPanel {
                 EigenschaftEnum pruefung1 = (EigenschaftEnum)pruefEigenschaft1.getSelectedItem();
                 EigenschaftEnum pruefung2 = (EigenschaftEnum)pruefEigenschaft2.getSelectedItem();
                 EigenschaftEnum pruefung3 = (EigenschaftEnum)pruefEigenschaft3.getSelectedItem();
-                int modifier                  = (Integer)pruefModifier.getValue();
+                int modifier              = (Integer)pruefModifier.getValue();
                 
                 int pruefAuswahl = 0;
                 if(pruefung1.equals(EigenschaftEnum.NA)) pruefAuswahl += 1;
                 if(pruefung2.equals(EigenschaftEnum.NA)) pruefAuswahl += 10;
                 if(pruefung3.equals(EigenschaftEnum.NA)) pruefAuswahl += 100;
                 
-                int effectiveModifier     = BerechnungsHelfer.berechneEffektivenTalentModifikator(modifier, hero.getBehinderung(), talent);
+                int effectiveModifier     = BerechnungsHelfer.berechneEffektivenTalentModifikator(modifier, heldenObjekt.getBehinderung(), talent);
                 String rollCommand        = null;
                 
                 switch(pruefAuswahl) {
@@ -240,8 +220,8 @@ public class TalentPanel extends JPanel {
                     // erste Auswahl war NA
                     String rollFormatString   = "!%s,%s,%s,%s  %s";
                     rollCommand  = String.format(rollFormatString, 
-                            hero.getFertigkeit(pruefung2),
-                            hero.getFertigkeit(pruefung3),
+                            heldenObjekt.getFertigkeit(pruefung2),
+                            heldenObjekt.getFertigkeit(pruefung3),
                             talent.getTalentwert(),
                             effectiveModifier,
                             talent.getName());
@@ -251,8 +231,8 @@ public class TalentPanel extends JPanel {
                     // zweite Auswahl war NA
                     String rollFormatString   = "!%s,%s,%s,%s  %s";
                     rollCommand  = String.format(rollFormatString, 
-                            hero.getFertigkeit(pruefung1),
-                            hero.getFertigkeit(pruefung3),
+                            heldenObjekt.getFertigkeit(pruefung1),
+                            heldenObjekt.getFertigkeit(pruefung3),
                             talent.getTalentwert(),
                             effectiveModifier,
                             talent.getName());
@@ -262,7 +242,7 @@ public class TalentPanel extends JPanel {
                     // erste und zweite Auswahl war NA
                     String rollFormatString   = "!%s,%s,%s  %s";
                     rollCommand  = String.format(rollFormatString, 
-                            hero.getFertigkeit(pruefung3),
+                            heldenObjekt.getFertigkeit(pruefung3),
                             talent.getTalentwert(),
                             effectiveModifier,
                             talent.getName());
@@ -272,8 +252,8 @@ public class TalentPanel extends JPanel {
                     // dritte Auswahl war NA
                     String rollFormatString   = "!%s,%s,%s,%s  %s";
                     rollCommand  = String.format(rollFormatString, 
-                            hero.getFertigkeit(pruefung1),
-                            hero.getFertigkeit(pruefung2),
+                            heldenObjekt.getFertigkeit(pruefung1),
+                            heldenObjekt.getFertigkeit(pruefung2),
                             talent.getTalentwert(),
                             effectiveModifier,
                             talent.getName());
@@ -283,7 +263,7 @@ public class TalentPanel extends JPanel {
                     // erste und dritte Auswahl war NA
                     String rollFormatString   = "!%s,%s,%s  %s";
                     rollCommand  = String.format(rollFormatString, 
-                            hero.getFertigkeit(pruefung2),
+                            heldenObjekt.getFertigkeit(pruefung2),
                             talent.getTalentwert(),
                             effectiveModifier,
                             talent.getName());
@@ -293,7 +273,7 @@ public class TalentPanel extends JPanel {
                     // Auswahl zwei und drei waren NA
                     String rollFormatString   = "!%s,%s,%s  %s";
                     rollCommand  = String.format(rollFormatString, 
-                            hero.getFertigkeit(pruefung1),
+                            heldenObjekt.getFertigkeit(pruefung1),
                             talent.getTalentwert(),
                             effectiveModifier,
                             talent.getName());
@@ -311,19 +291,17 @@ public class TalentPanel extends JPanel {
                 default : {
                     String rollFormatString   = "!%s,%s,%s,%s,%s  %s";
                     rollCommand  = String.format(rollFormatString, 
-                            hero.getFertigkeit(pruefung1),
-                            hero.getFertigkeit(pruefung2),
-                            hero.getFertigkeit(pruefung3),
+                            heldenObjekt.getFertigkeit(pruefung1),
+                            heldenObjekt.getFertigkeit(pruefung2),
+                            heldenObjekt.getFertigkeit(pruefung3),
                             talent.getTalentwert(),
                             effectiveModifier,
                             talent.getName());
                     break;
                 }
             }
-            
-                
-            WuerfelHelferGUI.copyToClipboard(rollCommand);
-            
+                            
+            WuerfelHelferGUI.copyToClipboard(rollCommand);            
             }
         });
         

@@ -47,15 +47,16 @@ public class TalentAuswahlDialog extends JDialog {
     /**
      * 
      */
-    private static final long serialVersionUID = 5001756584965996173L;
-    private final JPanel contentPanel          = new JPanel();
+    private static final long serialVersionUID              = 5001756584965996173L;
+    private final JPanel contentPanel                       = new JPanel();
 
-    private JTextField textFieldSearch         = null;
-    private int state                          = Konstanten.DIALOG_CANCEL_STATE;
+    private JTextField textFieldSearch                      = null;
+    private int state                                       = Konstanten.DIALOG_CANCEL_STATE;
 
-    private String selectedAbilityName = null;
-    private JComboBox<FaehigkeitsTypEnum> comboBox;
-    JScrollPane scrollPane;
+    private String selectedAbilityName                      = null;
+    private JComboBox<FaehigkeitsTypEnum> cbSelectedAbility = null;
+    JScrollPane scrollPane                                  = null;
+    TalentObjekt selectedAbility                            = null;
 
     /**
      * @param heldenObjekt ein HeldenObjekt
@@ -113,28 +114,28 @@ public class TalentAuswahlDialog extends JDialog {
         contentPanel.add(textFieldSearch, gbc_textFieldSearch);
         textFieldSearch.setColumns(10);
 
-        comboBox = new JComboBox<>();
-        comboBox.addItemListener(new ItemListener() {
+        cbSelectedAbility = new JComboBox<>();
+        cbSelectedAbility.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent e) {
                 textFieldSearch.setText("");
                 generateTable(heldenObjekt);
             }
         });
-        comboBox.addActionListener(new ActionListener() {
+        cbSelectedAbility.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
             }
         });
-        comboBox.setModel(new DefaultComboBoxModel<FaehigkeitsTypEnum>(FaehigkeitsTypEnum.values()));
-        comboBox.setSelectedIndex(0);
-        comboBox.transferFocus();
+        cbSelectedAbility.setModel(new DefaultComboBoxModel<FaehigkeitsTypEnum>(FaehigkeitsTypEnum.values()));
+        cbSelectedAbility.setSelectedIndex(0);
+        cbSelectedAbility.transferFocus();
         GridBagConstraints gbc_comboBox = new GridBagConstraints();
         gbc_comboBox.anchor = GridBagConstraints.SOUTH;
         gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
         gbc_comboBox.insets = new Insets(0, 0, 5, 0);
         gbc_comboBox.gridx = 2;
         gbc_comboBox.gridy = 0;
-        contentPanel.add(comboBox, gbc_comboBox);
+        contentPanel.add(cbSelectedAbility, gbc_comboBox);
 
         JSeparator separator = new JSeparator();
         GridBagConstraints gbc_separator = new GridBagConstraints();
@@ -184,7 +185,7 @@ public class TalentAuswahlDialog extends JDialog {
         List<TalentObjekt> zauber = heldenObjekt.getZauber();
         List<TalentObjekt> matches = new ArrayList<>();
 
-        FaehigkeitsTypEnum chosenEnum = (FaehigkeitsTypEnum) comboBox.getSelectedItem();
+        FaehigkeitsTypEnum chosenEnum = (FaehigkeitsTypEnum) cbSelectedAbility.getSelectedItem();
         switch (chosenEnum) {
         case Talent: {
             prepareMatchingAbilityList(searchText, talente, matches);
@@ -240,7 +241,26 @@ public class TalentAuswahlDialog extends JDialog {
                 if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
 
                     selectedAbilityName = (String) sourceTable.getValueAt(row, 0);
-
+                    List<TalentObjekt> searchList = null;
+                    switch((FaehigkeitsTypEnum)cbSelectedAbility.getSelectedItem()) {
+                        case Magie:  {
+                            searchList = heldenObjekt.getZauber();
+                            break;
+                        }
+                        case Talent: {
+                            searchList = heldenObjekt.getTalente();
+                            break;
+                        }
+                    }
+                    
+                    if(searchList != null && selectedAbilityName != null) {
+                        for(TalentObjekt objekt : searchList) {
+                            if(objekt.getName().equalsIgnoreCase(selectedAbilityName)) {
+                                selectedAbility = objekt;
+                                break;
+                            }
+                        }
+                    }
                     state = Konstanten.DIALOG_OK_STATE;
                     dispose();
                 }
@@ -267,6 +287,11 @@ public class TalentAuswahlDialog extends JDialog {
 
     }
 
+    /**
+     * @param text suchtext
+     * @param talente die liste der Talente/Zauber
+     * @param matches die Liste der Treffer
+     */
     private void prepareMatchingAbilityList(String text, List<TalentObjekt> talente, List<TalentObjekt> matches) {
         for (TalentObjekt objekt : talente) {
             if (text != null && text.length() > 0) {
@@ -279,13 +304,23 @@ public class TalentAuswahlDialog extends JDialog {
         }
     }
 
-    public String getSelectedAbility() {
+    public String getSelectedAbilityName() {
         return selectedAbilityName;
+    }
+    
+    /**
+     * @return Typ der ausgewählten Fähigkeit (Talent oder Magie)
+     */
+    public FaehigkeitsTypEnum getSelectedAbilityType() {
+        return (FaehigkeitsTypEnum) cbSelectedAbility.getSelectedItem();
+    }
+    
+    public TalentObjekt getSelectedAbility() {
+        return this.selectedAbility;
     }
 
     public int showDialog() {
         setVisible(true);
         return state;
-
     }
 }
