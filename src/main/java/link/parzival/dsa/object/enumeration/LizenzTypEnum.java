@@ -9,5 +9,5 @@ package link.parzival.dsa.object.enumeration;
  *
  */
 public enum LizenzTypEnum {
-    Apache, GPL, MIT
+    Apache, GPL, MIT, Ubuntu
 }

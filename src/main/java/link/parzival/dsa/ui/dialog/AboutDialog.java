@@ -49,6 +49,7 @@ public class AboutDialog extends JDialog {
             contentPanel.setLayout(gbl_contentPanel);
         }
         JTextArea textArea = new JTextArea(UIHelfer.getLizenz(LizenzTypEnum.MIT));
+        textArea.setFont(new Font("Ubuntu Mono", Font.PLAIN, 14));
         textArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(textArea);
         scrollPane.setViewportView(textArea);
