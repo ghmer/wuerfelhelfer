@@ -89,11 +89,6 @@ public class UIHelfer {
                     .useDelimiter("\\A").next();
             break;
         }
-        case Ubuntu: {
-            text = new Scanner(AboutDialog.class.getResourceAsStream("/LICENCE_Ubuntu_Font.txt"), "UTF-8")
-                    .useDelimiter("\\A").next();
-            break;
-        }
         case MIT: {
             text = new Scanner(AboutDialog.class.getResourceAsStream("/LICENCE_MIT.txt"), "UTF-8")
                     .useDelimiter("\\A").next();
