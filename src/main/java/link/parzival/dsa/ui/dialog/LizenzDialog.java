@@ -18,7 +18,6 @@ import java.awt.GridBagConstraints;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ResourceBundle;
-import java.awt.Font;
 
 public class LizenzDialog extends JDialog {
     private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("link.parzival.dsa.ui.messages"); //$NON-NLS-1$
