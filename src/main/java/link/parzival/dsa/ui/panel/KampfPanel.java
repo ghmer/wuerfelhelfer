@@ -34,10 +34,12 @@ import java.awt.Insets;
 import java.awt.BorderLayout;
 import javax.swing.JSpinner;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 public class KampfPanel extends JPanel {
     private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("link.parzival.dsa.ui.messages"); //$NON-NLS-1$
     private static final long serialVersionUID              = -4466855899017287952L;
+    public static final Logger _LOG 						= Logger.getLogger(KampfPanel.class.getName());
     private JComboBox<String> comboBoxRightWeaponHand       = null;
     private JLabel lblRightWeaponHand                       = null;
     private JComboBox<String> comboBoxOwnDK                 = null;
@@ -729,7 +731,7 @@ public class KampfPanel extends JPanel {
                 ini = iniVal;
             }
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            _LOG.severe(e.getMessage());
         }
 
         return ini;

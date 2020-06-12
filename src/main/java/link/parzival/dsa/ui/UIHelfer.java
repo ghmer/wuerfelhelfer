@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 import javax.swing.filechooser.FileFilter;
 
@@ -20,6 +21,8 @@ import link.parzival.dsa.ui.dialog.AboutDialog;
  *
  */
 public class UIHelfer {
+	
+	public static final Logger _LOG = Logger.getLogger(UIHelfer.class.getName());
 
     /**
      * @return a FileFilter filtering for .html files
@@ -52,15 +55,15 @@ public class UIHelfer {
             is   = UIHelfer.class.getResourceAsStream(pathToFont);
             font = Font.createFont(Font.TRUETYPE_FONT,is);          
         } catch (IOException e) {
-             System.err.println(e.getMessage());
+             _LOG.severe(e.getMessage());
         } catch (FontFormatException e1) {
-            e1.printStackTrace();
+            _LOG.severe(e1.getMessage());
         } finally {
             if(is != null) {
                 try {
                     is.close();
                 } catch (IOException e1) {
-                    e1.printStackTrace();
+                    _LOG.severe(e1.getMessage());
                 }
             }
         }

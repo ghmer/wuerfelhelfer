@@ -13,6 +13,8 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,6 +51,8 @@ public class HeldenDokumentParser {
     protected DocumentBuilder builder;
     protected XPath xpath;
     
+    public static final Logger _LOG = Logger.getLogger(HeldenDokumentParser.class.getName());
+    
     /**
      * Konstruktor
      */
@@ -66,11 +70,14 @@ public class HeldenDokumentParser {
             factory.setValidating(false);
             factory.setAttribute("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);           
             this.builder = factory.newDocumentBuilder();           
-            this. xpath            = XPathFactory.newInstance().newXPath();
+            this.xpath   = XPathFactory.newInstance().newXPath();
             Instant initializationEnd = Instant.now();
-            System.out.println("Initialization: " + Duration.between(initializationStart, initializationEnd));
+            if(_LOG.isLoggable(Level.FINE)) {
+                _LOG.fine("Initialization: " + Duration.between(initializationStart, initializationEnd));
+        	}
+            
         } catch(Exception e) {
-            System.err.println(e.getMessage());
+            _LOG.severe(e.getMessage());
         }
     }
     
@@ -652,13 +659,13 @@ public class HeldenDokumentParser {
             }
             
         } catch (IOException e) {
-            e.printStackTrace();
+            _LOG.severe(e.getMessage());
         } finally {
             if(br != null) {
                 try {
                     br.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                	_LOG.severe(e.getMessage());
                 }
             }
             
@@ -666,7 +673,7 @@ public class HeldenDokumentParser {
                 try {
                     wr.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                	_LOG.severe(e.getMessage());
                 }
             }
         }
@@ -719,26 +726,25 @@ public class HeldenDokumentParser {
         HeldenObjekt hero               = new HeldenObjekt();
         try {
             Instant initializationStart = Instant.now();
-
             Document document           = builder.parse(massageHtmlFile(xmlFile));
             Instant initializationEnd   = Instant.now();
-            System.out.println("Parsing: " + Duration.between(initializationStart, initializationEnd));
             
+            if(_LOG.isLoggable(Level.FINE)) {
+        		_LOG.fine("Parsing: " + Duration.between(initializationStart, initializationEnd));
+        	}
             
-            
-            Instant eigenschaftenStart = Instant.now();
-            String titleExpression = "/html/head/title/text()";
-            String heroName        = xpath.compile(titleExpression).evaluate(document);
-            hero.setName(heroName);
-            
+            Instant eigenschaftenStart 	= Instant.now();
+            String titleExpression 		= "/html/head/title/text()";
+            String heroName        		= xpath.compile(titleExpression).evaluate(document);
+            hero.setName(heroName);            
             holeEigenschaften(document, hero);         
             holeBasisWerte(document, hero);
+            Instant eigenschaftenEnd 	= Instant.now();
             
-            Instant eigenschaftenEnd = Instant.now();
-            System.out.println("Eigenschaften: " + Duration.between(eigenschaftenStart, eigenschaftenEnd));
-            
-            
-            
+            if(_LOG.isLoggable(Level.FINE)) {
+        		 _LOG.fine("Eigenschaften: " + Duration.between(eigenschaftenStart, eigenschaftenEnd));
+        	}
+           
             List<TalentObjekt> talente = new ArrayList<>();
             List<KampftechnikObjekt> kampfTalente = new ArrayList<>();
             for(int i = 0; i < 10; i++) {
@@ -761,11 +767,10 @@ public class HeldenDokumentParser {
                     }
                     
                     Instant gatherEnd = Instant.now();
-                    System.out.println(String.format("%s: %s", name, Duration.between(gatherStart, gatherEnd)));
-                    
-                }
-                
-                
+                    if(_LOG.isLoggable(Level.FINE)) {
+                		_LOG.fine(String.format("%s: %s", name, Duration.between(gatherStart, gatherEnd)));
+                	}    
+                }               
             }
                     
             hero.setTalente(talente);
@@ -773,26 +778,34 @@ public class HeldenDokumentParser {
             
             Instant gatherZauberStart = Instant.now();
             List<TalentObjekt> zauber = new ArrayList<>();
-            holeZauber(document, zauber);
-            
+            holeZauber(document, zauber);            
             hero.setZauber(zauber);
             Instant gatherZauberEnd = Instant.now();
-            System.out.println(String.format("Zauber: %s", Duration.between(gatherZauberStart, gatherZauberEnd)));
             
+            if(_LOG.isLoggable(Level.FINE)) {
+        		_LOG.fine(String.format("Zauber: %s", Duration.between(gatherZauberStart, gatherZauberEnd)));
             
+        	}
+
             Instant gatherWaffenStart = Instant.now();
             List<WaffenObjekt> waffenListe = new ArrayList<>();
             holeWaffen(document, waffenListe);            
-            hero.setWaffen(waffenListe);
+            hero.setWaffen(waffenListe);            
             Instant gatherWaffenEnd = Instant.now();
-            System.out.println(String.format("Waffen: %s", Duration.between(gatherWaffenStart, gatherWaffenEnd)));
+            
+            if(_LOG.isLoggable(Level.FINE)) {
+        		_LOG.fine(String.format("Waffen: %s", Duration.between(gatherWaffenStart, gatherWaffenEnd)));
+        	}
             
             Instant gatherPWaffenStart = Instant.now();
             List<ParadeObjekt> paradeObjektListe = new ArrayList<>();
             holeParadeWaffen(document, paradeObjektListe);            
             hero.setParadeWaffen(paradeObjektListe);
             Instant gatherPWaffenEnd = Instant.now();
-            System.out.println(String.format("Parade: %s", Duration.between(gatherPWaffenStart, gatherPWaffenEnd)));
+            
+            if(_LOG.isLoggable(Level.FINE)) {
+        		_LOG.fine(String.format("Parade: %s", Duration.between(gatherPWaffenStart, gatherPWaffenEnd)));
+        	}
             
             
             Instant gatherFWaffenStart = Instant.now();
@@ -800,9 +813,10 @@ public class HeldenDokumentParser {
             holeFernwaffen(document, fernwaffenListe);
             hero.setFernWaffen(fernwaffenListe);
             Instant gatherFWaffenEnd = Instant.now();
-            System.out.println(String.format("Fernwaffen: %s", Duration.between(gatherFWaffenStart, gatherFWaffenEnd)));
             
-            
+            if(_LOG.isLoggable(Level.FINE)) {
+        		_LOG.fine(String.format("Fernwaffen: %s", Duration.between(gatherFWaffenStart, gatherFWaffenEnd)));
+        	}
             
             int behinderung = holeBehinderung(document);
             hero.setBehinderung(behinderung);
@@ -810,15 +824,15 @@ public class HeldenDokumentParser {
             Instant gatherSonderfertigkeitenStart = Instant.now();
             holeSonderfertigkeiten(document, hero);
             Instant gatherSonderfertigkeitenEnd = Instant.now();
-            System.out.println(String.format("SF: %s", Duration.between(gatherSonderfertigkeitenStart, gatherSonderfertigkeitenEnd)));
             
-            
-            
+            if(_LOG.isLoggable(Level.FINE)) {
+        		_LOG.fine(String.format("SF: %s", Duration.between(gatherSonderfertigkeitenStart, gatherSonderfertigkeitenEnd)));
+        	}
             
         } catch (ParserConfigurationException | SAXException | IOException e) {
-            e.printStackTrace();
+            _LOG.severe(e.getMessage());
         } catch (XPathExpressionException e) {
-            e.printStackTrace();
+        	_LOG.severe(e.getMessage());
         }
         
         return hero;
@@ -907,8 +921,8 @@ public class HeldenDokumentParser {
                 String s = matcher.group();
                 probenList.add(EigenschaftEnum.valueOf(s));
             } else {
-                System.err.println("Fehler in Probe: " + probe);
-                System.err.println(localprobe);
+                _LOG.severe("Fehler in Probe: " + probe);
+                _LOG.severe("Lokale Variable: " + localprobe);
                 throw new Exception("Could not match Probe!");
             }
         }

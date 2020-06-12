@@ -40,6 +40,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import javax.swing.JLabel;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 public class TalentAuswahlDialog extends JDialog {
     private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("link.parzival.dsa.ui.messages"); //$NON-NLS-1$
@@ -48,6 +49,7 @@ public class TalentAuswahlDialog extends JDialog {
      * 
      */
     private static final long serialVersionUID              = 5001756584965996173L;
+    public static final Logger _LOG 						= Logger.getLogger(TalentAuswahlDialog.class.getName());
     private final JPanel contentPanel                       = new JPanel();
 
     private JTextField textFieldSearch                      = null;
@@ -171,7 +173,7 @@ public class TalentAuswahlDialog extends JDialog {
         try {
             text = document.getText(0, document.getLength());
         } catch (BadLocationException e1) {
-            e1.printStackTrace();
+            _LOG.severe(e1.getMessage());
         }
         generateTable(heldenObjekt, text);
     }

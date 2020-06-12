@@ -26,6 +26,7 @@ import java.net.URISyntaxException;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 public class UpdateHinweisDialog extends JDialog {
     private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("link.parzival.dsa.ui.messages"); //$NON-NLS-1$
@@ -34,6 +35,7 @@ public class UpdateHinweisDialog extends JDialog {
      * 
      */
     private static final long serialVersionUID = -4387568017758375162L;
+    public static final Logger _LOG 			= Logger.getLogger(UpdateHinweisDialog.class.getName());
     private final JPanel contentPanel          = new JPanel();
     
     /**
@@ -71,11 +73,9 @@ public class UpdateHinweisDialog extends JDialog {
                     try {
                         Desktop.getDesktop().browse(new URI(Konstanten.APP_URL));
                     } catch (IOException e1) {
-                        // TODO Auto-generated catch block
-                        e1.printStackTrace();
+                    	_LOG.severe(e1.getMessage());
                     } catch (URISyntaxException e1) {
-                        // TODO Auto-generated catch block
-                        e1.printStackTrace();
+                    	_LOG.severe(e1.getMessage());
                     }
                 }
             });

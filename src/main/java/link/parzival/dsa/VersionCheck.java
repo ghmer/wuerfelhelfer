@@ -7,12 +7,16 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.logging.Logger;
 
 /**
  * @author Mario Enrico Ragucci
  *
  */
 public class VersionCheck {
+	
+	public static final Logger _LOG = Logger.getLogger(VersionCheck.class.getName());
+	
     /**
      * @param localVersion die lokale Versions des Programms
      * @return true wenn es eine neue Version zum Download gibt
@@ -42,13 +46,13 @@ public class VersionCheck {
             remoteVersion = -1;
         } catch (IOException e) {
             remoteVersion = -1;
-            System.err.println("File could not be found");
+            _LOG.severe("File could not be found");
         } finally {
             if(bis != null) {
                 try {
                     bis.close();
                 } catch (IOException e) {
-                    System.err.println(e.getMessage());
+                    _LOG.severe(e.getMessage());
                 }
             }
         }

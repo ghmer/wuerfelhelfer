@@ -56,9 +56,11 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.SplashScreen;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 public class WuerfelHelferGUI extends JFrame {
     private static final long serialVersionUID      = 6428768807868759732L;
+    public static final Logger _LOG 				= Logger.getLogger(WuerfelHelferGUI.class.getName());
     private JPanel contentPane                      = null;
     private Font customHeroNameFont                 = null;
     private Font customMainFont                     = null;
@@ -74,12 +76,12 @@ public class WuerfelHelferGUI extends JFrame {
     protected void showSplashScreen() {
         splash = SplashScreen.getSplashScreen();
         if (splash == null) {
-            System.err.println("SplashScreen.getSplashScreen() returned null");
+            _LOG.severe("SplashScreen.getSplashScreen() returned null");
             return;
         }
         Graphics2D graphics = splash.createGraphics();
         if (graphics == null) {
-            System.err.println("g is null");
+            _LOG.severe("g is null");
             return;
         }
     }
@@ -91,7 +93,7 @@ public class WuerfelHelferGUI extends JFrame {
         try {
             UIManager.setLookAndFeel( new FlatLightLaf() );
         } catch( Exception ex ) {
-            System.err.println( "Failed to initialize LaF" );
+            _LOG.severe( "Failed to initialize LaF" );
         }
         
         this.customMainFont     = UIHelfer.getFontFromResource("/UbuntuMono-R.ttf");
@@ -133,9 +135,9 @@ public class WuerfelHelferGUI extends JFrame {
                                 Instant start = Instant.now();
                                 hero = hxp.parseFile(selectedFile);
                                 Instant end = Instant.now();
-                                System.out.println("Dauer des parsens: " + Duration.between(start, end));
+                                _LOG.fine("Dauer des parsens: " + Duration.between(start, end));
                             } catch (Exception e1) {
-                                e1.printStackTrace();
+                            	_LOG.severe(e1.getMessage());
                             }
                             
                             heldenPanel.setzeHeldenObjekt(hero);
@@ -194,8 +196,7 @@ public class WuerfelHelferGUI extends JFrame {
                     UIManager.setLookAndFeel(new FlatLightLaf());
                     SwingUtilities.updateComponentTreeUI(getRootPane());
                 } catch (UnsupportedLookAndFeelException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
+                	_LOG.severe(e1.getMessage());
                 }
             }
         });
@@ -210,7 +211,7 @@ public class WuerfelHelferGUI extends JFrame {
                     SwingUtilities.updateComponentTreeUI(getRootPane());
                 } catch (UnsupportedLookAndFeelException e1) {
                     // TODO Auto-generated catch block
-                    e1.printStackTrace();
+                	_LOG.severe(e1.getMessage());
                 }
             }
         });
@@ -309,7 +310,7 @@ public class WuerfelHelferGUI extends JFrame {
                 try {
                     Desktop.getDesktop().browse(new URI(Konstanten.MANUAL_URL));
                 } catch (IOException | URISyntaxException e1) {
-                    e1.printStackTrace();
+                	_LOG.severe(e1.getMessage());
                 }
             }
         });
@@ -374,7 +375,7 @@ public class WuerfelHelferGUI extends JFrame {
                         }
                     });
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                	_LOG.severe(e.getMessage());
                 }
             }
         });
@@ -382,8 +383,7 @@ public class WuerfelHelferGUI extends JFrame {
             splashScreenThread.start();
             splashScreenThread.join();
         } catch (InterruptedException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
+        	_LOG.severe(e1.getMessage());
         }
     }
 
@@ -432,9 +432,9 @@ public class WuerfelHelferGUI extends JFrame {
                     frame.setResizable(false);
                     frame.setVisible(true);
                     Instant end = Instant.now();
-                    System.out.println("Startup Zeit: " + Duration.between(start, end));
+                    _LOG.fine("Startup Zeit: " + Duration.between(start, end));
                 } catch (Exception e) {
-                    e.printStackTrace();
+                	_LOG.severe(e.getMessage());
                 }
             }
         });
