@@ -63,7 +63,6 @@ public class WuerfelHelferGUI extends JFrame {
     public static final Logger _LOG                 = Logger.getLogger(WuerfelHelferGUI.class.getName());
     private JPanel contentPane                      = null;
     private Font customHeroNameFont                 = null;
-    private Font customMainFont                     = null;
     private HeldenObjekt hero                       = null;
     private JMenuItem menuItemHelleDarstellung      = null;
     private JMenuItem menuItemDunkleDarstellung     = null;
@@ -96,13 +95,9 @@ public class WuerfelHelferGUI extends JFrame {
             _LOG.severe( "Failed to initialize LaF" );
         }
         
-        this.customMainFont     = UIHelfer.getFontFromResource("/UbuntuMono-R.ttf");
         this.customHeroNameFont = UIHelfer.getFontFromResource("/Friedolin.ttf");
         GraphicsEnvironment ge  = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(customHeroNameFont);
-        ge.registerFont(customMainFont);
-        
-        setFont(customMainFont);
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle(String.format("Würfelhelfer Version %s", Konstanten.VERSION_EXTERNAL));
@@ -259,21 +254,10 @@ public class WuerfelHelferGUI extends JFrame {
         JMenu menuHilfe = new JMenu(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuHilfe.text")); //$NON-NLS-1$ //$NON-NLS-2$
         menuBar.add(menuHilfe);
         
-        JMenuItem menuItemLizenzUbuntu = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemLizenzUbuntu.text")); //$NON-NLS-1$ //$NON-NLS-2$
-        menuItemLizenzUbuntu.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                LizenzDialog lizenzDialog = new LizenzDialog(LizenzTypEnum.Ubuntu);
-                lizenzDialog.setFont(customMainFont);
-                lizenzDialog.setLocationRelativeTo(getRootPane());
-                lizenzDialog.setVisible(true);
-            }
-        });
-        
         JMenuItem menuItemLizenzGpl = new JMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuItemLizenzGpl.text")); //$NON-NLS-1$ //$NON-NLS-2$
         menuItemLizenzGpl.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 LizenzDialog lizenzDialog = new LizenzDialog(LizenzTypEnum.GPL);
-                lizenzDialog.setFont(customMainFont);
                 lizenzDialog.setLocationRelativeTo(getRootPane());
                 lizenzDialog.setVisible(true);
             }
@@ -283,7 +267,6 @@ public class WuerfelHelferGUI extends JFrame {
         menuItemLizenzApache.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 LizenzDialog lizenzDialog = new LizenzDialog(LizenzTypEnum.Apache);
-                lizenzDialog.setFont(customMainFont);
                 lizenzDialog.setLocationRelativeTo(getRootPane());
                 lizenzDialog.setVisible(true);
             }
@@ -293,7 +276,6 @@ public class WuerfelHelferGUI extends JFrame {
         menuItemAbout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 AboutDialog aboutDialog = new AboutDialog();
-                aboutDialog.setFont(customMainFont);
                 aboutDialog.setLocationRelativeTo(getRootPane());
                 aboutDialog.setVisible(true);
             }
@@ -318,7 +300,6 @@ public class WuerfelHelferGUI extends JFrame {
         JSeparator separator_2 = new JSeparator();
         menuHilfe.add(separator_2);
         menuHilfe.add(menuItemLizenzApache);
-        menuHilfe.add(menuItemLizenzUbuntu);
         menuHilfe.add(menuItemLizenzGpl);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
