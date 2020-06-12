@@ -14,9 +14,9 @@ import java.util.logging.Logger;
  *
  */
 public class VersionCheck {
-	
-	public static final Logger _LOG = Logger.getLogger(VersionCheck.class.getName());
-	
+    
+    public static final Logger _LOG = Logger.getLogger(VersionCheck.class.getName());
+    
     /**
      * @param localVersion die lokale Versions des Programms
      * @return true wenn es eine neue Version zum Download gibt

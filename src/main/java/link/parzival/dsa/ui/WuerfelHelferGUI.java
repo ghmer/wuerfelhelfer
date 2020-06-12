@@ -60,7 +60,7 @@ import java.util.logging.Logger;
 
 public class WuerfelHelferGUI extends JFrame {
     private static final long serialVersionUID      = 6428768807868759732L;
-    public static final Logger _LOG 				= Logger.getLogger(WuerfelHelferGUI.class.getName());
+    public static final Logger _LOG                 = Logger.getLogger(WuerfelHelferGUI.class.getName());
     private JPanel contentPane                      = null;
     private Font customHeroNameFont                 = null;
     private Font customMainFont                     = null;
@@ -137,7 +137,7 @@ public class WuerfelHelferGUI extends JFrame {
                                 Instant end = Instant.now();
                                 _LOG.fine("Dauer des parsens: " + Duration.between(start, end));
                             } catch (Exception e1) {
-                            	_LOG.severe(e1.getMessage());
+                                _LOG.severe(e1.getMessage());
                             }
                             
                             heldenPanel.setzeHeldenObjekt(hero);
@@ -196,7 +196,7 @@ public class WuerfelHelferGUI extends JFrame {
                     UIManager.setLookAndFeel(new FlatLightLaf());
                     SwingUtilities.updateComponentTreeUI(getRootPane());
                 } catch (UnsupportedLookAndFeelException e1) {
-                	_LOG.severe(e1.getMessage());
+                    _LOG.severe(e1.getMessage());
                 }
             }
         });
@@ -210,8 +210,7 @@ public class WuerfelHelferGUI extends JFrame {
                     UIManager.setLookAndFeel(new FlatDarkLaf());
                     SwingUtilities.updateComponentTreeUI(getRootPane());
                 } catch (UnsupportedLookAndFeelException e1) {
-                    // TODO Auto-generated catch block
-                	_LOG.severe(e1.getMessage());
+                    _LOG.severe(e1.getMessage());
                 }
             }
         });
@@ -310,7 +309,7 @@ public class WuerfelHelferGUI extends JFrame {
                 try {
                     Desktop.getDesktop().browse(new URI(Konstanten.MANUAL_URL));
                 } catch (IOException | URISyntaxException e1) {
-                	_LOG.severe(e1.getMessage());
+                    _LOG.severe(e1.getMessage());
                 }
             }
         });
@@ -375,7 +374,7 @@ public class WuerfelHelferGUI extends JFrame {
                         }
                     });
                 } catch (InterruptedException e) {
-                	_LOG.severe(e.getMessage());
+                    _LOG.severe(e.getMessage());
                 }
             }
         });
@@ -383,7 +382,7 @@ public class WuerfelHelferGUI extends JFrame {
             splashScreenThread.start();
             splashScreenThread.join();
         } catch (InterruptedException e1) {
-        	_LOG.severe(e1.getMessage());
+            _LOG.severe(e1.getMessage());
         }
     }
 
@@ -434,7 +433,7 @@ public class WuerfelHelferGUI extends JFrame {
                     Instant end = Instant.now();
                     _LOG.fine("Startup Zeit: " + Duration.between(start, end));
                 } catch (Exception e) {
-                	_LOG.severe(e.getMessage());
+                    _LOG.severe(e.getMessage());
                 }
             }
         });

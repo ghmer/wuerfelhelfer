@@ -39,7 +39,7 @@ import java.util.logging.Logger;
 public class KampfPanel extends JPanel {
     private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("link.parzival.dsa.ui.messages"); //$NON-NLS-1$
     private static final long serialVersionUID              = -4466855899017287952L;
-    public static final Logger _LOG 						= Logger.getLogger(KampfPanel.class.getName());
+    public static final Logger _LOG                         = Logger.getLogger(KampfPanel.class.getName());
     private JComboBox<String> comboBoxRightWeaponHand       = null;
     private JLabel lblRightWeaponHand                       = null;
     private JComboBox<String> comboBoxOwnDK                 = null;

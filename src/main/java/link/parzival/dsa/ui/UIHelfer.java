@@ -21,8 +21,8 @@ import link.parzival.dsa.ui.dialog.AboutDialog;
  *
  */
 public class UIHelfer {
-	
-	public static final Logger _LOG = Logger.getLogger(UIHelfer.class.getName());
+    
+    public static final Logger _LOG = Logger.getLogger(UIHelfer.class.getName());
 
     /**
      * @return a FileFilter filtering for .html files

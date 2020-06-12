@@ -49,7 +49,7 @@ public class TalentAuswahlDialog extends JDialog {
      * 
      */
     private static final long serialVersionUID              = 5001756584965996173L;
-    public static final Logger _LOG 						= Logger.getLogger(TalentAuswahlDialog.class.getName());
+    public static final Logger _LOG                         = Logger.getLogger(TalentAuswahlDialog.class.getName());
     private final JPanel contentPanel                       = new JPanel();
 
     private JTextField textFieldSearch                      = null;

@@ -66,15 +66,19 @@ public class HeldenDokumentParser {
     private void initialisieren() {
         DocumentBuilderFactory factory  = DocumentBuilderFactory.newInstance();
         try {
+            // Zeitmessung
             Instant initializationStart = Instant.now();
+            
             factory.setValidating(false);
             factory.setAttribute("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);           
             this.builder = factory.newDocumentBuilder();           
             this.xpath   = XPathFactory.newInstance().newXPath();
+            
             Instant initializationEnd = Instant.now();
+            
             if(_LOG.isLoggable(Level.FINE)) {
                 _LOG.fine("Initialization: " + Duration.between(initializationStart, initializationEnd));
-        	}
+            }
             
         } catch(Exception e) {
             _LOG.severe(e.getMessage());
@@ -88,23 +92,18 @@ public class HeldenDokumentParser {
      * @param heldenObjekt das HeldenObjekt
      * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected void holeBasisWerte(Document heldenDokument, HeldenObjekt heldenObjekt)
-            throws Exception {
-        String nodeExpression      = "(//table[@class='basiswerte gitternetz'])";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
-        
-        Document newDocument = nodeToDocument(node);
-        
-        NodeList nList = newDocument.getElementsByTagName("tr");
+    protected void holeBasisWerte(Document heldenDokument, HeldenObjekt heldenObjekt) throws Exception {
+        String nodeExpression   = "(//table[@class='basiswerte gitternetz'])";
+        Node node               = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);       
+        Document newDocument    = nodeToDocument(node);      
+        NodeList nList          = newDocument.getElementsByTagName("tr");
         
         
-        for(int i = 1; i < nList.getLength(); i++) {
-           
-            Node lnode = nList.item(i);
-            
-            Node valueNode = lnode.getChildNodes().item(9);
-            
+        for(int i = 1; i < nList.getLength(); i++) {          
+            Node lnode       = nList.item(i);          
+            Node valueNode   = lnode.getChildNodes().item(9);          
             String parsedVal = valueNode.getTextContent().trim();
+            
             int value = 0;
             if(parsedVal != null && !parsedVal.isEmpty()) {
                 value = Integer.parseInt(parsedVal);
@@ -131,13 +130,12 @@ public class HeldenDokumentParser {
      * @throws Exception wenn beim Parsen etwas schief lief
      */
     protected int holeBehinderung(Document heldenDokument) throws Exception {
-        int result = 0;
+        int result              = 0;        
+        String nodeExpression   = "(//table[@class='zonenruestungen gitternetz'])";
+        Node node               = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
-        String nodeExpression      = "(//table[@class='zonenruestungen gitternetz'])";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
-        
-        Document newDocument = nodeToDocument(node);
-        NodeList nList = newDocument.getElementsByTagName("td");
+        Document newDocument    = nodeToDocument(node);
+        NodeList nList          = newDocument.getElementsByTagName("td");
         
         for(int i = 0; i < nList.getLength(); i=i+14) {
             String name = nList.item(i).getTextContent().trim();
@@ -158,20 +156,16 @@ public class HeldenDokumentParser {
      * @param heldenObjekt das HeldenObjekt
      * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected void holeEigenschaften(Document heldenDokument, HeldenObjekt heldenObjekt)
-            throws Exception {
-        String nodeExpression      = "(//table[@class='eigenschaften gitternetz'])";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
-        
-        Document newDocument = nodeToDocument(node);
-        
-        NodeList nList = newDocument.getElementsByTagName("tr");
+    protected void holeEigenschaften(Document heldenDokument, HeldenObjekt heldenObjekt) throws Exception {
+        String nodeExpression   = "(//table[@class='eigenschaften gitternetz'])";
+        Node node               = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);        
+        Document newDocument    = nodeToDocument(node);       
+        NodeList nList          = newDocument.getElementsByTagName("tr");
         
         for(int i = 1; i < nList.getLength(); i++) {
-            Node lnode = nList.item(i);
-            Node valueNode = lnode.getChildNodes().item(7);
-            
-            String value = valueNode.getTextContent().trim();
+            Node lnode      = nList.item(i);
+            Node valueNode  = lnode.getChildNodes().item(7);            
+            String value    = valueNode.getTextContent().trim();
             
             switch(i) {
                 case 1: heldenObjekt.setMut(Integer.parseInt(value));               break;
@@ -192,13 +186,12 @@ public class HeldenDokumentParser {
      * @param fernwaffenListe die Liste der Fernwaffen
      * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected void holeFernwaffen(Document heldenDokument, List<FernwaffenObjekt> fernwaffenListe)
-            throws Exception {
-        String nodeExpression      = "(//table[@class='fkwaffen gitternetz'])";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
+    protected void holeFernwaffen(Document heldenDokument, List<FernwaffenObjekt> fernwaffenListe) throws Exception {
+        String nodeExpression   = "(//table[@class='fkwaffen gitternetz'])";
+        Node node               = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
-        Document newDocument = nodeToDocument(node);
-        NodeList nList = newDocument.getElementsByTagName("td");
+        Document newDocument    = nodeToDocument(node);
+        NodeList nList          = newDocument.getElementsByTagName("td");
         
         for(int i = 0; i < nList.getLength(); i=i+7) {
             String name             = nList.item(i).getTextContent().trim();
@@ -229,16 +222,14 @@ public class HeldenDokumentParser {
      * @param talentListe die Liste der Talente
      * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected void holeGaben(Document heldenDokument, int gitternetzNummer, List<TalentObjekt> talentListe)
-            throws Exception {
-        String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+gitternetzNummer+"]";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
+    protected void holeGaben(Document heldenDokument, int gitternetzNummer, List<TalentObjekt> talentListe) throws Exception {
+        String nodeExpression   = "(//table[@class='talentgruppe gitternetz'])["+gitternetzNummer+"]";
+        Node node               = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
-        Document newDocument = nodeToDocument(node);
-        NodeList nList = newDocument.getElementsByTagName("td");
+        Document newDocument    = nodeToDocument(node);
+        NodeList nList          = newDocument.getElementsByTagName("td");
         
-        for(int i = 0; i < nList.getLength(); i=i+3) {
-            
+        for(int i = 0; i < nList.getLength(); i=i+3) {           
             String name     = nList.item(i).getTextContent().trim();
             String probe    = nList.item(i+1).getTextContent().trim();
             String taw      = nList.item(i+2).getTextContent().trim();
@@ -259,16 +250,14 @@ public class HeldenDokumentParser {
      * @param talentListe die Liste der Talente
      * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected void holeGesellschaftlich(Document heldenDokument, int gitternetzNummer, List<TalentObjekt> talentListe)
-            throws Exception {       
-        String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+gitternetzNummer+"]";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
+    protected void holeGesellschaftlich(Document heldenDokument, int gitternetzNummer, List<TalentObjekt> talentListe) throws Exception {       
+        String nodeExpression   = "(//table[@class='talentgruppe gitternetz'])["+gitternetzNummer+"]";
+        Node node               = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
-        Document newDocument = nodeToDocument(node);
-        NodeList nList = newDocument.getElementsByTagName("td");
+        Document newDocument    = nodeToDocument(node);
+        NodeList nList          = newDocument.getElementsByTagName("td");
         
-        for(int i = 0; i < nList.getLength(); i=i+3) {
-            
+        for(int i = 0; i < nList.getLength(); i=i+3) {          
             String name     = nList.item(i).getTextContent().trim();
             String probe    = nList.item(i+1).getTextContent().trim();
             String taw      = nList.item(i+2).getTextContent().trim();
@@ -289,16 +278,14 @@ public class HeldenDokumentParser {
      * @param talentListe die Liste der Talente
      * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected void holeHandwerk(Document heldenDokument, int gitternetzNummer, List<TalentObjekt> talentListe)
-            throws Exception {
-        String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+gitternetzNummer+"]";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
+    protected void holeHandwerk(Document heldenDokument, int gitternetzNummer, List<TalentObjekt> talentListe) throws Exception {
+        String nodeExpression   = "(//table[@class='talentgruppe gitternetz'])["+gitternetzNummer+"]";
+        Node node               = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
-        Document newDocument = nodeToDocument(node);
-        NodeList nList = newDocument.getElementsByTagName("td");
+        Document newDocument    = nodeToDocument(node);
+        NodeList nList          = newDocument.getElementsByTagName("td");
         
-        for(int i = 0; i < nList.getLength(); i=i+3) {
-            
+        for(int i = 0; i < nList.getLength(); i=i+3) {           
             String name     = nList.item(i).getTextContent().trim();
             String probe    = nList.item(i+1).getTextContent().trim();
             String taw      = nList.item(i+2).getTextContent().trim();
@@ -319,13 +306,12 @@ public class HeldenDokumentParser {
      * @param kampftechnikListe die Liste der Kampftechniken
      * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected void holeKampftechniken(Document heldenDokument, int gitternetzNummer, List<KampftechnikObjekt> kampftechnikListe)
-            throws Exception {
-        String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+gitternetzNummer+"]";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
-        Document newDocument = nodeToDocument(node);
+    protected void holeKampftechniken(Document heldenDokument, int gitternetzNummer, List<KampftechnikObjekt> kampftechnikListe) throws Exception {
+        String nodeExpression   = "(//table[@class='talentgruppe gitternetz'])["+gitternetzNummer+"]";
+        Node node               = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
-        NodeList nList = newDocument.getElementsByTagName("td");
+        Document newDocument    = nodeToDocument(node);
+        NodeList nList          = newDocument.getElementsByTagName("td");
         
         for(int i = 0; i < nList.getLength(); i=i+6) {            
             String name = nList.item(i).getTextContent().trim();
@@ -354,16 +340,14 @@ public class HeldenDokumentParser {
      * @param talentListe die Liste der Talente
      * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected void holeKoerperlich(Document heldenDokument, int gitternetzNummer, List<TalentObjekt> talentListe)
-            throws Exception {
-        String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+gitternetzNummer+"]";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
+    protected void holeKoerperlich(Document heldenDokument, int gitternetzNummer, List<TalentObjekt> talentListe) throws Exception {
+        String nodeExpression   = "(//table[@class='talentgruppe gitternetz'])["+gitternetzNummer+"]";
+        Node node               = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
-        Document newDocument = nodeToDocument(node);
-        NodeList nList = newDocument.getElementsByTagName("td");
+        Document newDocument    = nodeToDocument(node);
+        NodeList nList          = newDocument.getElementsByTagName("td");
         
-        for(int i = 0; i < nList.getLength(); i=i+4) {
-            
+        for(int i = 0; i < nList.getLength(); i=i+4) {           
             String name     = nList.item(i).getTextContent().trim();
             String probe    = nList.item(i+1).getTextContent().trim();
             String be       = nList.item(i+2).getTextContent().trim();
@@ -385,16 +369,14 @@ public class HeldenDokumentParser {
      * @param talentListe die Liste der Talente
      * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected void holeNaturtalente(Document heldenDokument, int gitternetzNummer, List<TalentObjekt> talentListe)
-            throws Exception {
-        String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+gitternetzNummer+"]";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
+    protected void holeNaturtalente(Document heldenDokument, int gitternetzNummer, List<TalentObjekt> talentListe) throws Exception {
+        String nodeExpression   = "(//table[@class='talentgruppe gitternetz'])["+gitternetzNummer+"]";
+        Node node               = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
-        Document newDocument = nodeToDocument(node);
-        NodeList nList = newDocument.getElementsByTagName("td");
+        Document newDocument    = nodeToDocument(node);
+        NodeList nList          = newDocument.getElementsByTagName("td");
         
-        for(int i = 0; i < nList.getLength(); i=i+3) {
-            
+        for(int i = 0; i < nList.getLength(); i=i+3) {           
             String name     = nList.item(i).getTextContent().trim();
             String probe    = nList.item(i+1).getTextContent().trim();
             String taw      = nList.item(i+2).getTextContent().trim();
@@ -414,22 +396,21 @@ public class HeldenDokumentParser {
      * @param paradewaffenListe die Liste der ParadeObjekte
      * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected void holeParadeWaffen(Document heldenDokument, List<ParadeObjekt> paradewaffenListe)
-            throws Exception {
-        String nodeExpression      = "(//table[@class='schilde gitternetz'])";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
+    protected void holeParadeWaffen(Document heldenDokument, List<ParadeObjekt> paradewaffenListe) throws Exception {
+        String nodeExpression   = "(//table[@class='schilde gitternetz'])";
+        Node node               = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
-        Document newDocument = nodeToDocument(node);
-        NodeList nList = newDocument.getElementsByTagName("td");
+        Document newDocument    = nodeToDocument(node);
+        NodeList nList          = newDocument.getElementsByTagName("td");
         
         for(int i = 0; i < nList.getLength(); i=i+7) {
-            String name             = nList.item(i).getTextContent().trim();
-            String typ              = nList.item(i+1).getTextContent().trim();
-            String ini              = nList.item(i+2).getTextContent().trim();
-            String wm               = nList.item(i+3).getTextContent().trim();
-            String pa               = nList.item(i+4).getTextContent().trim();
-            String minBf            = nList.item(i+5).getTextContent().trim();
-            String aktBf            = nList.item(i+6).getTextContent().trim();
+            String name     = nList.item(i).getTextContent().trim();
+            String typ      = nList.item(i+1).getTextContent().trim();
+            String ini      = nList.item(i+2).getTextContent().trim();
+            String wm       = nList.item(i+3).getTextContent().trim();
+            String pa       = nList.item(i+4).getTextContent().trim();
+            String minBf    = nList.item(i+5).getTextContent().trim();
+            String aktBf    = nList.item(i+6).getTextContent().trim();
             
             if(name != null && !name.isEmpty()) {
                 ParadeObjekt paradeObjekt = new ParadeObjekt();
@@ -452,18 +433,16 @@ public class HeldenDokumentParser {
      * @param talentListe die Liste der Talente
      * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected void holeSchriften(Document heldenDokument, int gitternetzNummer, List<TalentObjekt> talentListe)
-            throws Exception {
-        String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+gitternetzNummer+"]";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
+    protected void holeSchriften(Document heldenDokument, int gitternetzNummer, List<TalentObjekt> talentListe) throws Exception {
+        String nodeExpression   = "(//table[@class='talentgruppe gitternetz'])["+gitternetzNummer+"]";
+        Node node               = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
-        Document newDocument = nodeToDocument(node);
-        NodeList nList = newDocument.getElementsByTagName("td");
+        Document newDocument    = nodeToDocument(node);
+        NodeList nList          = newDocument.getElementsByTagName("td");
         
-        for(int i = 0; i < nList.getLength(); i=i+3) {
-            
-            String name     = nList.item(i).getTextContent().trim();
-            String taw      = nList.item(i+2).getTextContent().trim();
+        for(int i = 0; i < nList.getLength(); i=i+3) {            
+            String name = nList.item(i).getTextContent().trim();
+            String taw  = nList.item(i+2).getTextContent().trim();
  
             TalentObjekt talent = new TalentObjekt();
             talent.setName(name);
@@ -481,16 +460,15 @@ public class HeldenDokumentParser {
      * @throws Exception wenn etwas schief lief
      */
     protected void holeSonderfertigkeiten(Document heldenDokument, HeldenObjekt heldenObjekt) throws Exception {
-        String nodeExpression      = "(//div[@class='mitte_innen']/table[@class='sonderfertigkeiten'])";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
+        String nodeExpression   = "(//div[@class='mitte_innen']/table[@class='sonderfertigkeiten'])";
+        Node node               = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
 
-        Document newDocument = nodeToDocument(node);
-        NodeList nList = newDocument.getElementsByTagName("td");
+        Document newDocument    = nodeToDocument(node);
+        NodeList nList          = newDocument.getElementsByTagName("td");
         
         List<Sonderfertigkeit> sonderfertigkeiten = new ArrayList<>();
         
-        for(int i = 0; i < nList.getLength(); i=i+2) {
-            
+        for(int i = 0; i < nList.getLength(); i=i+2) {           
             String leftValue        = nList.item(i).getTextContent().trim();
             String rightValue       = nList.item(i+1).getTextContent().trim();
             
@@ -510,16 +488,14 @@ public class HeldenDokumentParser {
      * @param talentListe die Liste der Talente
      * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected void holeSprachen(Document heldenDokument, int gitternetzNummer, List<TalentObjekt> talentListe)
-            throws Exception {
-        String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+gitternetzNummer+"]";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
+    protected void holeSprachen(Document heldenDokument, int gitternetzNummer, List<TalentObjekt> talentListe) throws Exception {
+        String nodeExpression   = "(//table[@class='talentgruppe gitternetz'])["+gitternetzNummer+"]";
+        Node node               = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
-        Document newDocument = nodeToDocument(node);
-        NodeList nList = newDocument.getElementsByTagName("td");
+        Document newDocument    = nodeToDocument(node);
+        NodeList nList          = newDocument.getElementsByTagName("td");
         
-        for(int i = 0; i < nList.getLength(); i=i+3) {
-            
+        for(int i = 0; i < nList.getLength(); i=i+3) {           
             String name     = nList.item(i).getTextContent().trim();
             String taw      = nList.item(i+2).getTextContent().trim();
  
@@ -540,21 +516,19 @@ public class HeldenDokumentParser {
      */
     protected void holeWaffen(Document heldenDokument, List<WaffenObjekt> waffenListe)
             throws Exception {
-        String nodeExpression      = "(//table[@class='nkwaffen gitternetz'])";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
+        String nodeExpression   = "(//table[@class='nkwaffen gitternetz'])";
+        Node node               = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
-        Document newDocument = nodeToDocument(node);
-        NodeList nList = newDocument.getElementsByTagName("td");
+        Document newDocument    = nodeToDocument(node);
+        NodeList nList          = newDocument.getElementsByTagName("td");
         
         for(int i = 0; i < nList.getLength(); i=i+12) {
-            String name             = nList.item(i).getTextContent().trim();
-            String dk               = nList.item(i+2).getTextContent().trim();
-            String iniStr           = nList.item(i+5).getTextContent().trim();
-            String atStr            = nList.item(i+7).getTextContent().trim();
-            String paStr            = nList.item(i+8).getTextContent().trim();
-            String tpStr            = nList.item(i+9).getTextContent().trim();
-            
-
+            String name     = nList.item(i).getTextContent().trim();
+            String dk       = nList.item(i+2).getTextContent().trim();
+            String iniStr   = nList.item(i+5).getTextContent().trim();
+            String atStr    = nList.item(i+7).getTextContent().trim();
+            String paStr    = nList.item(i+8).getTextContent().trim();
+            String tpStr    = nList.item(i+9).getTextContent().trim();
             
             if(name != null && !name.isEmpty()) {
                 WaffenObjekt waffe  = new WaffenObjekt();
@@ -576,16 +550,14 @@ public class HeldenDokumentParser {
      * @param talentListe die Liste der Talente
      * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected void holeWissenstalente(Document heldenDokument, int gitternetzNummer, List<TalentObjekt> talentListe)
-            throws Exception {
-        String nodeExpression      = "(//table[@class='talentgruppe gitternetz'])["+gitternetzNummer+"]";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
+    protected void holeWissenstalente(Document heldenDokument, int gitternetzNummer, List<TalentObjekt> talentListe) throws Exception {
+        String nodeExpression   = "(//table[@class='talentgruppe gitternetz'])["+gitternetzNummer+"]";
+        Node node               = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
-        Document newDocument = nodeToDocument(node);
-        NodeList nList = newDocument.getElementsByTagName("td");
+        Document newDocument    = nodeToDocument(node);
+        NodeList nList          = newDocument.getElementsByTagName("td");
         
-        for(int i = 0; i < nList.getLength(); i=i+3) {
-            
+        for(int i = 0; i < nList.getLength(); i=i+3) {          
             String name     = nList.item(i).getTextContent().trim();
             String probe    = nList.item(i+1).getTextContent().trim();
             String taw      = nList.item(i+2).getTextContent().trim();
@@ -605,16 +577,14 @@ public class HeldenDokumentParser {
      * @param zauberListe die Liste der Zauber
      * @throws Exception wenn beim Parsen etwas schief lief
      */
-    protected void holeZauber(Document heldenDokument, List<TalentObjekt> zauberListe)
-            throws Exception {
-        String nodeExpression      = "(//table[@class='zauber gitternetz'])";
-        Node node = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
+    protected void holeZauber(Document heldenDokument, List<TalentObjekt> zauberListe) throws Exception {
+        String nodeExpression   = "(//table[@class='zauber gitternetz'])";
+        Node node               = (Node) xpath.compile(nodeExpression).evaluate(heldenDokument, XPathConstants.NODE);
         
-        Document newDocument = nodeToDocument(node);
-        NodeList nList = newDocument.getElementsByTagName("td");
+        Document newDocument    = nodeToDocument(node);
+        NodeList nList          = newDocument.getElementsByTagName("td");
         
-        for(int i = 0; i < nList.getLength(); i=i+8) {
-            
+        for(int i = 0; i < nList.getLength(); i=i+8) {           
             String name     = nList.item(i).getTextContent().trim();
             String probe    = nList.item(i+1).getTextContent().trim();
             String taw      = nList.item(i+2).getTextContent().trim();
@@ -665,7 +635,7 @@ public class HeldenDokumentParser {
                 try {
                     br.close();
                 } catch (IOException e) {
-                	_LOG.severe(e.getMessage());
+                    _LOG.severe(e.getMessage());
                 }
             }
             
@@ -673,7 +643,7 @@ public class HeldenDokumentParser {
                 try {
                     wr.close();
                 } catch (IOException e) {
-                	_LOG.severe(e.getMessage());
+                    _LOG.severe(e.getMessage());
                 }
             }
         }
@@ -730,20 +700,20 @@ public class HeldenDokumentParser {
             Instant initializationEnd   = Instant.now();
             
             if(_LOG.isLoggable(Level.FINE)) {
-        		_LOG.fine("Parsing: " + Duration.between(initializationStart, initializationEnd));
-        	}
+                _LOG.fine("Parsing: " + Duration.between(initializationStart, initializationEnd));
+            }
             
-            Instant eigenschaftenStart 	= Instant.now();
-            String titleExpression 		= "/html/head/title/text()";
-            String heroName        		= xpath.compile(titleExpression).evaluate(document);
+            Instant eigenschaftenStart     = Instant.now();
+            String titleExpression         = "/html/head/title/text()";
+            String heroName                = xpath.compile(titleExpression).evaluate(document);
             hero.setName(heroName);            
             holeEigenschaften(document, hero);         
             holeBasisWerte(document, hero);
-            Instant eigenschaftenEnd 	= Instant.now();
+            Instant eigenschaftenEnd     = Instant.now();
             
             if(_LOG.isLoggable(Level.FINE)) {
-        		 _LOG.fine("Eigenschaften: " + Duration.between(eigenschaftenStart, eigenschaftenEnd));
-        	}
+                 _LOG.fine("Eigenschaften: " + Duration.between(eigenschaftenStart, eigenschaftenEnd));
+            }
            
             List<TalentObjekt> talente = new ArrayList<>();
             List<KampftechnikObjekt> kampfTalente = new ArrayList<>();
@@ -768,8 +738,8 @@ public class HeldenDokumentParser {
                     
                     Instant gatherEnd = Instant.now();
                     if(_LOG.isLoggable(Level.FINE)) {
-                		_LOG.fine(String.format("%s: %s", name, Duration.between(gatherStart, gatherEnd)));
-                	}    
+                        _LOG.fine(String.format("%s: %s", name, Duration.between(gatherStart, gatherEnd)));
+                    }    
                 }               
             }
                     
@@ -783,9 +753,9 @@ public class HeldenDokumentParser {
             Instant gatherZauberEnd = Instant.now();
             
             if(_LOG.isLoggable(Level.FINE)) {
-        		_LOG.fine(String.format("Zauber: %s", Duration.between(gatherZauberStart, gatherZauberEnd)));
+                _LOG.fine(String.format("Zauber: %s", Duration.between(gatherZauberStart, gatherZauberEnd)));
             
-        	}
+            }
 
             Instant gatherWaffenStart = Instant.now();
             List<WaffenObjekt> waffenListe = new ArrayList<>();
@@ -794,8 +764,8 @@ public class HeldenDokumentParser {
             Instant gatherWaffenEnd = Instant.now();
             
             if(_LOG.isLoggable(Level.FINE)) {
-        		_LOG.fine(String.format("Waffen: %s", Duration.between(gatherWaffenStart, gatherWaffenEnd)));
-        	}
+                _LOG.fine(String.format("Waffen: %s", Duration.between(gatherWaffenStart, gatherWaffenEnd)));
+            }
             
             Instant gatherPWaffenStart = Instant.now();
             List<ParadeObjekt> paradeObjektListe = new ArrayList<>();
@@ -804,8 +774,8 @@ public class HeldenDokumentParser {
             Instant gatherPWaffenEnd = Instant.now();
             
             if(_LOG.isLoggable(Level.FINE)) {
-        		_LOG.fine(String.format("Parade: %s", Duration.between(gatherPWaffenStart, gatherPWaffenEnd)));
-        	}
+                _LOG.fine(String.format("Parade: %s", Duration.between(gatherPWaffenStart, gatherPWaffenEnd)));
+            }
             
             
             Instant gatherFWaffenStart = Instant.now();
@@ -815,8 +785,8 @@ public class HeldenDokumentParser {
             Instant gatherFWaffenEnd = Instant.now();
             
             if(_LOG.isLoggable(Level.FINE)) {
-        		_LOG.fine(String.format("Fernwaffen: %s", Duration.between(gatherFWaffenStart, gatherFWaffenEnd)));
-        	}
+                _LOG.fine(String.format("Fernwaffen: %s", Duration.between(gatherFWaffenStart, gatherFWaffenEnd)));
+            }
             
             int behinderung = holeBehinderung(document);
             hero.setBehinderung(behinderung);
@@ -826,13 +796,13 @@ public class HeldenDokumentParser {
             Instant gatherSonderfertigkeitenEnd = Instant.now();
             
             if(_LOG.isLoggable(Level.FINE)) {
-        		_LOG.fine(String.format("SF: %s", Duration.between(gatherSonderfertigkeitenStart, gatherSonderfertigkeitenEnd)));
-        	}
+                _LOG.fine(String.format("SF: %s", Duration.between(gatherSonderfertigkeitenStart, gatherSonderfertigkeitenEnd)));
+            }
             
         } catch (ParserConfigurationException | SAXException | IOException e) {
             _LOG.severe(e.getMessage());
         } catch (XPathExpressionException e) {
-        	_LOG.severe(e.getMessage());
+            _LOG.severe(e.getMessage());
         }
         
         return hero;

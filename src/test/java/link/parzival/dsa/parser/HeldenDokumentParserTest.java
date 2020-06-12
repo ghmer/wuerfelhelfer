@@ -31,7 +31,7 @@ import link.parzival.dsa.object.enumeration.DKEnum;
 class HeldenDokumentParserTest {
 
     private static final int _ZAUBER_LIST_SIZE = 2;
-	private static final String _HELDEN_NAME    = "Pedder Luminow";
+    private static final String _HELDEN_NAME    = "Pedder Luminow";
     private static final int _ASTRALENERGIE     = 20;
     private static final int _ATTACKE_BASIS     =  8;
     private static final int _AUSDAUER          = 29;
@@ -205,37 +205,37 @@ class HeldenDokumentParserTest {
     @Test
     @Order(23)
     void testNahkampfWaffen() {
-    	List<WaffenObjekt> waffenListe = heldenObjekt.getWaffen();
-    	assertNotNull(waffenListe);
-    	assertEquals(waffenListe.size(), 1);
-    	
-    	WaffenObjekt waffe = waffenListe.get(0);
-    	assertNotNull(waffe);
-    	assertEquals(waffe.getName(), "Knüppel");
-    	assertEquals(waffe.getAttacke(), 13);
-    	assertEquals(waffe.getParade(),  10);
-    	assertEquals(waffe.getDistanzklassen().get(0), DKEnum.N);
-    	
+        List<WaffenObjekt> waffenListe = heldenObjekt.getWaffen();
+        assertNotNull(waffenListe);
+        assertEquals(waffenListe.size(), 1);
+        
+        WaffenObjekt waffe = waffenListe.get(0);
+        assertNotNull(waffe);
+        assertEquals(waffe.getName(), "Knüppel");
+        assertEquals(waffe.getAttacke(), 13);
+        assertEquals(waffe.getParade(),  10);
+        assertEquals(waffe.getDistanzklassen().get(0), DKEnum.N);
+        
     }
     
     @Test
     @Order(24)
     void testFernkampfWaffen() {
-    	List<FernwaffenObjekt> waffenListe = heldenObjekt.getFernWaffen();
-    	assertNotNull(waffenListe);
-    	assertEquals(waffenListe.size(), 2);
-    	
-    	FernwaffenObjekt waffe = waffenListe.get(0);
-    	assertNotNull(waffe);
-    	assertEquals(waffe.getName(), "Leichte Armbrust");
-    	assertEquals(waffe.getFk(), 17);
-    	
+        List<FernwaffenObjekt> waffenListe = heldenObjekt.getFernWaffen();
+        assertNotNull(waffenListe);
+        assertEquals(waffenListe.size(), 2);
+        
+        FernwaffenObjekt waffe = waffenListe.get(0);
+        assertNotNull(waffe);
+        assertEquals(waffe.getName(), "Leichte Armbrust");
+        assertEquals(waffe.getFk(), 17);
+        
     }
     
     @Test
     @Order(25)
     void testBehinderung() {
-    	assertEquals(heldenObjekt.getBehinderung(), 1);
-    	
+        assertEquals(heldenObjekt.getBehinderung(), 1);
+        
     }
 }

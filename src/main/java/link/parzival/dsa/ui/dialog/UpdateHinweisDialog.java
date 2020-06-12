@@ -35,7 +35,7 @@ public class UpdateHinweisDialog extends JDialog {
      * 
      */
     private static final long serialVersionUID = -4387568017758375162L;
-    public static final Logger _LOG 			= Logger.getLogger(UpdateHinweisDialog.class.getName());
+    public static final Logger _LOG            = Logger.getLogger(UpdateHinweisDialog.class.getName());
     private final JPanel contentPanel          = new JPanel();
     
     /**
@@ -73,9 +73,9 @@ public class UpdateHinweisDialog extends JDialog {
                     try {
                         Desktop.getDesktop().browse(new URI(Konstanten.APP_URL));
                     } catch (IOException e1) {
-                    	_LOG.severe(e1.getMessage());
+                        _LOG.severe(e1.getMessage());
                     } catch (URISyntaxException e1) {
-                    	_LOG.severe(e1.getMessage());
+                        _LOG.severe(e1.getMessage());
                     }
                 }
             });
