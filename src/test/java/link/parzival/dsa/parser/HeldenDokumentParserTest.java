@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -16,7 +17,10 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import link.parzival.dsa.object.FernwaffenObjekt;
 import link.parzival.dsa.object.HeldenObjekt;
+import link.parzival.dsa.object.WaffenObjekt;
+import link.parzival.dsa.object.enumeration.DKEnum;
 
 
 /**
@@ -26,12 +30,13 @@ import link.parzival.dsa.object.HeldenObjekt;
 @TestMethodOrder(OrderAnnotation.class)
 class HeldenDokumentParserTest {
 
-    private static final String _HELDEN_NAME    = "Pedder Luminow";
+    private static final int _ZAUBER_LIST_SIZE = 2;
+	private static final String _HELDEN_NAME    = "Pedder Luminow";
     private static final int _ASTRALENERGIE     = 20;
-    private static final int _ATTACKE_BASIS     = 8;
+    private static final int _ATTACKE_BASIS     =  8;
     private static final int _AUSDAUER          = 29;
     private static final int _CHARISMA          = 13;
-    private static final int _FERNKAMPF_BASIS   = 7;
+    private static final int _FERNKAMPF_BASIS   =  7;
     private static final int _FINGERFERTIGKEIT  = 11;
     private static final int _GEWANDTHEIT       = 12;
     private static final int _INITIATIVE_BASIS  = 10;
@@ -41,10 +46,10 @@ class HeldenDokumentParserTest {
     private static final int _KOERPERKRAFT      = 12;
     private static final int _KONSTITUTION      = 12;
     private static final int _LEBENSENERGIE     = 28;
-    private static final int _MAGIERESISTENZ    = 9;
+    private static final int _MAGIERESISTENZ    =  9;
     private static final int _MUT               = 14;
-    private static final int _PARADE_BASIS      = 7;
-    private static final int _SF_LIST_SIZE      = 6;
+    private static final int _PARADE_BASIS      =  7;
+    private static final int _SF_LIST_SIZE      =  6;
     public static final int _TALENTE_LIST_SIZE  = 46;
     public static HeldenObjekt heldenObjekt     = null;
     static HeldenDokumentParser parser          = null;
@@ -189,5 +194,48 @@ class HeldenDokumentParserTest {
     @Order(21)
     void testTalenteListSize() {
         assertEquals(heldenObjekt.getTalente().size(), _TALENTE_LIST_SIZE);
+    }
+    
+    @Test
+    @Order(22)
+    void testZauberListSize() {
+        assertEquals(heldenObjekt.getZauber().size(), _ZAUBER_LIST_SIZE);
+    }
+    
+    @Test
+    @Order(23)
+    void testNahkampfWaffen() {
+    	List<WaffenObjekt> waffenListe = heldenObjekt.getWaffen();
+    	assertNotNull(waffenListe);
+    	assertEquals(waffenListe.size(), 1);
+    	
+    	WaffenObjekt waffe = waffenListe.get(0);
+    	assertNotNull(waffe);
+    	assertEquals(waffe.getName(), "Knüppel");
+    	assertEquals(waffe.getAttacke(), 13);
+    	assertEquals(waffe.getParade(),  10);
+    	assertEquals(waffe.getDistanzklassen().get(0), DKEnum.N);
+    	
+    }
+    
+    @Test
+    @Order(24)
+    void testFernkampfWaffen() {
+    	List<FernwaffenObjekt> waffenListe = heldenObjekt.getFernWaffen();
+    	assertNotNull(waffenListe);
+    	assertEquals(waffenListe.size(), 2);
+    	
+    	FernwaffenObjekt waffe = waffenListe.get(0);
+    	assertNotNull(waffe);
+    	assertEquals(waffe.getName(), "Leichte Armbrust");
+    	assertEquals(waffe.getFk(), 17);
+    	
+    }
+    
+    @Test
+    @Order(25)
+    void testBehinderung() {
+    	assertEquals(heldenObjekt.getBehinderung(), 1);
+    	
     }
 }
