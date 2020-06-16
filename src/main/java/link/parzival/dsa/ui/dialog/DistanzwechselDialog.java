@@ -49,27 +49,36 @@ public class DistanzwechselDialog extends JDialog {
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         getContentPane().add(contentPanel, BorderLayout.CENTER);
         GridBagLayout gbl_contentPanel = new GridBagLayout();
-        gbl_contentPanel.columnWidths = new int[]{125, 30, 64, 125, 0};
+        gbl_contentPanel.columnWidths = new int[]{0, 125, 30, 64, 125, 0};
         gbl_contentPanel.rowHeights = new int[]{28, 0};
-        gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+        gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
         gbl_contentPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
         contentPanel.setLayout(gbl_contentPanel);
+        {
+            JLabel lblDistanz = new JLabel(BUNDLE.getString("DistanzwechselDialog.lblDistanz.text")); //$NON-NLS-1$
+            GridBagConstraints gbc_lblDistanz = new GridBagConstraints();
+            gbc_lblDistanz.insets = new Insets(0, 0, 0, 5);
+            gbc_lblDistanz.anchor = GridBagConstraints.WEST;
+            gbc_lblDistanz.gridx = 0;
+            gbc_lblDistanz.gridy = 0;
+            contentPanel.add(lblDistanz, gbc_lblDistanz);
+        }
         
         comboBoxDirection = new JComboBox<HopserOptionEnum>();
         comboBoxDirection.setModel(new DefaultComboBoxModel<HopserOptionEnum>(HopserOptionEnum.values()));
         GridBagConstraints gbc_comboBoxDirection = new GridBagConstraints();
         gbc_comboBoxDirection.fill = GridBagConstraints.HORIZONTAL;
         gbc_comboBoxDirection.insets = new Insets(0, 0, 0, 5);
-        gbc_comboBoxDirection.gridx = 0;
+        gbc_comboBoxDirection.gridx = 1;
         gbc_comboBoxDirection.gridy = 0;
         contentPanel.add(comboBoxDirection, gbc_comboBoxDirection);
         
-        JLabel lblNewLabel = new JLabel(BUNDLE.getString("DistanceChangeDialog.lblNewLabel.text")); //$NON-NLS-1$
+        JLabel lblNewLabel = new JLabel(BUNDLE.getString("DistanzwechselDialog.lblNewLabel.text")); //$NON-NLS-1$
         lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
         GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
         gbc_lblNewLabel.fill = GridBagConstraints.HORIZONTAL;
         gbc_lblNewLabel.insets = new Insets(0, 0, 0, 5);
-        gbc_lblNewLabel.gridx = 1;
+        gbc_lblNewLabel.gridx = 2;
         gbc_lblNewLabel.gridy = 0;
         contentPanel.add(lblNewLabel, gbc_lblNewLabel);
         
@@ -79,14 +88,14 @@ public class DistanzwechselDialog extends JDialog {
         GridBagConstraints gbc_distanzklassenAenderung = new GridBagConstraints();
         gbc_distanzklassenAenderung.anchor = GridBagConstraints.WEST;
         gbc_distanzklassenAenderung.insets = new Insets(0, 0, 0, 5);
-        gbc_distanzklassenAenderung.gridx = 2;
+        gbc_distanzklassenAenderung.gridx = 3;
         gbc_distanzklassenAenderung.gridy = 0;
         contentPanel.add(dkAenderung, gbc_distanzklassenAenderung);
         
-        JLabel lblNewLabel_1 = new JLabel(BUNDLE.getString("DistanceChangeDialog.lblNewLabel_1.text")); //$NON-NLS-1$
+        JLabel lblNewLabel_1 = new JLabel(BUNDLE.getString("DistanzwechselDialog.lblNewLabel_1.text")); //$NON-NLS-1$
         GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
         gbc_lblNewLabel_1.fill = GridBagConstraints.HORIZONTAL;
-        gbc_lblNewLabel_1.gridx = 3;
+        gbc_lblNewLabel_1.gridx = 4;
         gbc_lblNewLabel_1.gridy = 0;
         contentPanel.add(lblNewLabel_1, gbc_lblNewLabel_1);
         {
@@ -94,7 +103,7 @@ public class DistanzwechselDialog extends JDialog {
             buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
             getContentPane().add(buttonPane, BorderLayout.SOUTH);
             {
-                JButton okButton = new JButton(BUNDLE.getString("DistanceChangeDialog.okButton.text")); //$NON-NLS-1$
+                JButton okButton = new JButton(BUNDLE.getString("DistanzwechselDialog.okButton.text")); //$NON-NLS-1$
                 okButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         boolean verdoppeln = ((int) dkAenderung.getSelectedItem() == 2) ? true : false;
@@ -104,19 +113,19 @@ public class DistanzwechselDialog extends JDialog {
                         dispose();
                     }
                 });
-                okButton.setActionCommand(BUNDLE.getString("DistanceChangeDialog.okButton.actionCommand")); //$NON-NLS-1$
+                okButton.setActionCommand(BUNDLE.getString("DistanzwechselDialog.okButton.actionCommand")); //$NON-NLS-1$
                 buttonPane.add(okButton);
                 getRootPane().setDefaultButton(okButton);
             }
             {
-                JButton cancelButton = new JButton(BUNDLE.getString("DistanceChangeDialog.cancelButton.text")); //$NON-NLS-1$
+                JButton cancelButton = new JButton(BUNDLE.getString("DistanzwechselDialog.cancelButton.text")); //$NON-NLS-1$
                 cancelButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         state = Konstanten.DIALOG_CANCEL_STATE;
                         dispose();
                     }
                 });
-                cancelButton.setActionCommand(BUNDLE.getString("DistanceChangeDialog.cancelButton.actionCommand")); //$NON-NLS-1$
+                cancelButton.setActionCommand(BUNDLE.getString("DistanzwechselDialog.cancelButton.actionCommand")); //$NON-NLS-1$
                 buttonPane.add(cancelButton);
             }
         }

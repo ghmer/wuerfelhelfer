@@ -9,5 +9,5 @@ package link.parzival.dsa.object.enumeration;
  *
  */
 public enum HopserOptionEnum {
-    verkürzen, verlängern
+    verkürzen, vergrößern
 }
