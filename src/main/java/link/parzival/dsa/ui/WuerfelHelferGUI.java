@@ -57,6 +57,7 @@ import java.awt.Insets;
 import java.awt.SplashScreen;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
+import javax.swing.JCheckBoxMenuItem;
 
 public class WuerfelHelferGUI extends JFrame {
     private static final long serialVersionUID      = 6428768807868759732L;
@@ -66,6 +67,7 @@ public class WuerfelHelferGUI extends JFrame {
     private HeldenObjekt hero                       = null;
     private JMenuItem menuItemHelleDarstellung      = null;
     private JMenuItem menuItemDunkleDarstellung     = null;
+    private JMenu menuAnsicht                       = null;
     private HeldenPanel heldenPanel                 = null;
     private TalentPanel talentPanel                 = null;
     private KampfPanel kampfPanel                   = null;
@@ -256,6 +258,43 @@ public class WuerfelHelferGUI extends JFrame {
         });
         menuTabellen.add(menuItemKampfbedingungen);
         
+        menuAnsicht = new JMenu(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.mnNewMenu.text"));
+        menuAnsicht.setVisible(false);
+        menuBar.add(menuAnsicht);
+        
+        JCheckBoxMenuItem cbZeigeHeldenPanel = new JCheckBoxMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.cbZeigeHeldenPanel.text")); //$NON-NLS-1$ //$NON-NLS-2$
+        cbZeigeHeldenPanel.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JCheckBoxMenuItem item = (JCheckBoxMenuItem)e.getSource();
+                heldenPanel.setVisible(item.isSelected());
+                pack();
+            }
+        });
+        cbZeigeHeldenPanel.setSelected(true);
+        menuAnsicht.add(cbZeigeHeldenPanel);
+        
+        JCheckBoxMenuItem cbZeigeTalentPanel = new JCheckBoxMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.cbZeigeTalentPanel.text")); //$NON-NLS-1$ //$NON-NLS-2$
+        cbZeigeTalentPanel.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JCheckBoxMenuItem item = (JCheckBoxMenuItem)e.getSource();
+                talentPanel.setVisible(item.isSelected());
+                pack();
+            }
+        });
+        cbZeigeTalentPanel.setSelected(true);
+        menuAnsicht.add(cbZeigeTalentPanel);
+        
+        JCheckBoxMenuItem cbZeigeKampfPanel = new JCheckBoxMenuItem(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.cbZeigeKampfPanel.text")); //$NON-NLS-1$ //$NON-NLS-2$
+        cbZeigeKampfPanel.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JCheckBoxMenuItem item = (JCheckBoxMenuItem)e.getSource();
+                kampfPanel.setVisible(item.isSelected());
+                pack();
+            }
+        });
+        cbZeigeKampfPanel.setSelected(true);
+        menuAnsicht.add(cbZeigeKampfPanel);
+        
         JMenu menuHilfe = new JMenu(ResourceBundle.getBundle("link.parzival.dsa.ui.messages").getString("WuerfelHelferGUI.menuHilfe.text")); //$NON-NLS-1$ //$NON-NLS-2$
         menuBar.add(menuHilfe);
         
@@ -432,7 +471,8 @@ public class WuerfelHelferGUI extends JFrame {
     private void setItemVisibility() {
         heldenPanel.setVisible(true);
         talentPanel.setVisible(true);
-        kampfPanel.setVisible(true);    
+        kampfPanel.setVisible(true);  
+        menuAnsicht.setVisible(true);
         pack();
     }
 }
