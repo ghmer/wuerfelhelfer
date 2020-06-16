@@ -35,7 +35,7 @@ class HeldenDokumentParserTest {
     private static final String _DOCUMENT_NAME  = "PedderLuminow.html";
     private static final String _FK_WAFFE_NAME  = "Leichte Armbrust";
     private static final String _NK_WAFFE_NAME  = "Knüppel";
-    private static final String _PA_NAME        = "Holzschild";
+    private static final String _PW_WAFFE_NAME  = "Holzschild";
     private static final int _PW_LIST_SIZE      =  1;
     private static final int _BEHINDERUNG       =  1;
     private static final int _NK_LIST_SIZE      =  1;
@@ -251,7 +251,7 @@ class HeldenDokumentParserTest {
         
         ParadeObjekt waffe = waffenListe.get(0);
         assertNotNull(waffe);
-        assertEquals(waffe.getName(), _PA_NAME);
+        assertEquals(waffe.getName(), _PW_WAFFE_NAME);
         assertEquals(waffe.getParade(), _PW_PARADE);
         
     }
