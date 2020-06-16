@@ -30,7 +30,7 @@ import link.parzival.dsa.object.enumeration.DKEnum;
 @TestMethodOrder(OrderAnnotation.class)
 class HeldenDokumentParserTest {
 
-    private static final int _ZAUBER_LIST_SIZE = 2;
+    private static final int _ZAUBER_LIST_SIZE  = 2;
     private static final String _HELDEN_NAME    = "Pedder Luminow";
     private static final int _ASTRALENERGIE     = 20;
     private static final int _ATTACKE_BASIS     =  8;
