@@ -95,6 +95,11 @@ public class WuerfelHelferGUI extends JFrame {
             _LOG.severe( "Failed to initialize LaF" );
         }
         
+        UIManager.put( "Button.arc", 15 );
+        UIManager.put( "Component.arc", 15 );
+        UIManager.put( "ProgressBar.arc", 15 );
+        UIManager.put( "TextComponent.arc", 15 );
+        
         this.customHeroNameFont = UIHelfer.getFontFromResource("/Friedolin.ttf");
         GraphicsEnvironment ge  = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(customHeroNameFont);
@@ -359,11 +364,15 @@ public class WuerfelHelferGUI extends JFrame {
                 }
             }
         });
-        try {
-            splashScreenThread.start();
-            splashScreenThread.join();
-        } catch (InterruptedException e1) {
-            _LOG.severe(e1.getMessage());
+        
+        if(splash != null) {
+            
+            try {
+                splashScreenThread.start();
+                splashScreenThread.join();
+            } catch (InterruptedException e1) {
+                _LOG.severe(e1.getMessage());
+            }
         }
     }
 
