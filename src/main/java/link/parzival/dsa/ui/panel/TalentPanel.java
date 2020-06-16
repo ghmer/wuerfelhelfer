@@ -60,15 +60,15 @@ public class TalentPanel extends JPanel {
 
     public TalentPanel() {
         GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.columnWidths = new int[]{180, 40, 75, 75, 75, 75, 100, 0};
+        gridBagLayout.columnWidths = new int[]{10, 180, 40, 75, 75, 75, 75, 100, 0};
         gridBagLayout.rowHeights = new int[]{15, 0, 15, 0, 0, 0};
-        gridBagLayout.columnWeights = new double[]{1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+        gridBagLayout.columnWeights = new double[]{0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
         gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
         setLayout(gridBagLayout);
         
         JPanel separatorPanel1 = new JPanel();
         GridBagConstraints gbc_separatorPanel1 = new GridBagConstraints();
-        gbc_separatorPanel1.gridwidth = 7;
+        gbc_separatorPanel1.gridwidth = 8;
         gbc_separatorPanel1.insets = new Insets(0, 0, 5, 0);
         gbc_separatorPanel1.fill = GridBagConstraints.BOTH;
         gbc_separatorPanel1.gridx = 0;
@@ -77,7 +77,7 @@ public class TalentPanel extends JPanel {
         separatorPanel1.setLayout(new BorderLayout(0, 0));
         
         JSeparator separator = new JSeparator();
-        separatorPanel1.add(separator);
+        separatorPanel1.add(separator, BorderLayout.NORTH);
         
         JButton btnProbeWaehlen = new JButton(BUNDLE.getString("TalentPanel.btnProbeWaehlen.text")); //$NON-NLS-1$
         
@@ -100,7 +100,7 @@ public class TalentPanel extends JPanel {
         GridBagConstraints gbc_btnProbeWaehlen = new GridBagConstraints();
         gbc_btnProbeWaehlen.anchor = GridBagConstraints.NORTH;
         gbc_btnProbeWaehlen.fill = GridBagConstraints.HORIZONTAL;
-        gbc_btnProbeWaehlen.gridwidth = 7;
+        gbc_btnProbeWaehlen.gridwidth = 8;
         gbc_btnProbeWaehlen.insets = new Insets(0, 0, 5, 0);
         gbc_btnProbeWaehlen.gridx = 0;
         gbc_btnProbeWaehlen.gridy = 1;
@@ -108,8 +108,8 @@ public class TalentPanel extends JPanel {
         
         JPanel separatorPanel2 = new JPanel();
         GridBagConstraints gbc_separatorPanel2 = new GridBagConstraints();
-        gbc_separatorPanel2.gridwidth = 7;
-        gbc_separatorPanel2.insets = new Insets(0, 0, 5, 5);
+        gbc_separatorPanel2.gridwidth = 8;
+        gbc_separatorPanel2.insets = new Insets(0, 0, 5, 0);
         gbc_separatorPanel2.fill = GridBagConstraints.BOTH;
         gbc_separatorPanel2.gridx = 0;
         gbc_separatorPanel2.gridy = 2;
@@ -124,7 +124,7 @@ public class TalentPanel extends JPanel {
         gbc_lblTalentName.anchor = GridBagConstraints.NORTH;
         gbc_lblTalentName.fill = GridBagConstraints.HORIZONTAL;
         gbc_lblTalentName.insets = new Insets(0, 0, 5, 5);
-        gbc_lblTalentName.gridx = 0;
+        gbc_lblTalentName.gridx = 1;
         gbc_lblTalentName.gridy = 3;
         add(lblTalentName, gbc_lblTalentName);
         
@@ -134,7 +134,7 @@ public class TalentPanel extends JPanel {
         gbc_lblTaw.anchor = GridBagConstraints.NORTH;
         gbc_lblTaw.fill = GridBagConstraints.HORIZONTAL;
         gbc_lblTaw.insets = new Insets(0, 0, 5, 5);
-        gbc_lblTaw.gridx = 1;
+        gbc_lblTaw.gridx = 2;
         gbc_lblTaw.gridy = 3;
         add(lblTaw, gbc_lblTaw);
         
@@ -144,7 +144,7 @@ public class TalentPanel extends JPanel {
         gbc_lblE1.anchor = GridBagConstraints.NORTH;
         gbc_lblE1.fill = GridBagConstraints.HORIZONTAL;
         gbc_lblE1.insets = new Insets(0, 0, 5, 5);
-        gbc_lblE1.gridx = 2;
+        gbc_lblE1.gridx = 3;
         gbc_lblE1.gridy = 3;
         add(lblE1, gbc_lblE1);
         
@@ -154,7 +154,7 @@ public class TalentPanel extends JPanel {
         gbc_lblE2.anchor = GridBagConstraints.NORTH;
         gbc_lblE2.fill = GridBagConstraints.HORIZONTAL;
         gbc_lblE2.insets = new Insets(0, 0, 5, 5);
-        gbc_lblE2.gridx = 3;
+        gbc_lblE2.gridx = 4;
         gbc_lblE2.gridy = 3;
         add(lblE2, gbc_lblE2);
         
@@ -164,7 +164,7 @@ public class TalentPanel extends JPanel {
         gbc_lblE3.anchor = GridBagConstraints.NORTH;
         gbc_lblE3.fill = GridBagConstraints.HORIZONTAL;
         gbc_lblE3.insets = new Insets(0, 0, 5, 5);
-        gbc_lblE3.gridx = 4;
+        gbc_lblE3.gridx = 5;
         gbc_lblE3.gridy = 3;
         add(lblE3, gbc_lblE3);
         
@@ -174,7 +174,7 @@ public class TalentPanel extends JPanel {
         gbc_lblMod.anchor = GridBagConstraints.NORTH;
         gbc_lblMod.fill = GridBagConstraints.HORIZONTAL;
         gbc_lblMod.insets = new Insets(0, 0, 5, 5);
-        gbc_lblMod.gridx = 5;
+        gbc_lblMod.gridx = 6;
         gbc_lblMod.gridy = 3;
         add(lblMod, gbc_lblMod);
         
@@ -182,7 +182,7 @@ public class TalentPanel extends JPanel {
         GridBagConstraints gbc_lblAbility = new GridBagConstraints();
         gbc_lblAbility.fill = GridBagConstraints.HORIZONTAL;
         gbc_lblAbility.insets = new Insets(0, 0, 0, 5);
-        gbc_lblAbility.gridx = 0;
+        gbc_lblAbility.gridx = 1;
         gbc_lblAbility.gridy = 4;
         add(lblAbility, gbc_lblAbility);
         
@@ -191,7 +191,7 @@ public class TalentPanel extends JPanel {
         GridBagConstraints gbc_lblTawValue = new GridBagConstraints();
         gbc_lblTawValue.fill = GridBagConstraints.HORIZONTAL;
         gbc_lblTawValue.insets = new Insets(0, 0, 0, 5);
-        gbc_lblTawValue.gridx = 1;
+        gbc_lblTawValue.gridx = 2;
         gbc_lblTawValue.gridy = 4;
         add(lblTawValue, gbc_lblTawValue);
         
@@ -311,7 +311,7 @@ public class TalentPanel extends JPanel {
         GridBagConstraints gbc_pruefEigenschaft1 = new GridBagConstraints();
         gbc_pruefEigenschaft1.fill = GridBagConstraints.HORIZONTAL;
         gbc_pruefEigenschaft1.insets = new Insets(0, 0, 0, 5);
-        gbc_pruefEigenschaft1.gridx = 2;
+        gbc_pruefEigenschaft1.gridx = 3;
         gbc_pruefEigenschaft1.gridy = 4;
         add(pruefEigenschaft1, gbc_pruefEigenschaft1);
         
@@ -321,7 +321,7 @@ public class TalentPanel extends JPanel {
         GridBagConstraints gbc_pruefEigenschaft2 = new GridBagConstraints();
         gbc_pruefEigenschaft2.fill = GridBagConstraints.HORIZONTAL;
         gbc_pruefEigenschaft2.insets = new Insets(0, 0, 0, 5);
-        gbc_pruefEigenschaft2.gridx = 3;
+        gbc_pruefEigenschaft2.gridx = 4;
         gbc_pruefEigenschaft2.gridy = 4;
         add(pruefEigenschaft2, gbc_pruefEigenschaft2);
         
@@ -331,7 +331,7 @@ public class TalentPanel extends JPanel {
         GridBagConstraints gbc_pruefEigenschaft3 = new GridBagConstraints();
         gbc_pruefEigenschaft3.fill = GridBagConstraints.HORIZONTAL;
         gbc_pruefEigenschaft3.insets = new Insets(0, 0, 0, 5);
-        gbc_pruefEigenschaft3.gridx = 4;
+        gbc_pruefEigenschaft3.gridx = 5;
         gbc_pruefEigenschaft3.gridy = 4;
         add(pruefEigenschaft3, gbc_pruefEigenschaft3);
         
@@ -339,12 +339,12 @@ public class TalentPanel extends JPanel {
         GridBagConstraints gbc_pruefModifier = new GridBagConstraints();
         gbc_pruefModifier.fill = GridBagConstraints.HORIZONTAL;
         gbc_pruefModifier.insets = new Insets(0, 0, 0, 5);
-        gbc_pruefModifier.gridx = 5;
+        gbc_pruefModifier.gridx = 6;
         gbc_pruefModifier.gridy = 4;
         add(pruefModifier, gbc_pruefModifier);
         GridBagConstraints gbc_btnCreateRoll = new GridBagConstraints();
         gbc_btnCreateRoll.fill = GridBagConstraints.HORIZONTAL;
-        gbc_btnCreateRoll.gridx = 6;
+        gbc_btnCreateRoll.gridx = 7;
         gbc_btnCreateRoll.gridy = 4;
         add(btnCreateRoll, gbc_btnCreateRoll);
     }
