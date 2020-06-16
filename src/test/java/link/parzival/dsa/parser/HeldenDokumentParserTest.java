@@ -19,6 +19,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 import link.parzival.dsa.object.FernwaffenObjekt;
 import link.parzival.dsa.object.HeldenObjekt;
+import link.parzival.dsa.object.ParadeObjekt;
 import link.parzival.dsa.object.WaffenObjekt;
 import link.parzival.dsa.object.enumeration.DKEnum;
 
@@ -29,11 +30,13 @@ import link.parzival.dsa.object.enumeration.DKEnum;
  */
 @TestMethodOrder(OrderAnnotation.class)
 class HeldenDokumentParserTest {
-    
+
     private static final String _HELDEN_NAME    = "Pedder Luminow";
     private static final String _DOCUMENT_NAME  = "PedderLuminow.html";
     private static final String _FK_WAFFE_NAME  = "Leichte Armbrust";
     private static final String _NK_WAFFE_NAME  = "Knüppel";
+    private static final String _PA_NAME        = "Holzschild";
+    private static final int _PW_LIST_SIZE      =  1;
     private static final int _BEHINDERUNG       =  1;
     private static final int _NK_LIST_SIZE      =  1;
     private static final int _FK_LIST_SIZE      =  2;
@@ -44,14 +47,15 @@ class HeldenDokumentParserTest {
     private static final int _ATTACKE_BASIS     =  8;   
     private static final int _MAGIERESISTENZ    =  9;
     private static final int _INITIATIVE_BASIS  = 10;
+    private static final int _PW_PARADE         = 10;
     private static final int _NK_WAFFE_PA       = 10;
     private static final int _FINGERFERTIGKEIT  = 11;
     private static final int _KOERPERKRAFT      = 12;
     private static final int _KONSTITUTION      = 12;
     private static final int _GEWANDTHEIT       = 12;
     private static final int _INTUITION         = 12;
+    private static final int _NK_WAFFE_AT       = 12;
     private static final int _CHARISMA          = 13;
-    private static final int _NK_WAFFE_AT       = 13;
     private static final int _KLUGHEIT          = 14;
     private static final int _MUT               = 14;
     private static final int _FK_TAW            = 17;
@@ -240,6 +244,20 @@ class HeldenDokumentParserTest {
     
     @Test
     @Order(25)
+    void TestParadeObjekt() {
+        List<ParadeObjekt> waffenListe = heldenObjekt.getParadeWaffen();
+        assertNotNull(waffenListe);
+        assertEquals(waffenListe.size(), _PW_LIST_SIZE);
+        
+        ParadeObjekt waffe = waffenListe.get(0);
+        assertNotNull(waffe);
+        assertEquals(waffe.getName(), _PA_NAME);
+        assertEquals(waffe.getParade(), _PW_PARADE);
+        
+    }
+    
+    @Test
+    @Order(26)
     void testBehinderung() {
         assertEquals(heldenObjekt.getBehinderung(), _BEHINDERUNG);
         
