@@ -29,8 +29,14 @@ import link.parzival.dsa.object.enumeration.DKEnum;
  */
 @TestMethodOrder(OrderAnnotation.class)
 class HeldenDokumentParserTest {
-
+    
     private static final String _HELDEN_NAME    = "Pedder Luminow";
+    private static final String _DOCUMENT_NAME  = "PedderLuminow.html";
+    private static final String _FK_WAFFE_NAME  = "Leichte Armbrust";
+    private static final String _NK_WAFFE_NAME  = "Knüppel";
+    private static final int _BEHINDERUNG       =  1;
+    private static final int _NK_LIST_SIZE      =  1;
+    private static final int _FK_LIST_SIZE      =  2;
     private static final int _ZAUBER_LIST_SIZE  =  2;
     private static final int _SF_LIST_SIZE      =  6;
     private static final int _PARADE_BASIS      =  7;
@@ -38,32 +44,32 @@ class HeldenDokumentParserTest {
     private static final int _ATTACKE_BASIS     =  8;   
     private static final int _MAGIERESISTENZ    =  9;
     private static final int _INITIATIVE_BASIS  = 10;
+    private static final int _NK_WAFFE_PA       = 10;
     private static final int _FINGERFERTIGKEIT  = 11;
     private static final int _KOERPERKRAFT      = 12;
     private static final int _KONSTITUTION      = 12;
     private static final int _GEWANDTHEIT       = 12;
     private static final int _INTUITION         = 12;
     private static final int _CHARISMA          = 13;
+    private static final int _NK_WAFFE_AT       = 13;
     private static final int _KLUGHEIT          = 14;
     private static final int _MUT               = 14;
+    private static final int _FK_TAW            = 17;
     private static final int _ASTRALENERGIE     = 20;
     private static final int _KARMALENERGIE     = 24;
     private static final int _LEBENSENERGIE     = 28;
     private static final int _AUSDAUER          = 29;
     public static final int _TALENTE_LIST_SIZE  = 46;
     public static HeldenObjekt heldenObjekt     = null;
-    static HeldenDokumentParser parser          = null;
-    public static boolean setup                 = false;
-    
-    static File xmlDocumentSourceFile           = null;    
-    static String xmlDocumentSourceName         = "PedderLuminow.html";
+    public static HeldenDokumentParser parser   = null;
+    public static File xmlDocumentSourceFile    = null;
     
     @BeforeAll
     static void setupBefore() {
         parser = new HeldenDokumentParser();        
         ClassLoader cl = HeldenDokumentParserTest.class.getClassLoader();
         
-        xmlDocumentSourceFile = new File(cl.getResource(xmlDocumentSourceName).getFile());
+        xmlDocumentSourceFile = new File(cl.getResource(_DOCUMENT_NAME).getFile());
         assertTrue(xmlDocumentSourceFile.exists());
         
         try {
@@ -207,13 +213,13 @@ class HeldenDokumentParserTest {
     void testNahkampfWaffen() {
         List<WaffenObjekt> waffenListe = heldenObjekt.getWaffen();
         assertNotNull(waffenListe);
-        assertEquals(waffenListe.size(), 1);
+        assertEquals(waffenListe.size(), _NK_LIST_SIZE);
         
         WaffenObjekt waffe = waffenListe.get(0);
         assertNotNull(waffe);
-        assertEquals(waffe.getName(), "Knüppel");
-        assertEquals(waffe.getAttacke(), 13);
-        assertEquals(waffe.getParade(),  10);
+        assertEquals(waffe.getName(), _NK_WAFFE_NAME);
+        assertEquals(waffe.getAttacke(), _NK_WAFFE_AT);
+        assertEquals(waffe.getParade(),  _NK_WAFFE_PA);
         assertEquals(waffe.getDistanzklassen().get(0), DKEnum.N);
         
     }
@@ -223,19 +229,19 @@ class HeldenDokumentParserTest {
     void testFernkampfWaffen() {
         List<FernwaffenObjekt> waffenListe = heldenObjekt.getFernWaffen();
         assertNotNull(waffenListe);
-        assertEquals(waffenListe.size(), 2);
+        assertEquals(waffenListe.size(), _FK_LIST_SIZE);
         
         FernwaffenObjekt waffe = waffenListe.get(0);
         assertNotNull(waffe);
-        assertEquals(waffe.getName(), "Leichte Armbrust");
-        assertEquals(waffe.getFk(), 17);
+        assertEquals(waffe.getName(), _FK_WAFFE_NAME);
+        assertEquals(waffe.getFk(), _FK_TAW);
         
     }
     
     @Test
     @Order(25)
     void testBehinderung() {
-        assertEquals(heldenObjekt.getBehinderung(), 1);
+        assertEquals(heldenObjekt.getBehinderung(), _BEHINDERUNG);
         
     }
 }
