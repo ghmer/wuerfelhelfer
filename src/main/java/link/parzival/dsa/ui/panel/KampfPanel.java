@@ -329,9 +329,8 @@ public class KampfPanel extends JPanel {
         btnAusweichen = new JButton(BUNDLE.getString("KampfPanel.btnAusweichen.text")); //$NON-NLS-1$
         btnAusweichen.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Font: " + getFont().getName());
                 AusweichDialog dialog = new AusweichDialog(hero, getInitiative(), chkUseDK.isSelected(),
-                        chkUseDK.isSelected() ? (DKEnum) comboBoxCurrentDK.getSelectedItem() : null, getFont());
+                        chkUseDK.isSelected() ? (DKEnum) comboBoxCurrentDK.getSelectedItem() : null);
                 dialog.setFont(getFont());
                 dialog.setLocationRelativeTo(btnAusweichen.getRootPane());
                 switch (dialog.showDialog()) {
