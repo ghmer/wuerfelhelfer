@@ -139,7 +139,7 @@ public class KampfPanel extends JPanel {
         separatorPanel1.add(separator_1, BorderLayout.NORTH);
 
         lblKampfHeadline = new JLabel(BUNDLE.getString("KampfPanel.lblKampfHeadline.text")); //$NON-NLS-1$
-        lblKampfHeadline.setFont(new Font("Lucida Grande", Font.BOLD, 15));
+        lblKampfHeadline.setFont(getFont().deriveFont(Font.BOLD, 15));
         GridBagConstraints gbc_lblKampfHeadline = new GridBagConstraints();
         gbc_lblKampfHeadline.anchor = GridBagConstraints.WEST;
         gbc_lblKampfHeadline.insets = new Insets(0, 0, 5, 5);
@@ -228,6 +228,7 @@ public class KampfPanel extends JPanel {
         lblRightWeaponHand = new JLabel(BUNDLE.getString("KampfPanel.lblRightWeaponHand.text")); //$NON-NLS-1$
         lblRightWeaponHand.setHorizontalAlignment(SwingConstants.TRAILING);
         GridBagConstraints gbc_lblRightWeaponHand = new GridBagConstraints();
+        gbc_lblRightWeaponHand.gridwidth = 3;
         gbc_lblRightWeaponHand.anchor = GridBagConstraints.EAST;
         gbc_lblRightWeaponHand.insets = new Insets(0, 0, 5, 5);
         gbc_lblRightWeaponHand.gridx = 1;
@@ -248,8 +249,8 @@ public class KampfPanel extends JPanel {
         GridBagConstraints gbc_comboBoxRightWeaponHand = new GridBagConstraints();
         gbc_comboBoxRightWeaponHand.fill = GridBagConstraints.HORIZONTAL;
         gbc_comboBoxRightWeaponHand.insets = new Insets(0, 0, 5, 0);
-        gbc_comboBoxRightWeaponHand.gridwidth = 7;
-        gbc_comboBoxRightWeaponHand.gridx = 2;
+        gbc_comboBoxRightWeaponHand.gridwidth = 5;
+        gbc_comboBoxRightWeaponHand.gridx = 4;
         gbc_comboBoxRightWeaponHand.gridy = 3;
         add(comboBoxRightWeaponHand, gbc_comboBoxRightWeaponHand);
 
@@ -270,6 +271,7 @@ public class KampfPanel extends JPanel {
         lblSchild = new JLabel(BUNDLE.getString("KampfPanel.lblSchild.text")); //$NON-NLS-1$
         lblSchild.setHorizontalAlignment(SwingConstants.TRAILING);
         GridBagConstraints gbc_lblSchild = new GridBagConstraints();
+        gbc_lblSchild.gridwidth = 3;
         gbc_lblSchild.fill = GridBagConstraints.HORIZONTAL;
         gbc_lblSchild.insets = new Insets(0, 0, 5, 5);
         gbc_lblSchild.gridx = 1;
@@ -278,14 +280,15 @@ public class KampfPanel extends JPanel {
         GridBagConstraints gbc_comboBoxSchildhand = new GridBagConstraints();
         gbc_comboBoxSchildhand.fill = GridBagConstraints.HORIZONTAL;
         gbc_comboBoxSchildhand.insets = new Insets(0, 0, 5, 0);
-        gbc_comboBoxSchildhand.gridwidth = 7;
-        gbc_comboBoxSchildhand.gridx = 2;
+        gbc_comboBoxSchildhand.gridwidth = 5;
+        gbc_comboBoxSchildhand.gridx = 4;
         gbc_comboBoxSchildhand.gridy = 4;
         add(comboBoxSchildhand, gbc_comboBoxSchildhand);
 
         lblFernkampfWaffe = new JLabel(BUNDLE.getString("KampfPanel.lblFernkampfWaffe.text")); //$NON-NLS-1$
         lblFernkampfWaffe.setHorizontalAlignment(SwingConstants.TRAILING);
         GridBagConstraints gbc_lblFernkampfWaffe = new GridBagConstraints();
+        gbc_lblFernkampfWaffe.gridwidth = 3;
         gbc_lblFernkampfWaffe.anchor = GridBagConstraints.EAST;
         gbc_lblFernkampfWaffe.insets = new Insets(0, 0, 5, 5);
         gbc_lblFernkampfWaffe.gridx = 1;
@@ -303,10 +306,10 @@ public class KampfPanel extends JPanel {
         });
 
         GridBagConstraints gbc_comboBoxFernkampfwaffe = new GridBagConstraints();
-        gbc_comboBoxFernkampfwaffe.gridwidth = 7;
+        gbc_comboBoxFernkampfwaffe.gridwidth = 5;
         gbc_comboBoxFernkampfwaffe.insets = new Insets(0, 0, 5, 0);
         gbc_comboBoxFernkampfwaffe.fill = GridBagConstraints.HORIZONTAL;
-        gbc_comboBoxFernkampfwaffe.gridx = 2;
+        gbc_comboBoxFernkampfwaffe.gridx = 4;
         gbc_comboBoxFernkampfwaffe.gridy = 5;
         add(comboBoxFernkampfwaffe, gbc_comboBoxFernkampfwaffe);
 
