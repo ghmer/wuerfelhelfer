@@ -74,6 +74,10 @@ public class WuerfelHelferGUI extends JFrame {
     
     private SplashScreen splash                     = null;
     
+    private boolean zeigeHeldenPanel                = true;
+    private boolean zeigeTalentPanel                = true;
+    private boolean zeigeKampfPanel                 = true;
+    
     protected void showSplashScreen() {
         splash = SplashScreen.getSplashScreen();
         if (splash == null) {
@@ -266,8 +270,8 @@ public class WuerfelHelferGUI extends JFrame {
         cbZeigeHeldenPanel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JCheckBoxMenuItem item = (JCheckBoxMenuItem)e.getSource();
-                heldenPanel.setVisible(item.isSelected());
-                pack();
+                zeigeHeldenPanel = item.isSelected();
+                setItemVisibility();
             }
         });
         cbZeigeHeldenPanel.setSelected(true);
@@ -277,8 +281,8 @@ public class WuerfelHelferGUI extends JFrame {
         cbZeigeTalentPanel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JCheckBoxMenuItem item = (JCheckBoxMenuItem)e.getSource();
-                talentPanel.setVisible(item.isSelected());
-                pack();
+                zeigeTalentPanel = item.isSelected();
+                setItemVisibility();
             }
         });
         cbZeigeTalentPanel.setSelected(true);
@@ -288,8 +292,8 @@ public class WuerfelHelferGUI extends JFrame {
         cbZeigeKampfPanel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JCheckBoxMenuItem item = (JCheckBoxMenuItem)e.getSource();
-                kampfPanel.setVisible(item.isSelected());
-                pack();
+                zeigeKampfPanel = item.isSelected();
+                setItemVisibility();
             }
         });
         cbZeigeKampfPanel.setSelected(true);
@@ -469,9 +473,9 @@ public class WuerfelHelferGUI extends JFrame {
     }
         
     private void setItemVisibility() {
-        heldenPanel.setVisible(true);
-        talentPanel.setVisible(true);
-        kampfPanel.setVisible(true);  
+        heldenPanel.setVisible(zeigeHeldenPanel);
+        talentPanel.setVisible(zeigeTalentPanel);
+        kampfPanel.setVisible(zeigeKampfPanel);  
         menuAnsicht.setVisible(true);
         pack();
     }
