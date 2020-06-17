@@ -45,6 +45,8 @@ public class AusweichDialog extends JDialog {
     private String rollCommand                      = null;
     private int state                               = Konstanten.DIALOG_CANCEL_STATE;
 
+    public AusweichDialog() {}
+
     /**
      * @param hero
      *            the HeldenObjekt to set
@@ -55,8 +57,6 @@ public class AusweichDialog extends JDialog {
      * @param distanzklasse
      *            the Distanzklasse to use
      */
-    public AusweichDialog() {}
-
     public void initialize(HeldenObjekt hero, int initiative, boolean withDk, DKEnum distanzklasse) {
 
         setBounds(100, 100, 450, 130);
