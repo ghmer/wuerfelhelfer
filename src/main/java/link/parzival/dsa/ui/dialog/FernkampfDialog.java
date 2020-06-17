@@ -96,6 +96,9 @@ public class FernkampfDialog extends JDialog {
      */
     public FernkampfDialog(FernwaffenObjekt fernwaffenObjekt) {
         this.setFernwaffenObjekt(fernwaffenObjekt);
+    }
+    
+    public void initialize() {       
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setResizable(false);
         setModal(true);
@@ -1043,6 +1046,7 @@ public class FernkampfDialog extends JDialog {
         summaryPanel.setLayout(gbl_summaryPanel);
         
         JLabel lblZusammenfassungHeadline = new JLabel(BUNDLE.getString("FernkampfDialog.lblZusammenfassungHeadline.text")); //$NON-NLS-1$
+        System.out.println(getParent().getName());
         lblZusammenfassungHeadline.setFont(getFont().deriveFont(Font.PLAIN, 16));
         GridBagConstraints gbc_lblZusammenfassungHeadline = new GridBagConstraints();
         gbc_lblZusammenfassungHeadline.anchor = GridBagConstraints.WEST;
@@ -1217,6 +1221,7 @@ public class FernkampfDialog extends JDialog {
         });
         
         buttonPane.add(forwardButton);
+    
     }
     
     /**

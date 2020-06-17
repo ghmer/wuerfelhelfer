@@ -55,7 +55,10 @@ public class AusweichDialog extends JDialog {
      * @param distanzklasse
      *            the Distanzklasse to use
      */
-    public AusweichDialog(HeldenObjekt hero, int initiative, boolean withDk, DKEnum distanzklasse) {
+    public AusweichDialog() {}
+
+    public void initialize(HeldenObjekt hero, int initiative, boolean withDk, DKEnum distanzklasse) {
+
         setBounds(100, 100, 450, 130);
         setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
         setModal(true);
@@ -72,6 +75,7 @@ public class AusweichDialog extends JDialog {
 
         lblEvasionNotPossible = new JLabel(BUNDLE.getString("EvasionDialog.lblEvasionNotPossible.text")); //$NON-NLS-1$
         lblEvasionNotPossible.setForeground(Color.RED);
+        lblEvasionNotPossible.setFont(getFont().deriveFont(Font.BOLD, 13));
         lblEvasionNotPossible.setVisible(false);
 
         comboBoxEnemyCount = new JComboBox<>();
@@ -89,7 +93,6 @@ public class AusweichDialog extends JDialog {
                 } else {
                     enemyCount = Integer.parseInt(selection);
                     lblEvasionNotPossible.setVisible(false);
-                    lblEvasionNotPossible.setFont(getFont().deriveFont(Font.BOLD, 13));
                     okButton.setEnabled(true);
                 }
             }
@@ -164,9 +167,7 @@ public class AusweichDialog extends JDialog {
         });
         cancelButton.setActionCommand(BUNDLE.getString("EvasionDialog.cancelButton.actionCommand")); //$NON-NLS-1$
         buttonPane.add(cancelButton);
-
     }
-
     /**
      * @return the rollCommand
      */

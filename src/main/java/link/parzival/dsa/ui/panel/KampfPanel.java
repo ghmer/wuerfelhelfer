@@ -164,6 +164,7 @@ public class KampfPanel extends JPanel {
                 }
                 FernkampfDialog dialog = new FernkampfDialog(getFernwaffenObjekt());
                 dialog.setFont(getFont());
+                dialog.initialize();
                 dialog.setLocationRelativeTo(btnFernkampf.getRootPane());
                 switch (dialog.showDialog()) {
                 case Konstanten.DIALOG_OK_STATE:
@@ -329,9 +330,12 @@ public class KampfPanel extends JPanel {
         btnAusweichen = new JButton(BUNDLE.getString("KampfPanel.btnAusweichen.text")); //$NON-NLS-1$
         btnAusweichen.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                AusweichDialog dialog = new AusweichDialog(hero, getInitiative(), chkUseDK.isSelected(),
-                        chkUseDK.isSelected() ? (DKEnum) comboBoxCurrentDK.getSelectedItem() : null);
+                AusweichDialog dialog = new AusweichDialog();
                 dialog.setFont(getFont());
+                dialog.initialize(  hero, 
+                                    getInitiative(), 
+                                    chkUseDK.isSelected(),
+                                    chkUseDK.isSelected() ? (DKEnum) comboBoxCurrentDK.getSelectedItem() : null);
                 dialog.setLocationRelativeTo(btnAusweichen.getRootPane());
                 switch (dialog.showDialog()) {
                 case Konstanten.DIALOG_OK_STATE:
