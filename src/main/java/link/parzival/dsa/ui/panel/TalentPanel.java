@@ -26,6 +26,7 @@ import javax.swing.JSpinner;
 import javax.swing.JSeparator;
 import java.awt.BorderLayout;
 import java.util.ResourceBundle;
+import java.awt.Font;
 
 public class TalentPanel extends JPanel {
     private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("link.parzival.dsa.ui.messages"); //$NON-NLS-1$
@@ -97,12 +98,20 @@ public class TalentPanel extends JPanel {
                 }
             }
         });
+        
+        JLabel lblTalenteHeadline = new JLabel(BUNDLE.getString("TalentPanel.lblTalenteHeadline.text")); //$NON-NLS-1$
+        lblTalenteHeadline.setFont(getFont().deriveFont(Font.BOLD, 15));
+        GridBagConstraints gbc_lblTalenteHeadline = new GridBagConstraints();
+        gbc_lblTalenteHeadline.anchor = GridBagConstraints.WEST;
+        gbc_lblTalenteHeadline.insets = new Insets(0, 0, 5, 5);
+        gbc_lblTalenteHeadline.gridx = 1;
+        gbc_lblTalenteHeadline.gridy = 1;
+        add(lblTalenteHeadline, gbc_lblTalenteHeadline);
         GridBagConstraints gbc_btnProbeWaehlen = new GridBagConstraints();
-        gbc_btnProbeWaehlen.anchor = GridBagConstraints.NORTH;
         gbc_btnProbeWaehlen.fill = GridBagConstraints.HORIZONTAL;
-        gbc_btnProbeWaehlen.gridwidth = 8;
+        gbc_btnProbeWaehlen.gridwidth = 5;
         gbc_btnProbeWaehlen.insets = new Insets(0, 0, 5, 0);
-        gbc_btnProbeWaehlen.gridx = 0;
+        gbc_btnProbeWaehlen.gridx = 3;
         gbc_btnProbeWaehlen.gridy = 1;
         add(btnProbeWaehlen, gbc_btnProbeWaehlen);
         
@@ -120,6 +129,7 @@ public class TalentPanel extends JPanel {
         separatorPanel2.add(separator_1, BorderLayout.NORTH);
         
         JLabel lblTalentName = new JLabel(BUNDLE.getString("TalentPanel.lblTalentName.text")); //$NON-NLS-1$
+        lblTalentName.setFont(getFont().deriveFont(Font.BOLD, 13));
         GridBagConstraints gbc_lblTalentName = new GridBagConstraints();
         gbc_lblTalentName.anchor = GridBagConstraints.NORTH;
         gbc_lblTalentName.fill = GridBagConstraints.HORIZONTAL;
@@ -129,6 +139,7 @@ public class TalentPanel extends JPanel {
         add(lblTalentName, gbc_lblTalentName);
         
         JLabel lblTaw = new JLabel(BUNDLE.getString("TalentPanel.lblTaw.text")); //$NON-NLS-1$
+        lblTaw.setFont(getFont().deriveFont(Font.BOLD, 13));
         lblTaw.setHorizontalAlignment(SwingConstants.CENTER);
         GridBagConstraints gbc_lblTaw = new GridBagConstraints();
         gbc_lblTaw.anchor = GridBagConstraints.NORTH;
@@ -139,6 +150,7 @@ public class TalentPanel extends JPanel {
         add(lblTaw, gbc_lblTaw);
         
         JLabel lblE1 = new JLabel(BUNDLE.getString("TalentPanel.lblE1.text")); //$NON-NLS-1$
+        lblE1.setFont(getFont().deriveFont(Font.BOLD, 13));
         lblE1.setHorizontalAlignment(SwingConstants.CENTER);
         GridBagConstraints gbc_lblE1 = new GridBagConstraints();
         gbc_lblE1.anchor = GridBagConstraints.NORTH;
@@ -149,6 +161,7 @@ public class TalentPanel extends JPanel {
         add(lblE1, gbc_lblE1);
         
         JLabel lblE2 = new JLabel(BUNDLE.getString("TalentPanel.lblE2.text")); //$NON-NLS-1$
+        lblE2.setFont(getFont().deriveFont(Font.BOLD, 13));
         lblE2.setHorizontalAlignment(SwingConstants.CENTER);
         GridBagConstraints gbc_lblE2 = new GridBagConstraints();
         gbc_lblE2.anchor = GridBagConstraints.NORTH;
@@ -159,6 +172,7 @@ public class TalentPanel extends JPanel {
         add(lblE2, gbc_lblE2);
         
         JLabel lblE3 = new JLabel(BUNDLE.getString("TalentPanel.lblE3.text")); //$NON-NLS-1$
+        lblE3.setFont(getFont().deriveFont(Font.BOLD, 13));
         lblE3.setHorizontalAlignment(SwingConstants.CENTER);
         GridBagConstraints gbc_lblE3 = new GridBagConstraints();
         gbc_lblE3.anchor = GridBagConstraints.NORTH;
@@ -169,6 +183,7 @@ public class TalentPanel extends JPanel {
         add(lblE3, gbc_lblE3);
         
         JLabel lblMod = new JLabel(BUNDLE.getString("TalentPanel.lblMod.text")); //$NON-NLS-1$
+        lblMod.setFont(getFont().deriveFont(Font.BOLD, 13));
         lblMod.setHorizontalAlignment(SwingConstants.CENTER);
         GridBagConstraints gbc_lblMod = new GridBagConstraints();
         gbc_lblMod.anchor = GridBagConstraints.NORTH;
