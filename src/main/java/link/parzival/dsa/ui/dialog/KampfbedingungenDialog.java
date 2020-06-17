@@ -40,7 +40,7 @@ public class KampfbedingungenDialog extends JDialog {
         contentPanel.setLayout(gbl_contentPanel);
         {
             JLabel lblSicht = new JLabel("Sicht");
-            lblSicht.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+            lblSicht.setFont(getFont().deriveFont(Font.BOLD, 13));
             GridBagConstraints gbc_lblSicht = new GridBagConstraints();
             gbc_lblSicht.anchor = GridBagConstraints.WEST;
             gbc_lblSicht.insets = new Insets(0, 0, 5, 5);
@@ -50,7 +50,7 @@ public class KampfbedingungenDialog extends JDialog {
         }
         {
             JLabel lblNewLabel_1 = new JLabel("Position");
-            lblNewLabel_1.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+            lblNewLabel_1.setFont(getFont().deriveFont(Font.BOLD, 13));
             GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
             gbc_lblNewLabel_1.gridwidth = 2;
             gbc_lblNewLabel_1.anchor = GridBagConstraints.WEST;
@@ -147,7 +147,7 @@ public class KampfbedingungenDialog extends JDialog {
         }
         {
             JLabel lblNewLabel = new JLabel("Umgebung");
-            lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+            lblNewLabel.setFont(getFont().deriveFont(Font.BOLD, 13));
             GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
             gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
             gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
@@ -157,7 +157,7 @@ public class KampfbedingungenDialog extends JDialog {
         }
         {
             JLabel lblNewLabel_2 = new JLabel("sonstiges");
-            lblNewLabel_2.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+            lblNewLabel_2.setFont(getFont().deriveFont(Font.BOLD, 13));
             GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
             gbc_lblNewLabel_2.gridwidth = 2;
             gbc_lblNewLabel_2.anchor = GridBagConstraints.WEST;
@@ -340,7 +340,7 @@ public class KampfbedingungenDialog extends JDialog {
         }
         {
             JLabel lblNewLabel_4 = new JLabel("Gesamterschwernis:");
-            lblNewLabel_4.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+            lblNewLabel_4.setFont(getFont().deriveFont(Font.BOLD, 13));
             GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
             gbc_lblNewLabel_4.anchor = GridBagConstraints.WEST;
             gbc_lblNewLabel_4.insets = new Insets(0, 0, 0, 5);
@@ -350,7 +350,7 @@ public class KampfbedingungenDialog extends JDialog {
         }
         {
             JLabel lblNewLabel_5 = new JLabel("0");
-            lblNewLabel_5.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+            lblNewLabel_5.setFont(getFont().deriveFont(Font.BOLD, 13));
             GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
             gbc_lblNewLabel_5.anchor = GridBagConstraints.WEST;
             gbc_lblNewLabel_5.insets = new Insets(0, 0, 0, 5);

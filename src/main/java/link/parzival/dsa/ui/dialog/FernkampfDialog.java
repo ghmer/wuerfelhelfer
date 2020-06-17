@@ -1055,7 +1055,7 @@ public class FernkampfDialog extends JDialog {
             summaryPanel.setLayout(gbl_summaryPanel);
             
             JLabel lblZusammenfassungHeadline = new JLabel(BUNDLE.getString("FernkampfDialog.lblZusammenfassungHeadline.text")); //$NON-NLS-1$
-            lblZusammenfassungHeadline.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+            lblZusammenfassungHeadline.setFont(getFont().deriveFont(Font.PLAIN, 16));
             GridBagConstraints gbc_lblZusammenfassungHeadline = new GridBagConstraints();
             gbc_lblZusammenfassungHeadline.anchor = GridBagConstraints.WEST;
             gbc_lblZusammenfassungHeadline.insets = new Insets(0, 0, 5, 5);
@@ -1173,7 +1173,7 @@ public class FernkampfDialog extends JDialog {
             summaryPanel.add(separatorPanel, gbc_panel);
             
             JLabel lblKompletteErschwernis = new JLabel(BUNDLE.getString("FernkampfDialog.lblKompletteErschwernis.text")); //$NON-NLS-1$
-            lblKompletteErschwernis.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+            lblKompletteErschwernis.setFont(getFont().deriveFont(Font.BOLD, 13));
             GridBagConstraints gbc_lblKompletteErschwernis = new GridBagConstraints();
             gbc_lblKompletteErschwernis.anchor = GridBagConstraints.EAST;
             gbc_lblKompletteErschwernis.insets = new Insets(0, 0, 5, 5);
@@ -1182,7 +1182,7 @@ public class FernkampfDialog extends JDialog {
             summaryPanel.add(lblKompletteErschwernis, gbc_lblKompletteErschwernis);
             
             lblKompletteErschwernisValue = new JLabel("0");
-            lblKompletteErschwernisValue.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+            lblKompletteErschwernisValue.setFont(getFont().deriveFont(Font.BOLD, 13));
             GridBagConstraints gbc_lblKompletteErschwernisValue = new GridBagConstraints();
             gbc_lblKompletteErschwernisValue.anchor = GridBagConstraints.EAST;
             gbc_lblKompletteErschwernisValue.insets = new Insets(0, 0, 5, 5);

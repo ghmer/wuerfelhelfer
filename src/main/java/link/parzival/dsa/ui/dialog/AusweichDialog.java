@@ -66,7 +66,7 @@ public class AusweichDialog extends JDialog {
             {
                 lblEvasionNotPossible = new JLabel(BUNDLE.getString("EvasionDialog.lblEvasionNotPossible.text")); //$NON-NLS-1$
                 lblEvasionNotPossible.setForeground(Color.RED);
-                lblEvasionNotPossible.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+                lblEvasionNotPossible.setFont(getFont().deriveFont(Font.BOLD, 13));
                 lblEvasionNotPossible.setVisible(false);
                 {
                     comboBoxEnemyCount = new JComboBox<>();

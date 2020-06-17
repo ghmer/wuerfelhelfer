@@ -55,7 +55,7 @@ public class AboutDialog extends JDialog {
         scrollPane.getPreferredSize();
         
         JLabel lblHeaderWithVersion = new JLabel(String.format("%s v.%s", BUNDLE.getString("AboutDialog.lblHeaderWithVersion.text"), Konstanten.VERSION_EXTERNAL)); //$NON-NLS-1$
-        lblHeaderWithVersion.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+        lblHeaderWithVersion.setFont(getFont().deriveFont(Font.PLAIN, 20));
         GridBagConstraints gbc_lblHeaderWithVersion = new GridBagConstraints();
         gbc_lblHeaderWithVersion.gridwidth = 2;
         gbc_lblHeaderWithVersion.fill = GridBagConstraints.HORIZONTAL;
