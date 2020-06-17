@@ -110,6 +110,8 @@ public class WuerfelHelferGUI extends JFrame {
         GraphicsEnvironment ge  = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(customHeroNameFont);
         
+        Font font = Font.decode("Lucida Grande");
+        setFont(font);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle(String.format("Würfelhelfer Version %s", Konstanten.VERSION_EXTERNAL));
         setBounds(100, 100, 300, 100);
@@ -379,6 +381,7 @@ public class WuerfelHelferGUI extends JFrame {
         
         kampfPanel = new KampfPanel();
         kampfPanel.setVisible(false);
+        kampfPanel.setFont(getFont());
         GridBagConstraints gbc_panel_1 = new GridBagConstraints();
         gbc_panel_1.anchor = GridBagConstraints.NORTH;
         gbc_panel_1.fill = GridBagConstraints.HORIZONTAL;
