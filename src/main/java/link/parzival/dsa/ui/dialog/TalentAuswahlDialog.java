@@ -258,7 +258,7 @@ public class TalentAuswahlDialog extends JDialog {
                     if(searchList != null && selectedAbilityName != null) {
                         for(TalentObjekt objekt : searchList) {
                             if(objekt.getName().equalsIgnoreCase(selectedAbilityName)) {
-                                selectedAbility = objekt;
+                                setSelectedAbility(objekt);
                                 break;
                             }
                         }
@@ -287,6 +287,11 @@ public class TalentAuswahlDialog extends JDialog {
         contentPanel.add(scrollPane, gbc_table_1);
         this.scrollPane = scrollPane;
 
+    }
+
+    protected void setSelectedAbility(TalentObjekt objekt) {
+        this.selectedAbility = objekt;
+        
     }
 
     /**

@@ -39,7 +39,6 @@ public class TalentPanel extends JPanel {
     private JComboBox<EigenschaftEnum> pruefEigenschaft2 = null;
     private JComboBox<EigenschaftEnum> pruefEigenschaft3 = null;
     private JSpinner pruefModifier                       = null;
-    private String selectedAbilityName                   = null;   
     private TalentObjekt talent                          = new TalentObjektPlatzhalter();
     private HeldenObjekt heldenObjekt                    = new HeldenObjekt();
     /**
@@ -213,7 +212,7 @@ public class TalentPanel extends JPanel {
         JButton btnCreateRoll = new JButton(BUNDLE.getString("TalentPanel.btnCreateRoll.text")); //$NON-NLS-1$
         btnCreateRoll.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(getSelectedAbilityName() == null) {
+                if(getTalentProbe() == null) {
                     JOptionPane.showMessageDialog(getRootPane(), "Es wurde noch keine Probe ausgewählt!");
                     return;
                 }
@@ -374,18 +373,8 @@ public class TalentPanel extends JPanel {
         lblAbility.setText(talentObjekt.getName());
         lblTawValue.setText(String.valueOf(talentObjekt.getTalentwert()));
     }
-
-    /**
-     * @return the selectedAbilityName
-     */
-    public String getSelectedAbilityName() {
-        return selectedAbilityName;
-    }
-
-    /**
-     * @param selectedAbilityName the selectedAbilityName to set
-     */
-    public void setSelectedAbilityName(String selectedAbilityName) {
-        this.selectedAbilityName = selectedAbilityName;
+    
+    protected TalentObjekt getTalentProbe() {
+        return this.talent;
     }
 }
