@@ -56,18 +56,16 @@ public class PatzerBeschreibungDialog extends JDialog {
             JPanel buttonPane = new JPanel();
             buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
             getContentPane().add(buttonPane, BorderLayout.SOUTH);
-            {
-                JButton okButton = new JButton(BUNDLE.getString("PatzerBeschreibungDialog.okButton.text")); //$NON-NLS-1$
-                okButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        dispose();
-                    }
-                });
-                okButton.setActionCommand(BUNDLE.getString("PatzerBeschreibungDialog.okButton.actionCommand")); //$NON-NLS-1$
-                buttonPane.add(okButton);
-                getRootPane().setDefaultButton(okButton);
-            }
+
+            JButton okButton = new JButton(BUNDLE.getString("PatzerBeschreibungDialog.okButton.text")); //$NON-NLS-1$
+            okButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    dispose();
+                }
+            });
+            okButton.setActionCommand(BUNDLE.getString("PatzerBeschreibungDialog.okButton.actionCommand")); //$NON-NLS-1$
+            buttonPane.add(okButton);
+            getRootPane().setDefaultButton(okButton);
         }
     }
-
 }

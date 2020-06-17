@@ -29,11 +29,12 @@ public class DistanzwechselDialog extends JDialog {
     private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("link.parzival.dsa.ui.messages"); //$NON-NLS-1$
 
     private static final long serialVersionUID  = 9196060912407937075L;
-    private JComboBox<HopserOptionEnum> comboBoxDirection = new JComboBox<>();
     private final JPanel contentPanel           = new JPanel();
     private JComboBox<Integer> dkAenderung      = new JComboBox<>();
     private String rollCommand                  = null;
     private int state                           = Konstanten.DIALOG_CANCEL_STATE;
+    private JComboBox<HopserOptionEnum> 
+                              comboBoxDirection = new JComboBox<>();
 
     /**
      * @param hero the HeldenObjekt to set
@@ -54,15 +55,14 @@ public class DistanzwechselDialog extends JDialog {
         gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
         gbl_contentPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
         contentPanel.setLayout(gbl_contentPanel);
-        {
-            JLabel lblDistanz = new JLabel(BUNDLE.getString("DistanzwechselDialog.lblDistanz.text")); //$NON-NLS-1$
-            GridBagConstraints gbc_lblDistanz = new GridBagConstraints();
-            gbc_lblDistanz.insets = new Insets(0, 0, 0, 5);
-            gbc_lblDistanz.anchor = GridBagConstraints.WEST;
-            gbc_lblDistanz.gridx = 0;
-            gbc_lblDistanz.gridy = 0;
-            contentPanel.add(lblDistanz, gbc_lblDistanz);
-        }
+
+        JLabel lblDistanz = new JLabel(BUNDLE.getString("DistanzwechselDialog.lblDistanz.text")); //$NON-NLS-1$
+        GridBagConstraints gbc_lblDistanz = new GridBagConstraints();
+        gbc_lblDistanz.insets = new Insets(0, 0, 0, 5);
+        gbc_lblDistanz.anchor = GridBagConstraints.WEST;
+        gbc_lblDistanz.gridx = 0;
+        gbc_lblDistanz.gridy = 0;
+        contentPanel.add(lblDistanz, gbc_lblDistanz);
         
         comboBoxDirection = new JComboBox<HopserOptionEnum>();
         comboBoxDirection.setModel(new DefaultComboBoxModel<HopserOptionEnum>(HopserOptionEnum.values()));
@@ -98,37 +98,36 @@ public class DistanzwechselDialog extends JDialog {
         gbc_lblNewLabel_1.gridx = 4;
         gbc_lblNewLabel_1.gridy = 0;
         contentPanel.add(lblNewLabel_1, gbc_lblNewLabel_1);
-        {
-            JPanel buttonPane = new JPanel();
-            buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-            getContentPane().add(buttonPane, BorderLayout.SOUTH);
-            {
-                JButton okButton = new JButton(BUNDLE.getString("DistanzwechselDialog.okButton.text")); //$NON-NLS-1$
-                okButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        boolean verdoppeln = ((int) dkAenderung.getSelectedItem() == 2) ? true : false;
-                        boolean verkuerzen = (((HopserOptionEnum) comboBoxDirection.getSelectedItem()).equals(HopserOptionEnum.verkürzen)) ? true: false;
-                        setRollCommand(BerechnungsHelfer.berechneEffektivenDistanzwechsel(waffenObjekt, verdoppeln, verkuerzen));
-                        state = Konstanten.DIALOG_OK_STATE;
-                        dispose();
-                    }
-                });
-                okButton.setActionCommand(BUNDLE.getString("DistanzwechselDialog.okButton.actionCommand")); //$NON-NLS-1$
-                buttonPane.add(okButton);
-                getRootPane().setDefaultButton(okButton);
+        
+        JPanel buttonPane = new JPanel();
+        buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        getContentPane().add(buttonPane, BorderLayout.SOUTH);
+
+        JButton okButton = new JButton(BUNDLE.getString("DistanzwechselDialog.okButton.text")); //$NON-NLS-1$
+        okButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                boolean verdoppeln = ((int) dkAenderung.getSelectedItem() == 2) ? true : false;
+                boolean verkuerzen = (((HopserOptionEnum) comboBoxDirection.getSelectedItem()).equals(HopserOptionEnum.verkürzen)) ? true: false;
+                setRollCommand(BerechnungsHelfer.berechneEffektivenDistanzwechsel(waffenObjekt, verdoppeln, verkuerzen));
+                state = Konstanten.DIALOG_OK_STATE;
+                dispose();
             }
-            {
-                JButton cancelButton = new JButton(BUNDLE.getString("DistanzwechselDialog.cancelButton.text")); //$NON-NLS-1$
-                cancelButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        state = Konstanten.DIALOG_CANCEL_STATE;
-                        dispose();
-                    }
-                });
-                cancelButton.setActionCommand(BUNDLE.getString("DistanzwechselDialog.cancelButton.actionCommand")); //$NON-NLS-1$
-                buttonPane.add(cancelButton);
+        });
+        okButton.setActionCommand(BUNDLE.getString("DistanzwechselDialog.okButton.actionCommand")); //$NON-NLS-1$
+        buttonPane.add(okButton);
+        getRootPane().setDefaultButton(okButton);
+    
+        JButton cancelButton = new JButton(BUNDLE.getString("DistanzwechselDialog.cancelButton.text")); //$NON-NLS-1$
+        cancelButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                state = Konstanten.DIALOG_CANCEL_STATE;
+                dispose();
             }
-        }
+        });
+        cancelButton.setActionCommand(BUNDLE.getString("DistanzwechselDialog.cancelButton.actionCommand")); //$NON-NLS-1$
+        buttonPane.add(cancelButton);
+    
+    
     }
     
     /**

@@ -148,22 +148,20 @@ public class TalentAuswahlDialog extends JDialog {
         gbc_separator.gridy = 1;
         contentPanel.add(separator, gbc_separator);
 
+        JPanel buttonPane = new JPanel();
+        buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        getContentPane().add(buttonPane, BorderLayout.SOUTH);
         {
-            JPanel buttonPane = new JPanel();
-            buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-            getContentPane().add(buttonPane, BorderLayout.SOUTH);
-            {
-                JButton cancelButton = new JButton(BUNDLE.getString("AbilityDialog.cancelButton.text")); //$NON-NLS-1$
-                cancelButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        dispose();
-                    }
-                });
-                cancelButton.setActionCommand(BUNDLE.getString("AbilityDialog.cancelButton.actionCommand")); //$NON-NLS-1$
-                buttonPane.add(cancelButton);
-            }
+            JButton cancelButton = new JButton(BUNDLE.getString("AbilityDialog.cancelButton.text")); //$NON-NLS-1$
+            cancelButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    dispose();
+                }
+            });
+            cancelButton.setActionCommand(BUNDLE.getString("AbilityDialog.cancelButton.actionCommand")); //$NON-NLS-1$
+            buttonPane.add(cancelButton);
         }
-
+    
         generateTable(heldenObjekt);
     }
 

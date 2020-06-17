@@ -35,14 +35,13 @@ public class LizenzDialog extends JDialog {
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         getContentPane().add(contentPanel, BorderLayout.CENTER);
 
-        {
-            GridBagLayout gbl_contentPanel = new GridBagLayout();
-            gbl_contentPanel.columnWidths = new int[] { 440, 0 };
-            gbl_contentPanel.rowHeights = new int[] { 20, 0 };
-            gbl_contentPanel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-            gbl_contentPanel.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
-            contentPanel.setLayout(gbl_contentPanel);
-        }
+        GridBagLayout gbl_contentPanel = new GridBagLayout();
+        gbl_contentPanel.columnWidths = new int[] { 440, 0 };
+        gbl_contentPanel.rowHeights = new int[] { 20, 0 };
+        gbl_contentPanel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+        gbl_contentPanel.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
+        contentPanel.setLayout(gbl_contentPanel);
+    
         JTextArea textArea = new JTextArea(UIHelfer.getLizenz(lizenzTyp));
         textArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(textArea);
@@ -53,21 +52,19 @@ public class LizenzDialog extends JDialog {
         gbc_scrollPane.gridx = 0;
         gbc_scrollPane.gridy = 0;
         contentPanel.add(scrollPane, gbc_scrollPane);
-        {
-            JPanel buttonPane = new JPanel();
-            buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-            getContentPane().add(buttonPane, BorderLayout.SOUTH);
-            {
-                JButton okButton = new JButton(BUNDLE.getString("LizenzDialog.okButton.text")); //$NON-NLS-1$
-                okButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        setVisible(false);
-                    }
-                });
-                okButton.setActionCommand(BUNDLE.getString("LizenzDialog.okButton.actionCommand")); //$NON-NLS-1$
-                buttonPane.add(okButton);
-                getRootPane().setDefaultButton(okButton);
+
+        JPanel buttonPane = new JPanel();
+        buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        getContentPane().add(buttonPane, BorderLayout.SOUTH);
+
+        JButton okButton = new JButton(BUNDLE.getString("LizenzDialog.okButton.text")); //$NON-NLS-1$
+        okButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
             }
-        }
+        });
+        okButton.setActionCommand(BUNDLE.getString("LizenzDialog.okButton.actionCommand")); //$NON-NLS-1$
+        buttonPane.add(okButton);
+        getRootPane().setDefaultButton(okButton);
     }
 }
