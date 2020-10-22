@@ -56,6 +56,7 @@ public class PatzerTabellenDialog extends JDialog {
      * @param patzerTyp gibt den Typ der Patzertabelle an
      */
     public PatzerTabellenDialog(PatzerTypEnum patzerTyp) {
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setTitle(String.format("Patzertabelle: %s", patzerTyp.name()));
         setBounds(100, 100, 300, 275);
         getContentPane().setLayout(new BorderLayout());

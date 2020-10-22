@@ -29,6 +29,7 @@ public class PatzerBeschreibungDialog extends JDialog {
      * @param patzerBeschreibung Die Beschreibung zum Anzeigen
      */
     public PatzerBeschreibungDialog(String patzerBeschreibung) {
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 300, 275);
         getContentPane().setLayout(new BorderLayout());
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -64,7 +64,7 @@ public class TalentAuswahlDialog extends JDialog {
      * @param heldenObjekt ein HeldenObjekt
      */
     public TalentAuswahlDialog(HeldenObjekt heldenObjekt) {
-        setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setModal(true);
         setBounds(100, 100, 450, 300);
         getContentPane().setLayout(new BorderLayout());

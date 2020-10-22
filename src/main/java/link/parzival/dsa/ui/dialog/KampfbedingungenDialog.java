@@ -28,6 +28,7 @@ public class KampfbedingungenDialog extends JDialog {
      * Create the dialog.
      */
     public KampfbedingungenDialog() {
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 459, 560);
         getContentPane().setLayout(new BorderLayout());
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

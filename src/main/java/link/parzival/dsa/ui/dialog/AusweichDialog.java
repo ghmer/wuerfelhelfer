@@ -60,7 +60,7 @@ public class AusweichDialog extends JDialog {
     public void initialize(HeldenObjekt hero, int initiative, boolean withDk, DKEnum distanzklasse) {
 
         setBounds(100, 100, 450, 130);
-        setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setModal(true);
         getContentPane().setLayout(new BorderLayout());
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
